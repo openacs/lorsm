@@ -73,7 +73,7 @@
   <msg key="lt_Adding_resource_depen">Adding resource dependencies...</msg>
   <msg key="lt_Adding_resource_res_i_2">Adding resource %res_identifier%...</msg>
   <msg key="lt_Adding_resource_res_i_3">Adding resource %res_identifier% metadata...</msg>
-  <msg key="lt_Adding_tempval_items_">Adding %tmpval% items and their respective metadata...</msg>
+  <msg key="lt_Adding_tempval_items_">Adding %tempval% items and their respective metadata...</msg>
   <msg key="lt_and_we_will_import_yo">and we will import your course in this folder.</msg>
   <msg key="lt_being_added_to_the_Le">being added to the Learning Object Repository.</msg>
   <msg key="lt_Blackboard6_Content_P">Blackboard6 Content Packaging Course</msg>

@@ -49,7 +49,53 @@ namespace eval lorsm {
 	}
     }
 
+    ad_proc -public fix_href {
+	-item_title:required
+	-identifierref:required
+	-fs_package_id:required
+	-folder_id:required
+    } {
+	Function use to fix the HREF of resources.
+	It could be that the reference to a resource is outside the 
+	scope of the learning object (somewhere on the web) instead
+	of a file or resource in the course. 
 
+	Therefore, this function determines whether ther link to the
+	resource is within the course materials. If that is the case
+	it created the link to where the file is stored in the file-
+	storage. Otherwise, if the resource needs to be fetched from
+	the web (http://) then we use that href instead.
+	
+	@param item_title The title of the item in question
+	@param identifierref The resource's identifierref 
+	@param fs_package_id the file-storage package id
+	@param folder_id file-storage folder id
+	@author Ernie Ghiglione (ErnieG@mm.st)
+	
+    } {
+
+	if {![empty_string_p $identifierref]} {
+	    
+	    if {[regexp "http://" $identifierref]} {
+		
+		return "<a href=\"$identifierref\" target=\"body\">$item_title</a>"
+
+	    } else {
+
+		set url1 "[apm_package_url_from_id $fs_package_id]view/"
+		set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
+		set url3 [lorsm::fix_url -url $identifierref]
+
+		set url "<a href=\"$url1$url2/$url3\" target=\"body\">$item_title</a>"
+
+		return $url
+	    }
+	
+	} else {
+	    return $item_title
+	}
+
+    }
 }
     
 

@@ -37,7 +37,7 @@ db_foreach organizations {
 
     set table_extra_html { width="100%" }
     set table_def {
-	{ title "" "no_sort" "<td>$indent[if {![empty_string_p $identifierref]} {set href \"<a href='[apm_package_url_from_id $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]' target=body>$item_title</a>\"} else {set href $item_title}]</td>" }
+	{ title "" "no_sort" "<td>$indent[lorsm::fix_href -item_title $item_title -identifierref $identifierref -fs_package_id $fs_package_id -folder_id $folder_id]</td>" }
     }
 
     set table_item [concat $table_item [ad_table -Tmissing_text $missing_text  -Ttable_extra_html $table_extra_html blah {

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>LORS Tutorial - Creating and Authoring Courses</title>
+<style>
+  dt { margin-top: 12px; font-weight: bold; }
+  body { font-family: verdana, helvetica, sans-serif; }
+  li { margin-top: 12px; }
+  blockquote.note {
+    background-color: #ccffcc; 
+    padding: 4px; 
+    border: 1px dashed black;
+  }
+  pre.code {
+    margin-left: 24px; 
+    background-color: #ddddff; 
+    padding: 4px;
+    border: 1px dashed black;
+  }
+</style>
+</head>
+<body>
+<h1>LORS Creating Courses</h1>
+<a href="index.html">LORS Documentation</a>: Creating/Authoring Courses
+<hr size="1">
+<p>
+By <a href="mailto:ErnieG@ee.usyd.edu.au">Ernie Ghiglione</a>.
+</p>
+<h2>Intro to Authoring Courses</h2>
+<table class="list" cellpadding="3" cellspacing="1" width="50%">
+<tr>
+<td width="50%">
+
+<p>Although, LORS doesn't provide authoring tools (except for some metadata) I thought of explaining how to use Reload to author a simple course using SCORM so you could see how easy it is.
+<p>You can get Reload Editor from the <a href="http://www.reload.ac.uk/">Reload Project</a> website. Reload is a really nice tool for packaging and creating metadata. It supports IMS and SCORM extensions and runs on Java, so it can be used in any platform that supports it. Therefore, here's an example on how to create a course with Reload.
+
+<p>On this part, we will cover how to create an SCORM Course Package following these steps:
+
+<ol>
+	<li>Select the Package Specification to Use</li>
+	<li>Create Metadata for the Course</li>
+	<li>Add Organizations</li>
+	<li>Add Items and subitems</li>
+	<li>Add Resource</li>
+	<li>Linking Items to Resources</li>
+	<li>Exporting your Course to a Package</li>
+</ol>
+
+<h3>Select the Package specification to be used</h3>
+<blockquote>
+
+<p>Once you have open Reload, you have the chance to create a package using IMS Content Packaging 1.1.3 or ADL SCORM 1.2. For our example, we will create a SCORM package.<p>
+<center><img src="images/snapshot01.png" align="center"></center>
+<p>Once selected, Reload will prompt you for a directory where to put your course. I suggest you select a new blank directory as shown in the pic.<p>
+<center><img src="images/snapshot02.png"></center>
+</blockquote>
+
+<h3>Create Metadata for your Course!</h3> 
+<blockquote>
+<p>Creating basic metadata for your course is <font color=red>critical and a requirement</font> as this information will later be used to determine your package structure as well as the provide information about your course. To do so, you can right-click on the manifest tag and select "Add Metadata"...
+<p>
+<img src="images/snapshot03.png">
+<p>But before you go about creating the metadata for your course, you need to provide the Metadata schema and version you will use. Since we are using SCORM packaging, we simply don't have to as there is only one choice. But if we would be using another metadata set, we would be prompt with choices. <p>
+<img src="images/snapshot04.png">
+<p> Same goes for the Metadata schema version:<p>
+<img src="images/snapshot05.png">
+<p>
+Once we added the schema and the version, let's add the course metadata using the Reload's excellent metadata editor:<p>
+<img src="images/snapshot06.png">
+<p>At bare minimum, add a title for your course. But the more information you can provide about your course, better you make your resources to be findable and, therefore, reusable!. If you have questions about what each of these fields mean, you can have a look at <a href="http://www.imsproject.org/metadata/">IMS Metadata specifications</a>.<p>
+<img src="images/snapshot07.png">
+<p>
+</blockquote>
+
+<h3>Add Organizations</h3> 
+<blockquote>
+<p>Now, let's add some organizations. Usually, unless you know why you want to have multiple organization, it is better to stick to one and only one organization. But again, it is upto you how you want to organize your course. Reload allows you to add multiple organizations and LORS also permits their use as well. So, if you are passionate about creating a multiple organization course, please go for it. Otherwise, just create one organization <p>
+<img src="images/snapshot08.png">
+</blockquote>
+
+<h3>Add Items</h3>
+<blockquote>
+<p>Here's where the fun starts... you can use items to create the structure of your course. Say for example you want to structure your clases based on timeline, then you can create items that indicate the concepts to be learned thru the weeks that the course will take. If that is the case, then you can start creating an item and call it <b>"Week 1"</b>...<p>
+<img src="images/snapshot09.png">
+<p>And within the <b>Week1 item</b> you can have subitems specifing the concepts or units of learning to be gain that week.<p>
+<img src="images/snapshot10.png">
+<p> For our example, we have two subitems for <b>Week 1</b>: <i>Lecture and Labs</i>. Note that we can create more subitems within this subitems if required.</p>
+<img src="images/snapshot11.png">
+<p>You can keep adding Weeks as you please, as well as subitems. For sake of brevity, we'll continue with our example</p>
+</blockquote>
+
+<h3>Adding Resources</h3>
+<blockquote>
+<p>Ok, so now we have the structure of our course, but we need to link that structure to content (the actual files that explain those concepts in the structure).<p>For this, Reload also offers a very cool feature  to import your content files all at once. Click on "File" and then proceed to "Import Resources"... </p>
+<img src="images/snapshot12.png">
+<p>An select the folder where all your resources are... and Reload will add those to the folder where the course is being created.<p>
+<img src="images/snapshot13.png">
+<p>Take into account that you can do this several times if your resources are scattered around the place.<p>
+<p>Now, as you can see, we have added the "Course_Materials" folder to our course. But these have not being added as Resources as yet.<p>
+<img src="images/snapshot14.png">
+<p>If you just drag-and-drop the week1 folder into the Resources folder on the left box, you will see that Reload automatically links the files in the directory as resources:<p>
+<img src="images/snapshot15.png">
+</blockquote>
+<h3>Linking Items to Resources</h3>
+<blockquote>
+<p>So to recap, we have added the structure of the course (by adding the items) and also the content files (as resources)... so that's all good, but now we need to <b>link</b> both, so we know which content file represents a unit of study (or lecture, or week, etc). <p>
+<p> Hence, let's go back to the items that we created... In this case, we click on the Item <b>"Lecture"</b> and to link it to the resource "Course_Materials/week1/LectureNotes.pdf", we simply click on the Referenced element to select the resource that we need to link it to.<br> In plain English, we are telling Reload: "Ok, so this <em>'Lecture'</em> Item has to be referenced to the <em>'Course_Materials/week1/LectureNotes.pdf'</em> resource" <p>
+<img src="images/snapshot16.png">
+</blockquote>
+<h3>Exporting your Course to a Package</h3>
+<blockquote>
+<p>Once we linked all the items we want to link to resources, then we are ready to export all your course structure and content to a single zipped file by clicking on "File" and then "Zip Content Package".!<p>
+<img src="images/snapshot17.png">
+<p>Choose the name of the file and location to be saved and...<p>
+<img src="images/snapshot18.png">
+<p>Voila... you have yourself a course<p>
+</blockquote>
+<hr size="1">
+</td>
+</tr>
+</table>
+<code>cvs: $Id$</code>
+</body>
+</html>

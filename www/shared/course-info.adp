@@ -49,7 +49,7 @@
           </tr>
               <tr class="list-odd">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                <#Is_SCORM_? Is SCORM?:#>
+                #lorsm.Is_SCORM#
               </td>
               <td 
          	<if @isscorm@ eq "Yes">

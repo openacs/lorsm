@@ -26,7 +26,7 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 # Permissions
 dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
 
-set title "[_ lorsm.Set_Course_Trackable]"
+set title [list "[_ lorsm.Set_Course_Trackable]"]
 set context [list "[_ lorsm.Set_Course_Status]"]
 
 ad_form -name enabler \
@@ -41,7 +41,7 @@ ad_form -name enabler \
 	    {label "[_ lorsm.Current_Status]"}
 	}
 	{enable:text(radio)
-	    {label [_ lorsm.Status_3]}
+	    {label "[_ lorsm.Status_3]"}
 	    {options {{"[_ lorsm.Enable]" t} {"[_ lorsm.Disable]" f}}}
 	}
     } -select_query {

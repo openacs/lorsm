@@ -14,7 +14,7 @@
 
       #lorsm.Your_Stats#
       <br>
-	#lorsm.lt_You_have_seen_this_co# <b>x</b> #lorsm.lt_number_of_times_and_h# <b>@viewed_percent@ %</b> #lorsm.of_the_content#
+	#lorsm.lt_You_have_seen_this_co# <b>@viewed_times@</b> #lorsm.lt_number_of_times_and_h# <b>@viewed_percent@ %</b> #lorsm.of_the_content#
     </p>
     <if @last_page_viewed@ defined>
       <p>

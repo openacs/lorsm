@@ -431,7 +431,9 @@ db_transaction {
 # this is rather a dirty hack for now. 
 
 		if {$res_type == "imsqti_xmlv1p0" || $res_type == "imsqti_xmlv1p1" || $res_type =="imsqti_item_xmlv2p0"} {
-		    set res_href [lors::assessment::ims_qti_register_assessment $tmp_dir/$res_href]
+		    set res_href [lors::assessment::ims_qti_register_assessment \
+	    			-tmp_dir $tmp_dir/$res_href \
+				-community_id $community_id]
 		}
 
 ## End integration showcase                

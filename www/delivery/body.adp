@@ -1,4 +1,4 @@
-<master>
+<master  src="/www/blank-master">
 <center>
     <script type="text/javascript">
       <!--

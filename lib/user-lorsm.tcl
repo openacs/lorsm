@@ -43,15 +43,6 @@ db_multirow -extend { ims_md_id } d_courses select_d_courses {
            cp.course_name,
            cp.identifier,
            cp.version,
-    text '[view]' as course_structure,
-           case
-              when hasmetadata = 't' then 'Yes'
-              else 'No'
-           end as hasmetadata,
-           case 
-              when isscorm = 't' then 'Yes'
-              else 'No'
-           end as isscorm,
            cp.fs_package_id,
            cp.folder_id,
 	   acs.creation_user,

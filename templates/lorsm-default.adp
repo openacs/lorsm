@@ -1,4 +1,4 @@
-<master>
+<master  src="/www/blank-master">
   <property name="title">@title;noquote@</property>
 
   <if @imsitem_id@ ne "">

@@ -170,7 +170,7 @@ db_transaction {
 		    ns_write "[_ lorsm.Processing_files]<blockquote>"
 		    foreach file $files {
 			set tempval [regsub $tmp_dir $file {}]
-			ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<font color=\"green\">[_ lorsm.OK]</font><br>"
+			ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<font color=\"green\">[_ acs-kernel.common_OK]</font><br>"
 		    }
 		    ns_write "</blockquote>"
 		    #
@@ -295,7 +295,7 @@ db_transaction {
 		        -community_id $community_id]
 
 
-	ns_write "[_ lorsm.lt_Granting_permissions__1]<br>"
+        ns_write "[_ lorsm.lt_Granting_permissions__1 [list course_name $course_name]]<br>"
 
 	# PERMISSIONS FOR MANIFEST and learning objects
 
@@ -344,7 +344,7 @@ db_transaction {
 	# Done with Manifest and learning object Permissions
 
 
-	ns_write "[_ lorsm.lt_Adding_course_name_Ma]<br>"
+        ns_write "[_ lorsm.lt_Adding_course_name_Ma [list course_name $course_name]]<br>"
 
         if {$man_hasmetadata == 1} {
             # adds manifest metadata
@@ -383,7 +383,7 @@ db_transaction {
                                 -title $org_title \
                                 -hasmetadata $org_hasmetadata]
 
-		ns_write "[_ lorsm.lt_Adding_Organization_o]<br>"
+                ns_write "[_ lorsm.lt_Adding_Organization_o [list org_title $org_title]]<br>"
 
 
                 if {$org_hasmetadata == 1} {
@@ -396,7 +396,7 @@ db_transaction {
 
                 set list_items [lors::imscp::getItems $organization]
 
-#                ns_write "[_ lorsm.lt_here_is_list_items_li]"
+                #                ns_write "[_ lorsm.lt_here_is_list_items_li [list list_items $list_items]]"
 
                 set add [concat $add [lors::imscp::addItems -org_id $org_id $list_items 0 $tmp_dir]]
 
@@ -448,7 +448,7 @@ db_transaction {
                                      -scorm_type $res_scormtype \
                                      -hasmetadata $res_hasmetadata]
 
-		ns_write "[_ lorsm.lt_Adding_resource_res_i_2]<br>"
+                ns_write "[_ lorsm.lt_Adding_resource_res_i_2 [list res_identifier $res_identifier]]<br>"
 		
 		lappend res_list [concat "$resource_id $res_identifier"]
 
@@ -461,7 +461,7 @@ db_transaction {
                                         -node [lors::imsmd::getMDNode $resource] \
                                         -dir $tmp_dir]
 
-		    ns_write "[_ lorsm.lt_Adding_resource_res_i_3]<br>"
+                    ns_write "[_ lorsm.lt_Adding_resource_res_i_3 [list res_identifier $res_identifier]]<br>"
 
                 }
 
@@ -480,7 +480,7 @@ db_transaction {
                 foreach file $res_files {
                     lappend l_files [list [lindex $file 0] $resource_id [lindex $file 1]]
 
-                    #                ns_write "[_ lorsm.lt_resource_id_res_ident]"
+                    #                ns_write "$resource_id $res_identifier \n"
                     #                ns_write "\t$file \n"
                 }
             }
@@ -560,7 +560,7 @@ db_transaction {
 			     -filename $filex \
 			     -hasmetadata $hasmetadata]
 
-	    ns_write "[_ lorsm.Adding_file_filex]<br>"
+	    ns_write "[_ lorsm.Adding_file_filex [list filex $filex]]<br>"
 
 
 	    if {$file_hasmetadata != 0} {
@@ -569,7 +569,7 @@ db_transaction {
 					   -node $file_hasmetadata \
 					   -dir $tmp_dir]
 
-		ns_write "[_ lorsm.lt_Adding_file_filex_met_1]<br>"
+            ns_write "[_ lorsm.lt_Adding_file_filex_met_1 [list filex $filex]]<br>"
 	    }
 	}
 

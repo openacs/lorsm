@@ -229,3 +229,9 @@ set enabler_url [export_vars -base enabler {man_id}]
 set tracker_url [export_vars -base tracker {man_id}]
 set sharer_url  [export_vars -base sharer {man_id folder_id return_url}]
 
+#Presentation-related fields
+if {[db_0or1row course_presentation_format "
+    select presentation_name as pformat from lors_available_presentation_formats where presentation_id=(select presentation_id from ims_cp_manifests where man_id=:man_id);
+" ] } { } else {
+	set pformat #lorsm.None#
+}

@@ -27,8 +27,8 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 # Permissions
 dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $community_id
 
-set title "[_ lorsm.Student_Tracking]"
-set context {[_ lorsm.Tracking_1]}
+set title [list "[_ lorsm.Student_Tracking]"]
+set context [list "[_ lorsm.Tracking_1]"]
 
 if {![exists_and_not_null group]} {
     set group 1

@@ -23,7 +23,7 @@ if { [info exists content(item_id)] } {
 
     set text [cr_write_content -string -revision_id $revision_id]
 
-    if { ![string equal "text/html" $content(mime_type)] } {
+    if { ![string equal "text/html" $content(mime_type)] && ![string equal "text/xml" $content(mime_type)]  } {
 	set text [ad_html_text_convert -from $mime_type -to text/html $text]
     }
 }

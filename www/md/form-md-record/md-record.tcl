@@ -1,14 +1,14 @@
 set actions [list]
 
-lappend actions  "General MD" [export_vars -base ../generalmd {ims_md_id}] "View General Metadata"
-lappend actions  "Lifecycle MD" [export_vars -base ../lifecyclemd {ims_md_id}] "View Lifecycle Metadata"
-lappend actions  "Meta MD" [export_vars -base ../metamd {ims_md_id}] "View Meta Metadata"
-lappend actions  "Technical MD" [export_vars -base ../technicalmd {ims_md_id}] "View Technical Metadata"
-lappend actions  "Educational MD" [export_vars -base ../educationalmd {ims_md_id}] "View Educational Metadata"
-lappend actions  "Rights MD" [export_vars -base ../rightsmd {ims_md_id}] "View Rights Metadata"
-lappend actions  "Relation MD" [export_vars -base ../relationmd {ims_md_id}] "View Relation Metadata"
-lappend actions  "Annotation MD" [export_vars -base ../annotationmd {ims_md_id}] "View Annotation Metadata"
-lappend actions  "Classification MD" [export_vars -base ../classificationmd {ims_md_id}] "View Classification Metadata"
+lappend actions  "[_ lorsm.General_MD]" [export_vars -base ../generalmd {ims_md_id}] "[_ lorsm.lt_View_General_Metadata]"
+lappend actions  "[_ lorsm.Lifecycle_MD]" [export_vars -base ../lifecyclemd {ims_md_id}] "[_ lorsm.lt_View_Lifecycle_Metada]"
+lappend actions  "[_ lorsm.Meta_MD]" [export_vars -base ../metamd {ims_md_id}] "[_ lorsm.View_Meta_Metadata]"
+lappend actions  "[_ lorsm.Technical_MD]" [export_vars -base ../technicalmd {ims_md_id}] "[_ lorsm.lt_View_Technical_Metada]"
+lappend actions  "[_ lorsm.Educational_MD]" [export_vars -base ../educationalmd {ims_md_id}] "[_ lorsm.lt_View_Educational_Meta]"
+lappend actions  "[_ lorsm.Rights_MD]" [export_vars -base ../rightsmd {ims_md_id}] "[_ lorsm.View_Rights_Metadata]"
+lappend actions  "[_ lorsm.Relation_MD]" [export_vars -base ../relationmd {ims_md_id}] "[_ lorsm.lt_View_Relation_Metadat]"
+lappend actions  "[_ lorsm.Annotation_MD]" [export_vars -base ../annotationmd {ims_md_id}] "[_ lorsm.lt_View_Annotation_Metad]"
+lappend actions  "[_ lorsm.Classification_MD]" [export_vars -base ../classificationmd {ims_md_id}] "[_ lorsm.lt_View_Classification_M_1]"
 
 
 # Presentation 
@@ -19,7 +19,7 @@ template::list::create \
     -actions  $actions \
     -elements {
         object_type {
-            label "Object Type"
+            label "[_ lorsm.Object_Type]"
         }
     }
 

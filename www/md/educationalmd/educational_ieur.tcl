@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_ie_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Edit Intended End User Role"]
-    set title "Edit Educational MD Intended End User Role"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_Edit_Intended_End_Use]"]
+    set title "[_ lorsm.lt_Edit_Educational_MD_I]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Add Intended End User Role"]
-    set title "Add Educational MD Intended End User Role"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_Add_Intended_End_User]"]
+    set title "[_ lorsm.lt_Add_Educational_MD_In]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name educationalmd_ieur \
     ims_md_ed_ie_id:key(ims_md_educational_ieur_seq)
 
     {ieur_s:text,nospell
-	{section "Add/Edit Educational MD Intended End User Role"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_14]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {ieur_v:text,nospell
         {html {size 10}}
-	{help_text "Normal user of the learning object"}
-        {label "Intended End User Role:"}
+	{help_text "[_ lorsm.lt_Normal_user_of_the_le]"}
+        {label "[_ lorsm.lt_Intended_End_User_Rol]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -72,16 +72,16 @@ ad_form -name educationalmd_ieur \
 template::list::create \
     -name d_ed_ieur \
     -multirow d_ed_ieur \
-    -no_data "No Intended End User Role Available" \
+    -no_data "[_ lorsm.lt_No_Intended_End_User_]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	ieur {
-            label "Intended End User Role"
+            label "[_ lorsm.lt_Intended_End_User_Rol_1]"
         }
         export {
-            display_eval {\[Edit\]}
+            display_eval {\[[_ lorsm.Edit_1]\]}
             link_url_eval { [export_vars -base "educational_ieur" {ims_md_ed_ie_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

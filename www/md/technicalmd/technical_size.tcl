@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \im\s_md_id] "Technical MD"] "Edit Size"]
-set title "Add/Edit Technical MD Size"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \im\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Edit_Size]"]
+set title "[_ lorsm.lt_AddEdit_Technical_MD__6]"
 
 # Form
 
@@ -28,10 +28,10 @@ ad_form -name technicalmd_size \
     -form {
 
     {t_size:text,nospell
-	{section "Add/Edit Technical MD Size"}
+	{section "[_ lorsm.lt_AddEdit_Technical_MD__6]"}
         {html {size 30}}
-	{help_text "Size of the resource (in bytes)"}
-        {label "Size:"}
+	{help_text "[_ lorsm.lt_Size_of_the_resource_]"}
+        {label "[_ lorsm.Size]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -62,16 +62,16 @@ ad_form -name technicalmd_size \
 template::list::create \
     -name d_te_size \
     -multirow d_te_size \
-    -no_data "No Size Available" \
+    -no_data "[_ lorsm.No_Size_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         t_size_bytes {
-            label "Size"
+            label "[_ lorsm.Size_1]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "technical_size" {ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

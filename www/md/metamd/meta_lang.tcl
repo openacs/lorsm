@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../metamd" im\s_\\\md_id] "Meta Metadata"] "Edit Language"]
-set title "Edit Meta MD Language"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../metamd" im\s_\\\md_id] "[_ lorsm.Meta_Metadata]"] "[_ lorsm.Edit_Language]"]
+set title "[_ lorsm.lt_Edit_Meta_MD_Language]"
 
 # Form
 
@@ -28,10 +28,10 @@ ad_form -name metamd_lang \
     -form {
 
     {language:text,nospell
-	{section "Add/Edit Meta MD Language"}
+	{section "[_ lorsm.lt_AddEdit_Meta_MD_Langu]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -63,11 +63,11 @@ ad_form -name metamd_lang \
 template::list::create \
     -name d_md_lang \
     -multirow d_md_lang \
-    -no_data "No Language Available" \
+    -no_data "[_ lorsm.lt_No_Language_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         language {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
     }
 

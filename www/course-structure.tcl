@@ -30,8 +30,8 @@ ad_proc -public getFolderKey {
 }
 
 # set context & title
-set context [list "Course Structure"]
-set title "Course Structure"
+set context [list "[_ lorsm.Course_Structure]"]
+set title "[_ lorsm.Course_Structure]"
 
 
 if {[db_0or1row manifest "
@@ -71,12 +71,12 @@ if {[db_0or1row manifest "
     
     # Course Name
     if {[empty_string_p $course_name]} {
-	set course_name "No course Name"
+	set course_name "[_ lorsm.No_course_Name]"
     } 
 
     # Version
     if {[empty_string_p $version]} {
-	set version "No version Available"
+	set version "[_ lorsm.No_version_Available]"
     } 
     
     # Instance
@@ -115,9 +115,9 @@ if {[db_0or1row manifest "
 
 append orgs_list "<table class=\"list\" cellpadding=\"3\" cellspacing=\"1\" width=\"100%\">"
 append orgs_list "<tr class=\"list-header\">
-        <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">Organization</th>
-        <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">Metadata?</th>
-        <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">Items</th>
+        <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">[_ lorsm.Organization]</th>
+        <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">[_ lorsm.Metadata_1]</th>
+        <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">[_ lorsm.Items]</th>
     </tr>
 "
 db_foreach organizations {
@@ -140,17 +140,17 @@ db_foreach organizations {
     append orgs_list "<tr class=\"list-even\"><td valign=\"top\" width=\"20%\">$org_title</td><td valign=\"top\" align=\"center\" width=\"5%\">$hasmetadata</td><td>"
 
     set indent [expr $indent +1]
-    set missing_text "Nothing here"
+    set missing_text "[_ lorsm.Nothing_here]"
     set return_url [export_vars -base [ns_conn url] man_id]
     set table_extra_html { width="100%" }
    
     set table_extra_vars {return_url}
     set table_def {
-	{ title "Item Name" "no_sort" "<td>$indent[if {![empty_string_p $identifierref]} {set href \"<a href='[apm_package_url_from_id $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]'>$item_title</a>\"} else {set href $item_title}]</td>" }
-	{ Edit "Edit?" "no_sort" "<td align=\"center\">[if {![empty_string_p $identifierref]} {set href \"<a href=\'[export_vars -base edit-content {identifierref folder_id return_url fs_package_id}]\'>Edit</a></td>\"}]"}
-	{ metadata "Metadata?" "no_sort" "<td align=\"center\">[if {$hasmetadata == \"f\"} {set hasmetadata \"<a href=md?ims_md_id=$item_id>No\"} else {set hasmetadata \"<a href=md/?ims_md_id=$item_id>Yes\"}]</a></td>" }
-	{ type   "Type" "no_sort" "<td align=\"center\">$type</td>" }
-	{ shared "Is Shared?" "no_sort" "<td align=\"center\">[if {$isshared == false} {set ret \"No\"}]</td>" }
+	{ title "[_ lorsm.Item_Name]" "no_sort" "<td>$indent[if {![empty_string_p $identifierref]} {set href \"<a href='[apm_package_url_from_id $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]'>$item_title</a>\"} else {set href $item_title}]</td>" }
+	{ Edit "[_ lorsm.Edit]" "no_sort" "<td align=\"center\">[if {![empty_string_p $identifierref]} {set href \"<a href=\'[export_vars -base edit-content {identifierref folder_id return_url fs_package_id}]\'>[_ lorsm.Edit_1]</a></td>\"}]"}
+	{ metadata "[_ lorsm.Metadata_1]" "no_sort" "<td align=\"center\">[if {$hasmetadata == \"f\"} {set hasmetadata \"<a href=md?ims_md_id=$item_id>No\"} else {set hasmetadata \"<a href=md/?ims_md_id=$item_id>Yes\"}]</a></td>" }
+	{ type   "[_ lorsm.Type]" "no_sort" "<td align=\"center\">$type</td>" }
+	{ shared "[_ lorsm.Is_Shared]" "no_sort" "<td align=\"center\">[if {$isshared == false} {set ret \"No\"}]</td>" }
     }
 
     set table_item [ad_table -Tmissing_text $missing_text -Textra_vars $table_extra_vars -Theader_row_extra "style=\"background-color: #e0e0e0; font-weight: bold;\" class=\"list-header\"" -Ttable_extra_html $table_extra_html blah {

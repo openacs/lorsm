@@ -51,24 +51,24 @@ set admin_p [permission::permission_p -party_id $user_id -object_id $package_id 
 set course_id 1
 
 # set context
-set context [list "Upload IMS Content Package"]
+set context [list "[_ lorsm.lt_Upload_IMS_Content_Pa]"]
 
 template::form create course_upload -action course-add-2 -html {enctype multipart/form-data}
 
 template::element create course_upload course_id  \
-  -label "course_id" -datatype integer -widget hidden
+  -label "[_ lorsm.course_id]" -datatype integer -widget hidden
 
 template::element create course_upload indb_p  \
-  -label "indb_p" -datatype integer -widget hidden
+  -label "[_ lorsm.indb_p]" -datatype integer -widget hidden
 
 template::element create course_upload fs_package_id  \
-  -label "fs_package_id" -datatype integer -widget hidden
+  -label "[_ lorsm.fs_package_id]" -datatype integer -widget hidden
 
 template::element create course_upload folder_id  \
-  -label "folder_id" -datatype integer -widget hidden
+  -label "[_ lorsm.folder_id]" -datatype integer -widget hidden
 
 template::element create course_upload upload_file  \
-  -label "Choose the course zip file to upload" -help_text "Use the \"Browse...\" button to locate your file, then click \"Open\"" -datatype text -widget file
+  -label "[_ lorsm.lt_Choose_the_course_zip]" -help_text "[_ lorsm.lt_Use_the_Browse_button]" -datatype text -widget file
 
 template::element set_properties course_upload course_id -value $course_id
 template::element set_properties course_upload folder_id -value $folder_id

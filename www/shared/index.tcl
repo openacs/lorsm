@@ -15,8 +15,8 @@ ad_page_contract {
 } -errors {
 }
 
-set title "Shared Courses"
-set context [list "Shared Courses"]
+set title "[_ lorsm.Shared_Courses]"
+set context [list "[_ lorsm.Shared_Courses]"]
 
 set community_id [dotlrn_community::get_community_id]
 

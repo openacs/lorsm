@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 
-set title "Shared Courses"
-set context [list "Shared Courses"]
+set title "[_ lorsm.Shared_Courses]"
+set context [list "[_ lorsm.Shared_Courses]"]
 
 set package_id [ad_conn package_id]
 set community_id [dotlrn_community::get_community_id]
@@ -34,35 +34,35 @@ template::list::create \
     -multirow d_courses \
     -html {width 50%} \
     -key man_id \
-    -no_data "No Courses" \
+    -no_data "[_ lorsm.No_Courses]" \
     -elements {
         course_name {
-            label "Available Courses"
+            label "[_ lorsm.Available_Courses]"
             display_col course_name
             link_url_eval {[export_vars -base $community_url/lorsm/shared/course-info {man_id fs_package_id folder_id}]}
-            link_html {title "Access Course"}
+            link_html {title "[_ lorsm.Access_Course]"}
 
         }
         hasmetadata {
-            label "Metadata?"
+            label "[_ lorsm.Metadata_1]"
             link_url_eval {[export_vars -base $community_url/lorsm/md {ims_md_id}]}
-            link_html {title "See metadata" }
+            link_html {title "[_ lorsm.See_metadata]" }
 	    html { align center }
         }
         creation_user {
-            label "Owner"
+            label "[_ lorsm.Owner]"
             display_eval {[person::name -person_id $creation_user]}
             link_url_eval {[acs_community_member_url -user_id $creation_user]}
         }
         creation_date {
-            label "Creation Date"
+            label "[_ lorsm.Creation_Date]"
             display_eval {[lc_time_fmt $creation_date "%x %X"]}
         }
         admin {
-            label "Course Info"
+            label "[_ lorsm.Course_Info]"
 	    display_eval {Info/View}
             link_url_eval {[export_vars -base $community_url/lorsm/shared/course-info man_id]}
-            link_html {title "Info" class button}
+            link_html {title "[_ lorsm.Info]" class button}
 	    html { align center }
         }
     }

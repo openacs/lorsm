@@ -34,23 +34,23 @@ dotlrn::require_user_admin_community -user_id $user_id -community_id $community_
 permission::require_write_permission -object_id $man_id -creation_user $user_id
 
 
-set title "Share Course/Learning Object"
-set context [list "Share Course/Learning Object"]
+set title "[_ lorsm.lt_Share_CourseLearning_]"
+set context [list "[_ lorsm.lt_Share_CourseLearning_]"]
 
 ad_form -name sharer \
     -export {return_url folder_id} \
     -form {
 	{man_id:key}
 	{project:text(inform)
-	    {label "Course Name:"}
+	    {label "[_ lorsm.Course_Name]"}
 	    {value {[lorsm::get_course_name -manifest_id $man_id]}}
 	}
 	{isshared:text(inform)
-	    {label "Current Status:"}
+	    {label "[_ lorsm.Current_Status]"}
 	}
 	{share:text(radio)
 	    {label Status?}
-	    {options {{"Shared" t} {"Not Shared" f}}}
+	    {options {{"[_ lorsm.Shared]" t} {"[_ lorsm.Not_Shared]" f}}}
 	}
     } -select_query {
         select 

@@ -26,23 +26,23 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 # Permissions
 dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
 
-set title "Set Course Trackable"
-set context [list "Set Course Status"]
+set title "[_ lorsm.Set_Course_Trackable]"
+set context [list "[_ lorsm.Set_Course_Status]"]
 
 ad_form -name enabler \
     -export {package_id} \
     -form {
 	{man_id:key}
 	{project:text(inform)
-	    {label "Course Name:"}
+	    {label "[_ lorsm.Course_Name]"}
 	    {value {[lorsm::get_course_name -manifest_id $man_id]}}
 	}
 	{isenabled:text(inform)
-	    {label "Current Status:"}
+	    {label "[_ lorsm.Current_Status]"}
 	}
 	{enable:text(radio)
-	    {label Status?}
-	    {options {{"Enable" t} {"Disable" f}}}
+	    {label [_ lorsm.Status_3]}
+	    {options {{"[_ lorsm.Enable]" t} {"[_ lorsm.Disable]" f}}}
 	}
     } -select_query {
         select 

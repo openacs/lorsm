@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_co_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" im\s_md_id] "Educational MD"] "Edit Context"]
-    set title "Edit Educational MD Context"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" im\s_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.Edit_Context]"]
+    set title "[_ lorsm.lt_Edit_Educational_MD_C]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" im\s_md_id] "Educational MD"] "Add Context"]
-    set title "Add Educational MD Context"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" im\s_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.Add_Context]"]
+    set title "[_ lorsm.lt_Add_Educational_MD_Co]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name educationalmd_cont \
     ims_md_ed_co_id:key(ims_md_educational_context_seq)
 
     {context_s:text,nospell
-	{section "Add/Edit Educational MD Context"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_11]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {context_v:text,nospell
         {html {size 20}}
-	{help_text "Learning environment where use of learning object is intended to take place"}
-        {label "Context:"}
+	{help_text "[_ lorsm.lt_Learning_environment_]"}
+        {label "[_ lorsm.Context]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -72,16 +72,16 @@ ad_form -name educationalmd_cont \
 template::list::create \
     -name d_ed_cont \
     -multirow d_ed_cont \
-    -no_data "No Context Available" \
+    -no_data "[_ lorsm.No_Context_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	context {
-            label "Context"
+            label "[_ lorsm.Context_1]"
         }
         export {
-            display_eval {\[Edit\]}
+            display_eval {\[[_ lorsm.Edit_1]\]}
             link_url_eval { [export_vars -base "educational_cont" {ims_md_ed_co_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

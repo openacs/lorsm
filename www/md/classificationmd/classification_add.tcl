@@ -15,8 +15,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list "IMS Metadata Editor - Classification MD"]
-set title "Add Classification MD Entry"
+set context [list "[_ lorsm.lt_IMS_Metadata_Editor_-]"]
+set title "[_ lorsm.lt_Add_Classification_MD]"
 
 # Form
 ad_form -name classificationmd_add \

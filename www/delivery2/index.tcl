@@ -62,12 +62,12 @@ if {[db_0or1row manifest "
     
     # Course Name
     if {[empty_string_p $course_name]} {
-	set course_name "No course Name"
+	set course_name "[_ lorsm.No_course_Name]"
     } 
 
     # Version
     if {[empty_string_p $version]} {
-	set version "No version Available"
+	set version "[_ lorsm.No_version_Available]"
     } 
     
     # Instance
@@ -150,7 +150,7 @@ if {![exists_and_not_null js]} {
 
     set js [list]
     # the first element must be blank
-    lappend js [list 0 0 "Course Index"]
+    lappend js [list 0 0 "[_ lorsm.Course_Index]"]
 
 }
 

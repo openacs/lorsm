@@ -154,16 +154,18 @@ variable ims_man_id
 	set difference [expr {$end - $start}]
 	
 	if {$difference >= 0 && $difference < 60} {
-	    return "$difference seconds"
+	    return "[_ lorsm.difference_seconds]"
 	} elseif {$difference >= 60 && $difference < 3600} {
-
-	    return "[expr {$difference / 60.0}] minutes"
+	    set tempval [expr {$difference / 60.0}]
+	    return "[_ lorsm.tempval_minutes]"
 
 	} elseif {$difference >= 3600 && $difference < 86400} {
-	    return "[expr {$difference / 60.0 /60.0 }] hours"
+	    set tempval [expr {$difference / 60.0 /60.0 }]
+	    return "[_ lorsm.tempval_hours]"
 
 	} else {
-	    return "[expr {$difference / 60.0 / 60.0 / 24.0}] days"
+	    set tempval [expr {$difference / 60.0 / 60.0 / 24.0}]
+	    return "[_ lorsm.tempval_days]"
 	}
     }
 

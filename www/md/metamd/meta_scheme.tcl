@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_md_sch_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../metamd" im\s_\\md_id] "Meta Metadata"] "Edit Scheme"]
-    set title "Edit Meta MD Scheme"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../metamd" im\s_\\md_id] "[_ lorsm.Meta_Metadata]"] "[_ lorsm.Edit_Scheme]"]
+    set title "[_ lorsm.Edit_Meta_MD_Scheme]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../metamd" im\s_\\md_id] "Meta Metadata"] "Add Scheme"]
-    set title "Add Meta MD Scheme"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../metamd" im\s_\\md_id] "[_ lorsm.Meta_Metadata]"] "[_ lorsm.Add_Scheme]"]
+    set title "[_ lorsm.Add_Meta_MD_Scheme]"
 }
 
 # Form
@@ -36,10 +36,10 @@ ad_form -name metamd_scheme \
     ims_md_md_sch_id:key(ims_md_metadata_scheme_seq)
 
     {scheme:text,nospell
-	{section "Add/Edit Meta MD Scheme"}
+	{section "[_ lorsm.lt_AddEdit_Meta_MD_Schem]"}
         {html {size 10}}
-	{help_text "Structure of meta-data including version i.e.: 'IMSv1.2.1'"}
-        {label "Scheme:"}
+	{help_text "[_ lorsm.lt_Structure_of_meta-dat]"}
+        {label "[_ lorsm.Scheme]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
@@ -69,16 +69,16 @@ ad_form -name metamd_scheme \
 template::list::create \
     -name d_md_scheme \
     -multirow d_md_scheme \
-    -no_data "No Scheme Available" \
+    -no_data "[_ lorsm.No_Scheme_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         scheme {
-            label "Scheme"
+            label "[_ lorsm.Scheme_1]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "meta_scheme" {ims_md_id ims_md_md_sch_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

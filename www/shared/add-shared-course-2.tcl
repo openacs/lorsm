@@ -32,7 +32,7 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 # check if the course is actually shared
 if {[db_string isshared {select isshared from ims_cp_manifests where man_id = :man_id}] == "f"} {
     # if it ain't complain and quit
-    ad_complain "The course you are trying to add to your class is not shared."
+    ad_complain "[_ lorsm.lt_The_course_you_are_tr]"
 
 }
 
@@ -41,7 +41,8 @@ if {[db_string isshared {select isshared from ims_cp_manifests where man_id = :m
 if {![db_0or1row exists {select man_id, lorsm_instance_id from ims_cp_manifest_class where man_id = :man_id \
 			     and lorsm_instance_id = :package_id \
 			     and community_id = :community_id}]} {
-    ad_complain "The course [lorsm::get_course_name -manifest_id $man_id], is already part of your class"
+    set var1 [lorsm::get_course_name -manifest_id $man_id]
+    ad_complain "[_ lorsm.lt_The_course_var1_is_al]"
 
 
 }

@@ -19,7 +19,7 @@ ad_page_contract {
 set context [list [list [export_vars -base .] "Shared Courses"] "Preview Course"]
 set community_id [dotlrn_community::get_community_id]
 
-set title "Preview Course"
+set title "[_ lorsm.Preview_Course_1]"
 
 # Permissions
 dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $community_id
@@ -85,12 +85,12 @@ if {[db_0or1row manifest "
     
     # Course Name
     if {[empty_string_p $course_name]} {
-	set course_name "No course Name"
+	set course_name "[_ lorsm.No_course_Name]"
     } 
 
     # Version
     if {[empty_string_p $version]} {
-	set version "No version Available"
+	set version "[_ lorsm._No]"
     } 
     
     # Created By

@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_te_rq_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \\im\\s_md_id] "Technical MD"] "Edit Requirement"]
-    set title "Edit Technical MD Requirement"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \\im\\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Edit_Requirement]"]
+    set title "[_ lorsm.lt_Edit_Technical_MD_Req]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \\im\\s_md_id] "Technical MD"] "Add Requirement"]
-    set title "Add Technical MD Requirement"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \\im\\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Add_Requirement]"]
+    set title "[_ lorsm.lt_Add_Technical_MD_Requ]"
 }
 
 # Form
@@ -36,34 +36,34 @@ ad_form -name technicalmd_req \
     ims_md_te_rq_id:key(ims_md_technical_requirement_seq)
 
     {type_s:text,nospell
-	{section "Add/Edit Technical MD Requirement"}
+	{section "[_ lorsm.lt_AddEdit_Technical_MD__5]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {type_v:text,nospell
         {html {size 20}}
-	{help_text "Type of requirement"}
-        {label "Type:"}
+	{help_text "[_ lorsm.Type_of_requirement]"}
+        {label "[_ lorsm.Type_1]"}
     }
     
     {name_v:text,nospell
         {html {size 20}}
-	{help_text "Name of required item"}
-        {label "Name:"}
+	{help_text "[_ lorsm.lt_Name_of_required_item]"}
+        {label "[_ lorsm.Name_1]"}
     }
     
     {min_version:text,nospell
         {html {size 10}}
-	{help_text "Lowest version of the required item"}
-        {label "Minimum Version:"}
+	{help_text "[_ lorsm.lt_Lowest_version_of_the]"}
+        {label "[_ lorsm.Minimum_Version]"}
     }
 
     {max_version:text,nospell
         {html {size 10}}
-	{help_text "Highest version of the required item"}
-        {label "Maximum Version:"}
+	{help_text "[_ lorsm.lt_Highest_version_of_th]"}
+        {label "[_ lorsm.Maximum_Version]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -104,21 +104,21 @@ template::list::create \
     -html { align right style "width: 100%;" } \
     -elements {
         type {
-            label "Type"
+            label "[_ lorsm.Type]" 
         }
         name {
-            label "Name"
+            label "[_ lorsm.Name]"
         }
 	min_version {
-	    label "Min Version"
+	    label "[_ lorsm.Min_Version]"
 	}
 	max_version {
-	    label "Max Version"
+	    label "[_ lorsm.Max_Version]"
 	}
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "technical_req" {ims_md_te_rq_id ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record] "}
             html { align center }
         }
     }

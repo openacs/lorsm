@@ -52,7 +52,7 @@ db_foreach organizations {
 } {
 
     set indent [expr $indent +1]
-    set missing_text "Nothing here"
+    set missing_text "[_ lorsm.Nothing_here]"
 
     set table_extra_html { width="100%" }
     # the table_def isn't quite neat as I'd like to, but it does the job for a

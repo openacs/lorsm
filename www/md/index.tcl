@@ -10,8 +10,8 @@ ad_page_contract {
 }
 
 # set context
-set context [list "IMS Metadata Editor"]
-set title "IMS Metadata Editor"
+set context [list "[_ lorsm.IMS_Metadata_Editor]"]
+set title "<#_ IMS Metadata Editor \>"
 set link [export_vars -base "md_upload" ims_md_id]
 
 set hasmetadata [lors::imsmd::mdExist -ims_md_id $ims_md_id]

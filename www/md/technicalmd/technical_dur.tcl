@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \\\i\\m\\s_md_id] "Technical MD"] "Add/Edit Duration"]
-set title "Edit Technical MD Duration"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \\\i\\m\\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.AddEdit_Duration]"]
+set title "[_ lorsm.lt_Edit_Technical_MD_Dur]"
 
 # Form
 
@@ -28,22 +28,22 @@ ad_form -name technicalmd_dur \
     -form {
 
     {duration:text,nospell
-	{section "Add/Edit Technical MD Duration"}
+	{section "[_ lorsm.lt_AddEdit_Technical_MD_]"}
         {html {size 10}}
-	{help_text "Time the continuous learning object is intended to take (in seconds)"}
-        {label "Duration:"}
+	{help_text "[_ lorsm.lt_Time_the_continuous_l]"}
+        {label "[_ lorsm.Duration] "}
     }
 
     {duration_l:text,nospell,optional
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {duration_s:text,nospell,optional
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -76,17 +76,17 @@ ad_form -name technicalmd_dur \
 template::list::create \
     -name d_te_dur \
     -multirow d_te_dur \
-    -no_data "No Duration Available" \
+    -no_data "[_ lorsm.lt_No_Duration_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         duration_sec {
-            label "Duration (Seconds)"
+            label "[_ lorsm.Duration_Seconds]"
         }
 	duration_l {
-	    label "Language"
+	    label "[_ lorsm.Language_1]"
 	}
 	duration_s {
-	    label "Source"
+	    label "[_ lorsm.Source_1]"
 	}
 
     }

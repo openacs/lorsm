@@ -56,10 +56,10 @@
 	           #lorsm.lt_classlist_stylefont-w#
                 </if>
 	        <else>
-                   #lorsm.classlist#
+                   class="list"
                 </else>
-                #lorsm.lt_valigntop_alignleftis#
-              </td>
+                valign="top" align="left">@isscorm;noquote@
+                 </td>
           </tr>
               <tr class="list-even">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">

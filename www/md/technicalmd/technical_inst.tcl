@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \\\im\\s_md_id] "Technical MD"] "Edit Installation Remarks"]
-set title "Add/Edit Technical MD Installation Remarks"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \\\im\\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.lt_Edit_Installation_Rem]"]
+set title "[_ lorsm.lt_AddEdit_Technical_MD__2]"
 
 # Form
 
@@ -28,16 +28,16 @@ ad_form -name technicalmd_inst \
     -form {
 
     {instl_rmrks_l:text,nospell
-	{section "Add/Edit Technical MD Installation Remarks"}
+	{section "[_ lorsm.lt_AddEdit_Technical_MD__2]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {instl_rmrks_s:text(textarea),nospell
         {html {rows 5 cols 60}}
-	{help_text "Information on how to install the resource"}
-        {label "Installation Remarks:"}
+	{help_text "[_ lorsm.lt_Information_on_how_to]"}
+        {label "[_ lorsm.Installation_Remarks]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}    
 
@@ -69,11 +69,11 @@ ad_form -name technicalmd_inst \
 template::list::create \
     -name d_te_inst \
     -multirow d_te_inst \
-    -no_data "No Installation Remarks Available" \
+    -no_data "[_ lorsm.lt_No_Installation_Remar]" \
     -html { align right style "width: 100%;" } \
     -elements {
         instl_rmrks {
-            label "Installation Remarks"
+            label "[_ lorsm.Installation_Remarks_1]"
         }
     }
 

@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../rightsmd" ims_md_id] "Rights MD"] "Add/Edit Cost"]
-set title "Add/Edit Rights MD Cost"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../rightsmd" ims_md_id] "[_ lorsm.Rights_MD]"] "[_ lorsm.AddEdit_Cost]"]
+set title "[_ lorsm.lt_AddEdit_Rights_MD_Cos]"
 
 
 # Form
@@ -29,16 +29,16 @@ ad_form -name rightsmd_cost \
     -form {
 
     {cost_s:text,nospell
-	{section "Add/Edit Rights MD Cost"}
+	{section "[_ lorsm.lt_AddEdit_Rights_MD_Cos]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {cost_v:text,nospell
         {html {size 10}}
-	{help_text "Whether use of the resource requires payment"}
-        {label "Cost:"}
+	{help_text "[_ lorsm.lt_Whether_use_of_the_re]"}
+        {label "[_ lorsm.Cost]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -69,11 +69,11 @@ ad_form -name rightsmd_cost \
 template::list::create \
     -name d_ri_cost \
     -multirow d_ri_cost \
-    -no_data "No Cost Available" \
+    -no_data "[_ lorsm.No_Cost_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	cost {
-            label "Cost"
+            label "[_ lorsm.Cost_1]"
         }
     }
 

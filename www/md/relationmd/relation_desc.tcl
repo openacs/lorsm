@@ -19,8 +19,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../relationmd" ims_md_id] "Relation MD"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "Relation Entry"] "Add/Edit Description"]
-set title "Edit Relation MD Resource Description"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../relationmd" ims_md_id] "[_ lorsm.Relation_MD]"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "[_ lorsm.Relation_Entry]"] "[_ lorsm.AddEdit_Description]"]
+set title "[_ lorsm.lt_Edit_Relation_MD_Reso_1]"
 
 # Form
 
@@ -32,16 +32,16 @@ ad_form -name relationmd_desc \
     ims_md_re_re_id:key(ims_md_relation_resource_seq)
 
     {descrip_l:text,nospell
-	{section "Add/Edit Relation MD Resource Description"}
+	{section "[_ lorsm.lt_AddEdit_Relation_MD_R_1]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {descrip_s:text(textarea),nospell
         {html {rows 2 cols 50}}
-	{help_text "Description of the other resource"}
-        {label "Description:"}
+	{help_text "[_ lorsm.lt_Description_of_the_ot]"}
+        {label "[_ lorsm.Description]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -68,11 +68,11 @@ ad_form -name relationmd_desc \
 template::list::create \
     -name d_re_desc \
     -multirow d_re_desc \
-    -no_data "No Resource Description Available" \
+    -no_data "[_ lorsm.lt_No_Resource_Descripti]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	descrip {
-            label "Description"
+            label "[_ lorsm.Description_1]"
         }
     }
 

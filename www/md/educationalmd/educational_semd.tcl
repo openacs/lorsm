@@ -18,8 +18,8 @@ ad_page_contract {
 
 # set context & title
 
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Add/Edit Semantic Density"]
-set title "Edit Educational MD Semantic Density"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_AddEdit_Semantic_Dens]"]
+set title "[_ lorsm.lt_Edit_Educational_MD_S]"
 
 # Form
 
@@ -29,16 +29,16 @@ ad_form -name educationalmd_semd \
     -form {
 
     {sem_density_s:text,nospell
-	{section "Add/Edit Educational MD Semantic Density"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_19]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {sem_density_v:text,nospell
         {html {size 10}}
-	{help_text "Learning object's usefulness as compared to its size or duration"}
-        {label "Semantic Density:"}
+	{help_text "[_ lorsm.lt_Learning_objects_usef]"}
+        {label "[_ lorsm.Semantic_Density]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -70,11 +70,11 @@ ad_form -name educationalmd_semd \
 template::list::create \
     -name d_ed_semd \
     -multirow d_ed_semd \
-    -no_data "No Semantic Density Available" \
+    -no_data "[_ lorsm.lt_No_Semantic_Density_A]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	semd {
-            label "Semantic Density"
+            label "[_ lorsm.Semantic_Density_1]"
         }
     }
 

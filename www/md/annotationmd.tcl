@@ -11,24 +11,24 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Annotation MD"]
-set title "Annotation MD"
+set context [list [list [export_vars -base "." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  "[_ lorsm.Annotation_MD]"]
+set title "[_ lorsm.Annotation_MD]"
 
 # Annotation
 template::list::create \
     -name d_an_annot \
     -multirow d_an_annot \
-    -no_data "No Annotation Available" \
-    -actions [list "Add Annotation" [export_vars -base annotationmd/annotation_add {ims_md_id}] "Add another Annotation MD Entry"] \
+    -no_data "[_ lorsm.lt_No_Annotation_Availab]" \
+    -actions [list "[_ lorsm.Add_Annotation]" [export_vars -base annotationmd/annotation_add {ims_md_id}] "[_ lorsm.lt_Add_another_Annotatio_1]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         entity {
-            label "Entry"
+            label "[_ lorsm.Entry_1]"
         }
 	export {
             display_eval {\[View\]}
             link_url_eval { [export_vars -base "annotationmd/annotation" {ims_md_an_id ims_md_id}] }
-            link_html {title "View associated Annotation MD"}
+            link_html {title "[_ lorsm.lt_View_associated_Annot]"}
             html { align center }
         }
     }

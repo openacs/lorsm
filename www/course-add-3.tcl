@@ -22,7 +22,7 @@ ad_page_contract {
 } -validate {
     non_empty -requires {upload_file.tmpfile:notnull} {
         if {![empty_string_p $upload_file] && (![file exists ${upload_file.tmpfile}] || [file size ${upload_file.tmpfile}] < 4)} {
-            ad_complain "The upload failed or the file was empty"
+            ad_complain "[_ lorsm.lt_The_upload_failed_or_]"
         }
     }
 }
@@ -35,29 +35,29 @@ ad_require_permission $folder_id admin
 
 # Display progress bar
 ad_progress_bar_begin \
-    -title "Uploading course..." \
-    -message_1 "Uploading and processing your course, please wait ..." \
-    -message_2 "We will continue automatically when processing is complete."
+    -title "[_ lorsm.Uploading_course]" \
+    -message_1 "[_ lorsm.lt_Uploading_and_process]" \
+    -message_2 "[_ lorsm.lt_We_will_continue_auto]"
 
 
-ns_write "<h2>Initiating Updating log... </h2><blockquote>"
+ns_write "<h2>[_ lorsm.lt_Initiating_Updating_l]</h2><blockquote>"
 
 # Is this a Blackboard6 package?
 set isBB [lors::imscp::bb6::isBlackboard6 -tmp_dir $tmp_dir]
 
 if {$isBB == 1} {
-    ns_write "<p><font color=\"red\"><b>Blackboard6 Content Packaging Course</b></font>.<br> Modifying package to be IMS CP compliant..."
-    ns_write "<blockquote><br> Cleaning up unused application and folders..."
+    ns_write "<p><font color=\"red\"><b>[_ lorsm.lt_Blackboard6_Content_P]</b></font>.<br> [_ lorsm.lt_Modifying_package_to_]"
+    ns_write "<blockquote><br> [_ lorsm.lt_Cleaning_up_unused_ap]"
     lors::imscp::bb6::clean_items -tmp_dir $tmp_dir -file "imsmanifest.xml"
-    ns_write "<font color=\"green\"><b>Done!</b></font>"
-    ns_write "<br> Renaming content types according to IMS CP specification..."
+    ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font>"
+    ns_write "<br> [_ lorsm.lt_Renaming_content_type]"
     lors::imscp::bb6::extract_html -tmp_dir $tmp_dir -file "imsmanifest.xml"
-    ns_write "<font color=\"green\"><b>Done!</b></font></blockquote>"
+    ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font></blockquote>"
 
 }
 
 
-ns_write "<h3> Starting File Processing... </h3>"
+ns_write "<h3> [_ lorsm.lt_Starting_File_Process] </h3>"
 
 
 db_transaction {
@@ -159,7 +159,7 @@ db_transaction {
                     regexp {([^/\\]+)$} $subdir match cr_dir
 
                     # add the folder to the CR
-		    ns_write "Processing folder <img src=\"/resources/file-storage/folder.gif\">: <b>$cr_dir</b> <br>"
+		    ns_write "[_ lorsm.Processing_folder]<img src=\"/resources/file-storage/folder.gif\">: <b>$cr_dir</b> <br>"
                     set new_cr_folder_id [lors::cr::add_folder -parent_id $base_parent_id -folder_name $cr_dir]
                     lappend collector "$new_cr_folder_id [list [lors::cr::has_dirs -fs_dir $subdir]]"
 
@@ -167,9 +167,10 @@ db_transaction {
                     set files [lors::cr::has_files -fs_dir $subdir]
 
 		    #For display purposes
-		    ns_write "Processing file(s):<blockquote>"
+		    ns_write "[_ lorsm.Processing_files]<blockquote>"
 		    foreach file $files {
-			ns_write "<img src=\"/resources/file-storage/file.gif\"> [regsub $tmp_dir $file {}]<font color=\"green\">...OK</font><br>"
+			set tempval [regsub $tmp_dir $file {}]
+			ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<font color=\"green\">[_ lorsm.OK]</font><br>"
 		    }
 		    ns_write "</blockquote>"
 		    #
@@ -195,7 +196,7 @@ db_transaction {
 
 	## Now we start processing the imsmanifest.xml file
 
-        ns_write "<p>Now processing <code>imsmanifest.xml</code> file..."
+        ns_write "<p>[_ lorsm.Now_processing]<code>imsmanifest.xml</code> [_ lorsm.file]"
         ## Opens imsmanifest.xml
 
         # open manifest file with tDOM
@@ -247,7 +248,7 @@ db_transaction {
                 set manifest_title_lang [lindex [lindex [lors::imsmd::mdGeneral -element title -node $lom -prefix $prefix] 0] 0]
                 set manifest_title [lindex [lindex [lors::imsmd::mdGeneral -element title -node $lom -prefix $prefix] 0] 1]
                 # set context
-                set context "Importing: $manifest_title"
+                set context "[_ lorsm.lt_Importing_manifest_ti]"
 
                 ## Gets manifest description
                 
@@ -270,7 +271,7 @@ db_transaction {
 
 
             } else {
-                set context "Importing: No Metadata Available"
+                set context "[_ lorsm.lt_Importing_No_Metadata]"
             }
 
         }
@@ -294,7 +295,7 @@ db_transaction {
 		        -community_id $community_id]
 
 
-	ns_write "Granting permissions $course_name Manifest...<br>"
+	ns_write "[_ lorsm.lt_Granting_permissions__1]<br>"
 
 	# PERMISSIONS FOR MANIFEST and learning objects
 
@@ -343,7 +344,7 @@ db_transaction {
 	# Done with Manifest and learning object Permissions
 
 
-	ns_write "Adding $course_name Manifest...<br>"
+	ns_write "[_ lorsm.lt_Adding_course_name_Ma]<br>"
 
         if {$man_hasmetadata == 1} {
             # adds manifest metadata
@@ -352,7 +353,7 @@ db_transaction {
                         -node $metadata \
                         -dir $tmp_dir]
 
-	ns_write "Adding Manifest Metadata...<br>"
+	ns_write "[_ lorsm.lt_Adding_Manifest_Metad]<br>"
 
         }
 
@@ -382,7 +383,7 @@ db_transaction {
                                 -title $org_title \
                                 -hasmetadata $org_hasmetadata]
 
-		ns_write "Adding Organization $org_title...<br>"
+		ns_write "[_ lorsm.lt_Adding_Organization_o]<br>"
 
 
                 if {$org_hasmetadata == 1} {
@@ -395,11 +396,12 @@ db_transaction {
 
                 set list_items [lors::imscp::getItems $organization]
 
-#                ns_write "here is list_items $list_items\n"
+#                ns_write "[_ lorsm.lt_here_is_list_items_li]"
 
                 set add [concat $add [lors::imscp::addItems -org_id $org_id $list_items 0 $tmp_dir]]
 
-		ns_write "Adding [llength $add] items and their respective metadata...<br>"
+		set tempval [llength $add]
+		ns_write "[_ lorsm.lt_Adding_tempval_items_]<br>"
 
             }
 
@@ -446,7 +448,7 @@ db_transaction {
                                      -scorm_type $res_scormtype \
                                      -hasmetadata $res_hasmetadata]
 
-		ns_write "Adding resource $res_identifier...<br>"
+		ns_write "[_ lorsm.lt_Adding_resource_res_i_2]<br>"
 		
 		lappend res_list [concat "$resource_id $res_identifier"]
 
@@ -459,7 +461,7 @@ db_transaction {
                                         -node [lors::imsmd::getMDNode $resource] \
                                         -dir $tmp_dir]
 
-		    ns_write "Adding resource $res_identifier metadata...<br>"
+		    ns_write "[_ lorsm.lt_Adding_resource_res_i_3]<br>"
 
                 }
 
@@ -470,7 +472,7 @@ db_transaction {
                                     -res_id $resource_id \
                                     -identifierref $dependency]
 
-		    ns_write "Adding resource dependencies...<br>"
+		    ns_write "[_ lorsm.lt_Adding_resource_depen]<br>"
 
                 }
 
@@ -478,7 +480,7 @@ db_transaction {
                 foreach file $res_files {
                     lappend l_files [list [lindex $file 0] $resource_id [lindex $file 1]]
 
-                    #                ns_write "$resource_id $res_identifier \n"
+                    #                ns_write "[_ lorsm.lt_resource_id_res_ident]"
                     #                ns_write "\t$file \n"
                 }
             }
@@ -489,7 +491,7 @@ db_transaction {
         
     } else {
         # Error MSG here
-        #ns_write "no page"
+        #ns_write "[_ lorsm.no_page]"
     }
 
 
@@ -523,7 +525,7 @@ db_transaction {
 
     }
 
-    ns_write "Now we are almost done...<br>"
+    ns_write "[_ lorsm.lt_Now_we_are_almost_don]<br>"
 
 
     foreach file $l_files {
@@ -558,7 +560,7 @@ db_transaction {
 			     -filename $filex \
 			     -hasmetadata $hasmetadata]
 
-	    ns_write "Adding file $filex...<br>"
+	    ns_write "[_ lorsm.Adding_file_filex]<br>"
 
 
 	    if {$file_hasmetadata != 0} {
@@ -567,7 +569,7 @@ db_transaction {
 					   -node $file_hasmetadata \
 					   -dir $tmp_dir]
 
-		ns_write "Adding file $filex metadata...<br>"
+		ns_write "[_ lorsm.lt_Adding_file_filex_met_1]<br>"
 	    }
 	}
 
@@ -575,11 +577,11 @@ db_transaction {
 
 
     # Delete temporary directory
-    ns_write "Deleting temporary folder...<br>"
+    ns_write "[_ lorsm.lt_Deleting_temporary_fo]<br>"
     ns_log Debug "Delete temporary folder $tmp_dir"
     lors::imscp::deltmpdir $tmp_dir
 
-    ns_write "Done!<p></blockquote><hr>"
+    ns_write "[_ lorsm.Done]<p></blockquote><hr>"
 
     # jump to the front page
     ad_progress_bar_end -url [apm_package_url_from_id [ad_conn package_id]]

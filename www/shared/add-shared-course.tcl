@@ -31,7 +31,7 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 # check if the course is actually shared
 if {[db_string isshared {select isshared from ims_cp_manifests where man_id = :man_id}] == "f"} {
     # if it ain't complain and quit
-    ad_complain "The course you are trying to add to your class is not shared."
+    ad_complain "[_ lorsm.lt_The_course_you_are_tr]"
 
 }
 
@@ -45,10 +45,10 @@ if {![db_0or1row exists {select man_id, lorsm_instance_id from ims_cp_manifest_c
 
 }
 
-set title "Add Course Confirmation"
+set title "[_ lorsm.lt_Add_Course_Confirmati]"
 set course_name [lorsm::get_course_name -manifest_id $man_id]
 
-set context [list [list [export_vars -base .] "Shared Courses"] [list [export_vars -base course-info {man_id}] "Preview Course: $course_name"] "Confirmation"]
+set context [list [list [export_vars -base .] "[_ lorsm.Shared_Courses]"] [list [export_vars -base course-info {man_id}] "[_ lorsm.lt_Preview_Course_course]"] "[_ lorsm.Confirmation]"]
 
 set return_url [site_node::get_url_from_object_id -object_id $package_id]
 

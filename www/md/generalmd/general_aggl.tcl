@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\\\\\s_md_id] "General MD"] "Edit Aggregation Level"]
-set title "Edit General MD Aggregation Level"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\\\\\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.lt_Edit_Aggregation_Leve]"]
+set title "[_ lorsm.lt_Edit_General_MD_Aggre]"
 
 # Form
 
@@ -30,16 +30,16 @@ ad_form -name generalmd_aggl \
 
 
     {agg_level_v:text,nospell
-	{section "Add/Edit General MD Aggregation Level"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_Ag]"}
         {html {size 10}}
-	{help_text "Functional size of the resource"}
-        {label "Aggregation Level:"}
+	{help_text "[_ lorsm.lt_Functional_size_of_th]"}
+        {label "[_ lorsm.Aggregation_Level]"}
     }
     
     {agg_level_s:text,nospell,optional
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
     
     {ims_md_id:text(hidden) {value $ims_md_id}}
@@ -72,19 +72,19 @@ ad_form -name generalmd_aggl \
 template::list::create \
     -name d_gen_aggl \
     -multirow d_gen_aggl \
-    -no_data "No Aggregation Level Available" \
+    -no_data "[_ lorsm.lt_No_Aggregation_Level__1]" \
     -html { align right style "width: 100%;" } \
     -elements {
         agg_level_s {
-            label "Source"
+            label "[_ lorsm.Source_1]" 
         }
         agg_level_v {
-            label "Value"
+            label "[_ lorsm.Value]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "general_aggl" {ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record] "}
             html { align center }
         }
     }

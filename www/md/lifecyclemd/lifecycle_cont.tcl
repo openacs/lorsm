@@ -20,11 +20,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_lf_cont_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] "Life Cycle MD"] "Edit Contributor"]
-    set title "Edit Lifecycle MD Contributor"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] " [_ lorsm.Life_Cycle_MD]"] "[_ lorsm.Edit_Contributor]"]
+    set title "[_ lorsm.lt_Edit_Lifecycle_MD_Con]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] "Life Cycle MD"] "Add Contributor"]
-    set title "Add Lifecycle MD Contributor"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] "[_ lorsm.Life_Cycle_MD]"] "[_ lorsm.Add_Contributor]"]
+    set title "[_ lorsm.lt_Add_Lifecycle_MD_Cont]"
 }
 
 # Form
@@ -37,39 +37,39 @@ ad_form -name lifecyclemd_cont \
     ims_md_lf_cont_id:key(ims_md_life_cycle_contrib_seq)
 
     {role_s:text,nospell
-	{section "Add/Edit Lifecycle MD Contributor"}
+	{section "[_ lorsm.lt_AddEdit_Lifecycle_MD_]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {role_v:text,nospell
         {html {size 10}}
-	{help_text "Type of contribution"}
-        {label "Role:"}
+	{help_text "[_ lorsm.Type_of_contribution]"}
+        {label "[_ lorsm.Role_1]"}
     }
     {entity:text(textarea),nospell
         {html {rows 5 cols 50}}
-	{help_text "Entity or entities involved"}
-        {label "Entity:"}
+	{help_text "[_ lorsm.lt_Entity_or_entities_in]"}
+        {label "[_ lorsm.Entity]"}
     }
 
     {cont_date:text,nospell
         {html {size 10}}
-	{help_text "Date of contribution"}
-        {label "Date:"}
+	{help_text "[_ lorsm.Date_of_contribution]"}
+        {label "[_ lorsm.Date]"}
     }
 
     {cont_date_l:text,nospell,optional
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English (Required if entering Description)"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi_3]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {cont_date_s:text(textarea),nospell,optional
         {html {rows 2 cols 50}}
-	{help_text "Describes contribution"}
-        {label "Description:"}
+	{help_text "[_ lorsm.lt_Describes_contributio]"}
+        {label "[_ lorsm.Description]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -123,25 +123,25 @@ ad_form -name lifecyclemd_cont \
 template::list::create \
     -name d_lf_cont \
     -multirow d_lf_cont \
-    -no_data "No Contributors Available" \
+    -no_data "[_ lorsm.lt_No_Contributors_Avail]" \
     -html { align right style "width: 100%;" } \
     -elements {
         role {
-            label "Role"
+            label "[_ lorsm.Role]"
         }
         entity {
-            label "Entity"
+            label "[_ lorsm.Entity_1]"
         }
 	cont_date {
-	    label "Contribution Date"
+	    label "[_ lorsm.Contribution_Date]"
 	}
 	cont_date_ls {
-	    label "Description"
+	    label "[_ lorsm.Description_1]"
 	}
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "lifecycle_cont" {ims_md_lf_cont_id ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record] "}
             html { align center }
         }
     }

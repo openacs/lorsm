@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] "Life Cycle MD"] "Edit Status"]
-set title "Edit Lifecycle MD Status"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] "[_ lorsm.Life_Cycle_MD]"] "[_ lorsm.Edit_Status]"]
+set title "[_ lorsm.lt_Edit_Lifecycle_MD_Sta]"
 
 # Form
 
@@ -28,16 +28,16 @@ ad_form -name lifecyclemd_stat \
     -form {
 
     {status_v:text,nospell
-	{section "Add/Edit Lifecycle MD Version"}
+	{section "[_ lorsm.lt_AddEdit_Lifecycle_MD__1]"}
         {html {size 10}}
-	{help_text "Learning object's editorial condition"}
-        {label "Status:"}
+	{help_text "[_ lorsm.lt_Learning_objects_edit]"}
+        {label "[_ lorsm.Status]"}
     }
     
     {status_s:text,nospell,optional
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}}
@@ -70,14 +70,14 @@ ad_form -name lifecyclemd_stat \
 template::list::create \
     -name d_lf_stat \
     -multirow d_lf_stat \
-    -no_data "No Status Available" \
+    -no_data "[_ lorsm.No_Status_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         status_s {
-            label "Source"
+            label "[_ lorsm.Source_1]"
         }
         status_v {
-            label "Value"
+            label "[_ lorsm.Value]" 
         }
     }
 

@@ -29,28 +29,28 @@ dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $c
 # Checks whether the user has appropiate permissions otherwise we kick
 # him out
 if {!$admin_p} {
-        ad_returnredirect "not-allowed"
+        ad_returnredirect "[_ lorsm.not-allowed]"
         return -code error
 }
 
 
-set title "Set Course Track Options"
-set context [list "Set Course Options"]
+set title "[_ lorsm.lt_Set_Course_Track_Opti]"
+set context [list "[_ lorsm.Set_Course_Options]"]
 
 ad_form -name tracker \
     -export {package_id} \
     -form {
 	{man_id:key}
 	{project:text(inform)
-	    {label "Course Name:"}
+	    {label "[_ lorsm.Course_Name]"}
 	    {value {[lorsm::get_course_name -manifest_id $man_id]}}
 	}
 	{istrackable:text(inform)
-	    {label "Current Status:"}
+	    {label "[_ lorsm.Current_Status]"}
 	}
 	{enable:text(radio)
 	    {label Status?}
-	    {options {{"Trackable?" t} {"No, Thanks" f}}}
+	    {options {{"[_ lorsm.Trackable_1]" t} {"[_ lorsm.No_Thanks]" f}}}
 	}
     } -select_query {
         select 

@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Add/Edit Difficulty"]
-set title "Add/Edit Educational MD Difficulty"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.AddEdit_Difficulty]"]
+set title "[_ lorsm.lt_AddEdit_Educational_M_13]"
 
 # Form
 
@@ -28,16 +28,16 @@ ad_form -name educationalmd_dif \
     -form {
 
     {difficulty_s:text,nospell
-	{section "Add/Edit Educational MD Difficulty"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_13]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {difficulty_v:text,nospell
         {html {size 10}}
-	{help_text "Level of difficulty in working through the learning object"}
-        {label "Difficulty:"}
+	{help_text "[_ lorsm.lt_Level_of_difficulty_i]"}
+        {label "[_ lorsm.Difficulty]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}}
@@ -69,11 +69,11 @@ ad_form -name educationalmd_dif \
 template::list::create \
     -name d_ed_dif \
     -multirow d_ed_dif \
-    -no_data "No Difficulty Type Available" \
+    -no_data "[_ lorsm.lt_No_Difficulty_Type_Av]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	diff {
-            label "Difficulty"
+            label "[_ lorsm.Difficulty_1]"
         }
     }
 

@@ -22,7 +22,7 @@ ad_page_contract {
 } -validate {
     non_empty -requires {upload_file.tmpfile:notnull} {
         if {![empty_string_p $upload_file] && (![file exists ${upload_file.tmpfile}] || [file size ${upload_file.tmpfile}] < 4)} {
-            ad_complain "The upload failed or the file was empty"
+            ad_complain "[_ lorsm.lt_The_upload_failed_or_]"
         }
     }
 }
@@ -35,7 +35,7 @@ dotlrn::require_user_admin_community -user_id $user_id -community_id [dotlrn_com
 # unzips the file
 if { ![empty_string_p $upload_file] &&
      [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
-    ad_return_complaint 1 "The uploaded file doesn't seem to be an IMS Content Package compliant file: Unable to expand your archive file"
+    ad_return_complaint 1 "[_ lorsm.lt_The_uploaded_file_doe]"
     ad_script_abort
 }
 
@@ -57,7 +57,7 @@ ad_require_permission $folder_id admin
 # unzips the file
 if { ![empty_string_p $upload_file] && 
      [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
-    ad_return_complaint 1 "The uploaded file doesn't seem to be an IMS Content Package compliant file: Unable to expand your archive file"
+    ad_return_complaint 1 "[_ lorsm.lt_The_uploaded_file_doe]"
     ad_script_abort
 } 
 
@@ -69,7 +69,7 @@ set manifest [lors::imscp::findmanifest $tmp_dir $file]
 # see if the file actually is where it suppose to be. Othewise abort
 if {$manifest == 0} {
         lors::imscp::deltmpdir $tmp_dir
-        ad_return_complaint 1 "There is no $file with description and structure of the course"
+        ad_return_complaint 1 "[_ lorsm.lt_There_is_no_file_with_1]"
 }
 
 
@@ -105,7 +105,7 @@ if {[file exists $fs_dir]} {
     template::list::create \
         -name d_info \
         -multirow d_info \
-        -no_data "No Information" \
+        -no_data "[_ lorsm.No_Information]" \
         -elements {
             col1 {
                 label ""
@@ -123,22 +123,22 @@ if {[file exists $fs_dir]} {
     template::list::create \
         -name d_IMS_package_info \
         -multirow d_IMS_package_info \
-        -no_data "No IMS Package structure information available" \
+        -no_data "[_ lorsm.lt_No_IMS_Package_struct]" \
         -elements {
             organizations {
-                label "Organizations"
+                label "[_ lorsm.Organizations]"
                 html {valign top align center}
             }
             items {
-                label "Items"
+                label "[_ lorsm.Items]"
                 html {valign top align center}
             }
             resources {
-                label "Resources"
+                label "[_ lorsm.Resources]"
                 html {valign top align center}
             }
             files {
-                label "Files"
+                label "[_ lorsm.Files]"
                 html {valign top align center}
             }
         }
@@ -148,22 +148,22 @@ if {[file exists $fs_dir]} {
     template::list::create \
         -name d_SCORM_package_info \
         -multirow d_SCORM_package_info \
-        -no_data "No Items" \
+        -no_data "[_ lorsm.No_Items]" \
         -elements {
             scos {
-                label "SCOs"
+                label "[_ lorsm.SCOs]"
                 html {valign top}
             }
             assets {
-                label "Assets"
+                label "[_ lorsm.Assets]"
                 html {valign top}
             }
             sharableresources {
-                label "Sharable Resources"
+                label "[_ lorsm.Sharable_Resources]"
                 html {valign top}
             }
             files {
-                label "files"
+                label "[_ lorsm.files]"
                 html {valign top}
             }
         }
@@ -198,7 +198,7 @@ if {[file exists $fs_dir]} {
             set manifest_title_lang [lindex [lindex [lors::imsmd::mdGeneral -element title -node $lom -prefix $prefix] 0] 0]
             set manifest_title [lindex [lindex [lors::imsmd::mdGeneral -element title -node $lom -prefix $prefix] 0] 1]
             # set context
-            set context "Importing: $manifest_title"
+            set context "[_ lorsm.lt_Importing_manifest_ti]"
 
             ## Gets manifest description
             
@@ -229,12 +229,12 @@ if {[file exists $fs_dir]} {
 	    # Didn't find LOM although it did find the Metadata schema and
 	    # version 
 	    regexp {([^/\\]+)$} $tmp_dir match manifest_title
-	    set context "Importing: No Metadata Available"
+	    set context "[_ lorsm.lt_Importing_No_Metadata]"
 	}
     } else {
 	# manifest title doesn't exist, so we create one for it. 
 	regexp {([^/\\]+)$} $tmp_dir match manifest_title
-        set context "Importing: No Metadata Available"
+        set context "[_ lorsm.lt_Importing_No_Metadata]"
     }
 
 
@@ -263,7 +263,7 @@ if {[file exists $fs_dir]} {
 
     # Complain if there's no resources
     if {[empty_string_p $resources]} {
-	ad_return_complaint 1 "The package you are trying to upload doesn't have resources. Please check the $file and try again"
+	ad_return_complaint 1 "[_ lorsm.lt_The_package_you_are_t_1]"
     ad_script_abort
     } 
 
@@ -324,39 +324,39 @@ if {[file exists $fs_dir]} {
 
 } else {
     # Error MSG here
-    ad_return_complaint 1 "There has been a problem with your uploaded file that we can't identified: temporary directory not found"
+    ad_return_complaint 1 "[_ lorsm.lt_There_has_been_a_prob]"
     ad_script_abort
 
 }
 
 template::form create course_upload -action course-add-3 \
-    -display_buttons { {"Upload Course" upload_course} }  \
+    -display_buttons { {"[_ lorsm.Upload_Course]" upload_course} }  \
     -html {enctype multipart/form-data} \
     -mode edit \
-    -cancel_url "index" 
+    -cancel_url "[_ lorsm.index]" 
 
 
 template::element create course_upload course_name  \
-  -label "Course Name:" -datatype text -widget text -help_text "This is the name the name of the course, as it will be stored in the system" \
+  -label "[_ lorsm.Course_Name]" -datatype text -widget text -help_text "[_ lorsm.lt_This_is_the_name_the_]" \
   -maxlength 200
 
 template::element create course_upload course_id  \
-  -label "course_id" -datatype integer -widget hidden 
+  -label "[_ lorsm.course_id]" -datatype integer -widget hidden 
 
 template::element create course_upload indb_p  \
-  -label "indb_p" -datatype integer -widget hidden 
+  -label "[_ lorsm.indb_p]" -datatype integer -widget hidden 
 
 template::element create course_upload tmp_dir  \
-  -label "tmp_dir" -datatype text -widget hidden -optional
+  -label "[_ lorsm.tmp_dir]" -datatype text -widget hidden -optional
 
 template::element create course_upload folder_id  \
-  -label "folder_id" -datatype integer -widget hidden
+  -label "[_ lorsm.folder_id]" -datatype integer -widget hidden
 
 template::element create course_upload isSCORM  \
-  -label "isSCORM" -datatype integer -widget hidden -optional
+  -label "[_ lorsm.isSCORM]" -datatype integer -widget hidden -optional
 
 template::element create course_upload fs_package_id  \
-  -label "fs_package_id" -datatype integer -widget hidden 
+  -label "[_ lorsm.fs_package_id]" -datatype integer -widget hidden 
 
 template::element set_properties course_upload course_name -value $manifest_title
 

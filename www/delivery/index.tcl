@@ -35,10 +35,10 @@ if {[db_0or1row manifest "
     
     # Course Name
     if {[empty_string_p $course_name]} {
-	set course_name "No Course Name"
+	set course_name "[_ lorsm.No_Course_Name]"
     } 
 } else {
-    set course_name "No Course Name"
+    set course_name "[_ lorsm.No_Course_Name]"
 }
 
 # Student tracking

@@ -11,15 +11,15 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Classification MD"]
-set title "Classification MD"
+set context [list [list [export_vars -base "." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  "[_ lorsm.Classification_MD]"]
+set title "[_ lorsm.Classification_MD]"
 
 # Classification
 template::list::create \
     -name d_cl_class \
     -multirow d_cl_class \
-    -no_data "No Classification Available" \
-    -actions [list "Add Classification" [export_vars -base classificationmd/classification_add {ims_md_id}] "Add another Classification MD Entry"] \
+    -no_data "[_ lorsm.lt_No_Classification_Ava]" \
+    -actions [list "[_ lorsm.Add_Classification]" [export_vars -base classificationmd/classification_add {ims_md_id}] "[_ lorsm.lt_Add_another_Classific_2]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         purpose_s {
@@ -31,7 +31,7 @@ template::list::create \
 	export {
             display_eval {\[View\]}
             link_url_eval { [export_vars -base "classificationmd/classification" {ims_md_cl_id ims_md_id}] }
-            link_html {title "View associated Classification MD"}
+            link_html {title "[_ lorsm.lt_View_associated_Class]"}
             html { align center }
         }
     }

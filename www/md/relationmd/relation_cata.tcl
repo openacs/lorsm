@@ -21,11 +21,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_re_re_ca_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../relationmd" ims_md_id] "Relation MD"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "Relation Entry"] "Edit Catalog-Entry"]
-    set title "Edit Relation MD Resource Catalog-Entry"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../relationmd" ims_md_id] "[_ lorsm.Relation_MD]"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "[_ lorsm.Relation_Entry]"] "[_ lorsm.Edit_Catalog-Entry]"]
+    set title "[_ lorsm.lt_Edit_Relation_MD_Reso]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../relationmd" ims_md_id] "Relation MD"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "Relation Entry"] "Add Catalog-Entry"]
-    set title "Add Relation MD Resource Catalog-Entry"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../relationmd" ims_md_id] "[_ lorsm.Relation_MD]"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "[_ lorsm.Relation_Entry]"] "[_ lorsm.Add_Catalog-Entry]"]
+    set title "[_ lorsm.lt_Add_Relation_MD_Resou]"
 }
 
 # Form
@@ -38,22 +38,22 @@ ad_form -name relationmd_cata \
     ims_md_re_re_ca_id:key(ims_md_relation_resource_catalog_seq)
 
     {catalog:text,nospell
-	{section "Add/Edit Relation MD Resource Catalog-Entry"}	
+	{section "[_ lorsm.lt_AddEdit_Relation_MD_R]"}	
 	{html {size 50}}
-	{help_text "Name of the catalog"}
-	{label "Catalog:"}
+	{help_text "[_ lorsm.Name_of_the_catalog]"}
+	{label "[_ lorsm.Catalog]"}
     }
 
     {entry_l:text,nospell,optional	
 	{html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-	{label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+	{label "[_ lorsm.Language]"}
     }
 
     {entry_s:text,nospell
         {html {size 50}}
-	{help_text "Number in the Catalog i.e.: '1.3.1'"}
-        {label "Entry:"}
+	{help_text "[_ lorsm.lt_Number_in_the_Catalog]"}
+        {label "[_ lorsm.Entry]"}
     }
     
     {ims_md_re_re_id:text(hidden) {value $ims_md_re_re_id}
@@ -90,7 +90,7 @@ ad_form -name relationmd_cata \
 template::list::create \
     -name d_re_cata \
     -multirow d_re_cata \
-    -no_data "No Catalog-Entries Available" \
+    -no_data "[_ lorsm.lt_No_Catalog-Entries_Av]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	catalog {
@@ -105,7 +105,7 @@ template::list::create \
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "relation_cata" {ims_md_re_re_ca_id ims_md_re_re_id ims_md_re_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

@@ -10,15 +10,15 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Technical MD"]
-set title "Technical MD"
+set context [list [list [export_vars -base "." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  "[_ lorsm.Technical_MD]"]
+set title "[_ lorsm.Technical_MD]"
 
 # Technical Format
 template::list::create \
     -name d_te_form \
     -multirow d_te_form \
-    -no_data "No Format Available" \
-    -actions [list "Add Format" [export_vars -base technicalmd/technical_form {ims_md_id}] "Add another Format"] \
+    -no_data "[_ lorsm.No_Format_Available]" \
+    -actions [list "[_ lorsm.Add_Format]" [export_vars -base technicalmd/technical_form {ims_md_id}] "[_ lorsm.Add_another_Format]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         format {
@@ -39,8 +39,8 @@ db_multirow d_te_form select_te_form {
 template::list::create \
     -name d_te_size \
     -multirow d_te_size \
-    -no_data "No Size Available" \
-    -actions [list "Add Size" [export_vars -base technicalmd/technical_size {ims_md_id}] "Add another Size"] \
+    -no_data "[_ lorsm.No_Size_Available]" \
+    -actions [list "[_ lorsm.Add_Size]" [export_vars -base technicalmd/technical_size {ims_md_id}] "[_ lorsm.Add_another_Size]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         t_size_bytes {
@@ -87,21 +87,21 @@ db_multirow d_te_loca select_te_loca {
 template::list::create \
     -name d_te_req \
     -multirow d_te_req \
-    -no_data "No Requirements Available" \
-    -actions [list "Add Requirements" [export_vars -base technicalmd/technical_req {ims_md_id}] "Add another Requirement"] \
+    -no_data "[_ lorsm.lt_No_Requirements_Avail]" \
+    -actions [list "[_ lorsm.Add_Requirements]" [export_vars -base technicalmd/technical_req {ims_md_id}] "[_ lorsm.lt_Add_another_Requireme]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         type {
-            label "Type"
+            label "[_ lorsm.Type]"
         }
         name {
-            label "Name"
+            label "[_ lorsm.Name]"
         }
         min_version {
-            label "Min Version"
+            label "[_ lorsm.Min_Version]"
         }
         max_version {
-            label "Max Version"
+            label "[_ lorsm.Max_Version]"
         }
     }
 
@@ -121,8 +121,8 @@ db_multirow d_te_req select_te_req {
 template::list::create \
     -name d_te_inst \
     -multirow d_te_inst \
-    -no_data "No Installation Remarks Available" \
-    -actions [list "Add Installation Remark" [export_vars -base technicalmd/technical_inst {ims_md_id}] "Add another Installation remark"] \
+    -no_data "[_ lorsm.lt_No_Installation_Remar]" \
+    -actions [list "[_ lorsm.lt_Add_Installation_Rema]" [export_vars -base technicalmd/technical_inst {ims_md_id}] "[_ lorsm.lt_Add_another_Installat]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         instl_rmrks {
@@ -143,8 +143,8 @@ db_multirow d_te_inst select_te_inst {
 template::list::create \
     -name d_te_otr \
     -multirow d_te_otr \
-    -no_data "No Other Platform Requirements Available" \
-    -actions [list "Add Other Platform Requirements" [export_vars -base technicalmd/technical_otr {ims_md_id}] "Add another Other Platform Requiements"] \
+    -no_data "[_ lorsm.lt_No_Other_Platform_Req]" \
+    -actions [list "[_ lorsm.lt_Add_Other_Platform_Re]" [export_vars -base technicalmd/technical_otr {ims_md_id}] "[_ lorsm.lt_Add_another_Other_Pla]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         otr_plt {
@@ -165,8 +165,8 @@ db_multirow d_te_otr select_te_otr {
 template::list::create \
     -name d_te_dur \
     -multirow d_te_dur \
-    -no_data "No Duration Available" \
-    -actions [list "Add Duration" [export_vars -base technicalmd/technical_dur {ims_md_id}] "Add another Duration"] \
+    -no_data "[_ lorsm.lt_No_Duration_Available]" \
+    -actions [list "[_ lorsm.Add_Duration]" [export_vars -base technicalmd/technical_dur {ims_md_id}] "[_ lorsm.Add_another_Duration]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         duration_sec {

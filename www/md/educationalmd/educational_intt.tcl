@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Add/Edit Interactivity Type"]
-set title "Add/Edit Educational MD Interactivity Type"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_AddEdit_Interactivity]"]
+set title "[_ lorsm.lt_AddEdit_Educational_M_16]"
 
 # Form
 
@@ -28,16 +28,16 @@ ad_form -name educationalmd_intt \
     -form {
 
     {int_type_s:text,nospell
-	{section "Add/Edit Educational MD Interactivity Type"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_16]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {int_type_v:text,nospell
         {html {size 10}}
-	{help_text "Type of interactivity supported by the resource"}
-        {label "Interactivity Type:"}
+	{help_text "[_ lorsm.lt_Type_of_interactivity]"}
+        {label "[_ lorsm.Interactivity_Type]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -68,11 +68,11 @@ ad_form -name educationalmd_intt \
 template::list::create \
     -name d_ed_intt \
     -multirow d_ed_intt \
-    -no_data "No Interactivity Type Available" \
+    -no_data "[_ lorsm.lt_No_Interactivity_Type]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	intt {
-            label "Interactivity Type"
+            label "[_ lorsm.Interactivity_Type_1]"
         }
     }
 

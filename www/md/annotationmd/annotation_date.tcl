@@ -18,8 +18,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"] [list [export_vars -base "../annotationmd" ims_md_id] "Annotation MD"] [list [export_vars -base "annotation" {ims_md_id ims_md_an_id}] "Annotation Entry"] "Add/Edit Date"]
-set title "Edit Annotation MD Date"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"] [list [export_vars -base "../annotationmd" ims_md_id] "[_ lorsm.Annotation_MD]"] [list [export_vars -base "annotation" {ims_md_id ims_md_an_id}] "[_ lorsm.Annotation_Entry]"] "[_ lorsm.AddEdit_Date]"]
+set title "[_ lorsm.lt_Edit_Annotation_MD_Da]"
 
 
 # Form
@@ -32,22 +32,22 @@ ad_form -name annotationmd_date \
     ims_md_an_id:key(ims_md_annotation_seq)
 
     {date:text,nospell
-	{section "Add/Edit Annotation MD Date"}	
+	{section "[_ lorsm.lt_AddEdit_Annotation_MD_2]"}	
 	{html {size 10}}
-	{help_text "Date of contribution"}
-	{label "Date:"}
+	{help_text "[_ lorsm.Date_of_contribution]"}
+	{label "[_ lorsm.Date]"}
     }
 
     {date_l:text,nospell,optional	
 	{html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English (Required if entering Description)"}
-	{label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi_3]"}
+	{label "[_ lorsm.Language]"}
     }
     
     {date_s:text(textarea),nospell,optional
         {html {rows 2 cols 50}}
-	{help_text "Date and Time description"}
-        {label "Description:"}
+	{help_text "[_ lorsm.lt_Date_and_Time_descrip]"}
+        {label "[_ lorsm.Description]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -72,14 +72,14 @@ ad_form -name annotationmd_date \
 template::list::create \
     -name d_an_date \
     -multirow d_an_date \
-    -no_data "No Date Available" \
+    -no_data "[_ lorsm.No_Date_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	date {
-            label "Date"
+            label "[_ lorsm.Date_1]"
         }
 	datels {
-	    label "Description"
+	    label "[_ lorsm.Description_1]"
 	}
     }
 

@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_ta_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Edit Typical Age Range"]
-    set title "Edit Educational MD Typical Age Range"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_Edit_Typical_Age_Rang]"]
+    set title "[_ lorsm.lt_Edit_Educational_MD_T]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Add Typical Age Rang"]
-    set title "Add Educational MD Typical Age Range"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.Add_Typical_Age_Rang]"]
+    set title "[_ lorsm.lt_Add_Educational_MD_Ty]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name educationalmd_tar \
     ims_md_ed_ta_id:key(ims_md_educational_tar_seq)
 
     {tar_l:text,nospell
-	{section "Add/Edit Educational MD Typical Age Range"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_20]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {tar_s:text,nospell
         {html {size 20}}
-	{help_text "Age of the typical intended user"}
-        {label "Typical Age Range:"}
+	{help_text "[_ lorsm.lt_Age_of_the_typical_in]"}
+        {label "[_ lorsm.Typical_Age_Range]" }
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -72,16 +72,16 @@ ad_form -name educationalmd_tar \
 template::list::create \
     -name d_ed_tar \
     -multirow d_ed_tar \
-    -no_data "No Typical Age Range Available" \
+    -no_data "[_ lorsm.lt_No_Typical_Age_Range_]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	tar {
-            label "Typical Age Range"
+            label "[_ lorsm.Typical_Age_Range_1]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "educational_tar" {ims_md_ed_ta_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

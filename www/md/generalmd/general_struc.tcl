@@ -18,8 +18,8 @@ ad_page_contract {
 
 # set context & title
 
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\\\\s_md_id] "General MD"] "Edit Structure"]
-set title "Edit General MD Structure"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\\\\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Edit_Structure]"]
+set title "[_ lorsm.lt_Edit_General_MD_Struc]"
 
 # Form
 
@@ -29,16 +29,16 @@ ad_form -name generalmd_struc \
     -form {
 
     {structure_v:text
-	{section "Add/Edit General MD Structure"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_St]"}
         {html {size 10}}
-	{help_text "Organizational structure of the resource"}
-        {label "Structure:"}
+	{help_text "[_ lorsm.lt_Organizational_struct]"}
+        {label "[_ lorsm.Structure]"}
     }
     
     {structure_s:text,nospell,optional
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -70,15 +70,15 @@ ad_form -name generalmd_struc \
 template::list::create \
     -name d_gen_struc \
     -multirow d_gen_struc \
-    -no_data "No Structure Available" \
+    -no_data "[_ lorsm.lt_No_Structure_Availabl]" \
     -html { align right style "width: 100%;" } \
     -elements {
         structure_s {
-            label "Source"
+            label "[_ lorsm.Source_1]"
 	    html {align center}
         }
         structure_v {
-            label "Value"
+            label "[_ lorsm.Value]"
 	    html {align center}
         }
     }

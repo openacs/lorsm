@@ -18,12 +18,12 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_ti_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" ims_md_id] "General MD"] "Edit Titles"]
-    set title "Edit General MD Title"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" ims_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Edit_Titles]"]
+    set title "[_ lorsm.lt_Edit_General_MD_Title]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" ims_md_id] "General MD"] "Add Titles"]
-#    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  "General MD"]
-    set title "Add General MD Title"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" ims_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Add_Titles]"]
+#    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  "[_ lorsm.General_MD]"]
+    set title "[_ lorsm.Add_General_MD_Title]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name generalmd_title \
     ims_md_ge_ti_id:key(ims_md_general_title_seq)
 
     {title_l:text,nospell,optional
-	{section "Add/Edit General MD Title"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_Ti]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {title_s:text,nospell
         {html {size 50}}
-	{help_text "Learning object's name"}
-        {label "Title:"}
+	{help_text "[_ lorsm.lt_Learning_objects_name]"}
+        {label "[_ lorsm.Title]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -73,14 +73,14 @@ ad_form -name generalmd_title \
 template::list::create \
     -name d_gen_titles \
     -multirow d_gen_titles \
-    -no_data "No Titles Available" \
+    -no_data "[_ lorsm.No_Titles_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         title_l {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
         title_s {
-            label "Title(s)"
+            label "[_ lorsm.Titles_1]"
         }
         export {
             display_eval {\[Edit\]}

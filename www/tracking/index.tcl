@@ -27,8 +27,8 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 # Permissions
 dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $community_id
 
-set title "Student Tracking"
-set context {Tracking}
+set title "[_ lorsm.Student_Tracking]"
+set context {[_ lorsm.Tracking_1]}
 
 if {![exists_and_not_null group]} {
     set group 1
@@ -39,29 +39,29 @@ if {$group == 1} {
     template::list::create \
 	-name student_track \
 	-multirow student_track \
-	-actions [list "Summarize" [export_vars -base ".?group=0" {man_id item_id}] "Summarize all students"] \
+	-actions [list "[_ lorsm.Summarize]" [export_vars -base ".?group=0" {man_id item_id}] "[_ lorsm.lt_Summarize_all_student]"] \
 	-key man_id \
 	-html {width 50%} \
-	-no_data "No Students" \
+	-no_data "[_ lorsm.No_Students]" \
 	-elements {
 	    student_name {
-		label "Student Name"
+		label "[_ lorsm.Student_Name]"
 		display_eval {[person::name -person_id $student_name]}
 		link_url_eval {[acs_community_member_url -user_id $student_name]}
-		link_html {title "Student's profile"}
+		link_html {title "[_ lorsm.Students_profile]"}
 	    }
 	    start_time {
-		label "Start Course"
+		label "[_ lorsm.Start_Course]"
 		display_eval {[lc_time_fmt $start_time "%x %T"]}
 		html { align center }
 	    }
 	    end_time {
-		label "Exit Course"
+		label "[_ lorsm.Exit_Course]"
 		display_eval {[lc_time_fmt $end_time "%x %T"]}
 		html { align center }
 	    }
 	    time_spend {
-		label "Time Spent"
+		label "[_ lorsm.Time_Spent]"
 		display_eval {[lorsm::dates_calc -start_date [string range $start_time 0 18] -end_date [string range $end_time 0 18]]}
 		html { align center }
 	    }
@@ -91,16 +91,16 @@ if {$group == 1} {
         -multirow object_views \
         -elements {
             title {
-                label "Title"
+                label "[_ lorsm.Title_1]"
             }
             viewer_name {
-                label "Viewed By"
+                label "[_ lorsm.Viewed_By]"
             }
             views {
-                label "Total Views"
+                label "[_ lorsm.Total_Views]"
             }
             last_viewed {
-                label "Last Viewed On"
+                label "[_ lorsm.Last_Viewed_On]"
 	        display_eval {[lc_time_fmt $last_viewed "%x %X"]}
             }
         }
@@ -135,9 +135,9 @@ if {$group == 1} {
 	-name student_track \
 	-multirow student_track \
 	-key man_id \
-	-actions [list "Expand" [export_vars -base ".?group=1" {man_id item_id}] "Expand all students"] \
+	-actions [list "[_ lorsm.Expand]" [export_vars -base ".?group=1" {man_id item_id}] "Expand all students"] \
 	-html {width 50%} \
-	-no_data "No Students" \
+	-no_data "[_ lorsm.No_Students]" \
 	-elements {
 	    student_name {
 		label "Student Name"
@@ -146,11 +146,11 @@ if {$group == 1} {
 		link_html {title "Student's profile"}
 	    }
 	    counter {
-		label "Times Viewed"
+		label "[_ lorsm.Times_Viewed]"
 		html { align center }
 	    }
 	    time_spent {
-		label "Time Spent"
+		label "[_ lorsm.Time_Spent]"
 		html { align center }
 	    }
 	}
@@ -179,16 +179,16 @@ if {$group == 1} {
         -multirow object_views \
         -elements {
             title {
-                label "Title"
+                label "[_ lorsm.Title_1]"
             }
             views {
-                label "Total Views"
+                label "[_ lorsm.Total_Views]"
             }
             unique_views {
-                label "Unique Views"
+                label "[_ lorsm.Unique_Views]"
             }
             last_viewed {
-                label "Last Viewed On"
+                label "[_ lorsm.Last_Viewed_On]"
             }
         }
     

@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" ims_md_id] "Educational MD"] "Add/Edit Typical Learning Time"]
-set title "Edit Educational MD Typical Learning Time"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" ims_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_AddEdit_Typical_Learn]"]
+set title "[_ lorsm.lt_Edit_Educational_MD_T_1]"
 
 # Form
 
@@ -28,22 +28,22 @@ ad_form -name educationalmd_tlt \
     -form {
 
     {type_lrn_time_l:text,nospell,optional
-	{section "Add/Edit Educational MD Typical Learning Time"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_21]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {type_lrn_time_s:text(textarea),nospell,optional
         {html {rows 2 cols 50}}
-	{help_text "Brief Description (Required if entering Language)"}
-        {label "Description:"}
+	{help_text "[_ lorsm.lt_Brief_Description_Req]"}
+        {label "[_ lorsm.Description]"}
     }
 
     {type_lrn_time:text,nospell
         {html {size 20}}
-	{help_text "Amount of time it takes to work with the resource"}
-        {label "Typical Learning Time:"}
+	{help_text "[_ lorsm.lt_Amount_of_time_it_tak]"}
+        {label "[_ lorsm.lt_Typical_Learning_Time]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -76,14 +76,14 @@ ad_form -name educationalmd_tlt \
 template::list::create \
     -name d_ed_tlt \
     -multirow d_ed_tlt \
-    -no_data "No Typical Learning Time Available" \
+    -no_data "[_ lorsm.lt_No_Typical_Learning_T]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	tlt {
-            label "Typical Learning Time"
+            label "[_ lorsm.lt_Typical_Learning_Time_1]"
         }
 	tlt_ls {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
     }
 

@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_te_lo_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \im\\s_md_id] "Technical MD"] "Edit Location"]
-    set title "Edit Technical MD Location"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \im\\s_md_id] "[_ lorsm.Technical_MD]"] " [_ lorsm.Edit_Location]"]
+    set title "[_ lorsm.lt_Edit_Technical_MD_Loc]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \im\\s_md_id] "Technical MD"] "Add Location"]
-    set title "Add Technical MD Location"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \im\\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Add_Location]"]
+    set title "[_ lorsm.lt_Add_Technical_MD_Loca]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name technicalmd_loca \
     ims_md_te_lo_id:key(ims_md_technical_location_seq)
 
     {type:text,nospell,optional
-	{section "Add/Edit Technical MD Location"}
+	{section "[_ lorsm.lt_AddEdit_Technical_MD__3]"}
         {html {size 10}}
-	{help_text "Reference to location. Only TEXT or URI is permitted"}
-        {label "Type:"}
+	{help_text "[_ lorsm.lt_Reference_to_location]"}
+        {label "[_ lorsm.Type_1]"}
     }
 
     {location:text,nospell
         {html {size 50}}
-	{help_text "Location of the resource"}
-        {label "Location:"}
+	{help_text "[_ lorsm.lt_Location_of_the_resou]"}
+        {label "[_ lorsm.Location_1]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -76,19 +76,19 @@ ad_form -name technicalmd_loca \
 template::list::create \
     -name d_te_loca \
     -multirow d_te_loca \
-    -no_data "No Location Available" \
+    -no_data "[_ lorsm.lt_No_Location_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	type {
-	    label "Type"
+	    label "[_ lorsm.Type]"
 	}
         location {
-            label "Location"
+            label "[_ lorsm.Location]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "technical_loca" {ims_md_te_lo_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../technicalmd" \\\i\m\\s_md_id] "Technical MD"] "Add/Edit Other Platform Requirements"]
-set title "Add/Edit Technical MD Other Platform Requirements"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" \\\i\m\\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.lt_AddEdit_Other_Platfor]"]
+set title "[_ lorsm.lt_AddEdit_Technical_MD__4]"
 
 # Form
 
@@ -28,16 +28,16 @@ ad_form -name technicalmd_otr \
     -form {
 
     {otr_plt_l:text,nospell
-	{section "Add/Edit Technical MD Other Platform Requirements"}
+	{section "[_ lorsm.lt_AddEdit_Technical_MD__4]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {otr_plt_s:text(textarea),nospell
         {html {rows 5 cols 60}}
-	{help_text "Information on other hardware and software requirements"}
-        {label "Other Platform Requirements:"}
+	{help_text "[_ lorsm.lt_Information_on_other_]"}
+        {label "[_ lorsm.lt_Other_Platform_Requir]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -69,11 +69,11 @@ ad_form -name technicalmd_otr \
 template::list::create \
     -name d_te_otr \
     -multirow d_te_otr \
-    -no_data "No Other Platform Requirements Available" \
+    -no_data "[_ lorsm.lt_No_Other_Platform_Req]" \
     -html { align right style "width: 100%;" } \
     -elements {
         otr_plt {
-            label "Other Platform Req."
+            label "[_ lorsm.Other_Platform_Req]"
         }
     }
 

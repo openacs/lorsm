@@ -20,11 +20,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_an_de_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"] [list [export_vars -base "../annotationmd" ims_md_id] "Annotation MD"] [list [export_vars -base "annotation" {ims_md_id ims_md_an_id}] "Annotation Entry"] "Edit Description"]
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"] [list [export_vars -base "../annotationmd" ims_md_id] "[_ lorsm.Annotation_MD]"] [list [export_vars -base "annotation" {ims_md_id ims_md_an_id}] "[_ lorsm.Annotation_Entry]"] "[_ lorsm.Edit_Description]"]
     set title "Edit Annotation MD Description"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"] [list [export_vars -base "../annotationmd" ims_md_id] "Annotation MD"] [list [export_vars -base "annotation" {ims_md_id ims_md_an_id}] "Annotation Entry"] "Add Description"]
-    set title "Add Annotation MD Description"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"] [list [export_vars -base "../annotationmd" ims_md_id] "[_ lorsm.Annotation_MD]"] [list [export_vars -base "annotation" {ims_md_id ims_md_an_id}] "[_ lorsm.Annotation_Entry]"] "[_ lorsm.Add_Description]"]
+    set title "[_ lorsm.lt_Add_Annotation_MD_Des]"
 }
 
 # Form
@@ -37,16 +37,16 @@ ad_form -name annotationmd_desc \
     ims_md_an_de_id:key(ims_md_annotation_descrip_seq)
 
     {descrip_l:text,nospell
-	{section "Add/Edit Annotation MD Description"}	
+	{section "[_ lorsm.lt_AddEdit_Annotation_MD]"}	
 	{html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-	{label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+	{label "[_ lorsm.Language]"}
     }
 
     {descrip_s:text(textarea),nospell	
 	{html {rows 2 cols 50}}
-	{help_text "Content of the annotation"}
-	{label "Description:"}
+	{help_text "[_ lorsm.lt_Content_of_the_annota]"}
+	{label "[_ lorsm.Description]"}
     }
     
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -88,7 +88,7 @@ template::list::create \
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "annotation_desc" {ims_md_an_de_id ims_md_an_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

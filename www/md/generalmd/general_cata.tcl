@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_cata_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\s_md_id] "General MD"] "Edit Catalog-Entry"]
-    set title "Edit General MD Catalog-Entry"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Edit_Catalog-Entry]"]
+    set title "[_ lorsm.lt_Edit_General_MD_Catal]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\s_md_id] "General MD"] "Add Catalog-Entry"]
-    set title "Add General MD Catalog-Entry"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Add_Catalog-Entry]"]
+    set title "[_ lorsm.lt_Add_General_MD_Catalo]"
 }
 
 # Form
@@ -36,22 +36,22 @@ ad_form -name generalmd_cata \
     ims_md_ge_cata_id:key(ims_md_general_cata_seq)
 
     {catalog:text,nospell
-	{section "Add/Edit General MD Catalog-Entry"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_Ca]"}
 	{html {size 50}}
-	{help_text "Name of the catalog"}
-	{label "Catalog:"}
+	{help_text "[_ lorsm.Name_of_the_catalog]"}
+	{label "[_ lorsm.Catalog]"}
     }
 
     {entry_l:text,nospell,optional
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {entry_s:text,nospell
         {html {size 50}}
-	{help_text "Number in the Catalog i.e.: '1.3.1'"}
-        {label "Entry:"}
+	{help_text "[_ lorsm.lt_Number_in_the_Catalog]"}
+        {label "[_ lorsm.Entry]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -79,22 +79,22 @@ ad_form -name generalmd_cata \
 template::list::create \
     -name d_gen_cata \
     -multirow d_gen_cata \
-    -no_data "No Catalog Entry Available" \
+    -no_data "[_ lorsm.lt_No_Catalog_Entry_Avai]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	catalog {
-	    label "Catalog"
+	    label "[_ lorsm.Catalog_1]"
 	}
         entry_l {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
         entry_s {
-            label "Entry"
+            label "[_ lorsm.Entry_1]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "general_cata" {ims_md_ge_cata_id ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

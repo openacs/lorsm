@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../lifecyclemd" im\\\\\\s_md_id] "Life Cycle MD"] "Edit Version"]
-set title "Edit Lifecycle MD Version"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../lifecyclemd" im\\\\\\s_md_id] "[_ lorsm.Life_Cycle_MD]"] "[_ lorsm.Edit_Version]"]
+set title "[_ lorsm.lt_Edit_Lifecycle_MD_Ver]"
 
 # Form
 
@@ -29,16 +29,16 @@ ad_form -name lifecyclemd_ver \
 
 
     {version_l:text,nospell,optional
-	{section "Add/Edit Lifecycle MD Version"}
+	{section "[_ lorsm.lt_AddEdit_Lifecycle_MD__1]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {version_s:text,nospell
         {html {size 10}}
-	{help_text "Edition of the learning object i.e.: '1.0'"}
-        {label "Version:"}
+	{help_text "[_ lorsm.lt_Edition_of_the_learni]"}
+        {label "[_ lorsm.Version]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}}
@@ -73,14 +73,14 @@ ad_form -name lifecyclemd_ver \
 template::list::create \
     -name d_lf_ver \
     -multirow d_lf_ver \
-    -no_data "No Structure Available" \
+    -no_data "[_ lorsm.lt_No_Structure_Availabl]" \
     -html { align right style "width: 100%;" } \
     -elements {
         version_l {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
         version_s {
-            label "Version"
+            label "[_ lorsm.Version_1]"
         }
     }
 

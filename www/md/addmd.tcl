@@ -20,8 +20,8 @@ ad_page_contract {
 set object_type [acs_object_type $ims_md_id]
 
 # set context & title
-set context [list [list [export_vars -base "." ims_md_id]  "IMS Metadata Editor"] "Edit Metadata Schema and Schema Version"]
-set title "Add/Edit MD Schema and Version"
+set context [list [list [export_vars -base "." ims_md_id]  "[_ lorsm.IMS_Metadata_Editor]"] "[_ lorsm.lt_Edit_Metadata_Schema_]"]
+set title "[_ lorsm.lt_AddEdit_MD_Schema_and]"
 
 
 # Form
@@ -32,14 +32,14 @@ ad_form -name add_md \
 
     {schema:text,nospell
         {html {size 20}}
-	{help_text "Metadata schema. i.e.: 'IMS Content'"}
-        {label "Schema:"}
+	{help_text "[_ lorsm.lt_Metadata_schema_ie_IM]"}
+        {label "[_ lorsm.Schema]"}
     }
 
     {schemaversion:text,nospell
         {html {size 10}}
-	{help_text "Version of the Schema. i.e.: '1.2.1'"}
-        {label "Schema Version:"}
+	{help_text "[_ lorsm.lt_Version_of_the_Schema]"}
+        {label "[_ lorsm.Schema_Version]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}}
@@ -110,15 +110,15 @@ ad_form -name add_md \
 template::list::create \
     -name md_schema_info \
     -multirow md_schema_info \
-    -no_data "No Schema Available" \
+    -no_data "[_ lorsm.No_Schema_Available]" \
 	-html { align right style "width: 100%;" } \
 	-elements {
 	    schema {
-            label "Schema"
+            label "[_ lorsm.Schema_1]"
 	    html { align center }
 	    }
 	    schemaversion {
-            label "Version"
+            label "[_ lorsm.Version_1]"
 	    html { align center }
 	    }
 	}

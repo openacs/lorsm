@@ -20,9 +20,9 @@ ad_page_contract {
 
 # set context & title
 
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"] [list [export_vars -base "../classificationmd" ims_md_id] "Classification MD"] [list [export_vars -base "classification" {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] "Classification Entry"] [list [export_vars -base "classification_tpath" {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] "Taxonomic Paths"] "Add/Edit Source"]
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"] [list [export_vars -base "../classificationmd" ims_md_id] "[_ lorsm.Classification_MD]"] [list [export_vars -base "classification" {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] "[_ lorsm.Classification_Entry]"] [list [export_vars -base "classification_tpath" {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] "[_ lorsm.Taxonomic_Paths_1]"] "[_ lorsm.AddEdit_Source]"]
 
-set title "Edit Classification MD Taxonomic Path Source"
+set title "[_ lorsm.lt_Edit_Classification_M_3]"
 
 
 # Form
@@ -35,16 +35,16 @@ ad_form -name classificationmd_tsource \
     ims_md_cl_ta_id:key(ims_md_classification_taxpath_seq)
 
     {source_l:text,nospell
-	{section "Add/Edit Classification MD Taxonomic Path Source"}
+	{section "[_ lorsm.lt_AddEdit_Classificatio_9]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {source_v:text,nospell
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
     
     {ims_md_cl_id:text(hidden) {value $ims_md_cl_id}
@@ -71,16 +71,16 @@ ad_form -name classificationmd_tsource \
 template::list::create \
     -name d_cl_tsource \
     -multirow d_cl_tsource \
-    -no_data "No Taxonomic Path Source Available" \
+    -no_data "[_ lorsm.lt_No_Taxonomic_Path_Sou]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	source {
             label ""
         }
         export {
-            display_eval {\[Edit\]}
+            display_eval {\[[_ lorsm.Edit_1]\]}
             link_url_eval { [export_vars -base "classification_tsource" {ims_md_cl_ta_id ims_md_cl_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

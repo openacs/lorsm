@@ -17,11 +17,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_lr_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" \i\m\\\s_md_id] "Educational MD"] "Edit Learning Resource Type"]
-    set title "Edit Educational MD Learning Resource Type"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../educationalmd" \i\m\\\s_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_Edit_Learning_Resourc]"]
+    set title "[_ lorsm.lt_Edit_Educational_MD_L_1]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../educationalmd" \i\m\\\s_md_id] "Educational MD"] "Add Learning Resource Type"]
-    set title "Add Educational MD Learning Resource Type"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor] "]  [list [export_vars -base "../educationalmd" \i\m\\\s_md_id] "[_ lorsm.Educational_MD]"] "[_ lorsm.lt_Add_Learning_Resource]"]
+    set title "[_ lorsm.lt_Add_Educational_MD_Le]"
 }
 
 # Form
@@ -34,16 +34,16 @@ ad_form -name educationalmd_lrt \
     ims_md_ed_lr_id:key(ims_md_educational_lrt_seq)
 
     {lrt_s:text,nospell
-	{section "Add/Edit Educational MD Learning Resource Type"}
+	{section "[_ lorsm.lt_AddEdit_Educational_M_18]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {lrt_v:text,nospell
         {html {size 10}}
-	{help_text "Type of interactivity supported by the resource"}
-        {label "Learning Resource Type:"}
+	{help_text "[_ lorsm.lt_Type_of_interactivity]"}
+        {label "[_ lorsm.lt_Learning_Resource_Typ]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -70,7 +70,7 @@ ad_form -name educationalmd_lrt \
 template::list::create \
     -name d_ed_lrt \
     -multirow d_ed_lrt \
-    -no_data "No Learning Resource Type Available" \
+    -no_data "[_ lorsm.lt_No_Learning_Resource_]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	lrt {
@@ -79,7 +79,7 @@ template::list::create \
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "educational_lrt" {ims_md_ed_lr_id ims_md_id}] }
-            link_html {title "Edit Record"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_desc_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" ims_md_id] "General MD"] "Edit Description"]
-    set title "Edit General MD Description"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" ims_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Edit_Description]"]
+    set title "[_ lorsm.lt_Edit_General_MD_Descr]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" ims_md_id] "General MD"] "Add Description"]
-    set title "Add General MD Description"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" ims_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Add_Description]"]
+    set title "[_ lorsm.lt_Add_General_MD_Descri]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name generalmd_desc \
     ims_md_ge_desc_id:key(ims_md_general_desc_seq)
 
     {descrip_l:text,nospell,optional
-	{section "Add/Edit General MD Description"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_De]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
 
     {descrip_s:text(textarea),nospell
         {html {rows 5 cols 50}}
-	{help_text "Describes learning object's content"}
-        {label "Description:"}
+	{help_text "[_ lorsm.lt_Describes_learning_ob]"}
+        {label "[_ lorsm.Description]"}
     }
     
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -73,19 +73,19 @@ ad_form -name generalmd_desc \
 template::list::create \
     -name d_gen_desc \
     -multirow d_gen_desc \
-    -no_data "No Description Available" \
+    -no_data "[_ lorsm.lt_No_Description_Availa]" \
     -html { align right style "width: 100%;" } \
     -elements {
         descrip_l {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
 	descrip_s {
-	    label "Description"
+	    label "[_ lorsm.Description_1]"
 	}
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "general_desc" {ims_md_ge_desc_id ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record] "}
             html { align center }
         }
     }

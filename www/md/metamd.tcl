@@ -10,22 +10,22 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Meta Metadata"]
-set title "Meta MD"
+set context [list [list [export_vars -base "." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  "[_ lorsm.Meta_Metadata]"]
+set title "[_ lorsm.Meta_MD]"
 
 # Metametadata Catalogentry
 template::list::create \
     -name d_md_cata \
     -multirow d_md_cata \
-    -no_data "No Catalog Entry Available" \
-    -actions [list "Add Catalog-Entry" [export_vars -base metamd/meta_cata {ims_md_id}] "Add another Catalog-Entry"] \
+    -no_data "[_ lorsm.lt_No_Catalog_Entry_Avai]" \
+    -actions [list "[_ lorsm.Add_Catalog-Entry]" [export_vars -base metamd/meta_cata {ims_md_id}] "[_ lorsm.lt_Add_another_Catalog-E]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         catalog {
-            label "Catalog"
+            label "[_ lorsm.Catalog_1]"
         }
         entry_ls {
-            label "Language Entry"
+            label "[_ lorsm.Language_Entry]"
         }
     }
 
@@ -44,21 +44,21 @@ db_multirow d_md_cata select_md_cata {
 template::list::create \
     -name d_md_cont \
     -multirow d_md_cont \
-    -no_data "No Contributors Available" \
-    -actions [list "Add Contributors" [export_vars -base metamd/meta_cont {ims_md_id}] "Add another Contributors"] \
+    -no_data "[_ lorsm.lt_No_Contributors_Avail]" \
+    -actions [list "[_ lorsm.Add_Contributors]" [export_vars -base metamd/meta_cont {ims_md_id}] "[_ lorsm.lt_Add_another_Contribut]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         role {
-            label "Role"
+            label "[_ lorsm.Role]"
         }
         entity {
-            label "Entity"
+            label "[_ lorsm.Entity_1]"
         }
         cont_date {
-            label "Contribution Date"
+            label "[_ lorsm.Contribution_Date]"
         }
         cont_date_ls {
-            label "Description"
+            label "[_ lorsm.Description_1]"
         }
     }
 
@@ -81,8 +81,8 @@ and
 template::list::create \
     -name d_md_scheme \
     -multirow d_md_scheme \
-    -no_data "No Scheme Available" \
-    -actions [list "Add Scheme" [export_vars -base metamd/meta_scheme {ims_md_id}] "Add another Scheme"] \
+    -no_data "[_ lorsm.No_Scheme_Available]" \
+    -actions [list "[_ lorsm.Add_Scheme]" [export_vars -base metamd/meta_scheme {ims_md_id}] "[_ lorsm.Add_another_Scheme]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         scheme {
@@ -103,8 +103,8 @@ db_multirow d_md_scheme select_md_scheme {
 template::list::create \
     -name d_md_lang \
     -multirow d_md_lang \
-    -no_data "No Language Available" \
-    -actions [list "Add Language" [export_vars -base metamd/meta_lang {ims_md_id}] "Add another Languages"] \
+    -no_data "[_ lorsm.lt_No_Language_Available]" \
+    -actions [list "[_ lorsm.Add_Language]" [export_vars -base metamd/meta_lang {ims_md_id}] "[_ lorsm.lt_Add_another_Languages]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         language {

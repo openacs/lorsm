@@ -41,7 +41,7 @@ set file_id [db_string sql {select content_item__get_id(:pather, :fs_root_folder
 
 permission::require_write_permission -object_id $file_id -creation_user $user_id 
 
-#ns_write "folder $folder\n pather: $pather \n file_id: $file_id"
+#ns_write "[_ lorsm.lt_folder_foldern_pather]"
 #ad_script_abort
 
 ad_returnredirect [export_vars -base [apm_package_url_from_id $fs_package_id]file-content-edit {file_id return_url}]

@@ -18,8 +18,8 @@ set title "Lifecycle MD"
 template::list::create \
     -name d_lf_ver \
     -multirow d_lf_ver \
-    -no_data "No Version Available" \
-    -actions [list "Add Version" [export_vars -base lifecyclemd/lifecycle_version {ims_md_id}] "Add Version"] \
+    -no_data "[_ lorsm.No_Version_Available]" \
+    -actions [list "[_ lorsm.Add_Version]" [export_vars -base lifecyclemd/lifecycle_version {ims_md_id}] "[_ lorsm.Add_Version]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         version_l {
@@ -43,8 +43,8 @@ db_multirow d_lf_ver select_lf_ver {
 template::list::create \
     -name d_lf_stat \
     -multirow d_lf_stat \
-    -no_data "No Status Available" \
-    -actions [list "Add Status" [export_vars -base lifecyclemd/lifecycle_stat {ims_md_id}] "Add Status"] \
+    -no_data "[_ lorsm.No_Status_Available]" \
+    -actions [list "[_ lorsm.Add_Status]" [export_vars -base lifecyclemd/lifecycle_stat {ims_md_id}] "[_ lorsm.Add_Status]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         status_s {
@@ -69,21 +69,21 @@ db_multirow d_lf_stat select_lf_stat {
 template::list::create \
     -name d_lf_cont \
     -multirow d_lf_cont \
-    -no_data "No Contributors Available" \
-    -actions [list "Add Contributors" [export_vars -base lifecyclemd/lifecycle_cont {ims_md_id}] "Add another Contributors"] \
+    -no_data "[_ lorsm.lt_No_Contributors_Avail]" \
+    -actions [list "[_ lorsm.Add_Contributors]" [export_vars -base lifecyclemd/lifecycle_cont {ims_md_id}] "[_ lorsm.lt_Add_another_Contribut]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         role {
-            label "Role"
+            label "[_ lorsm.Role]"
         }
         entity {
-            label "Entity"
+            label "[_ lorsm.Entity_1]"
         }
         cont_date {
-            label "Contribution Date"
+            label "[_ lorsm.Contribution_Date]"
         }
         cont_date_ls {
-            label "Description"
+            label "[_ lorsm.Description_1]"
         }
     }
 

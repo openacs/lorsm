@@ -23,29 +23,29 @@ template::list::create \
     -multirow d_courses \
     -html {width 100%} \
     -key man_id \
-    -no_data "No Courses" \
+    -no_data "[_ lorsm.No_Courses]" \
     -elements {
         course_name {
-            label "Course Name"
+            label "[_ lorsm.Course_Name_1]"
             display_col course_name
 	    html { width 70% }
             link_url_eval {[site_node::get_url_from_object_id -object_id $lorsm_instance_id]delivery/?[export_vars man_id]}
-            link_html {title "Access Course"}
+            link_html {title "[_ lorsm.Access_Course]"}
         }
         subject {
-            label "Subject"
+            label "[_ lorsm.Subject]"
             display_eval {[dotlrn_community::get_community_name $community_id]}
 	    html { align center width 20% }
             link_url_eval {[dotlrn_community::get_community_url $community_id]}
-            link_html {title "Access Course"}
+            link_html {title "[_ lorsm.Access_Course]"}
         }
         last_viewed {
-            label "Last Viewed On"
+            label "[_ lorsm.Last_Viewed_On]"
             html { align center width 10% }
             display_eval {[lc_time_fmt $last_viewed "%x"]}
         }
         viewed_percent {
-            label "% Viewed"
+            label "[_ lorsm._Viewed]"
             html { align right }
             display_eval {[lc_numeric $viewed_percent "%.2f"]}
         }

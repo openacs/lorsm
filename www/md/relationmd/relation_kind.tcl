@@ -20,8 +20,8 @@ ad_page_contract {
 
 # set context & title
 
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../relationmd" ims_md_id] "Relation MD"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "Relation Entry"] "Add/Edit Kind"]
-set title "Add/Edit Relation MD Kind"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../relationmd" ims_md_id] "[_ lorsm.Relation_MD]"] [list [export_vars -base "relation" {ims_md_id ims_md_re_id ims_md_re_re_id}] "[_ lorsm.Relation_Entry]"] "[_ lorsm.AddEdit_Kind]"]
+set title "[_ lorsm.lt_AddEdit_Relation_MD_K]"
 
 # Form
 
@@ -33,16 +33,16 @@ ad_form -name relationmd_kind \
     ims_md_re_id:key(ims_md_relation_seq)
 
     {kind_s:text,nospell
-	{section "Add/Edit Relation MD Kind"}
+	{section "[_ lorsm.lt_AddEdit_Relation_MD_K]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
     
     {kind_v:text,nospell
         {html {size 20}}
-	{help_text "Nature of the relationship between the resource being described and the one identified by Resource"}
-        {label "Kind:"}
+	{help_text "[_ lorsm.lt_Nature_of_the_relatio]"}
+        {label "[_ lorsm.Kind]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -69,14 +69,14 @@ ad_form -name relationmd_kind \
 template::list::create \
     -name d_re_kind \
     -multirow d_re_kind \
-    -no_data "No Kind Available" \
+    -no_data "[_ lorsm.No_Kind_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	kind_s {
-            label "Source"
+            label "[_ lorsm.Source_1]"
         }
 	kind_v {
-	    label "Value"
+	    label "[_ lorsm.Value]"
 	}
     }
 

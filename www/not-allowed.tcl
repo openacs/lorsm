@@ -7,4 +7,4 @@ ad_page_contract {
     @cvs-id $Id$
 }
 
-set context [list "Not Allowed"]
+set context [list "[_ lorsm.Not_Allowed]"]

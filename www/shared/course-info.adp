@@ -56,9 +56,9 @@
 	           #lorsm.lt_classlist_stylefont-w#
                 </if>
 	        <else>
-                   #lorsm.classlist#
+                   class="list"
                 </else>
-                #lorsm.lt_valigntop_alignleftis#
+                valign="top" align="left">@isscorm;noquote@
               </td>
           </tr>
               <tr class="list-odd">

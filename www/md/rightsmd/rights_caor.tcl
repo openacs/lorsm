@@ -17,8 +17,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../rightsmd" ims_md_id] "Rights MD"] "Add/Edit Copyrights or other Restrictions"]
-set title "Edit Rights MD Copyright or other Restrictions"
+set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../rightsmd" ims_md_id] "[_ lorsm.Rights_MD]"] " <#_Add/Edit Copyrights or other Restrictions #>"]
+set title "[_ lorsm.lt_Edit_Rights_MD_Copyri]"
 
 
 # Form
@@ -29,16 +29,16 @@ ad_form -name rightsmd_caor \
     -form {
 
     {caor_s:text,nospell
-	{section "Add/Edit Rights MD Copyright or other Restrictions"}
+	{section "[_ lorsm.lt_AddEdit_Rights_MD_Cop]"}
         {html {size 10}}
-	{help_text "Source of vocabulary items i.e.: 'LOMv1.0'"}
-        {label "Source:"}
+	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {label "[_ lorsm.Source]"}
     }
 
     {caor_v:text,nospell
         {html {size 10}}
-	{help_text "Whether copyright or other restrictions apply"}
-        {label "Copyright or other Restrictions:"}
+	{help_text "[_ lorsm.lt_Whether_copyright_or_]"}
+        {label "[_ lorsm.lt_Copyright_or_other_Re]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}
 
@@ -69,11 +69,11 @@ ad_form -name rightsmd_caor \
 template::list::create \
     -name d_ri_caor \
     -multirow d_ri_caor \
-    -no_data "No Copyright or other Restrictions Available" \
+    -no_data "[_ lorsm.lt_No_Copyright_or_other]" \
     -html { align right style "width: 100%;" } \
     -elements {
 	caor {
-            label "Copyright Info"
+            label "[_ lorsm.Copyright_Info]"
         }
     }
 

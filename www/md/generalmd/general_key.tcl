@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_key_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "General MD"] "Edit Keyword"]
-    set title "Edit General MD Keyword"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Edit_Keyword_1]"]
+    set title "[_ lorsm.lt_Edit_General_MD_Keywo]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "General MD"] "Add Keyword"]
-    set title "Add General MD Keyword"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]" ]  [list [export_vars -base "../generalmd" im\\\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Add_Keyword]"]
+    set title "[_ lorsm.lt_Add_General_MD_Keywor]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name generalmd_key \
     ims_md_ge_key_id:key(ims_md_general_key_seq)
 
     {keyword_l:text,nospell,optional
-	{section "Add/Edit General MD Keyword"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_Ke]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {keyword_s:text,nospell
         {html {size 50}}
-	{help_text "Keyword description of the resource"}
-        {label "Keyword:"}
+	{help_text "[_ lorsm.lt_Keyword_description_o]"}
+        {label "[_ lorsm.Keyword]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -73,7 +73,7 @@ ad_form -name generalmd_key \
 template::list::create \
     -name d_gen_key \
     -multirow d_gen_key \
-    -no_data "No Keywords Available" \
+    -no_data "[_ lorsm.lt_No_Keywords_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         keyword_l {
@@ -85,7 +85,7 @@ template::list::create \
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "general_key" {ims_md_ge_key_id ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

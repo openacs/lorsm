@@ -11,14 +11,14 @@ ad_page_contract {
 
 # set context & title
 set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Rights MD"]
-set title "Rights MD"
+set title "[_ lorsm.Rights_MD]"
 
 # Rights Cost
 template::list::create \
     -name d_ri_cost \
     -multirow d_ri_cost \
-    -no_data "No Cost Available" \
-    -actions [list "Add Cost" [export_vars -base rightsmd/rights_cost {ims_md_id}] "Add another Cost"] \
+    -no_data "[_ lorsm.No_Cost_Available]" \
+    -actions [list "[_ lorsm.Add_Cost]" [export_vars -base rightsmd/rights_cost {ims_md_id}] "[_ lorsm.Add_another_Cost]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         cost {
@@ -39,8 +39,8 @@ db_multirow d_ri_cost select_ri_cost {
 template::list::create \
     -name d_ri_caor \
     -multirow d_ri_caor \
-    -no_data "No Copyright or other Restrictions Available" \
-    -actions [list "Add Copyright or other Restrictions" [export_vars -base rightsmd/rights_caor {ims_md_id}] "Add another Copyright or other Restrictions"] \
+    -no_data "[_ lorsm.lt_No_Copyright_or_other]" \
+    -actions [list "[_ lorsm.lt_Add_Copyright_or_othe]" [export_vars -base rightsmd/rights_caor {ims_md_id}] "[_ lorsm.lt_Add_another_Copyright]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         caor {
@@ -61,8 +61,8 @@ db_multirow d_ri_caor select_ri_caor {
 template::list::create \
     -name d_ri_desc \
     -multirow d_ri_desc \
-    -no_data "No Description Available" \
-    -actions [list "Add Description" [export_vars -base rightsmd/rights_desc {ims_md_id}] "Add another Description"] \
+    -no_data "[_ lorsm.lt_No_Description_Availa]" \
+    -actions [list "[_ lorsm.Add_Description]" [export_vars -base rightsmd/rights_desc {ims_md_id}] "[_ lorsm.lt_Add_another_Descripti]"] \
     -html { align right style "width: 100%;" } \
     -elements {
         desc {

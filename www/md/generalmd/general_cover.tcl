@@ -19,11 +19,11 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_cove_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "General MD"] "Edit Coverage"]
-    set title "Edit General MD Coverage"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Edit_Coverage]"]
+    set title "[_ lorsm.lt_Edit_General_MD_Cover]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "General MD"] "Add Coverage"]
-    set title "Add General MD Coverage"
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../generalmd" im\\\s_md_id] "[_ lorsm.General_MD]"] "[_ lorsm.Add_Coverage]"]
+    set title "[_ lorsm.lt_Add_General_MD_Covera]"
 }
 
 # Form
@@ -36,16 +36,16 @@ ad_form -name generalmd_cover \
     ims_md_ge_cove_id:key(ims_md_general_cover_seq)
 
     {cover_l:text,nospell,optional
-	{section "Add/Edit General MD Coverage"}
+	{section "[_ lorsm.lt_AddEdit_General_MD_Co]"}
         {html {size 10}}
-	{help_text "i.e.: 'en_AU' for Australian English"}
-        {label "Language:"}
+	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {label "[_ lorsm.Language]"}
     }
     
     {cover_s:text,nospell
         {html {size 50}}
-	{help_text "Temporal/spatial characteristics of content"}
-        {label "Coverage:"}
+	{help_text "[_ lorsm.lt_Temporalspatial_chara]"}
+        {label "[_ lorsm.Coverage]"}
     }
 
     {ims_md_id:text(hidden) {value $ims_md_id}
@@ -73,19 +73,19 @@ ad_form -name generalmd_cover \
 template::list::create \
     -name d_gen_cover \
     -multirow d_gen_cover \
-    -no_data "No Coverage Available" \
+    -no_data "[_ lorsm.lt_No_Coverage_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
         cover_l {
-            label "Language"
+            label "[_ lorsm.Language_1]"
         }
         cover_s {
-            label "Coverage"
+            label "[_ lorsm.Coverage_1]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "general_cover" {ims_md_ge_cove_id ims_md_id}] }
-            link_html {title "Edit Record "}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

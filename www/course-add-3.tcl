@@ -424,19 +424,17 @@ db_transaction {
                 set res_files [lors::imsmd::getResource -node $resource -att files]
                 set res_scormtype [lors::imsmd::getAtt $resource adlcp:scormtype]
 
-### Addition to showcase integration with Assessment
+### Addition provided by e-lane people to integrate on deployment with 
+# assessment package.
 
-#		if {$res_type == "ims-qti-package"} {
+# In the future we need to come up with a nicier way to do this as
+# this is rather a dirty hack for now. 
 
-#		    set res_href [ims_qti_register_assessment $tmp_dir/$res_href]
-		    
-
-#		}
-
+		if {$res_type == "imsqti_xmlv1p0" || $res_type == "imsqti_xmlv1p1" || $res_type =="imsqti_item_xmlv2p0"} {
+		    set res_href [lors::assessment::ims_qti_register_assessment $tmp_dir/$res_href]
+		}
 
 ## End integration showcase                
-
-
 
                 set resource_id [lors::imscp::resource_add \
                                      -man_id $man_id \

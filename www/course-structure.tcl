@@ -15,6 +15,8 @@ ad_page_contract {
 } -errors {
 }
 
+set package_id [ad_conn package_id]
+
 ad_proc -public getFolderKey {
     {-object_id:required}
 } {
@@ -30,6 +32,7 @@ ad_proc -public getFolderKey {
 # set context & title
 set context [list "Course Structure"]
 set title "Course Structure"
+
 
 if {[db_0or1row manifest "
     select 
@@ -48,14 +51,19 @@ if {[db_0or1row manifest "
            end as isscorm,
            cp.fs_package_id,
            cp.folder_id,
+	   cp.isshared,
 	   acs.creation_user,
 	   acs.creation_date,
-	   acs.context_id
+	   acs.context_id,
+           cpmc.isenabled,
+           cpmc.istrackable
     from
-           ims_cp_manifests cp, acs_objects acs
+           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc
     where 
            cp.man_id = acs.object_id
 	   and  cp.man_id = :man_id
+           and  cp.man_id = cpmc.man_id
+           and  cpmc.lorsm_instance_id = :package_id
            and  cp.parent_man_id = 0"]} {
 
     # Sets the variable for display. 
@@ -105,7 +113,7 @@ if {[db_0or1row manifest "
 }
 
 
-append orgs_list "<table class=\"list\" cellpadding=\"3\" cellspacing=\"1\">"
+append orgs_list "<table class=\"list\" cellpadding=\"3\" cellspacing=\"1\" width=\"100%\">"
 append orgs_list "<tr class=\"list-header\">
         <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">Organization</th>
         <th class=\"list\" valign=\"top\" style=\"background-color: #e0e0e0; font-weight: bold;\">Metadata?</th>
@@ -129,25 +137,36 @@ db_foreach organizations {
 } {
 
 
-    append orgs_list "<tr class=\"list-even\"><td valign=\"top\">$org_title</td><td valign=\"top\" align=\"center\">$hasmetadata</td><td>"
+    append orgs_list "<tr class=\"list-even\"><td valign=\"top\" width=\"20%\">$org_title</td><td valign=\"top\" align=\"center\" width=\"5%\">$hasmetadata</td><td>"
 
     set indent [expr $indent +1]
     set missing_text "Nothing here"
-
+    set return_url [export_vars -base [ns_conn url] man_id]
     set table_extra_html { width="100%" }
+   
+    set table_extra_vars {return_url}
     set table_def {
-	{ title "" "no_sort" "<td>$indent[if {![empty_string_p $identifierref]} {set href \"<a href='[apm_package_url_from_id $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]'>$item_title</a>\"} else {set href $item_title}]</td>" }
-	{ metadata "" "no_sort" "<td align=\"center\">[if {$hasmetadata == \"f\"} {set hasmetadata \"\"} else {set hasmetadata \"<a href=md/?ims_md_id=$item_id>Metadata\"}]</a></td>" }
+	{ title "Item Name" "no_sort" "<td>$indent[if {![empty_string_p $identifierref]} {set href \"<a href='[apm_package_url_from_id $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]'>$item_title</a>\"} else {set href $item_title}]</td>" }
+	{ Edit "Edit?" "no_sort" "<td align=\"center\">[if {![empty_string_p $identifierref]} {set href \"<a href=\'[export_vars -base edit-content {identifierref folder_id return_url fs_package_id}]\'>Edit</a></td>\"}]"}
+	{ metadata "Metadata?" "no_sort" "<td align=\"center\">[if {$hasmetadata == \"f\"} {set hasmetadata \"No\"} else {set hasmetadata \"<a href=md/?ims_md_id=$item_id>Metadata\"}]</a></td>" }
+	{ type   "Type" "no_sort" "<td align=\"center\">$type</td>" }
+	{ shared "Is Shared?" "no_sort" "<td align=\"center\">[if {$isshared == false} {set ret \"No\"}]</td>" }
     }
 
-    set table_item [ad_table -Tmissing_text $missing_text  -Ttable_extra_html $table_extra_html blah {
+    set table_item [ad_table -Tmissing_text $missing_text -Textra_vars $table_extra_vars -Theader_row_extra "style=\"background-color: #e0e0e0; font-weight: bold;\" class=\"list-header\"" -Ttable_extra_html $table_extra_html blah {
         SELECT
 		o.object_id,
- 		repeat('&nbsp;', (tree_level(tree_sortkey) - :indent)* 5) as indent,
+ 		repeat('&nbsp;', (tree_level(tree_sortkey) - :indent)* 3) as indent,
 		i.item_id,
                 i.title as item_title,
                 i.hasmetadata,
                 i.org_id,
+                case
+                    when i.isshared = 'f' then (
+						'false'
+						) 
+	            else 'true'
+                end as isshared,
                 case 
 		    when i.identifierref <> '' then (
 						     SELECT
@@ -162,6 +181,20 @@ db_foreach organizations {
 )
                   else ''
                 end as identifierref,
+                case 
+		    when i.identifierref <> '' then (
+						     SELECT
+						      res.type
+						     FROM
+						      ims_cp_items_to_resources i2r, 
+						      ims_cp_resources res 
+						     WHERE
+						       i2r.res_id = res.res_id
+						      AND
+						       i2r.item_id = i.item_id 
+)
+                  else ''
+                end as type,
                 m.fs_package_id,
 	        m.folder_id,
 	        m.course_name
@@ -192,6 +225,7 @@ db_foreach organizations {
 
 append orgs_list "</table>"
 
-
-
+set enabler_url [export_vars -base enabler {man_id}]
+set tracker_url [export_vars -base tracker {man_id}]
+set sharer_url  [export_vars -base sharer {man_id folder_id return_url}]
 

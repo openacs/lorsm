@@ -5,6 +5,8 @@ ad_page_contract {
 
     Add files to the CR
     Process imsmanifest.xml
+    Determines this is a Blackboard course and if it is process it accordingly.
+    Inserts all ims_items, resources and all IMS CP entities into the DB.
 
     @author Ernie Ghiglione (ErnieG@mm.st)
     @creation-date 19 March 2003
@@ -29,6 +31,33 @@ ad_page_contract {
 #check permission
 set user_id [ad_conn user_id]
 ad_require_permission $folder_id admin
+
+
+# Display progress bar
+ad_progress_bar_begin \
+    -title "Uploading course..." \
+    -message_1 "Uploading and processing your course, please wait ..." \
+    -message_2 "We will continue automatically when processing is complete."
+
+
+ns_write "<h2>Initiating Updating log... </h2><blockquote>"
+
+# Is this a Blackboard6 package?
+set isBB [lors::imscp::bb6::isBlackboard6 -tmp_dir $tmp_dir]
+
+if {$isBB == 1} {
+    ns_write "<p><font color=\"red\"><b>Blackboard6 Content Packaging Course</b></font>.<br> Modifying package to be IMS CP compliant..."
+    ns_write "<blockquote><br> Cleaning up unused application and folders..."
+    lors::imscp::bb6::clean_items -tmp_dir $tmp_dir -file "imsmanifest.xml"
+    ns_write "<font color=\"green\"><b>Done!</b></font>"
+    ns_write "<br> Renaming content types according to IMS CP specification..."
+    lors::imscp::bb6::extract_html -tmp_dir $tmp_dir -file "imsmanifest.xml"
+    ns_write "<font color=\"green\"><b>Done!</b></font></blockquote>"
+
+}
+
+
+ns_write "<h3> Starting File Processing... </h3>"
 
 
 db_transaction {
@@ -59,16 +88,50 @@ db_transaction {
 
         set new_parent_id [lors::cr::add_folder -parent_id $parent_id -folder_name $cr_dir]
 
-        # Display progress bar
 
-        ad_progress_bar_begin \
-            -title "Uploading course..." \
-            -message_1 "Uploading and processing your course, please wait ..." \
-            -message_2 "We will continue automatically when processing is complete."
+	# PERMISSIONS FOR FILE-STORAGE
+
+        # Before we go about anything else, lets just set permissions straight.
+         # Disable folder permissions inheritance
+         permission::toggle_inherit -object_id $new_parent_id
+
+	# Set read permissions for community/class dotlrn_member_rel
+
+ 	 set community_id [dotlrn_community::get_community_id]
+
+	 set party_id_member [db_string party_id {select segment_id from rel_segments \
+						      where group_id = :community_id \
+						      and rel_type = 'dotlrn_member_rel'}]
+
+	 permission::grant -party_id $party_id_member -object_id $new_parent_id -privilege read
+
+	# Set read permissions for community/class dotlrn_admin_rel
+
+	set party_id_admin [db_string party_id {select segment_id from rel_segments \
+						     where group_id = :community_id \
+						     and rel_type = 'dotlrn_admin_rel'}]
+
+	permission::grant -party_id $party_id_admin -object_id $new_parent_id -privilege read
+
+	# Set read permissions for *all* other professors  within .LRN
+	# (so they can see the content)
+
+        set party_id_professor [db_string party_id {select segment_id from rel_segments \
+                                                     where rel_type = 'dotlrn_professor_profile_rel'}]
+
+	permission::grant -party_id $party_id_professor -object_id $new_parent_id -privilege read
+
+	# Set read permissions for *all* other admins within .LRN
+	# (so they can see the content)
+
+        set party_id_admins [db_string party_id {select segment_id from rel_segments \
+                                                     where rel_type = 'dotlrn_admin_profile_rel'}]
+
+	permission::grant -party_id $party_id_admins -object_id $new_parent_id -privilege read
 
 
 
-	ns_write "<h2>Initiating Updating log... </h2><blockquote>"
+
 
         set filesx [lors::cr::add_files -parent_id $new_parent_id -indb_p $indb_p -files [lors::cr::has_files -fs_dir $fs_dir]]
 
@@ -106,7 +169,7 @@ db_transaction {
 		    #For display purposes
 		    ns_write "Processing file(s):<blockquote>"
 		    foreach file $files {
-			ns_write "<img src=\"/resources/file-storage/file.gif\"> [string trimleft $file $tmp_dir]<font color=\"green\">...OK</font><br>"
+			ns_write "<img src=\"/resources/file-storage/file.gif\"> [regsub $tmp_dir $file {}]<font color=\"green\">...OK</font><br>"
 		    }
 		    ns_write "</blockquote>"
 		    #
@@ -227,7 +290,58 @@ db_transaction {
 			-hasmetadata $man_hasmetadata \
 			-isscorm $man_isscorm \
 			-folder_id $new_parent_id \
-                        -fs_package_id $fs_package_id]
+                        -fs_package_id $fs_package_id \
+		        -community_id $community_id]
+
+
+	ns_write "Granting permissions $course_name Manifest...<br>"
+
+	# PERMISSIONS FOR MANIFEST and learning objects
+
+	# set up in the same way as permissions for the file storage
+	# objects. As we want to maintain consistency btw the
+	# learnining objects and their content
+
+         # Disable folder permissions inheritance
+         permission::toggle_inherit -object_id $man_id
+
+	# Set read permissions for community/class dotlrn_member_rel
+
+ 	 set community_id [dotlrn_community::get_community_id]
+
+	 set party_id_member [db_string party_id {select segment_id from rel_segments \
+						      where group_id = :community_id \
+						      and rel_type = 'dotlrn_member_rel'}]
+
+	 permission::grant -party_id $party_id_member -object_id $man_id -privilege read
+
+	# Set read permissions for community/class dotlrn_admin_rel
+
+	set party_id_admin [db_string party_id {select segment_id from rel_segments \
+						     where group_id = :community_id \
+						     and rel_type = 'dotlrn_admin_rel'}]
+
+	permission::grant -party_id $party_id_admin -object_id $man_id -privilege read
+
+	# Set read permissions for *all* other professors  within .LRN
+	# (so they can see the content)
+
+        set party_id_professor [db_string party_id {select segment_id from rel_segments \
+                                                     where rel_type = 'dotlrn_professor_profile_rel'}]
+
+	permission::grant -party_id $party_id_professor -object_id $man_id -privilege read
+
+	# Set read permissions for *all* other admins within .LRN
+	# (so they can see the content)
+
+        set party_id_admins [db_string party_id {select segment_id from rel_segments \
+                                                     where rel_type = 'dotlrn_admin_profile_rel'}]
+
+	permission::grant -party_id $party_id_admins -object_id $man_id -privilege read
+
+
+	# Done with Manifest and learning object Permissions
+
 
 	ns_write "Adding $course_name Manifest...<br>"
 
@@ -298,13 +412,6 @@ db_transaction {
 
         set resourcex [$resources child all resource]
 
-
-########## REMOVE  DEBUGGING PURPOSE ONLY  ####
-	set f_handler [open /tmp/add.txt w+]
-	puts -nonewline $f_handler $add
-	close $f_handler
-########## REMOVE  DEBUGGING PURPOSE ONLY  ####
-
         if { ![empty_string_p $resourcex] } {
 
             set res_list [list]
@@ -316,7 +423,20 @@ db_transaction {
                 set res_hasmetadata [lors::imsmd::hasMetadata $resource]
                 set res_files [lors::imsmd::getResource -node $resource -att files]
                 set res_scormtype [lors::imsmd::getAtt $resource adlcp:scormtype]
-                
+
+### Addition to showcase integration with Assessment
+
+#		if {$res_type == "ims-qti-package"} {
+
+#		    set res_href [ims_qti_register_assessment $tmp_dir/$res_href]
+		    
+
+#		}
+
+
+## End integration showcase                
+
+
 
                 set resource_id [lors::imscp::resource_add \
                                      -man_id $man_id \
@@ -372,12 +492,6 @@ db_transaction {
         #ns_write "no page"
     }
 
-########## REMOVE  DEBUGGING PURPOSE ONLY  ####
-	set f_handler [open /tmp/res_list.txt w+]
-	puts -nonewline $f_handler $res_list
-	close $f_handler
-########## REMOVE  DEBUGGING PURPOSE ONLY  ####
-
 
     # Here's where we link items and resources.  Take into
     # account that a resources can have 1 to many items
@@ -411,20 +525,6 @@ db_transaction {
 
     ns_write "Now we are almost done...<br>"
 
-#    set all_files [lindex $all_files 0]
-
-#   ns_write 
-#   ns_write 
-
-
-########## REMOVE  DEBUGGING PURPOSE ONLY  ####
-	set f_handler [open /tmp/all_files.txt w+]
-	puts -nonewline $f_handler $all_files
-	close $f_handler
-	set f_handler [open /tmp/l_files.txt w+]
-	puts -nonewline $f_handler $l_files
-	close $f_handler
-########## REMOVE  DEBUGGING PURPOSE ONLY  ####
 
     foreach file $l_files {
 

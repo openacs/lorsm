@@ -1,27 +1,24 @@
-<html>
-  <head>
-    <meta name="generator" content="OpenACS LORS Management">
+<master>
+<center>
+    <script type="text/javascript">
+      <!--
+      // Check if we're inside and the tree menu is shown
+      if (window.parent.toc) {
+      window.parent.toc.selectItem(0);
+      }
+      //-->
+    </script>
     
-      <link rel="stylesheet" type="text/css" href="/resources/acs-templating/lists.css" media="all">
-    
-      <link rel="stylesheet" type="text/css" href="/resources/acs-templating/forms.css" media="all">
-    
-      <link rel="stylesheet" type="text/css" href="/resources/acs-subsite/default-master.css" media="all">
-    
+<h1>Welcome to <b>@course_name@</h1>
+<p>
 
-    <script src="/resources/acs-subsite/core.js" language="javascript"></script>
-
-    <textarea id="holdtext" style="display: none;"></textarea>
-
-    
-    <link rel="stylesheet" type="text/css" href="/resources/acs-subsite/site-master.css" media="all">
-
- </head>
-
- <body border=0>
-<p align="center"><font size=+3">Welcome to LEON</font><br><font size=-1>Course Delivery System for LORS</font>
-</p>
-
-<p align="center">Click on the Course Index items to start your <b>@course_name@</b> course.</p>
- </body>
-</html>
+      Your Stats:
+      <br>
+	You have seen this course <b>x</b> number of times and have covered <b>@viewed_percent@ %</b> of the content.
+    </p>
+    <if @last_page_viewed@ defined>
+      <p>
+	The last page you viewed was: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
+    </if>
+    <p>
+      Click on menu to the left to view course materials.

@@ -68,6 +68,17 @@ if {$manifest == 0} {
 }
 
 
+# Is this a Blackboard6 package?
+set isBB [lors::imscp::bb6::isBlackboard6 -tmp_dir $tmp_dir]
+
+if {$isBB == 1} {
+    # we generate metadata for the file
+    ns_log Notice "Generating MD record from Blackboard6 package $tmp_dir --"
+    lors::imscp::bb6::create_MD -tmp_dir $tmp_dir -file $file
+    ns_log Notice "Done!"
+
+}
+
 ## adds folder to the CR
 set parent_id $folder_id
 set fs_dir $tmp_dir

@@ -1,3 +1,4 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
     <meta name="generator" content="OpenACS LORS Management">
@@ -16,10 +17,9 @@
     
     <link rel="stylesheet" type="text/css" href="/resources/acs-subsite/site-master.css" media="all">
 
-
 <style type="text/css">
 body, td {
-font-family: "Verdana", sans-serif;
+font-family: "Verdana", sans-serif; white-space: nowrap; 
 font-size: 8pt;
 }
 tt, pre {
@@ -49,7 +49,7 @@ font-size: 8pt;
 }
 
 #site-header {
-  background-color: #80A6FF;
+  background-color: #6C9A83;
   color: white;
   font-family: tahoma, verdana, helvetica, sans-serif;
   font-size: 85%;

@@ -1,15 +1,14 @@
 <master>
-
-<if @admin_p@ eq 1>
-<div style="float: right;">
-  <a href="course-add" class="button">Add a Course</a>
-</div>
-</if>
+  <property name="title">@title@</property>
+  <property name="context">@context@</property>
 
 <table width="100%">
   <tr>
     <td valign="top">
-        <h2>Courses</h2>
+        <h2>Courses in your Repository</h2>
+     </td>
+  <tr>
+   <td>
         <listtemplate name="d_courses"></listtemplate>
    </td>
  </tr>

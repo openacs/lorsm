@@ -24,6 +24,11 @@
 
 <if @isSCORM@ eq 0>
 <h3>IMS Package Info</h3>
+  <if @isBB@ eq 1>
+  <font color="green" size=\"-1\">  The uploaded file is a <b>Blackboard 6 complaint package</b>.</font>
+  <p>  
+  </if>
+
 <listtemplate name="d_IMS_package_info"></listtemplate>
 <p>
 </if>

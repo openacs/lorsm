@@ -1,3 +1,5 @@
+# packages/lorsm/www/index.tcl
+
 ad_page_contract {
     Learning Object Repository Management Index page
 
@@ -8,6 +10,10 @@ ad_page_contract {
 } {
 }
 
+set title "Manage Courses in Repository"
+set context [list "Manage Courses"]
+
+
 set package_id [ad_conn package_id]
 set community_id [dotlrn_community::get_community_id]
 
@@ -16,35 +22,47 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 		 -community_id $community_id ]
 
 
+set actions [list]
+
+if {$admin_p} {
+    lappend actions  "Add Course" [export_vars -base "course-add"] "Add a IMS/SCORM Compliant Course"
+    lappend actions  "Search Learning Objects" [export_vars -base "/search"] "Search for Learninng Objects in the Repository"
+    lappend actions  "Available Courses" [export_vars -base "shared/"] "View Available Courses in the Repository"
+}
+
 template::list::create \
     -name d_courses \
     -multirow d_courses \
     -html {width 50%} \
+    -actions $actions \
     -key man_id \
     -no_data "No Courses" \
     -elements {
         course_name {
-            label "Course Name"
+            label "Available Courses"
             display_col course_name
             link_url_eval {delivery/?[export_vars man_id]}
             link_html {title "Access Course"}
 
         }
-        course_structure {
-            label "Course Structure"
-	    display_eval {\[view\]}
-            link_url_eval {course-structure?[export_vars man_id]}
-            link_html {title "Course Structure"}
-	    html { align center }
-        }
         hasmetadata {
             label "Metadata?"
             link_url_eval {md/?[export_vars ims_md_id]}
-            link_html {title "See metadata"}
+            link_html {title "See metadata" }
 	    html { align center }
         }
         isscorm {
             label "SCORM?"
+	    html { align center }
+        }
+        isenabled {
+            label "Status"
+	    html { align center }
+        }
+        istrackable {
+            label "Tracking?"
+            link_url_eval {tracking/?[export_vars man_id]}
+            link_html {title "Track Student's Progress" class button}
 	    html { align center }
         }
         creation_user {
@@ -59,11 +77,19 @@ template::list::create \
         export {
             label "Export"
 	    display_eval {\[zip\]}
-            link_url_eval {export/?[export_vars folder_id]}
+            link_url_eval {[export_vars -base export folder_id]}
             link_html {title "Export as IMS Content Package"}
 	    html { align center }
         }
+        admin {
+            label "Admin Course"
+	    display_eval {Admin}
+            link_url_eval {[export_vars -base course-structure man_id]}
+            link_html {title "Admin Course" class button}
+	    html { align center }
+        }
     }
+
 
 db_multirow -extend { ims_md_id } d_courses select_d_courses {
     select 
@@ -83,13 +109,25 @@ db_multirow -extend { ims_md_id } d_courses select_d_courses {
            cp.folder_id,
 	   acs.creation_user,
 	   acs.creation_date,
-	   acs.context_id
+	   acs.context_id,
+           case
+              when cpmc.isenabled = 't' then 'Enabled'
+             else 'Disabled'
+           end as isenabled,
+           case
+              when cpmc.istrackable = 't' then 'Yes'
+             else 'No'
+           end as istrackable
+              
     from
-           ims_cp_manifests cp, acs_objects acs
+           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc
     where 
            cp.man_id = acs.object_id
     and
-           acs.context_id = :package_id
+           cp.man_id = cpmc.man_id
+    and
+           cpmc.community_id = :community_id
+    order by acs.creation_date desc
 } {
     set ims_md_id $man_id
 }

@@ -10,9 +10,15 @@ ad_page_contract {
     @cvs-id $Id$
 } {
     course_name:notnull
+    track_id:integer
 } -properties {
 } -validate {
 } -errors {
 }
 
-set back_to_community [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+
+
+# urls
+set exit_url "exit?[export_vars {return_url track_id}]"
+set logout_url "exit?return_url=/register/logout&[export_vars track_id]"

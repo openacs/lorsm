@@ -8,7 +8,13 @@ if { [info exists content(item_id)] } {
 	# It's a file.
 	cr_write_content -revision_id $content(revision_id)
 	ad_script_abort
+    } elseif { [string equal "text/css" $content(mime_type)]} {
+	# we treat CSS files as if they would be binaries and deliver
+	# them straight to the browser (maybe we should do the same
+	# thing for XML files (?)
+	cr_write_content -revision_id $content(revision_id)
     }
+
 
     # Ordinary text/* mime type.
     template::util::array_to_vars content

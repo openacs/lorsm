@@ -10,8 +10,8 @@ ad_page_contract {
 } {
 }
 
-set title "Manage Courses in Repository"
-set context [list "Manage Courses"]
+set title "[_ lorsm.lt_Manage_Courses_in_Rep]"
+set context [list "[_ lorsm.Manage_Courses]"]
 
 
 set package_id [ad_conn package_id]
@@ -31,9 +31,9 @@ dotlrn::require_user_admin_community -user_id $user_id -community_id $community_
 
 set actions [list]
 
-lappend actions  "Add Course" [export_vars -base "course-add"] "Add a IMS/SCORM Compliant Course"
-lappend actions  "Search Learning Objects" [export_vars -base "/search"] "Search for Learninng Objects in the Repository"
-lappend actions  "Available Courses" [export_vars -base "shared/"] "View Available Courses in the Repository"
+lappend actions  "[_ lorsm.Add_Course]" [export_vars -base "course-add"] "[_ lorsm.lt_Add_a_IMSSCORM_Compli]"
+lappend actions  "[_ lorsm.lt_Search_Learning_Objec]" [export_vars -base "/search"] "[_ lorsm.lt_Search_for_Learninng_]"
+lappend actions  "[_ lorsm.Available_Courses]" [export_vars -base "shared/"] "[_ lorsm.lt_View_Available_Course]"
  
 
 template::list::create \
@@ -42,56 +42,56 @@ template::list::create \
     -html {width 50%} \
     -actions $actions \
     -key man_id \
-    -no_data "No Courses" \
+    -no_data "[_ lorsm.No_Courses]" \
     -elements {
         course_name {
-            label "Available Courses"
+            label "[_ lorsm.Available_Courses]"
             display_col course_name
             link_url_eval {delivery/?[export_vars man_id]}
-            link_html {title "Access Course"}
+            link_html {title "[_ lorsm.Access_Course]"}
 
         }
         hasmetadata {
-            label "Metadata?"
+            label "[_ lorsm.Metadata_1]"
             link_url_eval {md/?[export_vars ims_md_id]}
-            link_html {title "See metadata" }
+            link_html {title "[_ lorsm.See_metadata]" }
 	    html { align center }
         }
         isscorm {
-            label "SCORM?"
+            label "[_ lorsm.SCORM]"
 	    html { align center }
         }
         isenabled {
-            label "Status"
+            label "[_ lorsm.Status_1]"
 	    html { align center }
         }
         istrackable {
-            label "Tracking?"
+            label "[_ lorsm.Tracking]"
             link_url_eval {tracking/?[export_vars man_id]}
-            link_html {title "Track Student's Progress" class button}
+            link_html {title "[_ lorsm.lt_Track_Students_Progre]" class button}
 	    html { align center }
         }
         creation_user {
-            label "Owner"
+            label "[_ lorsm.Owner]"
             display_eval {[person::name -person_id $creation_user]}
             link_url_eval {[acs_community_member_url -user_id $creation_user]}
         }
         creation_date {
-            label "Creation Date"
+            label "[_ lorsm.Creation_Date]"
             display_eval {[lc_time_fmt $creation_date "%x %X"]}
         }
         export {
-            label "Export"
+            label "[_ lorsm.Export]"
 	    display_eval {\[zip\]}
             link_url_eval {[export_vars -base export folder_id]}
-            link_html {title "Export as IMS Content Package"}
+            link_html {title "[_ lorsm.lt_Export_as_IMS_Content]"}
 	    html { align center }
         }
         admin {
-            label "Admin Course"
+            label "[_ lorsm.Admin_Course]"
 	    display_eval {Admin}
             link_url_eval {[export_vars -base course-structure man_id]}
-            link_html {title "Admin Course" class button}
+            link_html {title "[_ lorsm.Admin_Course]" class button}
 	    html { align center }
         }
     }

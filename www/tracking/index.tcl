@@ -62,7 +62,7 @@ if {$group == 1} {
 	    }
 	    time_spend {
 		label "Time Spent"
-		display_eval {[lorsm::dates_calc -start_date [lc_time_fmt $start_time "%x %T"] -end_date [lc_time_fmt $end_time "%x %T"]]}
+		display_eval {[lorsm::dates_calc -start_date [string range $start_time 0 18] -end_date [string range $end_time 0 18]]}
 		html { align center }
 	    }
 	}
@@ -101,6 +101,7 @@ if {$group == 1} {
             }
             last_viewed {
                 label "Last Viewed On"
+	        display_eval {[lc_time_fmt $last_viewed "%x %X"]}
             }
         }
 

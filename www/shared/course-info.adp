@@ -7,12 +7,12 @@
 <table class="list" cellpadding="3" cellspacing="1" width="70%">
     <tr class="list-header">
         <th class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" colspan="2">
-        Course Information
+        #lorsm.Course_Information#
         </th>
     </tr>
               <tr class="list-odd">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Course Name:
+                #lorsm.Course_Name#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0; font-weight: bold;">
                 @course_name;noquote@
@@ -20,7 +20,7 @@
           </tr>
               <tr class="list-even">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Version:
+                #lorsm.Version#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0">
                   @version;noquote@
@@ -28,20 +28,20 @@
           </tr>
               <tr class="list-odd">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Metadata?:
+                #lorsm.Metadata#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0">
          	<if @man_metadata@ eq "Yes">
-	           <a href="md/?ims_md_id=@man_id@">Yes</a>
+	           <a href="md/?ims_md_id=@man_id@">#lorsm.Yes#</a>
                 </if>
 	        <else>
-                  No
+                  #lorsm.No#
                 </else>
               </td>
           </tr>
               <tr class="list-even">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Identifier:
+                #lorsm.Identifier#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0" width="80%">
                 @identifier@
@@ -49,21 +49,21 @@
           </tr>
               <tr class="list-odd">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Is SCORM?:
+                <#Is_SCORM_? Is SCORM?:#>
               </td>
               <td 
          	<if @isscorm@ eq "Yes">
-	           class="list" style="font-weight: bold;"
+	           #lorsm.lt_classlist_stylefont-w#
                 </if>
 	        <else>
-                   class="list"
+                   #lorsm.classlist#
                 </else>
-                valign="top" align="left">@isscorm;noquote@
+                #lorsm.lt_valigntop_alignleftis#
               </td>
           </tr>
               <tr class="list-odd">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Created By:
+                #lorsm.Created_By#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0" width="80%">
                 @created_by@
@@ -71,7 +71,7 @@
           </tr>
               <tr class="list-even">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Date:
+                #lorsm.Date#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0" width="80%">
                 @creation_date;noquote@
@@ -79,7 +79,7 @@
           </tr>
               <tr class="list-odd">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Submanifests:
+                #lorsm.Submanifests#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0" width="80%">
                 @submanifests@
@@ -88,23 +88,23 @@
               <tr class="list-even last">
         <if @active@ eq 0>
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
-                Add course to my class now:
+                #lorsm.lt_Add_course_to_my_clas#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0" width="80%">
                      <div style="float: right;">
-	                  <a href="@shared_url@" class="button">Add Course</a>
+	                  <a href="@shared_url@" class="button">#lorsm.Add_Course#</a>
                      </div>
               </td>
         </if>
         <else>
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%" colspan="2">
-                  Course already part of your class
+                  #lorsm.lt_Course_already_part_o#
               </td>
         </else>
           </tr>
     <tr class="list-header">
         <th class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" colspan="2">
-         Organizations
+         #lorsm.Organizations#
         </th>
     </tr>
               <tr class="list-odd">
@@ -121,3 +121,4 @@
 </blockquote>
 
 <hr>
+

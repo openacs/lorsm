@@ -19,13 +19,14 @@
  </head>
 
  <body border=0>
-<p align="center"><font size=+3">Welcome to <b>@course_name@</b></font><br><font size=-1>Course Delivery System for LORS</font>
+<p align="center"><font size=+3">#lorsm.Welcome_to# <b>@course_name@</b></font><br><font size=-1>#lorsm.lt_Course_Delivery_Syste#</font>
 </p>
 
 <p align="center">
-Your Stats:
+#lorsm.Your_Stats#
 <br>
-You have seen this course <b>x</b> number of times and have covered <b>xx %</b> of the content.
+#lorsm.lt_You_have_seen_this_co# <b>x</b> #lorsm.lt_number_of_times_and_h# <b>xx %</b> #lorsm.of_the_content#
 </p>
  </body>
 </html>
+

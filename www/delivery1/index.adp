@@ -12,7 +12,7 @@
 </frameset>
 
 <noframes>
-      <p>Sorry, your browser must support frames to view this page. 
+      <p>#lorsm.lt_Sorry_your_browser_mu# 
   </p>
   </noframes>
 </frameset>

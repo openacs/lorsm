@@ -9,16 +9,17 @@
       //-->
     </script>
     
-<h1>Welcome to <b>@course_name@</h1>
+<h1>#lorsm.Welcome_to# <b>@course_name@</h1>
 <p>
 
-      Your Stats:
+      #lorsm.Your_Stats#
       <br>
-	You have seen this course <b>x</b> number of times and have covered <b>@viewed_percent@ %</b> of the content.
+	#lorsm.lt_You_have_seen_this_co# <b>x</b> #lorsm.lt_number_of_times_and_h# <b>@viewed_percent@ %</b> #lorsm.of_the_content#
     </p>
     <if @last_page_viewed@ defined>
       <p>
-	The last page you viewed was: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
+	#lorsm.lt_The_last_page_you_vie# <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
     </if>
     <p>
-      Click on menu to the left to view course materials.
+      #lorsm.lt_Click_on_menu_to_the_#
+

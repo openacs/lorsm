@@ -144,7 +144,7 @@ function seekAndDestroy( ims_id ) {
 </head>
 
 <body>
-    <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: fixed;" class="button" target="_top">Exit Course <br> (return to .LRN)</a>
+    <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: fixed;" class="button" target="_top">#lorsm.Exit_Course# <br> #lorsm.return_to_LRN#</a>
 &nbsp;
 <hr size=1>
     <if @TREE_ITEMS@ defined>
@@ -161,3 +161,4 @@ function seekAndDestroy( ims_id ) {
 </body>
 
 </html>
+

@@ -19,9 +19,9 @@
       <td><span class="header-text">@course_name@<br></span></td>
 
       <td align="right" class="header-text">
-        <a href="@exit_url@" target="_top">Exit Course</a>
+        <a href="@exit_url@" target="_top">#lorsm.Exit_Course#</a>
         <img class="header-img" src="/resources/dotlrn/spacer.gif" height="1" width="10">
-        <a href="@logout_url@" target="_top">Log Out</a>
+        <a href="@logout_url@" target="_top">#lorsm.Log_Out#</a>
         <img class="header-img" src="/resources/dotlrn/spacer.gif" height="1" width="10">
       </td>
     </tr>

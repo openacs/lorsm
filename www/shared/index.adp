@@ -5,7 +5,7 @@
 <table width="100%">
   <tr>
     <td valign="top">
-        <h2>Shared Courses in the Repository</h2>
+        <h2>#lorsm.lt_Shared_Courses_in_the#</h2>
      </td>
   <tr>
    <td>
@@ -13,3 +13,4 @@
    </td>
  </tr>
 </table>
+

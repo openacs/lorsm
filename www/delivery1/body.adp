@@ -19,9 +19,10 @@
  </head>
 
  <body border=0>
-<p align="center"><font size=+3">Welcome to LEON</font><br><font size=-1>Course Delivery System for LORS</font>
+<p align="center"><font size=+3">#lorsm.Welcome_to_LEON#</font><br><font size=-1>#lorsm.lt_Course_Delivery_Syste#</font>
 </p>
 
-<p align="center">Click on the Course Index items to start your <b>@course_name@</b> course.</p>
+<p align="center">#lorsm.lt_Click_on_the_Course_I# <b>@course_name@</b> #lorsm.course#</p>
  </body>
 </html>
+

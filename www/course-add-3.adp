@@ -3,43 +3,43 @@
 
 <p>  
 
-<h2>Preliminary information</h2>
+<h2>#lorsm.lt_Preliminary_informati#</h2>
 <p>
 
 <blockquote>
 <listtemplate name="d_info"></listtemplate>
 <p>
 <if @isSCORM@ eq 1>
-  <font color="green">The uploaded file is a <b>SCORM complaint package</b></font>
+  <font color="green">#lorsm.lt_The_uploaded_file_is_# <b>#lorsm.lt_SCORM_complaint_packa#</b></font>
   <p>
 </if>
-<small><b>Note</b>: the package has <b>not yet</b> being added to the Learning Object Repository.
+<small><b>#lorsm.Note#</b>#lorsm._the_package_has# <b>#lorsm.not_yet#</b> #lorsm.lt_being_added_to_the_Le#
 <p>
 
-<h2>Organizations</h2>
+<h2>#lorsm.Organizations#</h2>
 <listtemplate name="d_orgs"></listtemplate>
 <p>
 
 <blockquote>
-<h3>Items</h3>
+<h3>#lorsm.Items#</h3>
 <listtemplate name="d_items"></listtemplate>
 </blockquote>
 <p>
 
 
 <if @isSCORM@ eq 1>
-<h3>SCOs</h3>
+<h3>#lorsm.SCOs#</h3>
 <listtemplate name="d_scos"></listtemplate>
 <p>
 
-<h3>Assets</h3>
+<h3>#lorsm.Assets#</h3>
 <listtemplate name="d_assets"></listtemplate>
 <p>
 </if>
 
 
 <if @isSCORM@ eq 0>
-<h3>Resources</h3>
+<h3>#lorsm.Resources#</h3>
 <listtemplate name="d_resources"></listtemplate>
 <p>
 </if>
@@ -53,4 +53,5 @@
 
 <p>
 @all_files@
+
 

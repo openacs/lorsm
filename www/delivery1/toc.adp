@@ -80,7 +80,7 @@ font-size: 8pt;
 <body border=0>
 <div id="site-header">
   <div class="system-name">
-    Course Index
+    #lorsm.Course_Index#
   </div>
 </div>
 @table_item;noquote@

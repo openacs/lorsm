@@ -7,27 +7,28 @@
 
   <table cellspacing="2" cellpadding="2" border="0">
     <tr class="form-section">
-      <th colspan="2">Meta Metadata</th>
+      <th colspan="2">#lorsm.Meta_Metadata#</th>
     </tr>
     <tr class="form-section">
-      <td class="form-section">Catalog-Entries: </td>
+      <td class="form-section">#lorsm.Catalog-Entries# </td>
       <td><listtemplate name= "d_md_cata"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Contribution: </td>
+      <td class="form-section">#lorsm.Contribution# </td>
       <td><listtemplate name= "d_md_cont"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Scheme: </td>
+      <td class="form-section">#lorsm.Scheme# </td>
       <td><listtemplate name= "d_md_scheme"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Language: </td>
+      <td class="form-section">#lorsm.Language# </td>
       <td><listtemplate name= "d_md_lang"></listtemplate></td>
     </tr>   
 
   </table>
+
 

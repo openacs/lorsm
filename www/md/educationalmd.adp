@@ -7,62 +7,63 @@
 
   <table cellspacing="2" cellpadding="2" border="0">
     <tr class="form-section">
-      <th colspan="2">Educational Metadata</th>
+      <th colspan="2">#lorsm.Educational_Metadata#</th>
     </tr>
 
     <tr class="form-section">
-      <td class="form-section">Interactivity Type: </td>
+      <td class="form-section">#lorsm.Interactivity_Type# </td>
       <td><listtemplate name= "d_ed_intt"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Learning Resource Type: </td>
+      <td class="form-section">#lorsm.lt_Learning_Resource_Typ# </td>
       <td><listtemplate name= "d_ed_lrt"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Interactivity Level: </td>
+      <td class="form-section">#lorsm.Interactivity_Level# </td>
       <td><listtemplate name= "d_ed_intl"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Semantic Density: </td>
+      <td class="form-section">#lorsm.Semantic_Density# </td>
       <td><listtemplate name= "d_ed_semd"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Intended End User Role: </td>
+      <td class="form-section">#lorsm.lt_Intended_End_User_Rol# </td>
       <td><listtemplate name= "d_ed_ieur"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Context: </td>
+      <td class="form-section">#lorsm.Context# </td>
       <td><listtemplate name= "d_ed_cont"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Typical Age Range: </td>
+      <td class="form-section">#lorsm.Typical_Age_Range# </td>
       <td><listtemplate name= "d_ed_tar"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Difficulty: </td>
+      <td class="form-section">#lorsm.Difficulty# </td>
       <td><listtemplate name= "d_ed_dif"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Typical Learning Time: </td>
+      <td class="form-section">#lorsm.lt_Typical_Learning_Time# </td>
       <td><listtemplate name= "d_ed_tlt"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Description: </td>
+      <td class="form-section">#lorsm.Description# </td>
       <td><listtemplate name= "d_ed_desc"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Language: </td>
+      <td class="form-section">#lorsm.Language# </td>
       <td><listtemplate name= "d_ed_lang"></listtemplate></td>
     </tr>   
 
   </table>
+

@@ -1,3 +1,5 @@
+# packages/lorsm/www/md/generalmd.tcl
+
 ad_page_contract {
     Displays/Adds IMS Metadata General
 
@@ -10,7 +12,7 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list "IMS Metadata Editor - General MD"]
+set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "General MD"]
 set title "General MD"
 
 # General Title
@@ -18,7 +20,7 @@ template::list::create \
     -name d_gen_titles \
     -multirow d_gen_titles \
     -no_data "No Titles Available" \
-    -actions [list "Add title" [export_vars -base general_title {ims_md_id}] "Add another title"] \
+    -actions [list "Add Title" [export_vars -base generalmd/general_title {ims_md_id}] "Add another title"] \
     -html { align right style "width: 100%;" } \
     -elements {
         title_l {
@@ -45,7 +47,7 @@ template::list::create \
     -name d_gen_desc \
     -multirow d_gen_desc \
     -no_data "No Description Available" \
-    -actions [list "Add Description" [export_vars -base general_desc {ims_md_id}] "Add another Description"] \
+    -actions [list "Add Description" [export_vars -base generalmd/general_desc {ims_md_id}] "Add another Description"] \
     -html { align right style "width: 100%;" } \
     -elements {
         descrip_l {
@@ -70,7 +72,7 @@ template::list::create \
     -name d_gen_cata \
     -multirow d_gen_cata \
     -no_data "No Catalog Entry Available" \
-    -actions [list "Add Catalog-Entry" [export_vars -base general_cata {ims_md_id}] "Add another Catalog-Entry"] \
+    -actions [list "Add Catalog-Entry" [export_vars -base generalmd/general_cata {ims_md_id}] "Add another Catalog-Entry"] \
     -html { align right style "width: 100%;" } \
     -elements {
         catalog {
@@ -102,7 +104,7 @@ template::list::create \
     -name d_gen_lang \
     -multirow d_gen_lang \
     -no_data "No Language Available" \
-    -actions [list "Add Language"  [export_vars -base general_lang {ims_md_id}] "Add another Language"] \
+    -actions [list "Add Language"  [export_vars -base generalmd/general_lang {ims_md_id}] "Add another Language"] \
     -html { align right style "width: 100%;" } \
     -elements {
         language {
@@ -124,7 +126,7 @@ template::list::create \
     -name d_gen_key \
     -multirow d_gen_key \
     -no_data "No Keywords Available" \
-    -actions [list "Add Keywords" [export_vars -base general_key {ims_md_id}] "Add another Keywords"] \
+    -actions [list "Add Keywords" [export_vars -base generalmd/general_key {ims_md_id}] "Add another Keywords"] \
     -html { align right style "width: 100%;" } \
     -elements {
         keyword_l {
@@ -150,7 +152,7 @@ template::list::create \
     -name d_gen_cover \
     -multirow d_gen_cover \
     -no_data "No Coverage Available" \
-    -actions [list "Add Coverage" [export_vars -base general_cover {ims_md_id}] "Add another Coverage"] \
+    -actions [list "Add Coverage" [export_vars -base generalmd/general_cover {ims_md_id}] "Add another Coverage"] \
     -html { align right style "width: 100%;" } \
     -elements {
         cover_l {
@@ -176,7 +178,7 @@ template::list::create \
     -name d_gen_struc \
     -multirow d_gen_struc \
     -no_data "No Structure Available" \
-    -actions [list "Add Structure" [export_vars -base general_struc {ims_md_id}] "Add another Structure"] \
+    -actions [list "Add Structure" [export_vars -base generalmd/general_struc {ims_md_id}] "Add another Structure"] \
     -html { align right style "width: 100%;" } \
     -elements {
         structure_s {
@@ -203,7 +205,7 @@ template::list::create \
     -name d_gen_aggl \
     -multirow d_gen_aggl \
     -no_data "No Aggregation Level  Available" \
-    -actions [list "Add Aggregation Level" [export_vars -base general_aggl {ims_md_id}]  "Add another Aggregation Level"] \
+    -actions [list "Add Aggregation Level" [export_vars -base generalmd/general_aggl {ims_md_id}]  "Add another Aggregation Level"] \
     -html { align right style "width: 100%;" } \
     -elements {
         agg_level_s {

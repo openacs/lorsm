@@ -3,10 +3,7 @@
 <property name="context">@context;noquote@</property>
 
 <include src="../lib/md-record"
-    ims_md_id="@ims_md_id;noquote@"
-/>
-
-<hr>
+    ims_md_id="@ims_md_id;noquote@"/>
 
   <table cellspacing="2" cellpadding="2" border="0">
     <tr class="form-section">
@@ -18,7 +15,7 @@
     </tr>   
 
     <tr class="form-section">
-     <td class="form-section">Catalog entries: </td>
+     <td class="form-section">Catalog-Entries: </td>
      <td><listtemplate name= "d_gen_cata"></listtemplate></td>
     </tr>
 
@@ -48,7 +45,7 @@
     </tr>
 
     <tr class="form-section">
-        <td class="form-section">Aggregation Levels: </td>
+        <td class="form-section">Aggregation Level: </td>
         <td><listtemplate name= "d_gen_aggl"></listtemplate></td>
     </tr>
 

@@ -20,7 +20,7 @@
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Contributes: </td>
+      <td class="form-section">Contribution: </td>
       <td><listtemplate name= "d_lf_cont"></listtemplate></td>
     </tr>   
 

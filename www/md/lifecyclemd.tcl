@@ -10,7 +10,8 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list "IMS Metadata Editor - Lifecycle MD"]
+set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Lifecycle MD"]
+
 set title "Lifecycle MD"
 
 # Lifecycle version
@@ -18,7 +19,7 @@ template::list::create \
     -name d_lf_ver \
     -multirow d_lf_ver \
     -no_data "No Version Available" \
-    -actions [list "Add Version" [export_vars -base lifecycle_version {ims_md_id}] "Add Version"] \
+    -actions [list "Add Version" [export_vars -base lifecyclemd/lifecycle_version {ims_md_id}] "Add Version"] \
     -html { align right style "width: 100%;" } \
     -elements {
         version_l {
@@ -42,8 +43,8 @@ db_multirow d_lf_ver select_lf_ver {
 template::list::create \
     -name d_lf_stat \
     -multirow d_lf_stat \
-    -no_data "No Version Available" \
-    -actions [list "Add Status" [export_vars -base lifecycle_stat {ims_md_id}] "Add Status"] \
+    -no_data "No Status Available" \
+    -actions [list "Add Status" [export_vars -base lifecyclemd/lifecycle_stat {ims_md_id}] "Add Status"] \
     -html { align right style "width: 100%;" } \
     -elements {
         status_s {
@@ -69,7 +70,7 @@ template::list::create \
     -name d_lf_cont \
     -multirow d_lf_cont \
     -no_data "No Contributors Available" \
-    -actions [list "Add Contributors" [export_vars -base lifecycle_cont {ims_md_id}] "Add another Contributors"] \
+    -actions [list "Add Contributors" [export_vars -base lifecyclemd/lifecycle_cont {ims_md_id}] "Add another Contributors"] \
     -html { align right style "width: 100%;" } \
     -elements {
         role {

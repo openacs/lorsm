@@ -14,6 +14,8 @@ set context [list "IMS Metadata Editor"]
 set title "IMS Metadata Editor"
 set link [export_vars -base "md_upload" ims_md_id]
 
-set write_p [permission::permission_p -party_id [ad_conn user_id] -object_id $ims_md_id -privilege write]
+set hasmetadata [lors::imsmd::mdExist -ims_md_id $ims_md_id]
+set object_type [acs_object_type $ims_md_id]
 
+set write_p [permission::permission_p -party_id [ad_conn user_id] -object_id $ims_md_id -privilege write]
 set read_p [permission::permission_p -party_id [ad_conn user_id] -object_id $ims_md_id -privilege read]

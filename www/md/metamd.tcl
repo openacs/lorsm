@@ -10,22 +10,22 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list "IMS Metadata Editor - Metadata MD"]
-set title "Metadata MD"
+set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Meta Metadata"]
+set title "Meta MD"
 
 # Metametadata Catalogentry
 template::list::create \
     -name d_md_cata \
     -multirow d_md_cata \
     -no_data "No Catalog Entry Available" \
-    -actions [list "Add Catalog-Entry" [export_vars -base metamd_cata {ims_md_id}] "Add another Catalog-Entry"] \
+    -actions [list "Add Catalog-Entry" [export_vars -base metamd/meta_cata {ims_md_id}] "Add another Catalog-Entry"] \
     -html { align right style "width: 100%;" } \
     -elements {
         catalog {
             label "Catalog"
         }
         entry_ls {
-            label "\Language\ Entry"
+            label "Language Entry"
         }
     }
 
@@ -45,7 +45,7 @@ template::list::create \
     -name d_md_cont \
     -multirow d_md_cont \
     -no_data "No Contributors Available" \
-    -actions [list "Add Contributors" [export_vars -base metamd_cont {ims_md_id}] "Add another Contributors"] \
+    -actions [list "Add Contributors" [export_vars -base metamd/meta_cont {ims_md_id}] "Add another Contributors"] \
     -html { align right style "width: 100%;" } \
     -elements {
         role {
@@ -64,7 +64,7 @@ template::list::create \
 
 db_multirow d_md_cont select_md_cont {
 select 
-	mdc.role_v || ' ' || '[' || mdc.role_s || ']' as role,
+    mdc.role_v || ' ' || '[' || mdc.role_s || ']' as role,
     mdce.entity,
     mdc.cont_date,
     '[' || mdc.cont_date_l || ']' || ' ' || mdc.cont_date_s as cont_date_ls
@@ -82,7 +82,7 @@ template::list::create \
     -name d_md_scheme \
     -multirow d_md_scheme \
     -no_data "No Scheme Available" \
-    -actions [list "Add Scheme" [export_vars -base metamd_scheme {ims_md_id}] "Add another Scheme"] \
+    -actions [list "Add Scheme" [export_vars -base metamd/meta_scheme {ims_md_id}] "Add another Scheme"] \
     -html { align right style "width: 100%;" } \
     -elements {
         scheme {
@@ -104,7 +104,7 @@ template::list::create \
     -name d_md_lang \
     -multirow d_md_lang \
     -no_data "No Language Available" \
-    -actions [list "Add Language" [export_vars -base metamd_lang {ims_md_id}] "Add another Languages"] \
+    -actions [list "Add Language" [export_vars -base metamd/meta_lang {ims_md_id}] "Add another Languages"] \
     -html { align right style "width: 100%;" } \
     -elements {
         language {

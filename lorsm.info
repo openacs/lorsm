@@ -8,14 +8,14 @@
     <singleton-p>f</singleton-p>
     <auto-mount>lorsm</auto-mount>
 
-    <version name="0.4d" url="http://openacs.org/repository/download/apm/lorsm-0.4d.apm">
+    <version name="0.5d" url="http://openacs.org/repository/download/apm/lorsm-0.5d.apm">
         <owner url="mailto:ernieg@mm.st">Ernie Ghiglione</owner>
         <summary>Application to manage the services from the Learning Object Repository. </summary>
         <release-date>2004-06-19</release-date>
         <description format="text/html">This application manages the services from the Learning Object Repository: upload courses, manage and create metadata, delete resources and courses. </description>
 
-        <provides url="lorsm" version="0.4d"/>
-        <requires url="lors" version="0.4d"/>
+        <provides url="lorsm" version="0.5d"/>
+        <requires url="lors" version="0.5d"/>
         <requires url="views" version="0.1d"/>
 
         <callbacks>

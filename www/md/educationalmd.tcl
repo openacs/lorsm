@@ -10,7 +10,7 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list "IMS Metadata Editor - Educational MD"]
+set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Educational MD"]
 set title "Educational MD"
 
 # Educational Interactivity Type
@@ -18,7 +18,7 @@ template::list::create \
     -name d_ed_intt \
     -multirow d_ed_intt \
     -no_data "No Interactivity Type Available" \
-    -actions [list "Add Interactivity Type" [export_vars -base educationalmd_intt {ims_md_id}] "Add another Interactivity Type"] \
+    -actions [list "Add Interactivity Type" [export_vars -base educationalmd/educational_intt {ims_md_id}] "Add another Interactivity Type"] \
     -html { align right style "width: 100%;" } \
     -elements {
         intt {
@@ -40,7 +40,7 @@ template::list::create \
     -name d_ed_lrt \
     -multirow d_ed_lrt \
     -no_data "No Learning Resource Type Available" \
-    -actions [list "Add Learning Resource Type" [export_vars -base educationalmd_lrt {ims_md_id}] "Add another Learning Resource Type"] \
+    -actions [list "Add Learning Resource Type" [export_vars -base educationalmd/educational_lrt {ims_md_id}] "Add another Learning Resource Type"] \
     -html { align right style "width: 100%;" } \
     -elements {
         lrt {
@@ -62,7 +62,7 @@ template::list::create \
     -name d_ed_intl \
     -multirow d_ed_intl \
     -no_data "No Interactivity Level Available" \
-    -actions [list "Add Interactivity Level" [export_vars -base educationalmd_intl {ims_md_id}] "Add another Interactivity Level"] \
+    -actions [list "Add Interactivity Level" [export_vars -base educationalmd/educational_intl {ims_md_id}] "Add another Interactivity Level"] \
     -html { align right style "width: 100%;" } \
     -elements {
         intl {
@@ -84,7 +84,7 @@ template::list::create \
     -name d_ed_semd \
     -multirow d_ed_semd \
     -no_data "No Semantic Density Available" \
-    -actions [list "Add Semantic Density" [export_vars -base educationalmd_semd {ims_md_id}] "Add another Semantic Density"] \
+    -actions [list "Add Semantic Density" [export_vars -base educationalmd/educational_semd {ims_md_id}] "Add another Semantic Density"] \
     -html { align right style "width: 100%;" } \
     -elements {
         semd {
@@ -106,7 +106,7 @@ template::list::create \
     -name d_ed_ieur \
     -multirow d_ed_ieur \
     -no_data "No Intended End User Role Available" \
-    -actions [list "Add Intended End User Role" [export_vars -base educationalmd_ieur {ims_md_id}] "Add another Intended End User Role"] \
+    -actions [list "Add Intended End User Role" [export_vars -base educationalmd/educational_ieur {ims_md_id}] "Add another Intended End User Role"] \
     -html { align right style "width: 100%;" } \
     -elements {
         ieur {
@@ -128,7 +128,7 @@ template::list::create \
     -name d_ed_cont \
     -multirow d_ed_cont \
     -no_data "No Context Available" \
-    -actions [list "Add Context" [export_vars -base educationalmd_cont {ims_md_id}] "Add another Context"] \
+    -actions [list "Add Context" [export_vars -base educationalmd/educational_cont {ims_md_id}] "Add another Context"] \
     -html { align right style "width: 100%;" } \
     -elements {
         context {
@@ -150,7 +150,7 @@ template::list::create \
     -name d_ed_tar \
     -multirow d_ed_tar \
     -no_data "No Typical Age Range Available" \
-    -actions [list "Add Typical Age Range" [export_vars -base educationalmd_tar {ims_md_id}] "Add another Typical Age Range"] \
+    -actions [list "Add Typical Age Range" [export_vars -base educationalmd/educational_tar {ims_md_id}] "Add another Typical Age Range"] \
     -html { align right style "width: 100%;" } \
     -elements {
         tar {
@@ -172,7 +172,7 @@ template::list::create \
     -name d_ed_dif \
     -multirow d_ed_dif \
     -no_data "No Difficulty Available" \
-    -actions [list "Add Difficulty Type" [export_vars -base educationalmd_dif {ims_md_id}] "Add another Difficulty"] \
+    -actions [list "Add Difficulty Type" [export_vars -base educationalmd/educational_dif {ims_md_id}] "Add another Difficulty"] \
     -html { align right style "width: 100%;" } \
     -elements {
         diff {
@@ -194,7 +194,7 @@ template::list::create \
     -name d_ed_tlt \
     -multirow d_ed_tlt \
     -no_data "No Typical Learning Time Available" \
-    -actions [list "Add Typical Learning Time" [export_vars -base educationalmd_tlt {ims_md_id}] "Add another Typical Learning Time"] \
+    -actions [list "Add Typical Learning Time" [export_vars -base educationalmd/educational_tlt {ims_md_id}] "Add another Typical Learning Time"] \
     -html { align right style "width: 100%;" } \
     -elements {
         tlt {
@@ -220,7 +220,7 @@ template::list::create \
     -name d_ed_desc \
     -multirow d_ed_desc \
     -no_data "No Description Available" \
-    -actions [list "Add Description" [export_vars -base educationalmd_tlt {ims_md_id}] "Add another Description"] \
+    -actions [list "Add Description" [export_vars -base educationalmd/educational_desc {ims_md_id}] "Add another Description"] \
     -html { align right style "width: 100%;" } \
     -elements {
         desc {
@@ -242,7 +242,7 @@ template::list::create \
     -name d_ed_lang \
     -multirow d_ed_lang \
     -no_data "No Language Available" \
-    -actions [list "Add Language" [export_vars -base educationalmd_lang {ims_md_id}] "Add another Language"] \
+    -actions [list "Add Language" [export_vars -base educationalmd/educational_lang {ims_md_id}] "Add another Language"] \
     -html { align right style "width: 100%;" } \
     -elements {
         language {

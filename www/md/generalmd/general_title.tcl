@@ -1,4 +1,4 @@
-# packages/lorsm/www/md/general_title.tcl
+# packages/lorsm/www/md/generalmd/general_title.tcl
 
 ad_page_contract {
     
@@ -18,17 +18,18 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_ti_id]} {
-    set context [list "IMS Metadata Editor - General MD"]
+    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" ims_md_id] "General MD"] "Edit Titles"]
     set title "Edit General MD Title"
 } else {
-    set context [list "IMS Metadata Editor - General MD"]
+    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  [list [export_vars -base "../generalmd" ims_md_id] "General MD"] "Add Titles"]
+#    set context [list [list [export_vars -base ".." ims_md_id] "IMS Metadata Editor"]  "General MD"]
     set title "Add General MD Title"
 }
 
 # Form
 
 ad_form -name generalmd_title \
-    -cancel_url index \
+    -cancel_url [export_vars -base "../generalmd" ims_md_id] \
     -mode edit \
     -form {
 
@@ -43,10 +44,11 @@ ad_form -name generalmd_title \
     
     {title_s:text,nospell
         {html {size 50}}
+	{help_text "Learning object's name"}
         {label "Title:"}
     }
 
-    {ims_md_id:text(hidden)
+    {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
 } -select_query  {select * from ims_md_general_title where ims_md_ge_ti_id = :ims_md_ge_ti_id and ims_md_id = :ims_md_id
@@ -57,13 +59,13 @@ ad_form -name generalmd_title \
             set title_l = :title_l, title_s = :title_s
             where ims_md_ge_ti_id = :ims_md_ge_ti_id "
 } -new_data {
-        db_dml do_insert "
+       db_dml do_insert "
             insert into ims_md_general_title (ims_md_ge_ti_id, ims_md_id, title_l, title_s)
             values
             (:ims_md_ge_ti_id, :ims_md_id, :title_l, :title_s)"
 
 } -after_submit {
-    ad_returnredirect [export_vars -base "general_title" {ims_md_id}]
+    ad_returnredirect [export_vars -base "../generalmd" {ims_md_id}]
         ad_script_abort
 } 
 
@@ -75,10 +77,10 @@ template::list::create \
     -html { align right style "width: 100%;" } \
     -elements {
         title_l {
-            label ""
+            label "Language"
         }
         title_s {
-            label ""
+            label "Title(s)"
         }
         export {
             display_eval {\[Edit\]}

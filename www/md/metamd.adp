@@ -10,12 +10,12 @@
       <th colspan="2">Meta Metadata</th>
     </tr>
     <tr class="form-section">
-      <td class="form-section">Catalog: </td>
+      <td class="form-section">Catalog-Entries: </td>
       <td><listtemplate name= "d_md_cata"></listtemplate></td>
     </tr>   
 
     <tr class="form-section">
-      <td class="form-section">Contributes: </td>
+      <td class="form-section">Contribution: </td>
       <td><listtemplate name= "d_md_cont"></listtemplate></td>
     </tr>   
 

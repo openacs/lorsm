@@ -1,4 +1,6 @@
 <master>
+<property name="title">@title;noquote@</property>
+<property name="context">@context;noquote@</property>
 
 <include src="../lib/md-record"
     ims_md_id="@ims_md_id;noquote@"/>
@@ -7,11 +9,8 @@
     <tr class="form-section">
       <th colspan="2">Relation Metadata</th>
     </tr>
-
     <tr class="form-section">
-      <td class="form-section">Cost: </td>
-      <td><listtemplate name= "d_ri_cost"></listtemplate></td>
+      <td class="form-section">Relations: </td>
+      <td><listtemplate name= "d_re_relat"></listtemplate></td>
     </tr>   
-
-
   </table>

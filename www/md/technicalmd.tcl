@@ -10,7 +10,7 @@ ad_page_contract {
 }
 
 # set context & title
-set context [list "IMS Metadata Editor - Technical MD"]
+set context [list [list [export_vars -base "." ims_md_id] "IMS Metadata Editor"]  "Technical MD"]
 set title "Technical MD"
 
 # Technical Format
@@ -18,7 +18,7 @@ template::list::create \
     -name d_te_form \
     -multirow d_te_form \
     -no_data "No Format Available" \
-    -actions [list "Add Format" [export_vars -base technicalmd_form {ims_md_id}] "Add another Format"] \
+    -actions [list "Add Format" [export_vars -base technicalmd/technical_form {ims_md_id}] "Add another Format"] \
     -html { align right style "width: 100%;" } \
     -elements {
         format {
@@ -40,17 +40,17 @@ template::list::create \
     -name d_te_size \
     -multirow d_te_size \
     -no_data "No Size Available" \
-    -actions [list "Add Size" [export_vars -base technicalmd_size {ims_md_id}] "Add another Size"] \
+    -actions [list "Add Size" [export_vars -base technicalmd/technical_size {ims_md_id}] "Add another Size"] \
     -html { align right style "width: 100%;" } \
     -elements {
-        t_size {
+        t_size_bytes {
             label ""
         }
     }
 
 db_multirow d_te_size select_te_size {
     select 
-           t_size
+           t_size || ' bytes' as t_size_bytes
     from 
            ims_md_technical
     where
@@ -62,7 +62,7 @@ template::list::create \
     -name d_te_loca \
     -multirow d_te_loca \
     -no_data "No Location Available" \
-    -actions [list "Add Location" [export_vars -base technicalmd_loca {ims_md_id}] "Add another Location"] \
+    -actions [list "Add Location" [export_vars -base technicalmd/technical_loca {ims_md_id}] "Add another Location"] \
     -html { align right style "width: 100%;" } \
     -elements {
         type {
@@ -88,7 +88,7 @@ template::list::create \
     -name d_te_req \
     -multirow d_te_req \
     -no_data "No Requirements Available" \
-    -actions [list "Add Requirements" [export_vars -base technicalmd_req {ims_md_id}] "Add another Requirement"] \
+    -actions [list "Add Requirements" [export_vars -base technicalmd/technical_req {ims_md_id}] "Add another Requirement"] \
     -html { align right style "width: 100%;" } \
     -elements {
         type {
@@ -117,12 +117,12 @@ db_multirow d_te_req select_te_req {
            ims_md_id = :ims_md_id
 } 
 
-# Technical Installation remarks
+# Technical Installation Remarks
 template::list::create \
     -name d_te_inst \
     -multirow d_te_inst \
     -no_data "No Installation Remarks Available" \
-    -actions [list "Add Installation Remark" [export_vars -base technicalmd_inst {ims_md_id}] "Add another Installation remark"] \
+    -actions [list "Add Installation Remark" [export_vars -base technicalmd/technical_inst {ims_md_id}] "Add another Installation remark"] \
     -html { align right style "width: 100%;" } \
     -elements {
         instl_rmrks {
@@ -144,7 +144,7 @@ template::list::create \
     -name d_te_otr \
     -multirow d_te_otr \
     -no_data "No Other Platform Requirements Available" \
-    -actions [list "Add Other Platform Requirements" [export_vars -base technicalmd_otr {ims_md_id}] "Add another Other Platform Requiements"] \
+    -actions [list "Add Other Platform Requirements" [export_vars -base technicalmd/technical_otr {ims_md_id}] "Add another Other Platform Requiements"] \
     -html { align right style "width: 100%;" } \
     -elements {
         otr_plt {
@@ -166,21 +166,25 @@ template::list::create \
     -name d_te_dur \
     -multirow d_te_dur \
     -no_data "No Duration Available" \
-    -actions [list "Add Duration" [export_vars -base technicalmd_dur {ims_md_id}] "Add another Duration"] \
+    -actions [list "Add Duration" [export_vars -base technicalmd/technical_dur {ims_md_id}] "Add another Duration"] \
     -html { align right style "width: 100%;" } \
     -elements {
-        duration {
+        duration_sec {
             label ""
         }
-        dur_descrip {
-            label ""
-        }
+        duration_l {
+	    label ""
+	}
+	duration_s {
+	    label ""
+	}
     }
 
 db_multirow d_te_dur select_te_dur {
     select 
-    duration,
-    '[' || duration_l || ']' || ' ' || duration_s as dur_descrip
+    duration_l,
+    duration_s,
+    duration || 's' as duration_sec
     from 
            ims_md_technical
     where

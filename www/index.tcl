@@ -15,20 +15,26 @@ set context [list "Manage Courses"]
 
 
 set package_id [ad_conn package_id]
+set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
 
 set admin_p [dotlrn::user_can_admin_community_p  \
 		 -user_id [ad_conn user_id]  \
 		 -community_id $community_id ]
 
+set admin_p [dotlrn::user_can_admin_community_p  \
+		 -user_id $user_id  \
+		 -community_id $community_id ]
+
+# Permissions
+dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
 
 set actions [list]
 
-if {$admin_p} {
-    lappend actions  "Add Course" [export_vars -base "course-add"] "Add a IMS/SCORM Compliant Course"
-    lappend actions  "Search Learning Objects" [export_vars -base "/search"] "Search for Learninng Objects in the Repository"
-    lappend actions  "Available Courses" [export_vars -base "shared/"] "View Available Courses in the Repository"
-}
+lappend actions  "Add Course" [export_vars -base "course-add"] "Add a IMS/SCORM Compliant Course"
+lappend actions  "Search Learning Objects" [export_vars -base "/search"] "Search for Learninng Objects in the Repository"
+lappend actions  "Available Courses" [export_vars -base "shared/"] "View Available Courses in the Repository"
+ 
 
 template::list::create \
     -name d_courses \

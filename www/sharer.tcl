@@ -27,6 +27,9 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 		 -user_id $user_id  \
 		 -community_id $community_id ]
 
+# Permissions
+dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
+
 # check write permisssion for the learning object/manifest
 permission::require_write_permission -object_id $man_id -creation_user $user_id
 

@@ -41,6 +41,11 @@ proc generate_tree_menu { items index rlevel } {
 	set title [fs::remove_special_file_system_characters -string $title]
 	regsub {'} $title {\'} title
 
+	# as suggested by Michele Slocovich (michele@sii.it)
+	# http://openacs.org/bugtracker/openacs/com/lors/bug?bug%5fnumber=2100
+	#
+	set title [string map { \{ \\{ \} \\} } $title ]
+
 	upvar #$adp_level man_id man_id
 	set url "'[export_vars -base "record-view" \
 			 -url {item_id man_id}]'"

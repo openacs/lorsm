@@ -27,6 +27,11 @@ ad_page_contract {
     }
 }
 
+
+# Permissions
+set user_id [ad_conn user_id]
+dotlrn::require_user_admin_community -user_id $user_id -community_id [dotlrn_community::get_community_id]
+
 # unzips the file
 if { ![empty_string_p $upload_file] &&
      [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
@@ -44,8 +49,8 @@ if {![empty_string_p $upload_file]} {
 
 }
 
-#check permission
-set user_id [ad_conn user_id]
+
+# Permissions on target folder
 ad_require_permission $folder_id admin
 
 

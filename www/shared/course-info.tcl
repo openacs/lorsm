@@ -17,7 +17,12 @@ ad_page_contract {
 
 
 set context [list [list [export_vars -base .] "Shared Courses"] "Preview Course"]
+set community_id [dotlrn_community::get_community_id]
+
 set title "Preview Course"
+
+# Permissions
+dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $community_id
 
 # In order to share courses across classes, we need to share
 # file-storage objects across file-storage instances. This has been
@@ -26,7 +31,7 @@ set title "Preview Course"
 # other instances of file-storages of other classes.  See
 # documentation for further details.
 
-set community_id [dotlrn_community::get_community_id]
+
 set fs_local_package_id [site_node_apm_integration::get_child_package_id \
 		       -package_id [dotlrn_community::get_package_id $community_id] \
 		       -package_key "file-storage"\

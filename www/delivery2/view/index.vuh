@@ -35,8 +35,7 @@ set template_root [db_string template_root ""]
 if { [lorsm::init the_url the_root  $content_root $template_root public "" $content_type] } {
 
     # we introduced our own template
-    rp_internal_redirect -absolute_path /home/ernieg/web/concord/templates/lorsm-default
-
+    rp_internal_redirect -absolute_path [acs_root_dir]/templates/lorsm-default  
 
 } else {
   # ns_returnnotfound

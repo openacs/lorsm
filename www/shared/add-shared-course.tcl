@@ -20,6 +20,9 @@ set package_id [ad_conn package_id]
 set community_id [dotlrn_community::get_community_id]
 set class_key [dotlrn_community::get_community_type_from_community_id $community_id]
 
+# Permissions
+dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
+
 # check admin permisssion for the community
 set admin_p [dotlrn::user_can_admin_community_p  \
 		 -user_id $user_id  \

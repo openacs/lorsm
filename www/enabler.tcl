@@ -16,13 +16,15 @@ ad_page_contract {
 }
 
 set package_id [ad_conn package_id]
+set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
 
 set admin_p [dotlrn::user_can_admin_community_p  \
-		 -user_id [ad_conn user_id]  \
+		 -user_id $user_id  \
 		 -community_id $community_id ]
 
-
+# Permissions
+dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
 
 set title "Set Course Trackable"
 set context [list "Set Course Status"]

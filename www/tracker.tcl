@@ -22,6 +22,16 @@ set admin_p [dotlrn::user_can_admin_community_p  \
 		 -user_id [ad_conn user_id]  \
 		 -community_id $community_id ]
 
+# Permissions
+dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $community_id
+
+
+# Checks whether the user has appropiate permissions otherwise we kick
+# him out
+if {!$admin_p} {
+        ad_returnredirect "not-allowed"
+        return -code error
+}
 
 
 set title "Set Course Track Options"

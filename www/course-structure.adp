@@ -128,7 +128,7 @@
               </td>
           </tr>
           </tr>
-              <tr class="list-even last">
+              <tr class="list-even">
               <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;" width="20%">
                 #lorsm.Is_shared#
               </td>
@@ -142,6 +142,17 @@
                      <div style="float: right;">
 	                  <a href="@sharer_url@" class="button">#lorsm.Change#</a>
                      </div>
+              </td>
+          </tr>
+              <tr class="list-odd last">
+              <td class="list" valign="top" style="background-color: #e0e0e0; font-weight: bold;">
+                #lorsm.Course#
+              </td>
+              <td class="list" valign="top" style="background-color: #f0f0f0">
+                 <b>@format_pretty_name@</b>
+                 <div style="float: right;">
+	             <a href="@formater_url@" class="button">#lorsm.Change#</a>
+                 </div>
               </td>
           </tr>
     <tr class="list-header">

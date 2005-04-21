@@ -1,6 +1,6 @@
+<if @html_document_p@ eq 0 >
 <master  src="/www/blank-master">
   <property name="title">@title;noquote@</property>
-
   <if @imsitem_id@ ne "">
     <script type="text/javascript">
       <!--
@@ -22,9 +22,6 @@
     <a href="@community_url@/lorsm/tracking?man_id=@man_id@<if @return_url@ defined>&@return_url;noquote@</if>" target="_top"><img src="/resources/ZoomIn16.gif" border=0 align="right" alt="image"></a>
   </if>
 
-
-  <h3><img src="/resources/Open16.gif">@title;noquote@</h3>
-  
   <blockquote>
 
     <if @text@ defined>
@@ -38,8 +35,11 @@
     </ul>
 
     <br>
-      
   </blockquote>
   <if @parent_item@>
     <a href="@parent_href@"><img border="0" src="/resources/right.gif" align="right" alt="Back to Parent"></a>
   </if>
+</if>
+<else>
+@text;noquote@
+</else>

@@ -13,6 +13,7 @@ ad_page_contract {
     @cvs-id $Id$
 } {
     folder_id:integer,notnull
+	format_id:integer,notnull
     tmp_dir:optional,notnull
     course_id:integer,notnull
     course_name:notnull
@@ -289,6 +290,7 @@ db_transaction {
 			-version $man_version \
 			-orgs_default $man_orgs_default \
 			-hasmetadata $man_hasmetadata \
+			-course_presentation_format $format_id \
 			-isscorm $man_isscorm \
 			-folder_id $new_parent_id \
                         -fs_package_id $fs_package_id \

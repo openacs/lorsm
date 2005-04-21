@@ -29,11 +29,8 @@ template::list::create \
         course_name {
             label "[_ lorsm.Course_Name_1]"
             display_col course_name
-	    html { width 70% }
-            
-	    link_url_eval {javascript:void  window.open('[site_node::get_url_from_object_id -object_id $lorsm_instance_id]$delivery_folder/?[export_vars man_id]','lorsm','directories=0,width='+(screen.width-10)+',height='+(screen.height-77)+',status=no,toolbar=no,resizable=yes,location=no,left=0,top=0,menubar=no,scrollbars=yes');}
-
-	    
+			html { width 70% }
+            link_url_eval {[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]}
             link_html {title "[_ lorsm.Access_Course]"}
         }
         subject {
@@ -69,11 +66,12 @@ foreach package $package_id {
            cp.folder_id,
 	   acs.creation_user,
 	   acs.creation_date,
+	   pf.folder_name,
 	   acs.context_id,
            cpmc.community_id,
            cpmc.lorsm_instance_id
 	from
-           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc
+           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc, lorsm_course_presentation_formats pf
 	where 
            cp.man_id = acs.object_id
 	and
@@ -83,9 +81,12 @@ foreach package $package_id {
            cpmc.lorsm_instance_id = :package
 	and
            cpmc.isenabled = 't'
+	and
+		   cp.course_presentation_format = pf.format_id
 	order by acs.creation_date desc
     } {
         set ims_md_id $man_id
+		
         # DEDS: these are expensive
         # and for demo purposes only
         db_0or1row get_last_viewed {
@@ -117,9 +118,5 @@ foreach package $package_id {
         set viewed_item_count [llength $viewed_items]
         set viewed_percent [expr [expr $viewed_item_count * 1.00] / $total_item_count * 100]
     
-	if { [ db_0or1row get_folder "
-        select folder_name as delivery_folder from lors_available_presentation_formats as a, ims_cp_manifests as c where c.presentation_id=a.presentation_id and c.man_id=:man_id;
-	"] } { } else { set delivery_folder "delivery"}
-
-}
+	}
 }

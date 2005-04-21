@@ -47,7 +47,7 @@ template::list::create \
         course_name {
             label "[_ lorsm.Available_Courses]"
             display_col course_name
-            link_url_eval {delivery/?[export_vars man_id]}
+            link_url_eval {${folder_name}/?[export_vars man_id]}
             link_html {title "[_ lorsm.Access_Course]"}
 
         }
@@ -115,6 +115,7 @@ db_multirow -extend { ims_md_id } d_courses select_d_courses {
            cp.folder_id,
 	   acs.creation_user,
 	   acs.creation_date,
+	   pf.folder_name,
 	   acs.context_id,
            case
               when cpmc.isenabled = 't' then 'Enabled'
@@ -126,13 +127,15 @@ db_multirow -extend { ims_md_id } d_courses select_d_courses {
            end as istrackable
               
     from
-           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc
+           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc, lorsm_course_presentation_formats pf
     where 
            cp.man_id = acs.object_id
     and
            cp.man_id = cpmc.man_id
     and
            cpmc.community_id = :community_id
+	and
+	       cp.course_presentation_format = pf.format_id
     order by acs.creation_date desc
 } {
     set ims_md_id $man_id

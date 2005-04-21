@@ -46,11 +46,22 @@ ad_proc -private lorsm::install::package_install {} {
 
     }
 
-    foreach file [glob -nocomplain [file join $temp_location lors-*]] {
+    foreach file [glob -nocomplain [file join $temp_location lorsm-*]] {
 
 	file copy -force $file $temp_dir
 
     }
+
+	set pretty_name "[_ lorsm.Classic_Style]"
+	# Insert default values for the course presentation formats
+	db_dml create_default_format {
+		insert into lorsm_course_presentation_formats values (-1,:pretty_name,'default','delivery')
+	}
+
+	set pretty_name "[_ lorsm.lt_Without_LORSM_Index_S]"
+	db_dml create_no_index_format {
+		insert into lorsm_course_presentation_formats values (-2,:pretty_name,'without_index','delivery-without-index')
+	}
 
 
 }

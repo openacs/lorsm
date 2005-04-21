@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.5d" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.6d2" locale="en_US" charset="ISO-8859-1">
 
   <msg key="_Add">Classification</msg>
   <msg key="_Add_1">Intended End User Role</msg>
@@ -97,6 +97,7 @@
   <msg key="Catalog-Entries">Catalog-Entries:</msg>
   <msg key="Catalog_1">Catalog</msg>
   <msg key="Change">Change</msg>
+  <msg key="Classic_Style">Classic Style</msg>
   <msg key="Classification_Entry">Classification Entry</msg>
   <msg key="Classification_MD">Classification MD</msg>
   <msg key="Classifications">Classifications:</msg>
@@ -111,6 +112,7 @@
   <msg key="Copyright_Info">Copyright Info</msg>
   <msg key="Cost">Cost:</msg>
   <msg key="Cost_1">Cost</msg>
+  <msg key="Course">Presentation Format:</msg>
   <msg key="course">course.</msg>
   <msg key="course_id">course_id</msg>
   <msg key="Course_Index">Course Index</msg>
@@ -123,6 +125,7 @@
   <msg key="Coverage_1">Coverage</msg>
   <msg key="Created_By">Created By:</msg>
   <msg key="Creation_Date">Creation Date</msg>
+  <msg key="Current_Format">Current Format</msg>
   <msg key="Current_Status">Current Status:</msg>
   <msg key="Date">Date:</msg>
   <msg key="Date_1">Date</msg>
@@ -435,6 +438,7 @@
   <msg key="lt_Copyrighted_Descripti">Copyrighted Description:</msg>
   <msg key="lt_Course_already_part_o">Course already part of your class</msg>
   <msg key="lt_Course_Delivery_Syste">Course Delivery System for LORS</msg>
+  <msg key="lt_Course_Presentation_S">Course Presentation Style</msg>
   <msg key="lt_Courses_in_your_Repos">Courses in your Repository</msg>
   <msg key="lt_Date_and_Time_descrip">Date and Time description</msg>
   <msg key="lt_Deleting_temporary_fo">Deleting temporary folder...</msg>
@@ -614,6 +618,7 @@
   <msg key="lt_SCORM_complaint_packa">SCORM complaint package</msg>
   <msg key="lt_Search_for_Learninng_">Search for Learninng Objects in the Repository</msg>
   <msg key="lt_Search_Learning_Objec">Search Learning Objects</msg>
+  <msg key="lt_Set_Course_Presentati">Set Course Presentation Format</msg>
   <msg key="lt_Set_Course_Track_Opti">Set Course Track Options</msg>
   <msg key="lt_Share_CourseLearning_">Share Course/Learning Object</msg>
   <msg key="lt_Shared_Courses_in_the">Shared Courses in the Repository</msg>
@@ -654,7 +659,8 @@
   <msg key="lt_Upload_an_IMSSCORM_Co">Upload an IMS/SCORM Content Package Course</msg>
   <msg key="lt_Upload_IMS_Content_Pa">Upload IMS Content Package</msg>
   <msg key="lt_Uploading_and_process">Uploading and processing your course, please wait ...</msg>
-  <msg key="lt_Use_the_Browse_button">Use the \&quot;Browse...\&quot; button to locate your file, then click \&quot;Open\&quot;</msg>
+  <msg key="lt_Use_the_Browse_button">Use the &quot;Browse...&quot; button to locate your file, then click &quot;Open&quot;</msg>
+  <msg key="lt_Use_the_Classic_Style">Use the Classic Style if your course does not provide an index by itself and you want us to provide it. Otherwise use the Without LORSM Index Style.</msg>
   <msg key="lt_valigntop_alignleftis">valign=&quot;top&quot; align=&quot;left&quot;&gt;%isscorm;noquote%</msg>
   <msg key="lt_Version_of_the_Schema">Version of the Schema. i.e.: '1.2.1'</msg>
   <msg key="lt_View_Annotation_Metad">View Annotation Metadata</msg>
@@ -675,6 +681,7 @@
   <msg key="lt_Were_sorry_but_it_app">We're sorry, but it appears that you do not have the permission to perform this operation.</msg>
   <msg key="lt_Whether_copyright_or_">Whether copyright or other restrictions apply</msg>
   <msg key="lt_Whether_use_of_the_re">Whether use of the resource requires payment</msg>
+  <msg key="lt_Without_LORSM_Index_S">Without LORSM Index Style</msg>
   <msg key="lt_You_are_about_to_add_">You are about to add %course_name% to your class.</msg>
   <msg key="lt_You_can_add_courses_a">You can add courses already existing in the repository</msg>
   <msg key="lt_You_have_seen_this_co">You have seen this course</msg>

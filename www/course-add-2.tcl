@@ -340,6 +340,10 @@ template::element create course_upload course_name  \
   -label "[_ lorsm.Course_Name]" -datatype text -widget text -help_text "[_ lorsm.lt_This_is_the_name_the_]" \
   -maxlength 200
 
+template::element create course_upload format_id  \
+	-label "[_ lorsm.lt_Course_Presentation_S]" -datatype text -widget select -options [db_list_of_lists select_formats_for_select_widget {}] \
+	-help_text "[_ lorsm.lt_Use_the_Classic_Style]" -value [db_string default_format {}]
+
 template::element create course_upload course_id  \
   -label "[_ lorsm.course_id]" -datatype integer -widget hidden 
 

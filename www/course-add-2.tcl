@@ -341,8 +341,11 @@ template::element create course_upload course_name  \
   -maxlength 200
 
 template::element create course_upload format_id  \
-	-label "[_ lorsm.lt_Course_Presentation_S]" -datatype text -widget select -options [db_list_of_lists select_formats_for_select_widget {}] \
-	-help_text "[_ lorsm.lt_Use_the_Classic_Style]" -value [db_string default_format {}]
+	-label "[_ lorsm.lt_Course_Presentation_S]" -datatype text -widget select -options [db_list_of_lists select_formats_for_select_widget {select format_pretty_name,
+				format_id
+				from lorsm_course_presentation_formats
+				order by format_pretty_name}] \
+	-help_text "[_ lorsm.lt_Use_the_Classic_Style]" -value [db_string default_format {select format_id from lorsm_course_presentation_formats where format_name = 'default'}]
 
 template::element create course_upload course_id  \
   -label "[_ lorsm.course_id]" -datatype integer -widget hidden 

@@ -46,7 +46,7 @@ ad_proc -private lorsm::install::package_install {} {
 
     }
 
-    foreach file [glob -nocomplain [file join $temp_location lors-*]] {
+    foreach file [glob -nocomplain [file join $temp_location lorsm-*]] {
 
 	file copy -force $file $temp_dir
 

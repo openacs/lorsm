@@ -38,8 +38,30 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 		and i.org_id = o.org_id
 	}] } {
 		# record view
-		set item_list [lorsm::get_item_list $man_id [ad_conn user_id]]
-		set viewed_item_id [lindex $item_list [expr [lsearch -exact $item_list $viewed_item_id] - 1]]
+		set user_id [ad_conn user_id]
+		set item_list [lorsm::get_item_list $man_id $user_id]
+		set litem_list [llength $item_list]
+
+		if { ![expr $litem_list - [lsearch -exact $item_list $viewed_item_id] -1] } {
+			# last item, it's a special case
+			set last_item_viewed [db_string select_last_item_viewed {    
+				select item_id
+				from views v,
+				ims_cp_items i,
+				ims_cp_organizations o
+				where v.viewer_id = :user_id
+				and v.object_id = i.item_id
+				and i.org_id = o.org_id
+				and o.man_id = :man_id
+				order by v.last_viewed desc
+				limit 1
+			} -default "no item"]
+			if { !([lsearch -exact [lrange $item_list [expr $litem_list - 2] $litem_list] $last_item_viewed] != -1) && ![string eq $last_item_viewed "no item"] } {
+				set viewed_item_id [lindex $item_list [expr [lsearch -exact $item_list $viewed_item_id] - 1]]
+			}
+		} else {
+			set viewed_item_id [lindex $item_list [expr [lsearch -exact $item_list $viewed_item_id] - 1]]
+		}
 		lorsm::record_view $viewed_item_id $man_id
 	}
 

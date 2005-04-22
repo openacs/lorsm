@@ -60,7 +60,7 @@ ad_proc -private lorsm::install::package_install {} {
 
 	set pretty_name "[_ lorsm.lt_Without_LORSM_Index_S]"
 	db_dml create_no_index_format {
-		insert into lorsm_course_presentation_formats values (-2,:pretty_name,'without_index','delivery-without-index')
+		insert into lorsm_course_presentation_formats values (-2,:pretty_name,'without_index','delivery-no-index')
 	}
 
 

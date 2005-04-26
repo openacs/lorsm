@@ -91,10 +91,6 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 		}
 	}
 
-	# parent window
- 	regsub -all -nocase {target=[^ |^>]+} $text {target="_parent"} text
-
-
 }
 
 ad_return_template

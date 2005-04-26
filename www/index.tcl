@@ -46,10 +46,8 @@ template::list::create \
     -elements {
         course_name {
             label "[_ lorsm.Available_Courses]"
+			display_template {@d_courses.course_url;noquote@}
             display_col course_name
-            link_url_eval {${folder_name}/?[export_vars man_id]}
-            link_html {title "[_ lorsm.Access_Course]"}
-
         }
         hasmetadata {
             label "[_ lorsm.Metadata_1]"
@@ -97,7 +95,7 @@ template::list::create \
     }
 
 
-db_multirow -extend { ims_md_id } d_courses select_d_courses {
+db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
     select 
            cp.man_id,
            cp.course_name,
@@ -116,6 +114,7 @@ db_multirow -extend { ims_md_id } d_courses select_d_courses {
 	   acs.creation_user,
 	   acs.creation_date,
 	   pf.folder_name,
+	   pf.format_name,
 	   acs.context_id,
            case
               when cpmc.isenabled = 't' then 'Enabled'
@@ -139,5 +138,10 @@ db_multirow -extend { ims_md_id } d_courses select_d_courses {
     order by acs.creation_date desc
 } {
     set ims_md_id $man_id
+	if { [string eq $format_name "default"] } {
+		set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+	} else {
+		set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
+	}
 }
  

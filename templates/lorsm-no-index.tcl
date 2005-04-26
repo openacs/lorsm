@@ -2,6 +2,7 @@
 # The detected content type is "content_revision".
 
 lorsm::get_content content_revision
+set user_id [ad_conn user_id]
 
 if { [info exists content(item_id)] } {
     if { ![string equal -length 4 "text" $content(mime_type)] } {
@@ -38,7 +39,6 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 		and i.org_id = o.org_id
 	}] } {
 		# record view
-		set user_id [ad_conn user_id]
 		set item_list [lorsm::get_item_list $man_id $user_id]
 		set litem_list [llength $item_list]
 
@@ -63,10 +63,38 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 			set viewed_item_id [lindex $item_list [expr [lsearch -exact $item_list $viewed_item_id] - 1]]
 		}
 		lorsm::record_view $viewed_item_id $man_id
+
+		# Student tracking
+		set package_id [ad_conn package_id]
+		set community_id [dotlrn_community::get_community_id]
+		
+		if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
+			
+			set track_id [lorsm::track::new \
+							  -user_id $user_id \
+							  -community_id $community_id \
+							  -course_id $man_id]
+			lorsm::track::exit -track_id $track_id
+		}
+
+		# refresh the page every 300 seconds so we can have an estimate of the time when the user viewed the course for the last time
+		if { ![regsub -nocase {<\/head>} $text {
+			<meta http-equiv="refresh" content="300">
+			</head> 
+		} text] } {
+			regsub -nocase {<html>} $text {
+				<html>
+				<head>
+				<meta http-equiv="refresh" content="300">
+				</head> 
+			} text
+		}
 	}
 
 	# parent window
  	regsub -all -nocase {target=[^ |^>]+} $text {target="_parent"} text
+
+
 }
 
 ad_return_template

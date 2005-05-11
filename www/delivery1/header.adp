@@ -20,9 +20,11 @@
 
       <td align="right" class="header-text">
         <a href="@exit_url@" target="_top">#lorsm.Exit_Course#</a>
-        <img class="header-img" src="/resources/dotlrn/spacer.gif" height="1" width="10">
+        <img class="header-img" src="/resources/dotlrn/spacer.gif" alt=""  height="1" width="10">
+
         <a href="@logout_url@" target="_top">#lorsm.Log_Out#</a>
-        <img class="header-img" src="/resources/dotlrn/spacer.gif" height="1" width="10">
+        <img class="header-img" src="/resources/dotlrn/spacer.gif" alt=""  height="1" width="10">
+
       </td>
     </tr>
     </table>

@@ -10,6 +10,7 @@ ad_page_contract {
     @cvs-id $Id$
 } {
     man_id:integer,notnull
+    ims_id:integer,notnull,optional
 } -properties {
 } -validate {
 } -errors {
@@ -17,6 +18,12 @@ ad_page_contract {
 
 set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
+
+if { [info exists ims_id] } {
+    set item_id $ims_id
+    
+    set body_url [export_vars -base "record-view" -url {item_id man_id}]
+}
 
 # Get the course name
 if {[db_0or1row manifest "
@@ -38,12 +45,12 @@ if {[db_0or1row manifest "
 }
 
 db_0or1row get_last_viewed {
-    select item_id as imsitem_id, coalesce(acs_object__name(object_id),'Item '||object_id) as last_page_viewed
+    select ims_item_id as imsitem_id, coalesce(acs_object__name(object_id),'Item '||object_id) as last_page_viewed
     from views v,
          ims_cp_items i,
          ims_cp_organizations o
     where v.viewer_id = :user_id
-          and v.object_id = i.item_id
+          and v.object_id = i.ims_item_id
           and i.org_id = o.org_id
           and o.man_id = :man_id
     order by v.last_viewed desc
@@ -51,7 +58,7 @@ db_0or1row get_last_viewed {
 }
 
 set all_items [db_list get_total_items {
-    select i.item_id
+    select i.ims_item_id
     from ims_cp_items i,
     ims_cp_organizations o
     where o.man_id = :man_id

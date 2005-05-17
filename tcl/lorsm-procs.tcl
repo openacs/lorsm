@@ -327,7 +327,7 @@ ad_proc -public set_ims_item_id { ims_it_id } {
     variable ims_item_id $ims_it_id
 }
 
-ad_proc -public get_ims_item_id {} {
+ad_proc -public get_ims_item_id { } {
 
     variable ims_item_id
     return $ims_item_id
@@ -445,7 +445,7 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     
     upvar $urlvar url $rootvar root_path 
     
-    variable item_id
+    variable ims_item_id
     variable revision_id
     
     # if a .tcl file exists at this url, then don't do any queries
@@ -456,8 +456,8 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     # cache this query persistently for 1 hour
     # this is faster than 1 query because a pl/sql function in the
     # where clause is a very bad idea
-    db_0or1row get_item_id ""
 
+    db_0or1row get_item_id ""
     db_0or1row get_item_type ""
     # No item found, so do not handle this request
     if { ![info exists item_id] } { 
@@ -478,8 +478,8 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     
     # Make sure that a live revision exists
     if { [empty_string_p $rev_id] } {
-      set live_revision [db_string get_live_revision ""]
-	
+
+       set live_revision [db_string get_live_revision ""]
 	if { [template::util::is_nil live_revision] } {
 	    ns_log notice "content::init: no live revision found for content item $item_id"
 	    return 0
@@ -536,11 +536,14 @@ ad_proc -public get_content { { content_type {} } } {
     variable revision_id
     variable ims_item_id
     variable ims_item_title
+  
 
+set item_id $ims_item_id
     if { [template::util::is_nil item_id] } {
-      ns_log warning "content::get_content: No active item in content::get_content"
+	ns_log warning "content::get_content: No active item in content::get_content"
 	return
     }
+
 
     # Get the live revision
     set revision_id [db_string get_revision ""]
@@ -570,7 +573,78 @@ ad_proc -public get_content { { content_type {} } } {
 }
 
 
-
 }
-    
 
+ad_proc -public lorsm::get_root_folder_id { } { } {
+    return [db_string get_root_folder { select folder_id from cr_folders where label = 'LORSM Root Folder' }]
+}    
+
+ad_proc -public lorsm::get_folder_id { 
+    -name:required
+} {
+    return [db_string get_root_folder { select folder_id from cr_folders where label = :name }]
+}    
+
+ad_proc -public lorsm::get_items_indent {
+   -org_id:required
+} {
+    Returns a list of the form \{ims_item_id indent\} from one org_id
+} {
+
+    # We need all the count of all items (just live revisions)
+    set items_count [db_string get_items_count { select count(ims_item_id)
+	from ims_cp_items where ims_item_id in ( select live_revision
+						 from cr_items where content_type = 'ims_item_object') and
+	org_id = :org_id
+    }]
+    
+    # Get the root items
+    set count 0
+    db_foreach get_root_item { select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id } {
+	lappend items_list [list $ims_item_id 1]
+	set items_array($ims_item_id) 1
+	incr count
+    }
+
+    
+    while { $count < $items_count } {
+	foreach item $items_list {
+	    set item_id [lindex $item 0]
+	    set indent [expr [lindex $item 1] + 1]
+	    db_foreach get_items {select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id } {
+		if { ![info exist items_array($ims_item_id)] } {
+		    lappend items_list [list $ims_item_id $indent]
+		    set items_array($ims_item_id) $indent
+		    incr count
+		}
+	    }
+	}
+    }
+    return $items_list
+}
+
+ad_proc -public lorsm::get_item_delivery_url {
+    -man_id:required
+    -item_id:required
+    -community_id
+} {
+     Get delivery URL
+    
+    @author Dave Bauer (dave@thedesignexperience.org)
+    @creation-date 2005-03-30
+    
+    @param man_id
+
+    @param item_id
+
+    @return 
+    
+    @error 
+} {
+    set base_url ""
+    if {[exists_and_not_null community_id]} {
+        append base_url "FIXME"
+    }
+    set url [export_vars -base ${base_url}lorsm {man_id item_id}]
+    return $url
+}

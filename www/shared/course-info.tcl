@@ -131,7 +131,7 @@ append orgs_list "<tr class=\"list-header\">
 db_foreach organizations {
     select 
        org.org_id,
-       org.title as org_title,
+       org.org_title as org_title,
        org.hasmetadata,
        tree_level(o.tree_sortkey) as indent
     from
@@ -164,8 +164,8 @@ db_foreach organizations {
         SELECT
 		o.object_id,
  		repeat('&nbsp;', (tree_level(tree_sortkey) - :indent)* 3) as indent,
-		i.item_id,
-                i.title as item_title,
+		i.ims_item_id as item_id,
+                i.item_title as item_title,
                 i.hasmetadata,
                 i.org_id,
                 case
@@ -184,7 +184,7 @@ db_foreach organizations {
 						     WHERE
 						       i2r.res_id = res.res_id
 						      AND
-						       i2r.item_id = i.item_id 
+						       i2r.ims_item_id = i.ims_item_id 
 )
                   else ''
                 end as identifierref,
@@ -198,7 +198,7 @@ db_foreach organizations {
 						     WHERE
 						       i2r.res_id = res.res_id
 						      AND
-						       i2r.item_id = i.item_id 
+						       i2r.ims_item_id = i.ims_item_id 
 )
                   else ''
                 end as type,
@@ -208,11 +208,11 @@ db_foreach organizations {
         FROM 
 		acs_objects o, ims_cp_items i, ims_cp_manifests m
 	WHERE 
-		o.object_type = 'ims_item'
+		o.object_type = 'ims_item_object'
            AND
 		i.org_id = :org_id
 	   AND
-		o.object_id = i.item_id
+		o.object_id = i.ims_item_id
            AND
                 m.man_id = :man_id
         ORDER BY 

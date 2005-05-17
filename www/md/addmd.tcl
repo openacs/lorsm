@@ -67,25 +67,25 @@ ad_form -name add_md \
 
 	switch $object_type {
 
-	    "ims_manifest" {
+	    "ims_manifest_object" {
 
 		db_dml upd_manifest "
             		update ims_cp_manifests set hasmetadata = 't'
 		            where man_id = :ims_md_id"
 	    }
-	    "ims_item" {
+	    "ims_item_object" {
 		
 		db_dml upd_item "
             		update ims_cp_items set hasmetadata = 't'
-		            where item_id = :ims_md_id"
+		            where ims_item_id = :ims_md_id"
 	    }
-	    "ims_organization" {
+	    "ims_organization_object" {
 
 		db_dml upd_organization "
             		update ims_cp_organizations set hasmetadata = 't'
 		            where org_id = :ims_md_id"
 	    }
-	    "ims_resource" {
+	    "ims_resource_object" {
 
 		db_dml upd_resource "
             		update ims_cp_resources set hasmetadata = 't'

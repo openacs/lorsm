@@ -89,6 +89,8 @@ db_multirow -extend { ims_md_id community_url } d_courses select_d_courses {
            cp.man_id = acs.object_id
     and
            cp.isshared = 't'
+    and cp.man_id in ( select cr.live_revision from cr_items cr
+                       where content_type = 'ims_manifest_object' )
     order by acs.creation_date desc
 } {
     set ims_md_id $man_id

@@ -33,8 +33,7 @@ set pather $folder/$identifierref
 # get rid of it
 regsub -all {//} $pather {/} pather
 
-
-set file_id [db_string sql {select content_item__get_id(:pather, :fs_root_folder, 'f')}]
+set file_id [content::item::get_id -item_path $pather -root_folder_id $fs_root_folder]
 
 # check for permissions
 # By default, only the creator has admin access to content

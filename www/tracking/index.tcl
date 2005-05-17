@@ -113,12 +113,12 @@ if {$group == 1} {
 
     db_multirow -extend {viewer_name} object_views objects_views "
         select v.*,
-               i.title
+               i.item_title as title
         from views v,
              ims_cp_items i,
              ims_cp_organizations o
         where
-             i.item_id = v.object_id
+             i.ims_item_id = v.object_id
         and
              i.org_id = o.org_id
 	and
@@ -200,12 +200,12 @@ if {$group == 1} {
 
     db_multirow object_views objects_views "
         select v.*,
-               i.title
+               i.item_title as title
         from view_aggregates v,
              ims_cp_items i,
              ims_cp_organizations o
         where
-             i.item_id = v.object_id
+             i.ims_item_id = v.object_id
         and
              i.org_id = o.org_id
 	and

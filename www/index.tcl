@@ -46,14 +46,21 @@ template::list::create \
     -elements {
         course_name {
             label "[_ lorsm.Available_Courses]"
-			display_template {@d_courses.course_url;noquote@}
+	    display_template {@d_courses.course_url;noquote@}
             display_col course_name
         }
         hasmetadata {
             label "[_ lorsm.Metadata_1]"
-            link_url_eval {md/?[export_vars ims_md_id]}
-            link_html {title "[_ lorsm.See_metadata]" }
-	    html { align center }
+            display_template {
+		<if @d_courses.lorsm_p@>
+		<center>
+                  <a href=md/?ims_md_id=@d_courses.ims_md_id@ title="[_ lorsm.See_metadata]">@d_courses.hasmetadata@</a>
+                </center>
+                </if>
+                <else>
+		   <center> @d_courses.hasmetadata@</center>
+                </else>
+	    }
         }
         isscorm {
             label "[_ lorsm.SCORM]"
@@ -80,10 +87,13 @@ template::list::create \
         }
         export {
             label "[_ lorsm.Export]"
-	    display_eval {\[zip\]}
-            link_url_eval {[export_vars -base export folder_id]}
-            link_html {title "[_ lorsm.lt_Export_as_IMS_Content]"}
-	    html { align center }
+	    display_template {
+		<if @d_courses.lorsm_p@>
+		<center>
+		<a href="export/?folder_id=@d_courses.folder_id@" title="[_ lorsm.lt_Export_as_IMS_Content]">\[zip\]</a>
+		</center>
+                </if>
+	    }
         }
         admin {
             label "[_ lorsm.Admin_Course]"
@@ -110,11 +120,14 @@ db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
               else 'No'
            end as isscorm,
            cp.fs_package_id,
+           case when fs_package_id is null then 'f'
+              else 't'
+           end as lorsm_p,
            cp.folder_id,
 	   acs.creation_user,
 	   acs.creation_date,
-	   pf.folder_name,
-	   pf.format_name,
+           pf.folder_name,
+           pf.format_name,
 	   acs.context_id,
            case
               when cpmc.isenabled = 't' then 'Enabled'
@@ -133,15 +146,18 @@ db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
            cp.man_id = cpmc.man_id
     and
            cpmc.community_id = :community_id
-	and
-	       cp.course_presentation_format = pf.format_id
+    and 
+           cp.course_presentation_format = pf.format_id
+    and    
+           cp.man_id in (select cr.live_revision
+                         from cr_items cr where content_type = 'ims_manifest_object')
     order by acs.creation_date desc
 } {
     set ims_md_id $man_id
-	if { [string eq $format_name "default"] } {
-		set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
-	} else {
-		set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
-	}
+    if { [string eq $format_name "default"] } { 
+	set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>"
+    } else {
+	set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>"
+    }
 }
  

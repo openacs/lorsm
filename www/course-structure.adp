@@ -23,7 +23,12 @@
                 #lorsm.Version#
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0">
-                  @version;noquote@
+                  <if @version@ eq "0">
+                       @version_msg;noquote@
+                  </if>
+                  <else>
+                       @version;noquote@ Course Versions
+                  </else>
               </td>
           </tr>
               <tr class="list-odd">
@@ -32,7 +37,12 @@
               </td>
               <td class="list" valign="top" style="background-color: #f0f0f0">
          	<if @man_metadata@ eq "Yes">
-	           <a href="md/?ims_md_id=@man_id@">#lorsm.Yes#</a>
+                   <if @lorsm_p@>
+	              <a href="md/?ims_md_id=@man_id@">#lorsm.Yes#</a>
+                   </if>
+                   <else>
+                      #lorsm.Yes#
+                   </else>
                 </if>
 	        <else>
                   #lorsm.No#

@@ -29,7 +29,7 @@ set content_root [fs::get_root_folder -package_id $fs_package_id]
 
 set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
 
-set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.item_id = :item_id and ir.res_id = r.res_id" -default ""]
+set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.ims_item_id = :item_id and ir.res_id = r.res_id" -default ""]
 
 db_1row item_info "select title from ims_cp_items where item_id = :item_id"
 

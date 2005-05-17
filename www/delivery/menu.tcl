@@ -17,6 +17,13 @@ ad_page_contract {
 } -errors {
 }
 
+
+set org_id [db_string get_org_id { } ]
+set items_list [lorsm::get_items_indent -org_id $org_id]
+template::util::list_of_lists_to_array $items_list items_array
+set fs_package_id [db_string get_fs_package_id { } -default "" ]
+
+set community_id [dotlrn_community::get_community_id]
 set counter 1
 set user_id [ad_conn user_id]
 
@@ -131,57 +138,34 @@ proc generate_tree_menu { items index rlevel } {
 }
 
 # Counter starts at 1 coz Course Index isn't part of the list
-db_foreach organizations {
-    select 
-       org.org_id,
-       org.title as org_title,
-       org.hasmetadata,
-       tree_level(o.tree_sortkey) as indent
-    from
-       ims_cp_organizations org, acs_objects o
-    where
-       org.org_id = o.object_id
-     and
-       man_id = :man_id
-    order by
-       org_id
-} {
 
-    set indent [expr $indent +1]
-
-    db_foreach sql {		   
-        SELECT
- 		(tree_level(tree_sortkey) - :indent) as indent,
-		i.item_id,
-                i.title as item_title
-        FROM 
-		acs_objects o, ims_cp_items i
-	WHERE 
-		o.object_type = 'ims_item'
-           AND
-		i.org_id = :org_id
-	   AND
-		o.object_id = i.item_id
-	   AND 
-	   	EXISTS
-		(select 1
-		   from acs_object_party_privilege_map p
-		  where p.object_id = i.item_id 
-		    and p.party_id = :user_id
-		    and p.privilege = 'read')
-
-        ORDER BY 
-                o.object_id, tree_sortkey
-    } {
-	lappend js [list $indent $item_id $item_title]
+db_foreach organizations { } {
+    # If the course is from lors-central we need an extra query
+    
+    if { [empty_string_p $fs_package_id] } {
+	set extra_query "and i.ims_item_id in ( select
+                                        im.ims_item_id
+                                        from
+                                        ims_cp_items_map im
+                                        where
+                                        man_id = $man_id and org_id = $org_id and community_id = $community_id and
+                                        hide_p = 'f'
+                                      )"
+    } else {
+	set extra_query ""
+    }
+    db_foreach sql { } {
+	set indent $items_array($ims_item_id)
+	lappend js [list $indent $ims_item_id $item_title]    
     }
 }
-    
+
+
+
 if { [info exists js] } {
     set index 0
     set TREE_ITEMS [generate_tree_menu $js $index 1]
     set TREE_HASH [join $TREE_HASH "\n"]
 }
-
 # return_url
 set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]

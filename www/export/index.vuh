@@ -31,10 +31,10 @@ if {[exists_and_not_null folder_id]} {
     if {![empty_string_p $ext]} {
         append download_name ".${ext}"
     }
-
     ad_returnredirect "${folder_id}/${download_name}"
     ad_script_abort
 }
+
 
 # convenient way to get the values out of a list
 foreach {folder_id download_name} [split [ad_conn path_info] /] {break}
@@ -75,9 +75,10 @@ with_catch errmsg {
     error $errmsg
 }
 
+
 # return the archive to the connection.
 ns_returnfile 200 application/octet-stream $out_file
 
 # clean everything up
-file delete -force $in_path
-file delete -force $out_path
+exec rm -fr $in_path
+exec rm -fr $out_path

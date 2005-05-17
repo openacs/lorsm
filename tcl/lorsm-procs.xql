@@ -4,7 +4,7 @@
 <fullquery name="lorsm::get_content.get_revision">      
       <querytext>
 
-        select live_revision from cr_items where item_id = :item_id
+        select live_revision from cr_items where item_id = :ims_item_id
 
       </querytext>
 </fullquery>
@@ -64,7 +64,7 @@
 <fullquery name="lorsm::init.get_live_revision">      
       <querytext>
 
-    select live_revision from cr_items where item_id = :item_id
+    select live_revision from cr_items where item_id = :ims_item_id
 
       </querytext>
 </fullquery>
@@ -74,6 +74,12 @@
 
     select live_revision from cr_items where item_id = :item_id
 
+      </querytext>
+</fullquery>
+
+<fullquery name="lorsm::get_root_folder_id.get_root_folder">      
+      <querytext>
+         select folder_id from cr_folders where label = 'LORSM Root Folder'
       </querytext>
 </fullquery>
 

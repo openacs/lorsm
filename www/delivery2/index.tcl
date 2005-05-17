@@ -120,21 +120,21 @@ db_foreach organizations {
     db_foreach sql {		   
         SELECT
  		(tree_level(tree_sortkey) - :indent) as indent,
-		i.item_id,
-                i.title as item_title
+		i.ims_item_id as item_id,
+                i.item_title as item_title
         FROM 
 		acs_objects o, ims_cp_items i
 	WHERE 
-		o.object_type = 'ims_item'
+		o.object_type = 'ims_item_object'
            AND
 		i.org_id = :org_id
 	   AND
-		o.object_id = i.item_id
+		o.object_id = i.ims_item_id
 	   AND 
 	   	EXISTS
 		(select 1
 		   from acs_object_party_privilege_map p
-		  where p.object_id = i.item_id 
+		  where p.object_id = i.ims_item_id 
 		    and p.party_id = :user_id
 		    and p.privilege = 'read')
 

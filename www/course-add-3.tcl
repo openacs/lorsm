@@ -13,7 +13,7 @@ ad_page_contract {
     @cvs-id $Id$
 } {
     folder_id:integer,notnull
-	format_id:integer,notnull
+    format_id:integer,notnull
     tmp_dir:optional,notnull
     course_id:integer,notnull
     course_name:notnull
@@ -87,14 +87,17 @@ db_transaction {
 
         }
 
+	# We need to separate folders (since now all are cr_items) one for the files (content) and the other
+	# one for the created cr_items
         set new_parent_id [lors::cr::add_folder -parent_id $parent_id -folder_name $cr_dir]
-
+        set new_items_parent_id [lors::cr::add_folder -parent_id $parent_id -folder_name "${cr_dir}_items"]
 
 	# PERMISSIONS FOR FILE-STORAGE
 
         # Before we go about anything else, lets just set permissions straight.
          # Disable folder permissions inheritance
          permission::toggle_inherit -object_id $new_parent_id
+         permission::toggle_inherit -object_id $new_items_parent_id
 
 	# Set read permissions for community/class dotlrn_member_rel
 
@@ -105,6 +108,7 @@ db_transaction {
 						      and rel_type = 'dotlrn_member_rel'}]
 
 	 permission::grant -party_id $party_id_member -object_id $new_parent_id -privilege read
+	 permission::grant -party_id $party_id_member -object_id $new_items_parent_id -privilege read
 
 	# Set read permissions for community/class dotlrn_admin_rel
 
@@ -113,6 +117,7 @@ db_transaction {
 						     and rel_type = 'dotlrn_admin_rel'}]
 
 	permission::grant -party_id $party_id_admin -object_id $new_parent_id -privilege read
+	permission::grant -party_id $party_id_admin -object_id $new_items_parent_id -privilege read
 
 	# Set read permissions for *all* other professors  within .LRN
 	# (so they can see the content)
@@ -121,6 +126,7 @@ db_transaction {
                                                      where rel_type = 'dotlrn_professor_profile_rel'}]
 
 	permission::grant -party_id $party_id_professor -object_id $new_parent_id -privilege read
+	permission::grant -party_id $party_id_professor -object_id $new_items_parent_id -privilege read
 
 	# Set read permissions for *all* other admins within .LRN
 	# (so they can see the content)
@@ -129,8 +135,7 @@ db_transaction {
                                                      where rel_type = 'dotlrn_admin_profile_rel'}]
 
 	permission::grant -party_id $party_id_admins -object_id $new_parent_id -privilege read
-
-
+	permission::grant -party_id $party_id_admins -object_id $new_items_parent_id -privilege read
 
 
 
@@ -292,9 +297,10 @@ db_transaction {
 			-hasmetadata $man_hasmetadata \
 			-course_presentation_format $format_id \
 			-isscorm $man_isscorm \
-			-folder_id $new_parent_id \
+			-folder_id $new_items_parent_id \
                         -fs_package_id $fs_package_id \
-		        -community_id $community_id]
+		        -community_id $community_id \
+		        -content_folder_id $new_parent_id]
 
 
 	ns_write "[_ lorsm.lt_Granting_permissions__1]<br>"
@@ -383,7 +389,8 @@ db_transaction {
                                 -identifier $org_identifier \
                                 -structure $org_structure \
                                 -title $org_title \
-                                -hasmetadata $org_hasmetadata]
+                                -hasmetadata $org_hasmetadata\
+				-org_folder_id $new_items_parent_id]
 
 		ns_write "[_ lorsm.lt_Adding_Organization_o]<br>"
 
@@ -400,7 +407,7 @@ db_transaction {
 
 #                ns_write "[_ lorsm.lt_here_is_list_items_li]"
 
-                set add [concat $add [lors::imscp::addItems -org_id $org_id $list_items 0 $tmp_dir]]
+                set add [concat $add [lors::imscp::addItems -itm_folder_id $new_items_parent_id -org_id $org_id $list_items 0 $tmp_dir]]
 
 		set tempval [llength $add]
 		ns_write "[_ lorsm.lt_Adding_tempval_items_]<br>"
@@ -441,14 +448,15 @@ db_transaction {
 # 		}
 
 ## End integration showcase                
-
+		
                 set resource_id [lors::imscp::resource_add \
                                      -man_id $man_id \
                                      -identifier $res_identifier \
                                      -type $res_type \
                                      -href $res_href \
                                      -scorm_type $res_scormtype \
-                                     -hasmetadata $res_hasmetadata]
+                                     -hasmetadata $res_hasmetadata \
+				     -res_folder_id $new_items_parent_id]
 
 		ns_write "[_ lorsm.lt_Adding_resource_res_i_2]<br>"
 		
@@ -529,7 +537,6 @@ db_transaction {
 
     ns_write "[_ lorsm.lt_Now_we_are_almost_don]<br>"
 
-
     foreach file $l_files {
 
         set filename [lindex $file 0]
@@ -544,6 +551,7 @@ db_transaction {
 
 	if {![empty_string_p $found_file]} {
 	    set file_id [lindex [lindex $all_files $found_file] 3]
+            set file_rev_id [content::item::get_live_revision -item_id $file_id]
 	    set res_id  [lindex $file 1]
 	    set file_hasmetadata [lindex $file 2]
 
@@ -556,7 +564,7 @@ db_transaction {
 	    }
 
 	    set fileadd [lors::imscp::file_add \
-			     -file_id $file_id \
+			     -file_id $file_rev_id \
 			     -res_id $res_id \
 			     -pathtofile $filename \
 			     -filename $filex \

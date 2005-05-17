@@ -7,10 +7,15 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
+    man_id:optional
 }
 
 set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
+
+if { ![info exists man_id] } { 
+   set man_id ""
+}
 
 # Permissions
 dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
@@ -70,10 +75,16 @@ template::element create course_upload folder_id  \
 template::element create course_upload upload_file  \
   -label "[_ lorsm.lt_Choose_the_course_zip]" -help_text "[_ lorsm.lt_Use_the_Browse_button]" -datatype text -widget file
 
+# To support course versions
+template::element create course_upload man_id  \
+  -datatype integer -widget hidden
+
 template::element set_properties course_upload course_id -value $course_id
 template::element set_properties course_upload folder_id -value $folder_id
 template::element set_properties course_upload indb_p -value $indb_p
 template::element set_properties course_upload fs_package_id -value $fs_package_id
+template::element set_properties course_upload man_id -value $man_id
+
 
 ad_return_template
 

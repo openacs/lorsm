@@ -151,7 +151,7 @@ function seekAndDestroy( ims_id ) {
       <script language="JavaScript">
 <!--
 	menu = new tree (TREE_ITEMS, tree_tpl);
-	
+
 	<if @ims_id@ defined>
 	selectItem(TREE_HASH["ims_id.@ims_id@"]);
       </if>

@@ -1,22 +1,18 @@
-#################################################
 ad_page_contract {
-   
     @author Unknown
     @creation-date Unknown
     @cvs-id $Id$
 } {    
-    { imsitem_id "" }
+    { ims_item_id "" }
 }
-
+ 
 # check if the nsv variable exists
 if {![nsv_exists delivery_vars [ad_conn session_id]]} {
     ad_returnredirect [dotlrn_community::get_community_url [dotlrn_community::get_community_id -package_id [ad_conn package_id]]]
 }
 
-
-#
-if {[info exists imsitem_id]} {
-    lorsm::set_ims_item_id $imsitem_id
+if {[info exists ims_item_id]} {
+    lorsm::set_ims_item_id $ims_item_id
 }
 
 # Get the paths
@@ -24,32 +20,62 @@ set the_root [ns_info pageroot]
 set the_url [ad_conn path_info]
 set content_type "content_revision"
 
-set content_root [lindex [nsv_get delivery_vars [ad_conn session_id]] 0]
-set imsitem_id [lorsm::get_ims_item_id]
 
-#ad_script_abort
+set content_root [lindex [nsv_get delivery_vars [ad_conn session_id]] 0]
+set ns_item_id [lindex [nsv_get delivery_vars [ad_conn session_id]] 1]
+set ims_item_id [lorsm::get_ims_item_id]
+
+set the_url [join [lrange [split $the_url "/"] 1 end] "/"]
 
 set template_root [db_string template_root ""]
 
 # Serve the page
-
 # DRB: Note that content::init modifies the local variable the_root, which is treated
 # as though it's been passed by reference.   This requires that the redirect treat the
 # path as an absolute path within the filesystem.
 
-if { [lorsm::init the_url the_root  $content_root $template_root public "" $content_type] } {
+# MIGUELM: we need a way to use other content root not only the one for the course since we can have
+#          items from other courses
 
+set item_id [content::item::get_id -item_path $the_url -root_folder_id $content_root -resolve_index "f"]
+if { [empty_string_p $item_id] } {
+    # This item was probably added. We need to check if the item exist on other folder.
+    # So we will get the first part of the URL
+    set item_id [lorsm::delivery::get_item_other_folder -url $the_url]
+}
+
+# To get the revision_id (file_id) we need to show here we have to items here 
+# one is the item_id that is recived on record-view page from the menu 
+# and the other one is the one that holds all the revisions for one file
+set revision_id [lorsm::delivery::get_file_id_from_ims_item_id -ims_item_id $ns_item_id -item_id $item_id]
+
+if { [empty_string_p $revision_id] } {
+    # Is a reference to an image or some other resource inside the page, this items don't 
+    # have an entry in ims_cp_files table
+    set revision_id [item::get_best_revision $item_id]
+}
+
+if { ![empty_string_p $revision_id] } {
+    # We catch the revision id using the_url and content root
+    cr_write_content -revision_id $revision_id
+} else {
+    # Write the ims_item_id that we recieve on the page since this is the one that holds the content
+    cr_write_content -revision_id $ims_item_id	
+}
+
+ad_script_abort
+if { [lorsm::init the_url the_root  $content_root $template_root public "" $content_type] } {
     # we introduced our own template
     rp_internal_redirect -absolute_path [acs_root_dir]/templates/lorsm-default
 
 } else {
-  # ns_returnnotfound
-  set page "[ad_header {Content Item Not Found}]"
-  append page "<h3>Content Item Not Found</h3>"
-  append page "The requested item is not available for viewing.  "
-  append page "The item is either not available on this server or it is not in a publishable state  "
-  append page "Unpublished items can be viewed via the CMS interface if the CMS package is installed.<br>"
-  append page "[ad_footer]"
-  doc_return 200 text/html $page
+   # ns_returnnotfound
+   set page "[ad_header {Content Item Not Found}]"
+   append page "<h3>Content Item Not Found</h3>"
+   append page "The requested item is not available for viewing.  "
+   append page "The item is either not available on this server or it is not in a publishable state  "
+   append page "Unpublished items can be viewed via the CMS interface if the CMS package is installed.<br>"
+   append page "[ad_footer]"
+   doc_return 200 text/html $page
 }
 

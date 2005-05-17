@@ -600,6 +600,7 @@
   <msg key="lt_Number_in_the_Catalog">Number in the Catalog i.e.: '1.3.1'</msg>
   <msg key="lt_Number_of_Organizatio">Number of Organizations:</msg>
   <msg key="lt_number_of_times_and_h">number of times and have covered</msg>
+  <msg key="lt_one_course_versions">One Course Versions</msg>
   <msg key="lt_Organizational_struct">Organizational structure of the resource</msg>
   <msg key="lt_Other_Platform_Requir">Other Platform Requirements:</msg>
   <msg key="lt_Preliminary_informati">Preliminary information</msg>
@@ -659,7 +660,7 @@
   <msg key="lt_Upload_an_IMSSCORM_Co">Upload an IMS/SCORM Content Package Course</msg>
   <msg key="lt_Upload_IMS_Content_Pa">Upload IMS Content Package</msg>
   <msg key="lt_Uploading_and_process">Uploading and processing your course, please wait ...</msg>
-  <msg key="lt_Use_the_Browse_button">Use the &quot;Browse...&quot; button to locate your file, then click &quot;Open&quot;</msg>
+  <msg key="lt_Use_the_Browse_button">Use the \&quot;Browse...\&quot; button to locate your file, then click \&quot;Open\&quot;</msg>
   <msg key="lt_Use_the_Classic_Style">Use the Classic Style if your course does not provide an index by itself and you want us to provide it. Otherwise use the Without LORSM Index Style.</msg>
   <msg key="lt_valigntop_alignleftis">valign=&quot;top&quot; align=&quot;left&quot;&gt;%isscorm;noquote%</msg>
   <msg key="lt_Version_of_the_Schema">Version of the Schema. i.e.: '1.2.1'</msg>
@@ -785,7 +786,6 @@
   <msg key="Size_1">Size</msg>
   <msg key="Source">Source:</msg>
   <msg key="Source_1">Source</msg>
-  <msg key="Start">Begin with the Course</msg>
   <msg key="Start_Course">Start Course</msg>
   <msg key="Status">Status:</msg>
   <msg key="Status_1">Status</msg>

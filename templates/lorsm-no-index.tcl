@@ -62,7 +62,9 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 		} else {
 			set viewed_item_id [lindex $item_list [expr [lsearch -exact $item_list $viewed_item_id] - 1]]
 		}
-		lorsm::record_view $viewed_item_id $man_id
+		if { [lsearch -exact $item_list $viewed_item_id] >= 0 } {
+		    lorsm::record_view $viewed_item_id $man_id
+		}
 
 		# Student tracking
 		set package_id [ad_conn package_id]

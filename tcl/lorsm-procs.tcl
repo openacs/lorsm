@@ -460,14 +460,15 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     db_0or1row get_item_id ""
     db_0or1row get_item_type ""
     # No item found, so do not handle this request
-    if { ![info exists item_id] } { 
-	db_0or1row get_template_info "" -column_array item_info
-	
-	if { ![info exists item_info] } { 
-	    ns_log notice "content::init: no content found for url $url"
-	    return 0 
-	}
-    }
+    if { ![exists_and_not_null item_id] } { 
+
+		db_0or1row get_template_info "" -column_array item_info
+		
+		if { ![info exists item_info] } { 
+			ns_log notice "content::init: no content found for url $url"
+			return 0 
+		}
+    } 
     
     variable item_url
     set item_url $url
@@ -478,7 +479,6 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     
     # Make sure that a live revision exists
     if { [empty_string_p $rev_id] } {
-
        set live_revision [db_string get_live_revision ""]
 	if { [template::util::is_nil live_revision] } {
 	    ns_log notice "content::init: no live revision found for content item $item_id"
@@ -486,7 +486,7 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 	}
 	set revision_id $live_revision
     } else {
-	set revision_id $rev_id
+		set revision_id $rev_id
     }
 
     variable template_path

@@ -576,13 +576,13 @@ set item_id $ims_item_id
 }
 
 ad_proc -public lorsm::get_root_folder_id { } { } {
-    return [db_string get_root_folder { select folder_id from cr_folders where label = 'LORSM Root Folder' }]
+    return [db_string get_root_folder { select folder_id from cr_folders where label = 'LORSM Root Folder' } -default ""]
 }    
 
 ad_proc -public lorsm::get_folder_id { 
     -name:required
 } {
-    return [db_string get_root_folder { select folder_id from cr_folders where label = :name }]
+    return [db_string get_root_folder { select folder_id from cr_folders where label = :name } -default ""]
 }    
 
 ad_proc -public lorsm::get_items_indent {

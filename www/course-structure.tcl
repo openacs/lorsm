@@ -101,7 +101,7 @@ db_foreach organizations { } {
 
     set total_items [db_string items_count {select count(*) from ims_cp_items where org_id=:org_id} -default 0]
     # We get the indent of the items in this org_id
-    set indent_list [lors_central::get_items_indent -org_id $org_id]
+    set indent_list [lorsm::get_items_indent -org_id $org_id]
     template::util::list_of_lists_to_array $indent_list indent_array
 
 

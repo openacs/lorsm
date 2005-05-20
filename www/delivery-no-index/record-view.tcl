@@ -51,6 +51,11 @@ set item_title [lorsm::delivery::get_ims_item_title -ims_item_id $revision_id]
 
 set cr_item_id [lors::cr::get_item_id -folder_id $content_root -name $href]
 
+# get already imported data (like an assessment)
+# it normally points relatively to the correct location in some parent folder
+if {[regexp {^\.\.} $href]} {
+    ad_returnredirect $href
+}
 
 # If no fs_item_id, this item is probably a folder
 # Else deliver the page

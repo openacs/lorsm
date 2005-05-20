@@ -64,6 +64,12 @@ if { [empty_string_p $cr_item_id] } {
     }
 }
 
+# get already imported data (like an assessment)
+# it normally points relatively to the correct location in some parent folder
+if {[regexp {^\.\.} $href]} {
+    ad_returnredirect $href
+}
+
 # If no cr_item_id, this item is probably a folder
 # Else deliver the page
 

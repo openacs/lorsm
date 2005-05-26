@@ -847,4 +847,7 @@
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
   <msg key="Your_Stats">Your Stats:</msg>
+  <msg key="Default_delivery">Default delivery?</msg>
+  <msg key="SCORM_session">SCORM session</msg>
+  <msg key="Sesion_Runtime_Data">Sesion_Runtime_Data</msg>
 </message_catalog>

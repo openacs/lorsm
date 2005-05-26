@@ -26,6 +26,8 @@ template::list::create \
             label "[_ lorsm.Course_Name_1]"
 	    display_template {@d_courses.course_url;noquote@}
 	    html { width 70% }
+            link_url_col course_url
+            link_html {title "[_ lorsm.Access_Course]"}
         }
         subject {
             label "[_ lorsm.Subject]"
@@ -56,10 +58,36 @@ foreach package $package_id {
     db_multirow -extend { ims_md_id last_viewed total_item_count viewed_item_count viewed_percent course_url } -append d_courses select_d_courses { } {
         set ims_md_id $man_id
 	if { [string eq $format_name "default"] } {
-			set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+
+            # micheles
+   	    set context [site_node::get_url_from_object_id -object_id $lorsm_instance_id]
+	    if ([db_0or1row query "
+    		select
+           		cpr.man_id,
+           		cpr.res_id,
+           		case
+              			when upper(scorm_type) = 'SCO' then 'delivery-scorm'
+              			else 'delivery'
+           		end as needscorte
+    			from
+           			ims_cp_resources cpr
+    			where
+				cpr.man_id = :man_id 
+			order by cpr.scorm_type desc limit 1"
+		]) {
+
+		set delivery_method $needscorte
+		ns_log Debug "lorsm - $needscorte"
+
+		set course_url "<a href=\"$context$delivery_method/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+		ns_log Debug "lorsm - course_url: $course_url"
+	    } else {
+		set course_url "NO RESOURCES ERROR"
+	    } 
 	} else {
-			set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
+	    set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
 	}
+
         # DEDS: these are expensive
         # and for demo purposes only
         db_0or1row get_last_viewed { }
@@ -67,8 +95,13 @@ foreach package $package_id {
         set total_item_count [llength $all_items]
         set viewed_items [db_list get_viewed_items { }]
         set viewed_item_count [llength $viewed_items]
+
+        ns_log Debug "lorsm - viewed_item_count: $viewed_item_count"
+
         set viewed_percent [expr [expr $viewed_item_count * 1.00] / $total_item_count * 100]
-    }
+        ns_log Debug "lorsm - viewed_percent: $viewed_percent"
+	}
 }
+
 
 

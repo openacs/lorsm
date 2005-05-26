@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>SCORM delivery in LORS </title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<h1>SCORM delivery in LORS </h1>
+<p>By Giancarlo Luxardo, Michele Slocovich </p>
+<p>&nbsp; </p>
+<h2>LORS management default user tracking</h2>
+<p>One of the functions of LORS management is to provide a course delivery, i.e. allowing navigation across the various resources (the content files) defined by the manifest (which encapsulates all data included in the course).</p>
+<p>SCORM 1.2 defines two types of resources: an 'asset' is a plain file (text, image...) delivered to a learner, while a 'SCO' (learning object) is a collection of one or more assets and it represents the basic unit that can be tracked by the LMS using the SCORM Run-Time Environment. SCOs are intended to be reusable in different courses. </p>
+<p>Basically the SCORM RTE defines the way to launch any SCO from an LMS, and to track any SCO (i.e. to know when it has been started and when it has ended). To do so, the LMS must provide a SCORM compatible API Adapter and the SCO must comply with this API Adapter.</p>
+<p>Up to version 0.6d, LORS allows to store both assets and SCOs. However the course delivery cannot succeed for a SCO since no API Adapter is found by the SCO.</p>
+<p>Nevertheless, LORS management (LORSm) provides a basic (non-standard) user tracking (implemented with the Views package) for courses exclusively composed of assets. The start and end times for each access done by a user are retrieved  (the end time is the time the user presses the Exit button).</p>
+<h2>Integration of SCORM delivery</h2>
+<p>In order to minimize the changes in LORS 0.6d, we adopted a solution based on two delivery modes: the default LORS delivery and a new SCORM delivery. No modification is required in the storage of Content Packages by LORS. When a delivery is initiated (in packages/lorsm/lib/user-lorsm.tcl), a query looks for resources in the manifest (table ims_cp_resources) with the column scorm_type set to 'SCO': if a course is composed only of 'assets' then it does not require the RTE, if it contains at least one 'SCO' the SCORM delivery mode is used. This should make easier to maintain a branch of the code where the SCORM delivery is not included.</p>
+<p>LORS management (packages/lorsm/www/index.tcl) is modified to add new columns to the list of available courses:</p>
+<ul>
+  <li> which delivery mode is used for the course?</li>
+  <li> is SCORM tracking data available?</li>
+</ul>
+<h2>Extension of LORS data model</h2>
+<p>The following tables (derived from the RTE sections) are added to the LORSm data model:</p>
+<ul>
+  <li>lorsm_cmi_core (Information required to be furnished by all LMS systems- all mandatarory elements are in this section) </li>
+  <li> lorsm_cmi_objectives (Identifies how the student has performed on individual objectives covered in the SCO)</li>
+  <li>    lorsm_cmi_student_data (Information to support customization of a SCO: mastery score, max time, limit action)</li>
+  <li> lorsm_cmi_student_preference (Selected options that are appropriate for subsequent SCOs: audio, language, speed, text)</li>
+  <li> lorsm_cmi_interactions (Recordable input or groups of input from a student: responses to tests)</li>
+  <li> lorsm_cmi_interactions_objectives (A list of ids controlled by the SCO)</li>
+  <li> lorsm_cmi_interactions_correct_responses (Description of possible responses to the interaction) </li>
+</ul>
+<p>Notes:</p>
+<ul>
+  <li> the last two tables are used to handle the arrays which are part of the 'interactions' section,</li>
+  <li>the elements defined by 'student_data' cannot be set by the SCO (they might be settings handled by the server, possibly specific for a student),</li>
+  <li> the student-id defined by SCORM cannot be the .LRN user-id but can be a transformation of the username (because of the limitations of the SCORM datatype). </li>
+</ul>
+<p>The database sequence used for the default LORS tracking (track-id) is reused as primary key of these tables (although a new sequence could also have been added). Since the track-id is set only if the course is trackable, we assume that a SCO is by default trackable. </p>
+<p>When a SCORM delivery is initiated the following considerations are made with respect to the student track to assign to the SCORM session:</p>
+<ul>
+  <li>a new track-id is created if: 
+    <ul>
+      <li>the LORS tracking flag is not set and no incomplete SCO is retrieved from the database (for the same user and course),</li>
+      <li>the LORS tracking flag is set  but the corresponding SCO is complete, </li>
+    </ul>
+  </li>
+  <li>if an incomplete SCO is retrieved, the track-id is reused.</li>
+</ul>
+<h2>SCORM API adapter</h2>
+<p>SCORM defines a common API and a launch mechanism to run a SCO. An API Adapter must be provided by the LMS to expose the API functions to the SCO. The API Adapter is a Javascript object which must reside in a parent window (or frame) of the window containing the SCO. The API Adapter is generally implemented by a Java applet (but it may be developed as well with Javascript). Java is generally considered a better choice for performance and portability.</p>
+<p>Our implementation of the API Adapter is based on the ADL Java applet published by ADL which is available here: <br>
+  <em>SCORM Version 1.2 Sample Run-Time Environment (RTE) Version 1.2.2 http://www.adlnet.org/index.cfm?fuseaction=rcdetails&amp;libid=738&amp;filterid=24&amp;page=1&amp;keywords=&amp;applyto=libTitle,libAuthor,contentText</em></p>
+<p>LORSm by default delivers a course with a template index.adp, which contains two frames: menu.adp and body.adp. The changes involved for the RTE are:</p>
+<ul>
+  <li> an API object and an init function are added to index.adp, </li>
+  <li> an API Adapter.class is loaded by applet.adp within a container frame (AppletContainerFrame), </li>
+  <li> since the SCO is loaded in body.adp, it&nbsp; will find the API 
+in the parent frameset as defined by the RTE,</li>
+  <li>blank.html 
+
+
+ is any empty page, which is displayed in place of the real content until the applet is loaded and available for RTE calls, applet loading and various checks are performed by javascript procedures contained in index.adp.</li>
+</ul>
+<p>Two functions are defined for the requests issued by the Java applet to the server:</p>
+<ul>
+  <li>for a get request, a CSV list is built by the server with all values retrieved by the database for a given track and returned to the applet which caches these values and returns them according to the API requests,</li>
+  <li>for put a request, a CSV list is built by the applet with values to be updated,</li>
+  <li>the format of each element/value complies with the names defined by SCORM, e.g.: &quot;cmi.core.score.raw=90&quot;.</li>
+</ul>
+<p>In order to avoid the client being disconnected by the server because of a time-out setting (SessionTimeout), a KeepAlive function  is called periodically as soon as the LMSInitialize issued. </p>
+<p><em>Note:</em><br>
+  It is assumed that if the SCO has not issued a LMSCommit request, the LMSFinish will guarantee the persistence of all previously set data (i.e. the LMSCommit is implicit): this is compatible with the modality defined by SCORM 2004.</p>
+<h2>SCORM 1.2 RTE conformance level</h2>
+<p>Currently only cmi.core information is handled, which is required by the label LMS-RTE1.
+</p>
+<p>Important elements part of cmi.core to be considered:</p>
+<p><strong>student-id</strong>: the username should be used but not an email address (datatype is CMIIdentifier, a function can be used to filter '@' and '.').</p>
+<p><strong>lesson_location</strong>: this is the last exit point from the SCO and can be used as a bookmark (SCO dependent).</p>
+<p><strong>credit</strong>: this is a flag indicating whether the student is credited for the SCO; a new UI should be defined in .LRN to change this setting (presently it is set to 'no-credit'). </p>
+<p><strong>lesson-status</strong>: when all elements in the SCO have been experienced, the status is set to 'completed'; if the SCO is taken for 'credit', the status is set to 'passed' (both cases indicate tha the track should be kept); the default is presently: 'not attempted'.</p>
+<p><strong>entry</strong>: indicating whether the student has been in the SCO before; by default it is set by .LRN as 'ab-initio'; the .LRN should set the value to 'resume' (if the student comes back to the SCO before the completion) or to the empty string if the student loads the SCO for review purposes.</p>
+<p><strong>launch_data</strong>:  The LMS should use the manifest (adlcp:datafromlms) element.</p>
+<h2>Tests with sample Content Packages </h2>
+<p>Published on the ADL site:<br>
+  <em>http://www.adlnet.org/</em></p>
+<p>Successfully loaded and run:<br> 
+  SingleCourse</p>
+<h2>SCORM 2004 conformance</h2>
+ <p>A SCORM 2004 Sample Run-Time Environment is available here:<br>
+   <em>http://www.adlnet.org/scorm/history/2004/srte.cfm</em></p>
+ <p>ADL has also put together a suite of tools that can be used by content developers in transitioning their SCORM Version 1.2 products to SCORM 2004 (useful for SCO development). </p>
+ <h2>Files</h2>
+<p>New:</p>
+<p>packages/lorsm/sql/postgresql/lorsm-cmi-create.sql<br>
+  packages/lorsm/sql/postgresql/lorsm-cmi-drop.sql<br>
+packages/lorsm/www/delivery-scorm/*<br>
+packages/lorsm/www/tracking-rte/*</p>
+<p>Modified:</p>
+<p>packages/lorsm/lib/user-lorsm.tcl<br>
+packages/lorsm/www/index.tcl</p>
+<h2>Design diagram</h2>
+<p><img src="images/scorm1.png" width="1509" height="1102"> </p>
+<h2>To do</h2>
+<ul>
+  <li>Add a command to delete tracks (or purge with a specific delay).</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>

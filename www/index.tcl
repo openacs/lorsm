@@ -35,7 +35,6 @@ lappend actions  "[_ lorsm.Add_Course]" [export_vars -base "course-add"] "[_ lor
 lappend actions  "[_ lorsm.lt_Search_Learning_Objec]" [export_vars -base "/search"] "[_ lorsm.lt_Search_for_Learninng_]"
 lappend actions  "[_ lorsm.Available_Courses]" [export_vars -base "shared/"] "[_ lorsm.lt_View_Available_Course]"
  
-
 template::list::create \
     -name d_courses \
     -multirow d_courses \
@@ -48,20 +47,21 @@ template::list::create \
             label "[_ lorsm.Available_Courses]"
 	    display_template {@d_courses.course_url;noquote@}
             display_col course_name
+            link_html {title "Access Course"}
         }
         hasmetadata {
             label "[_ lorsm.Metadata_1]"
             display_template {
 		<if @d_courses.lorsm_p@>
 		<center>
-                  <a href=md/?ims_md_id=@d_courses.ims_md_id@ title="[_ lorsm.See_metadata]">@d_courses.hasmetadata@</a>
-                </center>
-                </if>
-                <else>
+		<a href=md/?ims_md_id=@d_courses.ims_md_id@ title="[_ lorsm.See_metadata]">@d_courses.hasmetadata@</a>
+		                </center>
+		                </if>
+		                <else>
 		   <center> @d_courses.hasmetadata@</center>
-                </else>
+		                </else>
 	    }
-        }
+	}
         isscorm {
             label "[_ lorsm.SCORM]"
 	    html { align center }
@@ -73,8 +73,21 @@ template::list::create \
         istrackable {
             label "[_ lorsm.Tracking]"
             link_url_eval {tracking/?[export_vars man_id]}
-            link_html {title "[_ lorsm.lt_Track_Students_Progre]" class button}
+	    link_html {title "[_ lorsm.lt_Track_Students_Progre]" class button}
 	    html { align center }
+        }
+        deliverymethod {
+            label "[_ lorsm.Default_delivery]"
+	    html { align center }
+        }
+        hasrtedata {
+            label "[_ lorsm.SCORM_session]"
+            display_template {
+		<if @d_courses.hasrtedata@>
+		<center>
+		<a href=tracking-rte/?man_id=@d_courses.man_id@ title="[_ lorsm.Sesion_Runtime_Data]">@d_courses.hasrtedata@</a>
+		</if>
+	    }
         }
         creation_user {
             label "[_ lorsm.Owner]"
@@ -112,7 +125,7 @@ db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
            cp.identifier,
            cp.version,
            case
-              when hasmetadata = 't' then 'Yes'
+              when cp.hasmetadata = 't' then 'Yes'
               else 'No'
            end as hasmetadata,
            case 
@@ -136,10 +149,30 @@ db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
            case
               when cpmc.istrackable = 't' then 'Yes'
              else 'No'
-           end as istrackable
-              
+           end as istrackable,
+           -- micheles
+           -- addition for rte stuff
+--	   'Click here' as hasrtedata,   
+ 	   case
+               when 
+                   upper(scorm_type) = 'SCO' 
+	       then 'Click here'
+               else ''
+           end as hasrtedata,
+ 	   case
+               when 
+                   upper(scorm_type) = 'SCO' 
+	       then 'delivery-scorm'
+               else 'delivery'
+           end as deliverymethod
+
     from
-           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc, lorsm_course_presentation_formats pf
+           acs_objects acs, 
+           ims_cp_manifest_class cpmc, 
+           lorsm_course_presentation_formats pf,
+           -- micheles
+           ims_cp_manifests cp left join (select man_id, max(scorm_type) as scorm_type from ims_cp_resources group by man_id ) as cpr using (man_id) 
+
     where 
            cp.man_id = acs.object_id
     and
@@ -151,11 +184,13 @@ db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
     and    
            cp.man_id in (select cr.live_revision
                          from cr_items cr where content_type = 'ims_manifest_object')
-    order by acs.creation_date desc
+
+    order by acs.creation_date desc, cp.man_id asc
+
 } {
     set ims_md_id $man_id
     if { [string eq $format_name "default"] } { 
-	set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>"
+	set course_url "<a href=\"$deliverymethod/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>"
     } else {
 	set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>"
     }

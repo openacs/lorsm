@@ -8,7 +8,7 @@ if { [info exists content(item_id)] } {
 	# It's a file.
 	cr_write_content -revision_id $content(revision_id)
 	ad_script_abort
-    } elseif { [string equal "text/css" $content(mime_type)]} {
+    } elseif { [string equal "text/css" $content(mime_type)] || [string equal "text/xml" $content(mime_type) ]} {
 	# we treat CSS files as if they would be binaries and deliver
 	# them straight to the browser (maybe we should do the same
 	# thing for XML files (?)
@@ -19,16 +19,21 @@ if { [info exists content(item_id)] } {
     # Ordinary text/* mime type.
     template::util::array_to_vars content
 
-
-
     set text [cr_write_content -string -revision_id $revision_id]
-
-    if { ![string equal "text/html" $content(mime_type)] &&  ![string equal "text/xml" $content(mime_type)] } {
-	set text [ad_html_text_convert -from $mime_type -to text/html $text]
+	
+    if { ![string equal "text/html" $content(mime_type)] || ![string equal "text/xml" $content(mime_type)]} {
+		set text [ad_html_text_convert -from $mime_type -to text/html $text]
     }
 }
 
 set imsitem_id [lorsm::get_ims_item_id] 
+
+set html_document_p 0
+if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $text match] } {
+	set html_document_p 1
+	# parent window
+ 	regsub -all -nocase {target=.?(_top)} $text {target="content"} text
+} 
 
 # We set all this blank variables in the case that the ims_item does
 # not have a resource id

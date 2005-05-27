@@ -56,15 +56,17 @@ if {[db_0or1row manifest "
 	   acs.creation_date,
 	   acs.context_id,
            cpmc.isenabled,
+           pf.format_pretty_name,
            cpmc.istrackable
     from
-           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc
+           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc, lorsm_course_presentation_formats pf
     where 
            cp.man_id = acs.object_id
 	   and  cp.man_id = :man_id
            and  cp.man_id = cpmc.man_id
            and  cpmc.lorsm_instance_id = :package_id
-           and  cp.parent_man_id = 0"]} {
+           and  cp.parent_man_id = 0
+           and  cp.course_presentation_format = pf.format_id"]} {
 
     # Sets the variable for display. 
     set display 1
@@ -228,4 +230,5 @@ append orgs_list "</table>"
 set enabler_url [export_vars -base enabler {man_id}]
 set tracker_url [export_vars -base tracker {man_id}]
 set sharer_url  [export_vars -base sharer {man_id folder_id return_url}]
+set formater_url  [export_vars -base formater {man_id return_url}]
 

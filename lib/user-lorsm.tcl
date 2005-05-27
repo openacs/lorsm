@@ -17,7 +17,6 @@ ad_page_contract {
 
 #set package_id $list_of_packages_ids
 
-
 template::list::create \
     -name d_courses \
     -multirow d_courses \
@@ -27,9 +26,9 @@ template::list::create \
     -elements {
         course_name {
             label "[_ lorsm.Course_Name_1]"
-            display_col course_name
+	    display_template {@d_courses.course_url;noquote@}
 	    html { width 70% }
-            link_url_eval {[site_node::get_url_from_object_id -object_id $lorsm_instance_id]delivery/?[export_vars man_id]}
+
             link_html {title "[_ lorsm.Access_Course]"}
         }
         subject {
@@ -55,7 +54,7 @@ set user_id [ad_conn user_id]
 
 foreach package $package_id {
 
-    db_multirow -extend { ims_md_id last_viewed total_item_count viewed_item_count viewed_percent} -append  d_courses select_d_courses {
+    db_multirow -extend { ims_md_id last_viewed total_item_count viewed_item_count viewed_percent course_url } -append  d_courses select_d_courses {
 	select 
 	   cp.man_id,
            cp.course_name,
@@ -65,11 +64,14 @@ foreach package $package_id {
            cp.folder_id,
 	   acs.creation_user,
 	   acs.creation_date,
+	   pf.folder_name,
+	   pf.format_name,
 	   acs.context_id,
            cpmc.community_id,
            cpmc.lorsm_instance_id
 	from
-           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc
+           ims_cp_manifests cp, acs_objects acs, ims_cp_manifest_class cpmc, 
+           lorsm_course_presentation_formats pf
 	where 
            cp.man_id = acs.object_id
 	and
@@ -79,9 +81,16 @@ foreach package $package_id {
            cpmc.lorsm_instance_id = :package
 	and
            cpmc.isenabled = 't'
+	and
+	   pf.format_id = cp.course_presentation_format
 	order by acs.creation_date desc
     } {
         set ims_md_id $man_id
+	if { [string eq $format_name "default"] } {
+			set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+	} else {
+			set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
+	}
         # DEDS: these are expensive
         # and for demo purposes only
         db_0or1row get_last_viewed {

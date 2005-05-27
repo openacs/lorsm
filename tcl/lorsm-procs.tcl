@@ -334,6 +334,112 @@ ad_proc -public get_ims_item_id {} {
  
 }
 
+ad_proc -public get_item_list { man_id user_id } {
+	set item_list [list]
+	db_foreach organizations {
+		select 
+		org.org_id,
+		org.title as org_title,
+		org.hasmetadata,
+		tree_level(o.tree_sortkey) as indent
+		from
+		ims_cp_organizations org, acs_objects o
+		where
+		org.org_id = o.object_id
+		and
+		man_id = :man_id
+		order by
+		org_id
+	} {
+
+		db_foreach sql {		   
+			SELECT
+			(tree_level(tree_sortkey) - :indent) as indent,
+			i.item_id,
+			i.title as item_title
+			FROM 
+			acs_objects o, ims_cp_items i
+			WHERE 
+			o.object_type = 'ims_item'
+			AND
+			i.org_id = :org_id
+			AND
+			o.object_id = i.item_id
+			AND 
+			EXISTS
+			(select 1
+			 from acs_object_party_privilege_map p
+			 where p.object_id = i.item_id 
+			 and p.party_id = :user_id
+			 and p.privilege = 'read')
+
+			ORDER BY 
+			o.object_id, tree_sortkey
+		} {
+			lappend item_list $item_id
+		}
+	}
+	return $item_list
+}
+
+ad_proc -public record_view { item_id man_id } {
+
+	set viewer_id [ad_conn user_id]
+
+	set views [views::record_view -object_id $item_id -viewer_id $viewer_id]
+
+	set revision_id [item::get_best_revision $item_id]
+
+	db_1row manifest_info "select fs_package_id, folder_id from ims_cp_manifests where man_id = :man_id"
+	set content_root [fs::get_root_folder -package_id $fs_package_id]
+
+	set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
+
+	set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.item_id = :item_id and ir.res_id = r.res_id" -default ""]
+
+	db_1row item_info "select title from ims_cp_items where item_id = :item_id"
+
+	set fs_item_id [fs::get_item_id -folder_id $folder_id -name $href]
+
+	# If no fs_item_id, this item is probably a folder
+	# Else deliver the page
+	if { ![empty_string_p $fs_item_id] } {
+
+		set fs_revision_id [item::get_best_revision $fs_item_id]
+		set fs_item_mime [item::get_mime_info $fs_revision_id mime_info]
+		
+		
+		if { [string equal -length 4 "text" $mime_info(mime_type)] } {
+			
+			set imsitem_id $item_id
+			
+			#    lorsm::set_content_root content_root
+			lorsm::set_ims_item_id $item_id
+			
+			# we use nsv variables to set the delivery environment this is a
+			# temporary solution until we find something a bit better
+			
+			if {[nsv_exists delivery_vars [ad_conn session_id]]} {
+				nsv_unset delivery_vars [ad_conn session_id]
+			}
+			
+			nsv_set delivery_vars [ad_conn session_id] [list]
+			
+			nsv_lappend delivery_vars [ad_conn session_id] $content_root
+			
+		}
+	} else {
+		lorsm::set_ims_item_id $item_id
+		
+		# We have no content, so wipe item_id from the lorsm namespace
+		# This fixes a strange bug if you click a 'no content' menu item
+		# repeatedly and different content appears!
+		if { [info exists lorsm::item_id] } {
+			set lorsm::item_id ""
+		}
+	}
+	
+}
 
 ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {context "public"} {rev_id ""} {content_type ""} } {
     

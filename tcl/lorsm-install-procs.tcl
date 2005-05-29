@@ -64,8 +64,43 @@ ad_proc -private lorsm::install::package_install {} {
     }
     
     set pretty_name "[_ lorsm.lt_With_Bottom_Navigatio]"
-    db_dml create_no_index_format {
+    db_dml create_bottom_bar {
 	insert into lorsm_course_presentation_formats values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')
     }
 
+}
+
+ad_proc -public lorsm::install::after_upgrade {
+    {-from_version_name:required}
+    {-to_version_name:required}
+} {
+    apm_upgrade_logic \
+        -from_version_name $from_version_name \
+        -to_version_name $to_version_name \
+        -spec {
+            0.6d3 0.6d4 {
+                db_transaction {
+		    set pretty_name "[_ lorsm.Classic_Style]"
+		    db_dml create_default_format {
+			insert into lorsm_course_presentation_formats values (-1,:pretty_name,'default','delivery')
+		    }
+
+		    set pretty_name "[_ lorsm.lt_Without_LORSM_Index_S]"
+		    db_dml create_no_index_format {
+			insert into lorsm_course_presentation_formats values (-2,:pretty_name,'without_index','delivery-no-index')
+		    }
+
+		    set pretty_name "[_ lorsm.lt_With_Bottom_Navigatio]"
+		    db_dml create_bottom_bar {
+			insert into lorsm_course_presentation_formats values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')
+		    }
+
+		    # set default for existing courses
+		    db_dml set_default {
+			update ims_cp_manifests
+			set course_presentation_format = -1
+		    }
+		}
+	    }
+	}
 }

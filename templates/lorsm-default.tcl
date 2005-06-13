@@ -30,6 +30,13 @@ if { [info exists content(item_id)] } {
 
 set imsitem_id [lorsm::get_ims_item_id] 
 
+set html_document_p 0
+if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $text match] } {
+	set html_document_p 1
+	# parent window
+ 	regsub -all -nocase {target=.?(_top)} $text {target="content"} text
+}
+
 # We set all this blank variables in the case that the ims_item does
 # not have a resource id
 

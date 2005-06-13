@@ -69,14 +69,6 @@
       </querytext>
 </fullquery>
 
-<fullquery name="lorsm::init_all.get_live_revision">      
-      <querytext>
-
-    select live_revision from cr_items where item_id = :item_id
-
-      </querytext>
-</fullquery>
-
 <fullquery name="lorsm::get_root_folder_id.get_root_folder">      
       <querytext>
          select folder_id from cr_folders where label = 'LORSM Root Folder'

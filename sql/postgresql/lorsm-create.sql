@@ -109,3 +109,4 @@ Currently just two presentation formats exists, delivery and delivery-wihout-ind
 
 
 \i lorsm-packages.sql
+\i lorsm-cmi-create.sql

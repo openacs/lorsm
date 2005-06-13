@@ -9,6 +9,9 @@
            cp.identifier,
            cp.version,
            cp.fs_package_id,
+	   case when cp.fs_package_id is null then 't'
+		else 'f'
+	   end as lorsm_p,
            cp.folder_id,
 	   acs.creation_user,
 	   acs.creation_date,
@@ -68,6 +71,17 @@
               from views v
              where v.viewer_id = :user_id
                and v.object_id in ([join $all_items ,])
+  </querytext>
+</fullquery>
+
+<fullquery name="get_item_id">
+  <querytext>
+	select 
+		item_id 
+	from 
+		cr_revisions 
+	where 
+		revision_id = :man_id
   </querytext>
 </fullquery>
 

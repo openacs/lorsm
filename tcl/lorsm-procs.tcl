@@ -339,7 +339,7 @@ ad_proc -public get_item_list { man_id user_id } {
 	db_foreach organizations {
 		select 
 		org.org_id,
-		org.title as org_title,
+		org.org_title as org_title,
 		org.hasmetadata,
 		tree_level(o.tree_sortkey) as indent
 		from
@@ -355,8 +355,8 @@ ad_proc -public get_item_list { man_id user_id } {
 		db_foreach sql {		   
 			SELECT
 			(tree_level(tree_sortkey) - :indent) as indent,
-			i.item_id,
-			i.title as item_title
+			i.ims_item_id,
+			i.item_title as item_title
 			FROM 
 			acs_objects o, ims_cp_items i
 			WHERE 
@@ -364,12 +364,12 @@ ad_proc -public get_item_list { man_id user_id } {
 			AND
 			i.org_id = :org_id
 			AND
-			o.object_id = i.item_id
+			o.object_id = i.ims_item_id
 			AND 
 			EXISTS
 			(select 1
 			 from acs_object_party_privilege_map p
-			 where p.object_id = i.item_id 
+			 where p.object_id = i.ims_item_id 
 			 and p.party_id = :user_id
 			 and p.privilege = 'read')
 
@@ -395,9 +395,9 @@ ad_proc -public record_view { item_id man_id } {
 
 	set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
 
-	set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.item_id = :item_id and ir.res_id = r.res_id" -default ""]
+	set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.ims_item_id = :item_id and ir.res_id = r.res_id" -default ""]
 
-	db_1row item_info "select title from ims_cp_items where item_id = :item_id"
+	db_1row item_info "select item_title from ims_cp_items where ims_item_id = :item_id"
 
 	set fs_item_id [fs::get_item_id -folder_id $folder_id -name $href]
 
@@ -442,7 +442,7 @@ ad_proc -public record_view { item_id man_id } {
 }
 
 ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {context "public"} {rev_id ""} {content_type ""} } {
-    
+
     upvar $urlvar url $rootvar root_path 
     
     variable ims_item_id
@@ -460,14 +460,15 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     db_0or1row get_item_id ""
     db_0or1row get_item_type ""
     # No item found, so do not handle this request
-    if { ![info exists item_id] } { 
-	db_0or1row get_template_info "" -column_array item_info
-	
-	if { ![info exists item_info] } { 
-	    ns_log notice "content::init: no content found for url $url"
-	    return 0 
-	}
-    }
+    if { ![exists_and_not_null item_id] } { 
+
+		db_0or1row get_template_info "" -column_array item_info
+		
+		if { ![info exists item_info] } { 
+			ns_log warning "lorsm - init: no content found for url $url"
+			return 0 
+		}
+    } 
     
     variable item_url
     set item_url $url
@@ -476,17 +477,18 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 	set content_type $item_info(content_type)
     }
     
+    ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
+    
     # Make sure that a live revision exists
     if { [empty_string_p $rev_id] } {
-
-       set live_revision [db_string get_live_revision ""]
+       set live_revision [db_string get_live_revision "" -default ""]
 	if { [template::util::is_nil live_revision] } {
-	    ns_log notice "content::init: no live revision found for content item $item_id"
+	    ns_log warning "lorsm - init: no live revision found for content item $item_id"
 	    return 0
 	}
 	set revision_id $live_revision
     } else {
-	set revision_id $rev_id
+		set revision_id $rev_id
     }
 
     variable template_path
@@ -495,7 +497,7 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
     set template_found_p [db_0or1row get_template_url "" -column_array info]
     
     if { !$template_found_p || [string equal $info(template_url) {}] } { 
-	ns_log notice "content::init: No template found to render content item $item_id in context '$context'"
+	ns_log warning "lorsm - init: No template found to render content item $item_id in context '$context'"
 	return 0
     }
     
@@ -540,7 +542,7 @@ ad_proc -public get_content { { content_type {} } } {
 
 set item_id $ims_item_id
     if { [template::util::is_nil item_id] } {
-	ns_log warning "content::get_content: No active item in content::get_content"
+	ns_log warning "lorsm - get_content: No active item in lorsm - get_content"
 	return
     }
 
@@ -549,7 +551,7 @@ set item_id $ims_item_id
     set revision_id [db_string get_revision ""]
 
     if { [template::util::is_nil revision_id] } {
-	ns_log notice "content::get_content: No live revision for item $item_id"
+	ns_log warning "lorsm - get_content: No live revision for item $item_id"
 	return
     }
 
@@ -557,7 +559,7 @@ set item_id $ims_item_id
     set mime_type [db_string get_mime_type ""]
   
     if { [template::util::is_nil mime_type] } {
-	ns_log notice "content::get_content: No such revision: $revision_id"
+	ns_log warning "lorsm - get_content: No such revision: $revision_id"
 	return
     }  
 
@@ -576,13 +578,13 @@ set item_id $ims_item_id
 }
 
 ad_proc -public lorsm::get_root_folder_id { } { } {
-    return [db_string get_root_folder { select folder_id from cr_folders where label = 'LORSM Root Folder' }]
+    return [db_string get_root_folder { select folder_id from cr_folders where label = 'LORSM Root Folder' } -default ""]
 }    
 
 ad_proc -public lorsm::get_folder_id { 
     -name:required
 } {
-    return [db_string get_root_folder { select folder_id from cr_folders where label = :name }]
+    return [db_string get_root_folder { select folder_id from cr_folders where label = :name } -default ""]
 }    
 
 ad_proc -public lorsm::get_items_indent {

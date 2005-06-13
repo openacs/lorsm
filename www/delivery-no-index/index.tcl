@@ -103,5 +103,5 @@ if {[db_0or1row manifest "
 }
 
 if { !$viewed_item_count } {
-	set first_item_id [lindex [lorsm::get_item_list $man_id $user_id] 1]
+	set first_item_id [lindex [lorsm::get_item_list $man_id $user_id] 0]
 }

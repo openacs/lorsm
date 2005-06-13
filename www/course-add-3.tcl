@@ -435,20 +435,13 @@ db_transaction {
                 set res_files [lors::imsmd::getResource -node $resource -att files]
                 set res_scormtype [lors::imsmd::getAtt $resource adlcp:scormtype]
 
-### Addition provided by e-lane people to integrate on deployment with 
-# assessment package.
+                # Integration with other packages
+                # This callback gets the href of the imported content (if some package imported it)
+                set res_href_tmp [callback -catch lors::import -res_type $res_type -res_href $res_href -tmp_dir $tmp_dir -community_id $community_id]
+                if {![empty_string_p $res_href_tmp]} {
+                    set res_href $res_href_tmp
+                }
 
-# In the future we need to come up with a nicier way to do this as
-# this is rather a dirty hack for now. 
-
-# 		if {$res_type == "imsqti_xmlv1p0" || $res_type == "imsqti_xmlv1p1" || $res_type =="imsqti_item_xmlv2p0"} {
-# 		    set res_href [lors::assessment::ims_qti_register_assessment \
-# 	    			-tmp_dir $tmp_dir/$res_href \
-# 				-community_id $community_id]
-# 		}
-
-## End integration showcase                
-		
                 set resource_id [lors::imscp::resource_add \
                                      -man_id $man_id \
                                      -identifier $res_identifier \

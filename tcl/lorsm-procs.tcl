@@ -354,18 +354,20 @@ ad_proc -public get_item_list { man_id user_id } {
 
 		db_foreach sql {		   
 			SELECT
-			(tree_level(tree_sortkey) - :indent) as indent,
+		        i.parent_item,
 			i.ims_item_id,
 			i.item_title as item_title
 			FROM 
-			acs_objects o, ims_cp_items i
+			acs_objects o, ims_cp_items i, cr_items cr
 			WHERE 
-			o.object_type = 'ims_item'
+			o.object_type = 'ims_item_object'
 			AND
 			i.org_id = :org_id
 			AND
 			o.object_id = i.ims_item_id
-			AND 
+		        AND 
+                        cr.item_id = ( select item_id from cr_revisions where revision_id = i.ims_item_id)
+	                AND 
 			EXISTS
 			(select 1
 			 from acs_object_party_privilege_map p
@@ -374,9 +376,9 @@ ad_proc -public get_item_list { man_id user_id } {
 			 and p.privilege = 'read')
 
 			ORDER BY 
-			o.object_id, tree_sortkey
+			i.sort_order, o.object_id, cr.tree_sortkey
 		} {
-			lappend item_list $item_id
+			lappend item_list $ims_item_id
 		}
 	}
 	return $item_list

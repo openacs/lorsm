@@ -35,3 +35,4 @@ select content_type__unregister_template (
        'public'
 );
 
+\i lorsm-packages-drop.sql

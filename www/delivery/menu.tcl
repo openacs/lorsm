@@ -18,8 +18,11 @@ ad_page_contract {
 }
 
 
-set org_id [db_string get_org_id { } ]
-set items_list [lorsm::get_items_indent -org_id $org_id]
+set orgs_id [db_list_of_lists get_org_id { } ]
+set items_list [list]
+foreach org_id $orgs_id {
+    append items_list " [lorsm::get_items_indent -org_id $org_id]"
+}
 template::util::list_of_lists_to_array $items_list items_array
 set fs_package_id [db_string get_fs_package_id { } -default "" ]
 

@@ -45,3 +45,15 @@ ad_proc -callback merge::MergePackageUser -impl lorsm {
     set result "lors merge is done"
     return $result
 }
+
+
+ad_proc -public -callback imsld::import -impl lors {} {
+    this is the imsld lors importer
+} {
+	if {$res_type == "imscp_xmlv1p0"} {
+	    return [lorsm::imscp::register_xml_object_id \
+			-xml_file $tmp_dir/$res_href \
+			-community_id $community_id]
+	}
+}
+

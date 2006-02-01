@@ -653,8 +653,9 @@ ad_proc -public lorsm::get_item_delivery_url {
     return $url
 }
 
-ad_proc -public lorsm::imscp::register_xml_object_id {
+ad_proc -public lorsm::register_xml_object_id {
     {-xml_file:required}
+    {-tmp_dir:required}
     {-community_id:required}
 } {
     Relation with lorsm of IMSCP files returning the object_id
@@ -668,7 +669,7 @@ ad_proc -public lorsm::imscp::register_xml_object_id {
     # package_id of the current community
     ad_conn -set package_id [db_string get_package_id {select dotlrn_community_applets.package_id from dotlrn_community_applets join apm_packages on (dotlrn_community_applets.package_id=apm_packages.package_id) where community_id = :community_id and package_key='lorsm'}]
     
-    set object_id [lorsm::imscp::import_imscp $xml_file]
+    set object_id [lorsm::import_imscp -upload_file $xml_file -tmp_dir $tmp_dir]
 
     # Restore the package_id
     ad_conn -set package_id $current_package_id

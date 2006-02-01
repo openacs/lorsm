@@ -653,7 +653,7 @@ ad_proc -public lorsm::get_item_delivery_url {
     return $url
 }
 
-ad_proc -public lorms::imscp::register_xml_object_id {
+ad_proc -public lorsm::imscp::register_xml_object_id {
     {-xml_file:required}
     {-community_id:required}
 } {

@@ -1,6 +1,6 @@
 ad_library {
 
-    Assessment Library - Service Contracts
+    lorsm Library - Service Contracts
 
     @creation-date 2006-01-18
     @author eduardo.perez@uc3m.es

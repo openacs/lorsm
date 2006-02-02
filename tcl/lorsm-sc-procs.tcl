@@ -22,8 +22,9 @@ ad_proc -private lorsm::url { man_id } {
     returns the url for the lorsm man
 
 } {
+        # TODO find a better way to lookup the package_id to get the URL
 	set package_id [db_string package_id {	
-        select package_id from cr_folders where folder_id=(select context_id from acs_objects where object_id=:man_id)
+        select context_id from acs_objects where object_id=(select context_id from acs_objects where object_id=:man_id)
     }]
 	set url [apm_package_url_from_id $package_id]
 	return "${url}delivery-no-index/?man_id=$man_id"

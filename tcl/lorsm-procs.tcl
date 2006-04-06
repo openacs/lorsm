@@ -477,7 +477,7 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 	set content_type $item_info(content_type)
     }
     
-    ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
+    # ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
     
     # Make sure that a live revision exists
     if { [empty_string_p $rev_id] } {

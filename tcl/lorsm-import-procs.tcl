@@ -311,7 +311,7 @@ db_transaction {
 	#set course_name $upload_file
         # FIX ME: the course name is taken from the uploaded file, it should be taken somewhere else
         regsub {(\.[a-zA-Z0-9]+)$} $upload_file "" course_name
-        regsub {_} $course_name " " course_name
+        regsub -all {_} $course_name " " course_name
         
         regexp {([^/\\]+)$} $fs_dir match cr_dir
 

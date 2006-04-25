@@ -308,7 +308,11 @@ db_transaction {
 
         # gets rid of the path and leaves the name of the directory
         # if course_name is changed, then use that name. Otherwise it will use the default folder name given 
-	set course_name $upload_file
+	#set course_name $upload_file
+        # FIX ME: the course name is taken from the uploaded file, it should be taken somewhere else
+        regsub {(\.[a-zA-Z0-9]+)$} $upload_file "" course_name
+        regsub {_} $course_name " " course_name
+        
         regexp {([^/\\]+)$} $fs_dir match cr_dir
 
 	# We need to separate folders (since now all are cr_items) one for the files (content) and the other

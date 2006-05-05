@@ -2,8 +2,157 @@
 <head>
 <title></title>
 
+<link rel="stylesheet" type="text/css" href="scorm.css" media="all">
+
+
+<script language="JavaScript" src="tigra/tree.js"></script>
 <script language="JavaScript">
-<!--
+//<!--
+
+var menu=null;
+var API;
+ns4 = (document.layers)? true:false;
+ie4 = (document.all)? true:false;
+
+//function onunload() {
+//alert("unloading me");
+//z=parent.closecontents();
+//if (this.parent.content.window.location.href != "blank.htm") {
+// 	setTimeout("onunload();",1000)
+//	}
+//}
+
+function init() {
+    API = this.document.APIAdapter;
+    debug("before systemcheck");
+    z=systemcheck();
+    debug("after systemcheck");
+    try {
+	if(self.parent.window.frames['AppletContainerFrame'].initialized) {
+	this.toggleBox('menudiv',0);
+	} else {
+	debug("normal");
+	}
+	} catch (err) {
+		debug("applet not available in menu.init();");
+	}
+    //document.applets[0].init();
+    //alert("JAVA-JAVASCRIPT: i've inited myself");
+}
+
+
+function writit(text,id)
+{
+	if (document.getElementById) //Gecko IE5+
+	{
+		x = document.getElementById(id);
+		x.innerHTML = '';
+		x.innerHTML = text;
+	}
+	else if (document.all) // IE 4
+	{
+		x = document.all[id];
+		x.innerHTML = text;
+	}
+	else if (document.layers) //NN4+
+	{
+		x = document.layers[id];
+		text2 = '<P CLASS="testclass">' + text + '</P>';
+		x.document.open();
+		x.document.write(text2);
+		x.document.close();
+	}
+}
+
+
+function toggleBox(szDivID, iState) // 1 visible, 0 hidden
+{
+    if(document.layers)	   //NN4+
+    {
+       document.layers[szDivID].visibility = iState ? "show" : "hide";
+    }
+    else if(document.getElementById)	  //gecko(NN6) + IE 5+
+    {
+        var obj = document.getElementById(szDivID);
+        obj.style.visibility = iState ? "visible" : "hidden";
+    }
+    else if(document.all)	// IE 4
+    {
+        document.all[szDivID].style.visibility = iState ? "visible" : "hidden";
+    }
+}
+
+
+function show(id) {
+        if (ns4) document.layers[id].visibility="view";
+ 	if (ie4) document.all[id].style.visibility = "visible";
+}
+
+function hide(id) {
+	if (ns4) document.layers[id].visibility = "hide";
+    	if (ie4) document.all[id].style.visibility = "hidden";
+}
+
+function changeSCOContent() {
+    alert("LMSFINISH completing: getting out on JAVA APPLET request");
+    parent.window.location.href = "@return_url@";
+    return 1;
+}
+
+function showmenu() {
+	debug("within showmenu");
+    	//if(isNull(document.getElementById("treemenu").style.display)) {
+		debug("showmenu is null !!!");
+	//} else {
+		debug("not showing");
+		//NON SUPPORTATO IN IE5.01
+    		//document.getElementById("treemenu").style.display='block';
+	//}
+}
+
+function showcontent() {
+	parent.frames['content'].location.href = "record-view?man_id=@man_id@&item_id=@ims_item_id@";
+}
+
+function closeme() {
+	parent.window.close();
+}
+
+function getCookie(name)
+{
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1)
+    {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else
+    {
+        begin += 2;
+    }
+    var end = document.cookie.indexOf(";", begin);
+    if (end == -1)
+    {
+        end = dc.length;
+    }
+    return (name+"="+unescape(dc.substring(begin + prefix.length, end)).replace("+"," ").replace("+"," ").replace("+"," ").replace("+"," "));
+}
+
+//MOVED HERE 
+
+var TREE_ITEMS = [['Course Index', 'body?man_id=@man_id@',
+
+<if @TREE_ITEMS@ defined>@TREE_ITEMS;noquote@</if>
+
+]];
+
+<if @TREE_HASH@ defined>
+var TREE_HASH = new Array();
+@TREE_HASH;noquote@
+</if>
+
 var tree_tpl = {
 	'target'  : 'content',	// name of the frame links will be opened in
 
@@ -68,97 +217,107 @@ function seekAndDestroy( ims_id ) {
 	return;
     }
 }
+
+
+function debug(message) {
+        parent.frames['talk'].document.write("<FONT SIZE=1> menu.adp : "+message+"<HR>");
+        return;
+        }
+
+
+function systemcheck() {
+	debug("within syscheck");
+	AppletContainerFrame=parent.frames['AppletContainerFrame'];
+	//if (ie4) {
+    		//while(isNull(document.getElementById("treemenu").style)) {
+		//	alert("IL MENU e' NULL");
+		//} else {
+		//alert("IL MENU e' NON NULL");
+			//will not hide in explorer 5.01
+    			//document.getElementById("treemenu").style.display='none';
+		//}
+	//	debug("hidden treemenu");
+	//} else {
+	//	hide("treemenu");
+	//}
+	if (AppletContainerFrame.releasemenu==1) {
+		//seems that ie 5.5 is not ie4 so forcing location wouldn't work
+		<if @menu_off@ lt 1>
+		//	if (ie4) {
+			debug("menu released, going to call showmenu");
+		//	showmenu(); 
+		//	} else {
+		//	show("treemenu");
+		//	}
+		</if>
+		<else>
+		parent.frames['content'].location.href = "record-view?man_id=@man_id@&item_id=@item_id@";
+		</else>
+	//do nothing
+	} else {
+	if (AppletContainerFrame.releasemenu==-1) {
+	parent.frames['content'].document.write("<BR><HR>Failed system configuration test<BR>Please check requirements");
+	parent.frames['content'].document.write("<HR>This window will now close.");
+        setTimeout("closeme();",12000)
+	} else {
+	if((AppletContainerFrame.megatries<4)) {
+	parent.frames['content'].document.write("<BR>Please wait. Checking system configuration<BR>");
+	} else {
+	parent.frames['content'].document.write("<BR><HR>Failed system configuration test<BR>Please check requirements");
+	parent.frames['content'].document.write("<HR>This window will now close.");
+        setTimeout("closeme();",12000)
+	}
+	}
+	}
+	return;
+}
+
+
 //-->
 </script>
-
-<script language="JavaScript" src="tigra/tree.js"></script>
-
-<script language="JavaScript">
-<!--
-      var TREE_ITEMS = [['Course Index', 'body?man_id=@man_id@',
-
-<if @TREE_ITEMS@ defined>@TREE_ITEMS;noquote@</if>
-
-]];
-
-      <if @TREE_HASH@ defined>
-      var TREE_HASH = new Array();
-      @TREE_HASH;noquote@
-      </if>
-
-//-->
-</script>
-
-<style type="text/css">
-      body { background-color: #6C9A83 }
-
-      a { font-family: Helvetica,Arial; 
-       font-weight: bold; 
-       font-size: 0.7em;
-       color: #FFFFFF;
-      }
-      
-      a.current a:active { font-family: Helvetica,Arial; 
-       font-weight: bold; 
-       font-size: 0.7em;
-       color: #FFFF00;
-      }
-
-      a.button { 
-       font: 65% arial;
-       border: solid 1px black;
-       background-color: #e1e1e1;
-       text-align: center; 
-       padding: 1px;
-       padding-left: 8px;
-       padding-right: 8px;
-       color: black;
-       text-decoration: none;
-       white-space: nowrap;
-       position: fixed;
-      }
-
-      a.button:link { 
-       text-decoration: none;
-       border: solid 1px black;
-      }
-
-      a.button:visited { 
-       text-decoration: none;
-       border: solid 1px black;
-      }
-
-      a.button:hover { 
-       text-decoration: none;
-       background-color: #ccc;
-       border: solid 1px black;
-      }
-
-      a.button:active { 
-       text-decoration: none;
-       border: solid 1px black;
-      }
-
-</style>
 
 </head>
 
-<body>
-    <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: fixed;" class="button" target="_top">#lorsm.Exit_Course# <br> #lorsm.return_to_LRN#</a>
+
+<BODY onload="return init();">
+
+<div id="usermessage">
+</div>
+
+<div id="abort">
+</div>
+
+<div id="menudiv">
+<if @menu_off@ lt 1>
+    <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: fixed;" class="button" target="_top">Exit Course</a>
 &nbsp;
 <hr size=1>
-    <if @TREE_ITEMS@ defined>
-      <script language="JavaScript">
-<!--
-	menu = new tree (TREE_ITEMS, tree_tpl);
+</if>
 
-	<if @ims_id@ defined>
-	selectItem(TREE_HASH["ims_id.@ims_id@"]);
-      </if>
+
+<hr>
+
+<if @TREE_ITEMS@ defined>
+<script language="JavaScript">
+//<!--
+	menu = new tree (this.TREE_ITEMS, this.tree_tpl);
+
+	        <if @ims_id@ defined>
+	        selectItem(this.TREE_HASH["ims_id.@ims_id@"]);
+		</if>
 //-->
-      </script>
-    </if>
-</body>
+</script>
+</if>
+<else>
+Menu not available.
+</else>
+</div>
 
-</html>
 
+<HR>
+<if @debuglevel@ gt 0>
+debug is: ON 
+</if>
+
+</BODY>
+</HTML>

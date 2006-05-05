@@ -76,6 +76,6 @@ if { [lorsm::init the_url the_root  $content_root $template_root public "" $cont
    append page "The item is either not available on this server or it is not in a publishable state  "
    append page "Unpublished items can be viewed via the CMS interface if the CMS package is installed.<br>"
    append page "[ad_footer]"
-   doc_return 200 text/html $page
+   doc_return 404 text/html $page
 }
 

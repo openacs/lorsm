@@ -1,25 +1,55 @@
-<master  src="/www/blank-master">
+<%
+#
+#<master>
+#
+#
+%>
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="/resources/dotlrn/dotlrn-master.css" media="all">
+</head>
+<body border=1>
 <center>
     <script type="text/javascript">
       <!--
+	//this doesn't make sense!
       // Check if we're inside and the tree menu is shown
-      if (window.parent.toc) {
-      window.parent.toc.selectItem(0);
-      }
+      //if (window.parent.toc) {
+	// Check if there is a menu to select from
+	//if (window.parent.toc.menu) {
+	//      window.parent.toc.selectItem(0);
+	//}
+      //}
       //-->
     </script>
-    
-<h1>#lorsm.Welcome_to# <b>@course_name@</h1>
+
+<br>    
+<h1><b>@course_name@</h1>
 <p>
 
-      #lorsm.Your_Stats#
-      <br>
-	#lorsm.lt_You_have_seen_this_co# <b>@viewed_times@</b> #lorsm.lt_number_of_times_and_h# <b>@viewed_percent@ %</b> #lorsm.of_the_content#
-    </p>
     <if @last_page_viewed@ defined>
       <p>
-	#lorsm.lt_The_last_page_you_vie# <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
+	Last page viewed: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
     </if>
+    <else>
+        You have not yet viewed any material from this course.
+    </else>
     <p>
-      #lorsm.lt_Click_on_menu_to_the_#
+      Click on the menu items on the left to view course materials
+    </if>
+<!--      
+      <link rel="stylesheet" type="text/css" href="/resources/acs-templating/forms.css" media="all">
+    
+    
+
+    <script src="/resources/acs-subsite/core.js" language="javascript"></script>
+
+    <textarea id="holdtext" style="display: none;"></textarea>
+    
+-->
+
+
+ </body>
+</html>
 

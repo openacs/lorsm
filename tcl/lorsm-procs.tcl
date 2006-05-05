@@ -468,10 +468,11 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 		
 		if { ![info exists item_info] } { 
 			ns_log warning "lorsm - init: no content found for url $url"
+		    ns_log notice "lorsm - init2: urlvar rootvar rev_id item_id ims_item_id- $urlvar '${rootvar}' '${rev_id}' '${item_id}' '${ims_item_id}' content_root '${content_root}'"
 			return 0 
 		}
     } 
-    
+		    ns_log debug "lorsm - init3: urlvar rootvar rev_id item_id ims_item_id- $urlvar '${rootvar}' '${rev_id}' '${item_id}' '${ims_item_id}'"    
     variable item_url
     set item_url $url
 
@@ -479,7 +480,7 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 	set content_type $item_info(content_type)
     }
     
-    # ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
+    ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
     
     # Make sure that a live revision exists
     if { [empty_string_p $rev_id] } {
@@ -653,27 +654,43 @@ ad_proc -public lorsm::get_item_delivery_url {
     return $url
 }
 
-ad_proc -public lorsm::register_xml_object_id {
-    {-xml_file:required}
-    {-tmp_dir:required}
-    {-community_id:required}
-} {
-    Relation with lorsm of IMSCP files returning the object_id
 
-} {
-    # Save the current package_id to restore when the object is
-    # imported
-    set current_package_id [ad_conn package_id]
-    # Get the package_id associated with the current community
-    # FIXME this is a hack until I figure out how to get the
-    # package_id of the current community
-    ad_conn -set package_id [db_string get_package_id {select dotlrn_community_applets.package_id from dotlrn_community_applets join apm_packages on (dotlrn_community_applets.package_id=apm_packages.package_id) where community_id = :community_id and package_key='lorsm'}]
-    
-    set object_id [lorsm::import_imscp -upload_file $xml_file -tmp_dir $tmp_dir]
+# namespace eval lorsm::merge {
 
-    # Restore the package_id
-    ad_conn -set package_id $current_package_id
-   
-    return $object_id
-}
+#     ad_proc -callback MergeShowUserInfo -impl lorsm {
+# 	-user_id:required
+#     } {
+# 	Show lors items of one user
+#     } {
+# 	set msg "lors items"
+# 	set result [list $msg]
 
+# 	lappend result [list "Student tracks : [db_list sel_student_track { *SQL* }] " ]
+# 	lappend result [list "Student bookmarks: [db_list sel_student_bookmark { *SQL* }] "]
+	
+# 	return $result
+#     }
+
+#     ad_proc -callback MergePackageUser -impl lorsm {
+# 	-from_user_id:required
+# 	-to_user_id:required
+#     } {
+# 	Merge the lors items of two users.
+# 	The from_user_id is the user that will be 
+#         deleted and all the entries of this user 
+# 	will be mapped to the to_user_id.
+	
+#     } {
+# 	set msg "Merging lors"
+# 	ns_log Notice $msg
+# 	set result [list $msg]
+
+# 	db_transaction {
+# 	    db_dml student_track { *SQL* }
+# 	    db_dml student_bookmark { *SQL* }
+# 	}
+
+# 	set result "lors merge is done"
+# 	return $result
+#     }
+# }

@@ -468,11 +468,11 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 		
 		if { ![info exists item_info] } { 
 			ns_log warning "lorsm - init: no content found for url $url"
-		    ns_log notice "lorsm - init2: urlvar rootvar rev_id item_id ims_item_id- $urlvar '${rootvar}' '${rev_id}' '${item_id}' '${ims_item_id}' content_root '${content_root}'"
+		    # ns_log debug "lorsm - init2: urlvar rootvar rev_id item_id ims_item_id- $urlvar '${rootvar}' '${rev_id}' '${item_id}' '${ims_item_id}' content_root '${content_root}'"
 			return 0 
 		}
     } 
-		    ns_log debug "lorsm - init3: urlvar rootvar rev_id item_id ims_item_id- $urlvar '${rootvar}' '${rev_id}' '${item_id}' '${ims_item_id}'"    
+    # ns_log debug "lorsm - init3: urlvar rootvar rev_id item_id ims_item_id- $urlvar '${rootvar}' '${rev_id}' '${item_id}' '${ims_item_id}'"    
     variable item_url
     set item_url $url
 
@@ -480,7 +480,7 @@ ad_proc -public init { urlvar rootvar {content_root ""} {template_root ""} {cont
 	set content_type $item_info(content_type)
     }
     
-    ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
+    # ns_log debug "lorsm - init: urlvar rootvar rev_id item_id ims_item_id- $urlvar $rootvar $rev_id $item_id $ims_item_id"
     
     # Make sure that a live revision exists
     if { [empty_string_p $rev_id] } {

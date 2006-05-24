@@ -28,6 +28,7 @@ ad_page_contract {
     }
 }
 
+set context ""
 
 #check permission
 set user_id [ad_conn user_id]

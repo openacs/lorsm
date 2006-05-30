@@ -71,4 +71,6 @@ ad_proc -private lorsm::install::package_install {} {
 	insert into lorsm_course_presentation_formats values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')
     }
 
+    # Service contract implementations - fts 	 
+    lorsm::sc::register_implementations
 }

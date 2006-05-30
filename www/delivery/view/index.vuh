@@ -4,11 +4,22 @@ ad_page_contract {
     @cvs-id $Id$
 } {    
     { ims_item_id "" }
+    { man_id "" }
 }
- 
+
 # check if the nsv variable exists
 if {![nsv_exists delivery_vars [ad_conn session_id]]} {
-    ad_returnredirect [dotlrn_community::get_community_url [dotlrn_community::get_community_id -package_id [ad_conn package_id]]]
+    if {$man_id ne ""} {
+	db_1row manifest_info { *SQL* }
+	set content_root [fs::get_root_folder -package_id $fs_package_id]
+	if {[nsv_exists delivery_vars [ad_conn session_id]]} {
+	    nsv_unset delivery_vars [ad_conn session_id]
+	}
+	nsv_set delivery_vars [ad_conn session_id] [list]
+	nsv_lappend delivery_vars [ad_conn session_id] $content_root
+    } else {
+	ad_return_complaint 1 "[_ lorsm.Your_session_has_expired]"
+    }
 }
 
 if {[info exists ims_item_id]} {

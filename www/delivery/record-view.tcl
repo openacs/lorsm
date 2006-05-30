@@ -105,7 +105,7 @@ if { ![empty_string_p $cr_item_id] } {
 	nsv_set delivery_vars [ad_conn session_id] [list]
 
 	nsv_lappend delivery_vars [ad_conn session_id] $content_root
-	ad_returnredirect [export_vars -base view/$href {ims_item_id} ]
+	ad_returnredirect [export_vars -base view/$href {ims_item_id man_id} ]
 	ad_script_abort
     }
 } else {

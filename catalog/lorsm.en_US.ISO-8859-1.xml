@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.6d2" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.7d" locale="en_US" charset="ISO-8859-1">
 
   <msg key="_Add">Classification</msg>
   <msg key="_Add_1">Intended End User Role</msg>
@@ -130,6 +130,7 @@
   <msg key="Date">Date:</msg>
   <msg key="Date_1">Date</msg>
   <msg key="Date_of_contribution">Date of contribution</msg>
+  <msg key="Default_delivery">Default delivery?</msg>
   <msg key="Description">Description:</msg>
   <msg key="Description_1">Description</msg>
   <msg key="Descriptions">Descriptions:</msg>
@@ -771,11 +772,13 @@
   <msg key="Scheme_1">Scheme</msg>
   <msg key="SCORM">SCORM?</msg>
   <msg key="SCORM_Package_Info">SCORM Package Info</msg>
+  <msg key="SCORM_session">SCORM session</msg>
   <msg key="SCOs">SCOs</msg>
   <msg key="seconds">seconds</msg>
   <msg key="See_metadata">See metadata</msg>
   <msg key="Semantic_Density">Semantic Density:</msg>
   <msg key="Semantic_Density_1">Semantic Density</msg>
+  <msg key="Sesion_Runtime_Data">Sesion_Runtime_Data</msg>
   <msg key="Set_Course_Options">Set Course Options</msg>
   <msg key="Set_Course_Status">Set Course Status</msg>
   <msg key="Set_Course_Status_">Set Course Status \</msg>
@@ -847,7 +850,4 @@
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
   <msg key="Your_Stats">Your Stats:</msg>
-  <msg key="Default_delivery">Default delivery?</msg>
-  <msg key="SCORM_session">SCORM session</msg>
-  <msg key="Sesion_Runtime_Data">Sesion_Runtime_Data</msg>
 </message_catalog>

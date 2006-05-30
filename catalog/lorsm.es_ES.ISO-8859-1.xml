@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.6d1" locale="es_GT" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.7d" locale="es_ES" charset="ISO-8859-1">
 
   <msg key="_Add">Clasificación</msg>
   <msg key="_Add_1">Papel previsto de Usuario Final</msg>
@@ -97,6 +97,7 @@
   <msg key="Catalog-Entries">Entradas de Catalogo:</msg>
   <msg key="Catalog_1">Catálogo</msg>
   <msg key="Change">Modificar</msg>
+  <msg key="Classic_Style">Estilo clásico</msg>
   <msg key="Classification_Entry">Entrada de Clasificación</msg>
   <msg key="Classification_MD">Clasificación MD</msg>
   <msg key="Classifications">Clasificaciones:</msg>
@@ -111,6 +112,7 @@
   <msg key="Copyright_Info">Info Derechos de Autor</msg>
   <msg key="Cost">Costo:</msg>
   <msg key="Cost_1">Costo</msg>
+  <msg key="Course">Formato de presentación:</msg>
   <msg key="course">curso.</msg>
   <msg key="course_id">course_id</msg>
   <msg key="Course_Index">Indice del Curso</msg>
@@ -123,6 +125,7 @@
   <msg key="Coverage_1">Cobertura</msg>
   <msg key="Created_By">Creado Por:</msg>
   <msg key="Creation_Date">Fecha de Creación</msg>
+  <msg key="Current_Format">Formato actual</msg>
   <msg key="Current_Status">Estado Actual:</msg>
   <msg key="Date">Fecha:</msg>
   <msg key="Date_1">Fecha</msg>
@@ -220,7 +223,6 @@
   <msg key="Location_1">Localización:</msg>
   <msg key="Locations">Localizaciones:</msg>
   <msg key="Log_Out">Salir</msg>
-  <msg key="lorsm.lt_The_upload_failed_or_">La carga de archivo falló o posiblemente el archvi está vacío</msg>
   <msg key="lt_Add_a_IMSSCORM_Compli">Agregar Curso Compatible con IMS/SCORM</msg>
   <msg key="lt_Add_Aggregation_Level">Agregar Nivel de Agregación</msg>
   <msg key="lt_Add_Annotation_MD_Des">Agregar Anotación de Descripción de MD</msg>
@@ -436,6 +438,7 @@
   <msg key="lt_Copyrighted_Descripti">Descripción con Derechos de Autor:</msg>
   <msg key="lt_Course_already_part_o">El Curso ya es parte de su clase</msg>
   <msg key="lt_Course_Delivery_Syste">Sistema de Entrega de Cursos para LORS</msg>
+  <msg key="lt_Course_Presentation_S">Estilo de presentación</msg>
   <msg key="lt_Courses_in_your_Repos">Cursos en su Repositorio</msg>
   <msg key="lt_Date_and_Time_descrip">Descripción de Fecha y Hora</msg>
   <msg key="lt_Deleting_temporary_fo">Borrando folder temporal...</msg>
@@ -615,6 +618,7 @@
   <msg key="lt_SCORM_complaint_packa">Paquete compatible con SCORM</msg>
   <msg key="lt_Search_for_Learninng_">Buscar Objetos de Aprendizaje en el Repositorio</msg>
   <msg key="lt_Search_Learning_Objec">Buscar Objetos de Aprendizaje</msg>
+  <msg key="lt_Set_Course_Presentati">Establecer formato de presentación</msg>
   <msg key="lt_Set_Course_Track_Opti">Fijar Opciones de Rastreo</msg>
   <msg key="lt_Share_CourseLearning_">Compartir Curso/Objeto de Aprendizaje</msg>
   <msg key="lt_Shared_Courses_in_the">Cursos Compratidos en el Repositorio</msg>
@@ -656,6 +660,7 @@
   <msg key="lt_Upload_IMS_Content_Pa">Subir un paquete de IMS</msg>
   <msg key="lt_Uploading_and_process">Actualizando y procesando su curso, porfavor espere ...</msg>
   <msg key="lt_Use_the_Browse_button">Utilize el botón de \&quot;Examinar...\&quot; para localizar su archivo, luego haga click en \&quot;Abrir\&quot;</msg>
+  <msg key="lt_Use_the_Classic_Style">Utilice el estilo clásico si su curso no contiene un fichero index y desea disponer de un índice. En caso contrario, utilice el estilo &quot;Sin índice&quot;.</msg>
   <msg key="lt_valigntop_alignleftis"> valign=&quot;top&quot; align=&quot;left&quot;&gt;%isscorm;noquote%</msg>
   <msg key="lt_Version_of_the_Schema">Versión del Esquema. ejemplo: '1.2.1'</msg>
   <msg key="lt_View_Annotation_Metad">Ver la Metadata de Anotación</msg>
@@ -676,6 +681,8 @@
   <msg key="lt_Were_sorry_but_it_app">Lo sentimos, pero parece que no tiene los permisos necesarios para realizar esta operación</msg>
   <msg key="lt_Whether_copyright_or_">Si derechos reservados u otra restriccion se aplique</msg>
   <msg key="lt_Whether_use_of_the_re">Si el uso de este recurso requiere pago</msg>
+  <msg key="lt_With_Bottom_Navigatio">Con barra de navegación abajo</msg>
+  <msg key="lt_Without_LORSM_Index_S">Estilo Sin índice</msg>
   <msg key="lt_You_are_about_to_add_">Usted esta apunto de agregar a su clase el curso %course_name%</msg>
   <msg key="lt_You_can_add_courses_a">Puede agregar cursos que yá existan en el repositorio</msg>
   <msg key="lt_You_have_seen_this_co">Usted ha visto este curso</msg>
@@ -763,6 +770,7 @@
   <msg key="Scheme_1">Esquema:</msg>
   <msg key="SCORM">SCORM?</msg>
   <msg key="SCORM_Package_Info">Información del Paquete SCORM</msg>
+  <msg key="SCORM_session">Sesión SCORM</msg>
   <msg key="SCOs">SCOs</msg>
   <msg key="seconds">segundos</msg>
   <msg key="See_metadata">Ver metadata</msg>
@@ -779,6 +787,7 @@
   <msg key="Size_1">Tamaño</msg>
   <msg key="Source">Fuente:</msg>
   <msg key="Source_1">Fuente</msg>
+  <msg key="Start">Empezar el curso</msg>
   <msg key="Start_Course">Iniciar Curso</msg>
   <msg key="Status">Estado:</msg>
   <msg key="Status_1">Estado</msg>

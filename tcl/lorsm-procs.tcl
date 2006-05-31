@@ -351,16 +351,15 @@ ad_proc -public get_item_list { man_id user_id } {
 		order by
 		org_id
 	} {
-
-		db_foreach sql {		   
+		db_foreach sql {		               
 			SELECT
 			(tree_level(tree_sortkey) - :indent) as indent,
-			i.ims_item_id,
+			i.ims_item_id as item_id,
 			i.item_title as item_title
 			FROM 
 			acs_objects o, ims_cp_items i
 			WHERE 
-			o.object_type = 'ims_item'
+			o.object_type = 'ims_item_object'
 			AND
 			i.org_id = :org_id
 			AND

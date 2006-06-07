@@ -602,6 +602,7 @@ ad_proc -public lorsm::get_items_indent {
     
     # Get the root items
     set count 0
+    set items_list [list]
     foreach ims_item_id [db_list get_root_item "select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id"] {
 	lappend items_list [list $ims_item_id 1]
 	set items_array($ims_item_id) 1

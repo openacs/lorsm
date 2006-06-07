@@ -596,32 +596,51 @@ ad_proc -public lorsm::get_items_indent {
 
     # We need all the count of all items (just live revisions)
     set items_count [db_string get_items_count { select count(ims_item_id)
-	from ims_cp_items where ims_item_id in ( select live_revision
-						 from cr_items where content_type = 'ims_item_object') and
-	org_id = :org_id
+	from ims_cp_items, cr_items where ims_item_id = live_revision
+        and org_id = :org_id
     }]
     
     # Get the root items
     set count 0
-    db_foreach get_root_item { select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id } {
+    foreach ims_item_id [db_list get_root_item "select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id"] {
 	lappend items_list [list $ims_item_id 1]
 	set items_array($ims_item_id) 1
 	incr count
     }
-
-    
+    set i 0
+    # setup an array so we don't have to visit items twice
+    # that could be expensive if the tree is long or deep.
+    array set visited_items [list]
     while { $count < $items_count } {
+        ns_log notice "loop [incr i]"
+        if {$i > 2} {break}
 	foreach item $items_list {
 	    set item_id [lindex $item 0]
-	    set indent [expr [lindex $item 1] + 1]
-	    db_foreach get_items {select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id } {
-		if { ![info exist items_array($ims_item_id)] } {
-		    lappend items_list [list $ims_item_id $indent]
-		    set items_array($ims_item_id) $indent
-		    incr count
-		}
-	    }
+            ns_log notice "item_id $item_id [info exists visited_items($item_id)]"
+            if {![info exists visited_items($item_id)]} {
+            ns_log notice "adding to array item_id $item_id"                
+                set visited_items($item_id) $item_id
+                set indent [expr [lindex $item 1] + 1]
+                foreach ims_item_id [db_list get_items {select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id}] {
+                    if { ![info exist items_array($ims_item_id)] } {
+                        lappend items_list [list $ims_item_id $indent]
+                        set items_array($ims_item_id) $indent
+                        incr count
+                    }
+                }
+            }
 	}
+        # FIXME, basically this is a hack otherwise the while loop
+        # will be infinite if parent_item is not set correctly in
+        # ims_cp_items
+        # We should maintain a hierarchy of parent_items in
+        # ims_cp_items instead, which would greatly simplify all the
+        # code in LORS
+        if {[array size visited_items] >= [llength $items_list]} {
+            # we have checked ever item, if the count still doesn't
+            # match, we'll never get there!
+            set count $items_count
+        }
     }
     return $items_list
 }

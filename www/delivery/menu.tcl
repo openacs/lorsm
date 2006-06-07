@@ -147,7 +147,7 @@ proc generate_tree_menu { items index rlevel } {
 db_foreach organizations { } {
     # If the course is from lors-central we need an extra query
     
-    if { [empty_string_p $fs_package_id] } {
+    if {[apm_package_installed_p lors-central] && [empty_string_p $fs_package_id] } {
 	set extra_query "and i.ims_item_id in ( select
                                         im.ims_item_id
                                         from

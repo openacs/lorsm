@@ -25,18 +25,20 @@ set views [views::record_view -object_id $item_id -viewer_id $viewer_id]
 set ns_item_id $item_id
 set revision_id $item_id
 
+ad_set_client_property lorsm ims_id $item_id
+
 set item_id [lorsm::delivery::get_item_id -revision_id $revision_id]
 
 set folder_id [lorsm::delivery::get_folder_id_from_man_id -man_id $man_id]
 set lors_root [lorsm::get_root_folder_id]
 set folder_name [lorsm::delivery::get_folder_name -folder_id $folder_id]
 set content_root [lorsm::delivery::get_item_id_from_name_parent -name $folder_name -parent_id $lors_root]
-
+ns_log notice "record-view folder_id='${folder_id}' lors_root='${lors_root}' folder_name='${folder_name}' content_root='${content_root}'"
 if {[empty_string_p $content_root]} {
     # This was uploaded with lorsm so we use the folder_id from the table
     set content_root [lorsm::delivery::get_folder_id_from_man_id -man_id $man_id]
 }
-
+ns_log notice "record-view content_root='${content_root}'"
 
 set url2 $folder_name
 
@@ -103,7 +105,7 @@ if { ![empty_string_p $cr_item_id] } {
 	nsv_set delivery_vars [ad_conn session_id] [list]
 
 	nsv_lappend delivery_vars [ad_conn session_id] $content_root
-	ad_returnredirect [export_vars -base view/$href {ims_item_id} ]
+	ad_returnredirect [export_vars -base view/$href {ims_item_id man_id} ]
 	ad_script_abort
     }
 } else {

@@ -11,12 +11,14 @@ ad_page_contract {
 } {
     man_id:integer,notnull  
     ims_id:integer,notnull,optional
+    menu_off:integer,notnull,optional
     track_id:integer,notnull
 } -properties {
 } -validate {
 } -errors {
 }
 
+set debuglevel [ad_get_client_property lorsm debuglevel]
 
 set org_id [db_string get_org_id { } ]
 set items_list [lorsm::get_items_indent -org_id $org_id]
@@ -26,6 +28,9 @@ set fs_package_id [db_string get_fs_package_id { } -default "" ]
 set community_id [dotlrn_community::get_community_id]
 set counter 1
 set user_id [ad_conn user_id]
+if { ![info exists menu_off] } {
+        set menu_off 0
+}
 
 proc generate_tree_menu { items index rlevel } {
     # This function is recursive

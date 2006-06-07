@@ -1,0 +1,22 @@
+<HEAD>
+<SCRIPT LANGUAGE="javascript">
+//<--!
+
+parent.caller=null;
+
+function localclose() {
+	try{
+	parent.caller.moveaway();
+	parent.caller.childclosed=true;
+	} catch (err) {
+		//error while closing
+		
+	}
+}
+
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY onunload="localclose();">
+</BODY>

@@ -27,12 +27,14 @@ set elements_list {
 	label "[_ lorsm.Course_Name_1]"
 	display_template {
 	    @d_courses.course_url;noquote@ 
-	    <if @d_courses.admin_p@>
-	    <i>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="${lors_central_url}one-course?item_id=@d_courses.item_id@">[_ lors-central.add_mat]</a>
-            </i>
-	    </if> 
+	    <if @lors_central_p eq 0>
+	       <if @d_courses.admin_p@>
+	       <i>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="${lors_central_url}one-course?item_id=@d_courses.item_id@">[_ lors-central.add_mat]</a>
+               </i>
+	       </if>
+            </if>
 	}
 	html { width 70% }
     }
@@ -67,7 +69,12 @@ if { ![string equal $lors_central_package_id 0] && ![empty_string_p $community_i
 		</center>
 	    }
 	}"
+    } else {
+	set lors_central_p 0
     }
+    set lors_central_p 1
+} else {
+    set lors_central_p 0
 }
 
 
@@ -107,8 +114,9 @@ foreach package $package_id {
 
 		set delivery_method $needscorte
 		ns_log Debug "lorsm - $needscorte"
-
-		set course_url "<a href=\"$context$delivery_method/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+		
+		set course_url_url [export_vars -base "[lindex $context 0]$delivery_method" -url {man_id}]
+		set course_url "<a href=\"$course_url_url\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
 		ns_log Debug "lorsm - course_url: $course_url"
 	    } else {
 		set course_url "NO RESOURCES ERROR"

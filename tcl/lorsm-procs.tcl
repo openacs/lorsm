@@ -353,18 +353,20 @@ ad_proc -public get_item_list { man_id user_id } {
 	} {
 		db_foreach sql {		               
 			SELECT
-			(tree_level(tree_sortkey) - :indent) as indent,
-			i.ims_item_id as item_id,
+		        i.parent_item,
+			i.ims_item_id,
 			i.item_title as item_title
 			FROM 
-			acs_objects o, ims_cp_items i
+			acs_objects o, ims_cp_items i, cr_items cr
 			WHERE 
 			o.object_type = 'ims_item_object'
 			AND
 			i.org_id = :org_id
 			AND
 			o.object_id = i.ims_item_id
-			AND 
+		        AND 
+                        cr.item_id = ( select item_id from cr_revisions where revision_id = i.ims_item_id)
+	                AND 
 			EXISTS
 			(select 1
 			 from acs_object_party_privilege_map p
@@ -373,9 +375,9 @@ ad_proc -public get_item_list { man_id user_id } {
 			 and p.privilege = 'read')
 
 			ORDER BY 
-			o.object_id, tree_sortkey
+			i.sort_order, o.object_id, cr.tree_sortkey
 		} {
-			lappend item_list $item_id
+			lappend item_list $ims_item_id
 		}
 	}
 	return $item_list
@@ -673,3 +675,43 @@ ad_proc -public lorsm::register_xml_object_id {
    
     return $object_id
 }
+
+# namespace eval lorsm::merge {
+
+#     ad_proc -callback MergeShowUserInfo -impl lorsm {
+# 	-user_id:required
+#     } {
+# 	Show lors items of one user
+#     } {
+# 	set msg "lors items"
+# 	set result [list $msg]
+
+# 	lappend result [list "Student tracks : [db_list sel_student_track { *SQL* }] " ]
+# 	lappend result [list "Student bookmarks: [db_list sel_student_bookmark { *SQL* }] "]
+	
+# 	return $result
+#     }
+
+#     ad_proc -callback MergePackageUser -impl lorsm {
+# 	-from_user_id:required
+# 	-to_user_id:required
+#     } {
+# 	Merge the lors items of two users.
+# 	The from_user_id is the user that will be 
+#         deleted and all the entries of this user 
+# 	will be mapped to the to_user_id.
+	
+#     } {
+# 	set msg "Merging lors"
+# 	ns_log Notice $msg
+# 	set result [list $msg]
+
+# 	db_transaction {
+# 	    db_dml student_track { *SQL* }
+# 	    db_dml student_bookmark { *SQL* }
+# 	}
+
+# 	set result "lors merge is done"
+# 	return $result
+#     }
+# }

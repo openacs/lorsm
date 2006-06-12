@@ -91,3 +91,4 @@ if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
     set track_id 0
     ad_set_client_property lorsm studenttrack 0
 }
+

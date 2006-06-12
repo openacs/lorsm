@@ -145,6 +145,7 @@ proc generate_tree_menu { items index rlevel } {
 # Counter starts at 1 coz Course Index isn't part of the list
 
 db_foreach organizations { } {
+    ns_log notice "menu.tcl org_id=$org_id"
     # If the course is from lors-central we need an extra query
     
     if {[apm_package_installed_p lors-central] && [empty_string_p $fs_package_id] } {
@@ -159,8 +160,28 @@ db_foreach organizations { } {
     } else {
 	set extra_query ""
     }
-    db_foreach sql { } {
+
+    db_foreach sql {        SELECT
+
+         	i.parent_item,
+ 		i.ims_item_id,
+                i.item_title as item_title
+        FROM 
+		ims_cp_items i, cr_items ci, cr_revisions cr
+	WHERE 
+		i.org_id = :org_id
+	AND     ci.item_id=cr.item_id
+        AND     cr.revision_id=i.ims_item_id
+	AND EXISTS (select 1
+                    from acs_object_party_privilege_map p
+                    where p.object_id = i.ims_item_id
+                    and p.party_id = :user_id
+                    and p.privilege = 'read')
+         ORDER BY ci.tree_sortkey
+
+ } {
 	set indent $items_array($ims_item_id)
+	ns_log notice "ims_item_id='${ims_item_id}'"
 	lappend js [list $indent $ims_item_id $item_title]    
     }
 }

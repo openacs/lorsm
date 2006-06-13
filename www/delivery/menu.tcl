@@ -177,7 +177,7 @@ db_foreach organizations { } {
                     where p.object_id = i.ims_item_id
                     and p.party_id = :user_id
                     and p.privilege = 'read')
-         ORDER BY ci.tree_sortkey
+         ORDER BY i.sort_order,ci.tree_sortkey
 
  } {
 	set indent $items_array($ims_item_id)

@@ -130,7 +130,11 @@ foreach package $package_id {
         db_0or1row get_last_viewed { }
         set all_items [db_list get_total_items { }]
         set total_item_count [llength $all_items]
-        set viewed_items [db_list get_viewed_items { }]
+	if {$total_item_count > 0} {
+	    set viewed_items [db_list get_viewed_items { }]
+	} else {
+	    set viewed_items {}
+	}
         set viewed_item_count [llength $viewed_items]
 
         ns_log Debug "lorsm - viewed_item_count: $viewed_item_count"

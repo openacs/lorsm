@@ -139,7 +139,11 @@ foreach package $package_id {
 
         ns_log Debug "lorsm - viewed_item_count: $viewed_item_count"
 
-        set viewed_percent [expr [expr $viewed_item_count * 1.00] / $total_item_count * 100]
+	if { $total_item_count == 0 } {
+	    set viewed_percent 0
+	} else {
+	    set viewed_percent [expr [expr $viewed_item_count * 1.00] / $total_item_count * 100]
+	}
 	set item_id [db_string get_item_id { }]
 	set admin_p [permission::permission_p -party_id $user_id -object_id $item_id -privilege "admin"]
     }

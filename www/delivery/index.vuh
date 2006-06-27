@@ -32,7 +32,8 @@ set last_item_viewed [db_string select_last_item_viewed {
 } -default "no_item"]
 
 set first_item_id [lindex $item_list 0]
-set first_item_url "<a href=\"[export_vars -base "record-view" -url {{item_id $first_item_id} man_id}]\" target=\"content\"><img src=\"../Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
+
+set first_item_url "<a href=\"[export_vars -base "${lorsm_url}record-view" -url {{item_id $first_item_id} man_id}]\" target=\"content\"><img src=\"../Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
 
 set curr_index [expr [lsearch -exact $item_list $last_item_viewed]]
 set prev_item_id [lindex $item_list [expr $curr_index - 1]]
@@ -42,11 +43,12 @@ set next_url [export_vars -base "${lorsm_url}/record-view" -url {{item_id $next_
 if {$next_item_id eq ""} {
 	set next_url [export_vars -base ${lorsm_url}/body {man_id}]
 }
+set form [rp_getform]
+ns_set delkey $form next_url
 rp_form_put next_url $next_url
 #
 ##########
-upvar #[template::adp_level] __adp_master adp_master
-set adp_master [template::util::url_to_file "/www/blank-master"]
+
 switch $base {
 	assessment {
 			# find assessment package_id
@@ -63,16 +65,15 @@ switch $base {
 	set path [join [lrange $path_list 1 end] /]
 	if {[file exists [acs_root_dir]/packages/assessment/lib/${path}.tcl]} {
 	    rp_form_put __include /packages/assessment/lib/$path
-	    rp_internal_redirect /packages/lorsm/lib/include
+#	    rp_internal_redirect /packages/lorsm/lib/include
+	rp_internal_redirect /packages/lorsm/www/delivery/delivery-context-bar
 	} else {
-	ns_log notice "NOPE $path"
 		rp_internal_redirect "/packages/assessment/www/$path"
         }
 		ad_script_abort
 	}
 	wiki {
 	    rp_form_put __include /packages/xowiki/lib/view
-		rp_internal_redirect "/packages/assessment/www/$path"
 		ad_script_abort
 	}
 	default {

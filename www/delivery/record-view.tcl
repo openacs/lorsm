@@ -1,5 +1,4 @@
 # packages/lorsm/www/delivery4/record-view.tcl
-
 ad_page_contract {
     
     records a view for this ims_cp_item and redirects to its url
@@ -66,7 +65,8 @@ switch $type {
 	set form [rp_getform]
 	ns_set delkey $form item_id
 	rp_form_put item_id [string trimleft $href "/o/"]
-	rp_internal_redirect "/packages/xowiki/lib/view"
+	rp_form_put __include /packages/xowiki/lib/view
+	rp_internal_redirect "/packages/lorsm/www/delivery/delivery-context-bar"
     }
     default {
 	set cr_item_id [lors::cr::get_item_id -folder_id $content_root -name $href]

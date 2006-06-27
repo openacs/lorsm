@@ -92,3 +92,7 @@ if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
     ad_set_client_property lorsm studenttrack 0
 }
 
+
+## FIXME
+
+set folder_name delivery-context-bar

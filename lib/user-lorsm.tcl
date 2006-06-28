@@ -101,10 +101,7 @@ foreach package $package_id {
     		select
            		cpr.man_id,
            		cpr.res_id,
-           		case
-              			when upper(scorm_type) = 'SCO' then 'delivery-scorm'
-              			else 'delivery'
-           		end as needscorte
+                        'delivery' as needscorte
     			from
            			ims_cp_resources cpr
     			where

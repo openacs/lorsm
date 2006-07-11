@@ -9,7 +9,8 @@ set base [lindex $path_list 0]
 	
 set dotlrn_package_id [dotlrn_community::get_community_id]	
 
-set lorsm_url [dotlrn_community::get_community_url $dotlrn_package_id]lorsm/delivery
+set lorsm_url [dotlrn_community::get_community_url $dotlrn_package_id]lorsm/
+set delivery_url ${lorsm_url}delivery
 ##########
 # figure out the next page after we are done with this...
 set ims_item_id [ad_get_client_property lorsm ims_id]
@@ -33,15 +34,15 @@ set last_item_viewed [db_string select_last_item_viewed {
 
 set first_item_id [lindex $item_list 0]
 
-set first_item_url "<a href=\"[export_vars -base "${lorsm_url}record-view" -url {{item_id $first_item_id} man_id}]\" target=\"content\"><img src=\"../Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
+set first_item_url "<a href=\"[export_vars -base "${delivery_url}record-view" -url {{item_id $first_item_id} man_id}]\" target=\"content\"><img src=\"../Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
 
 set curr_index [expr [lsearch -exact $item_list $last_item_viewed]]
 set prev_item_id [lindex $item_list [expr $curr_index - 1]]
 set next_item_id [lindex $item_list [expr $curr_index + 1]]
-set prev_url [export_vars -base "${lorsm_url}/record-view" -url {{item_id $prev_item_id} man_id}]
-set next_url [export_vars -base "${lorsm_url}/record-view" -url {{item_id $next_item_id} man_id}]
+set prev_url [export_vars -base "${delivery_url}/record-view" -url {{item_id $prev_item_id} man_id}]
+set next_url [export_vars -base "${delivery_url}/record-view" -url {{item_id $next_item_id} man_id}]
 if {$next_item_id eq ""} {
-	set next_url [export_vars -base ${lorsm_url}/body {man_id}]
+	set next_url [export_vars -base ${lorsm_url}]
 }
 set form [rp_getform]
 ns_set delkey $form next_url

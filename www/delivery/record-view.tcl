@@ -66,7 +66,11 @@ switch $type {
 	ns_set delkey $form item_id
 	rp_form_put item_id [string trimleft $href "/o/"]
 	rp_form_put __include /packages/xowiki/lib/view
-	rp_internal_redirect "/packages/lorsm/www/delivery/delivery-context-bar"
+	db_1row get_format "select folder_name as delivery_folder_name, isscorm from lorsm_course_presentation_formats f, ims_cp_manifests m where f.format_id=m.course_presentation_format and m.man_id=:man_id"
+	if {$isscorm} {
+	    set delivery_folder_name delivery-scorm
+	}
+	rp_internal_redirect "/packages/lorsm/www/delivery/${delivery_folder_name}"
     }
     default {
 	set cr_item_id [lors::cr::get_item_id -folder_id $content_root -name $href]

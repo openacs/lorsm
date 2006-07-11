@@ -18,7 +18,6 @@ ad_page_contract {
 } -errors {
 }
 
-
 set debuglevel 0
 ad_set_client_property lorsm debuglevel $debuglevel
 
@@ -95,4 +94,7 @@ if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
 
 ## FIXME
 
-set folder_name delivery-context-bar
+db_1row get_format "select folder_name, isscorm from lorsm_course_presentation_formats f, ims_cp_manifests m where f.format_id=m.course_presentation_format and m.man_id=:man_id"
+if {$isscorm} {
+    set folder_name delivery-scorm
+}

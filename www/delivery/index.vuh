@@ -46,8 +46,15 @@ if {$next_item_id eq ""} {
 set form [rp_getform]
 ns_set delkey $form next_url
 rp_form_put next_url $next_url
+rp_form_put next_item_id $next_item_id
 #
 ##########
+
+db_1row get_format "select folder_name, isscorm from lorsm_course_presentation_formats f, ims_cp_manifests m where f.format_id=m.course_presentation_format and m.man_id=:man_id"
+if {$isscorm} {
+    set folder_name delivery-scorm
+}
+
 
 switch $base {
 	assessment {
@@ -65,8 +72,8 @@ switch $base {
 	set path [join [lrange $path_list 1 end] /]
 	if {[file exists [acs_root_dir]/packages/assessment/lib/${path}.tcl]} {
 	    rp_form_put __include /packages/assessment/lib/$path
-#	    rp_internal_redirect /packages/lorsm/lib/include
-	rp_internal_redirect /packages/lorsm/www/delivery/delivery-context-bar
+
+	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
 	} else {
 		rp_internal_redirect "/packages/assessment/www/$path"
         }
@@ -74,7 +81,8 @@ switch $base {
 	}
 	wiki {
 	    rp_form_put __include /packages/xowiki/lib/view
-		ad_script_abort
+	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+	    ad_script_abort	
 	}
 	default {
 	

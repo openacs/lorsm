@@ -71,6 +71,32 @@ ad_proc -private lorsm::install::package_install {} {
 	insert into lorsm_course_presentation_formats values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')
     }
 
+    set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
+    db_dml create_no_index_format {
+	insert into lorsm_course_presentation_formats values (-3,:pretty_name,'progress-bar','delivery-progress-bar')
+    }
+
     # Service contract implementations - fts 	 
     lorsm::sc::register_implementations
+}
+
+ad_proc -private lorsm::install::after_upgrade {
+    {-from_version_name:required}
+    {-to_version_name:required}
+} {
+
+    Upgrade logic
+    
+} {
+    apm_upgrade_logic \
+	-from_version_name $from_version_name \
+	-to_version_name $to_version_name \
+	-spec {
+	    0.7d 0.8d {
+		set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
+		db_dml create_no_index_format {
+		    insert into lorsm_course_presentation_formats values (-4,:pretty_name,'progress-bar','delivery-progress-bar')
+		}
+	    }
+	}
 }

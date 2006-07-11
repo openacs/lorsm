@@ -104,9 +104,7 @@ create index lorsm_cpformats__format_id_idx on lorsm_course_presentation_formats
 
 comment on table lorsm_course_presentation_formats is '
 This table stores the available presentation formats for the courses. Its contains the pretty name
-for the format, an id, and the folder in packages/lorsm/www/ where the presentation format is stored.
-Currently just two presentation formats exists, delivery and delivery-wihout-index, which we store on creation';
-
+for the format, an id, and the name of an adp in packages/lorsm/www/delivery where the presentation format is stored.';
 
 \i lorsm-packages.sql
 \i lorsm-cmi-create.sql

@@ -7,7 +7,11 @@ ad_page_contract {
     @author Ernie Ghiglione (ErnieG@mm.st)
     @creation-date 2004-06-15
     @arch-tag: 9d893919-9a02-45cd-b6ad-19e3a34ba747
+<<<<<<< user-lorsm.tcl
     @cvs-id $Id$
+=======
+    @cvs-id $Id$
+>>>>>>> 1.8.2.4
 } {
     
 } -properties {
@@ -109,17 +113,16 @@ foreach package $package_id {
 			order by cpr.scorm_type desc limit 1"
 		]) {
 
-		set delivery_method $needscorte
+
 		ns_log Debug "lorsm - $needscorte"
-		
-		set course_url_url [export_vars -base "[lindex $context 0]$delivery_method" -url {man_id}]
-		set course_url "<a href=\"$course_url_url\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
-		ns_log Debug "lorsm - course_url: $course_url"
+		set delivery_method delivery
+		set course_url "<a href=\"${context}delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+		ns_log Debug "DAVEB lorsm - course_url: $course_url"
 	    } else {
 		set course_url "NO RESOURCES ERROR"
 	    } 
 	} else {
-	    set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
+	    set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
 	}
 
         # DEDS: these are expensive

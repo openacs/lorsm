@@ -189,10 +189,10 @@ db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {
 
 } {
     set ims_md_id $man_id
-    if { [string eq $format_name "default"] } { 
-	set course_url "<a href=\"$deliverymethod/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>"
-    } else {
-	set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>"
-    }
+#    if { [string eq $format_name "default"] } { 
+	set course_url "<a href=\"delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>"
+ #   } else {
+#	set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>"
+#    }
 }
  

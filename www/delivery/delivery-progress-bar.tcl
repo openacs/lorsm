@@ -5,7 +5,6 @@ ad_page_contract {
 } {
     {__include ""}
     {next_item_id ""}
-    {man_id ""}
 } -properties {
 } -validate {
 } -errors {

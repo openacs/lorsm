@@ -42,7 +42,7 @@ set next_item_id [lindex $item_list [expr $curr_index + 1]]
 set prev_url [export_vars -base "${delivery_url}/record-view" -url {{item_id $prev_item_id} man_id}]
 set next_url [export_vars -base "${delivery_url}/record-view" -url {{item_id $next_item_id} man_id}]
 if {$next_item_id eq ""} {
-	set next_url [export_vars -base ${lorsm_url}]
+	set next_url ${delivery_url}/end
 }
 set form [rp_getform]
 ns_set delkey $form next_url
@@ -85,7 +85,10 @@ switch $base {
 	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
 	    ad_script_abort	
 	}
-	default {
-	
+	end {
+	    rp_form_put __include /packages/lorsm/lib/end
+	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
 	}
+	default {
+	}	
 }	

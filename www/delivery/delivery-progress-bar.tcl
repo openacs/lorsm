@@ -53,14 +53,20 @@ set last_item_viewed [db_string select_last_item_viewed {
 
 set first_item_id [lindex $item_list 0]
 set first_item_url "<a href=\"[export_vars -base "${lorsm_url}/record-view" -url {{item_id $first_item_id} man_id}]\"><img src=\"${lorsm_url}/Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
-if {$item_id eq ""} {
-    set item_id $first_item_id
-    ad_returnredirect [export_vars -base ${lorsm_url}/record-view {man_id item_id}]
-    ad_script_abort
-}
+#if {$item_id eq ""} {
+#    set item_id $first_item_id
+#    ad_returnredirect [export_vars -base ${lorsm_url}/record-view {man_id item_id}]
+#    ad_script_abort
+#}
 #set curr_index [expr [lsearch -exact $item_list $last_item_viewed]]
 set curr_index [expr [lsearch -exact $item_list $item_id]]
-if {$curr_index < 1} {set curr_index 0}
+
+if {$curr_index < 0} {
+    # start course
+    # we want the next_url to be the first item
+    set curr_index -1
+    set __include "/packages/lorsm/lib/start"
+}
 
 set prev_item_id [lindex $item_list [expr $curr_index - 1]]
 set next_item_id [lindex $item_list [expr $curr_index + 1]]
@@ -79,7 +85,9 @@ if {[string match "*assessment*" $__include] && ![string match "*assessment/lib/
 } else {
     if { $next_item_id eq "" } {
 	set next_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+	set progress_index ""
     }
 
     set show_next 1
 }
+

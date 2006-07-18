@@ -20,8 +20,11 @@ set community_id [dotlrn_community::get_community_id]
 
 set lors_central_package_id [apm_package_id_from_key "lors-central"]
 set lors_central_url [apm_package_url_from_id $lors_central_package_id]
-
-
+set add_materials_message ""
+if {$lors_central_package_id ne "" && $lors_central_package_id ne 0} {
+    ns_log notice "lors_central_package_id ='${lors_central_package_id}'"
+    set add_materials_message [_ lors-central.foo]
+} 
 set elements_list {
     course_name {
 	label "[_ lorsm.Course_Name_1]"
@@ -31,7 +34,7 @@ set elements_list {
 	       <if @d_courses.admin_p@>
 	       <i>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <a href="${lors_central_url}one-course?item_id=@d_courses.item_id@">[_ lors-central.add_mat]</a>
+	    <a href="${lors_central_url}one-course?item_id=@d_courses.item_id@">@add_materials_message</a>
                </i>
 	       </if>
             </if>

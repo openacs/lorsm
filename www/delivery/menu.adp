@@ -1,6 +1,6 @@
 <html>
 <head>
-<title></title>
+<title>#lorsm.Menu#</title>
 
 <link rel="stylesheet" type="text/css" href="scorm.css" media="all">
 

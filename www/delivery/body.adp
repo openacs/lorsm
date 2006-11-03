@@ -6,7 +6,7 @@
 %>
 <html>
 <head>
-<title></title>
+<title>@course_name@</title>
 <link rel="stylesheet" type="text/css" href="/resources/dotlrn/dotlrn-master.css" media="all">
 </head>
 <body border=1>

@@ -27,7 +27,7 @@ ad_proc -private lorsm::url { man_id } {
         select context_id from acs_objects where object_id=(select context_id from acs_objects where object_id=:man_id)
     }]
 	set url [apm_package_url_from_id $package_id]
-	return "${url}delivery-no-index/?man_id=$man_id"
+	return "${url}delivery/?man_id=$man_id"
 }
 
 ad_proc -private lorsm::sc::register_implementations {} {

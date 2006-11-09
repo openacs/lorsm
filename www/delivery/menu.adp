@@ -23,6 +23,7 @@ ie4 = (document.all)? true:false;
 //}
 
 function init() {
+<if @isscorm@>
     API = this.document.APIAdapter;
     debug("before systemcheck");
     z=systemcheck();
@@ -38,6 +39,7 @@ function init() {
 	}
     //document.applets[0].init();
     //alert("JAVA-JAVASCRIPT: i've inited myself");
+</if>
 }
 
 
@@ -220,9 +222,11 @@ function seekAndDestroy( ims_id ) {
 
 
 function debug(message) {
-        parent.frames['talk'].document.write("<FONT SIZE=1> menu.adp : "+message+"<HR>");
+<if @isscorm@>
+	parent.frames['talk'].document.write("<FONT SIZE=1>"+message+"<HR>");
+</if>
         return;
-        }
+}
 
 
 function systemcheck() {

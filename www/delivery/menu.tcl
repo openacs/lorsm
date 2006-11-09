@@ -32,6 +32,8 @@ if { ![info exists menu_off] } {
         set menu_off 0
 }
 
+set isscorm [db_string select_isscorm {select isscorm from ims_cp_manifests where man_id = :man_id}]
+
 proc generate_tree_menu { items index rlevel } {
     # This function is recursive
 

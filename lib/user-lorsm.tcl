@@ -7,11 +7,7 @@ ad_page_contract {
     @author Ernie Ghiglione (ErnieG@mm.st)
     @creation-date 2004-06-15
     @arch-tag: 9d893919-9a02-45cd-b6ad-19e3a34ba747
-<<<<<<< user-lorsm.tcl
     @cvs-id $Id$
-=======
-    @cvs-id $Id$
->>>>>>> 1.8.2.4
 } {
     
 } -properties {

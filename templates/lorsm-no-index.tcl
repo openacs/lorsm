@@ -30,32 +30,14 @@ if { [info exists content(item_id)] } {
 
 if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $text match] } {
 		
-	if { [db_0or1row get_imsitem_id {
-		select map.item_id as viewed_item_id, o.man_id
-		from ims_cp_items_to_resources map, ims_cp_files f, ims_cp_organizations o, ims_cp_items i
-		where f.file_id = :item_id
-		and f.res_id = map.res_id
-		and map.item_id = i.item_id 
-		and i.org_id = o.org_id
-	}] } {
+	if { [db_0or1row get_imsitem_id {}] } {
 		# record view
 		set item_list [lorsm::get_item_list $man_id $user_id]
 		set litem_list [llength $item_list]
 
 		if { ![expr $litem_list - [lsearch -exact $item_list $viewed_item_id] -1] } {
 			# last item, it's a special case
-			set last_item_viewed [db_string select_last_item_viewed {    
-				select item_id
-				from views v,
-				ims_cp_items i,
-				ims_cp_organizations o
-				where v.viewer_id = :user_id
-				and v.object_id = i.item_id
-				and i.org_id = o.org_id
-				and o.man_id = :man_id
-				order by v.last_viewed desc
-				limit 1
-			} -default "no item"]
+			set last_item_viewed [db_string select_last_item_viewed {} -default "no item"]
 			if { !([lsearch -exact [lrange $item_list [expr $litem_list - 2] $litem_list] $last_item_viewed] != -1) && ![string eq $last_item_viewed "no item"] } {
 				set viewed_item_id [lindex $item_list [expr [lsearch -exact $item_list $viewed_item_id] - 1]]
 			}

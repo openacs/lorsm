@@ -58,17 +58,17 @@ ad_proc -private lorsm::install::package_install {} {
     set pretty_name "[_ lorsm.Classic_Style]"
     # Insert default values for the course presentation formats
     db_dml create_default_format {
-	insert into lorsm_course_presentation_formats values (-1,:pretty_name,'default','delivery')
+	insert into lorsm_course_presentation_fmts values (-1,:pretty_name,'default','delivery')
     }
     
     set pretty_name "[_ lorsm.lt_Without_LORSM_Index_S]"
     db_dml create_no_index_format {
-	insert into lorsm_course_presentation_formats values (-2,:pretty_name,'without_index','delivery-no-index')
+	insert into lorsm_course_presentation_fmts values (-2,:pretty_name,'without_index','delivery-no-index')
     }
     
     set pretty_name "[_ lorsm.lt_With_Bottom_Navigatio]"
     db_dml create_no_index_format {
-	insert into lorsm_course_presentation_formats values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')
+	insert into lorsm_course_presentation_fmts values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')
     }
 
     # Service contract implementations - fts 	 

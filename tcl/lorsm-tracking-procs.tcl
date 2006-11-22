@@ -43,16 +43,7 @@ namespace eval lorsm::track {
     } {
 
 	db_transaction {
-	    set track_id [db_exec_plsql track_st_new {
-
-		select lorsm_student_track__new (
-						 :user_id,
-						 :community_id,
-						 :course_id
-						 );
-
-	    }
-			 ]
+	    set track_id [db_exec_plsql track_st_new {} ]
 	    
 	}
 	return $track_id
@@ -69,14 +60,7 @@ namespace eval lorsm::track {
     } {
 
 	db_transaction {
-	    set track_id [db_exec_plsql track_st_exit {
-
-		select lorsm_student_track__exit (
-						 :track_id
-						 );
-
-	    }
-			 ]
+	    set track_id [db_exec_plsql track_st_exit {} ]
 	    
 	}
 	return $track_id

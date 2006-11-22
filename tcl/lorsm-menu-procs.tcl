@@ -59,34 +59,12 @@ namespace eval lorsm::menu {
 		# Check if portal page with the same name exists
 		# Can't use portal::get_page_id coz that'll create a portal
 		# page if it doesn't exist
-		if { [db_0or1row portal_page {
-		    select page_id, sort_key
-		    from portal_pages
-		    where portal_id = :portal_id
-		    and pretty_name = :fs_link
-		}] } {
+		if { [db_0or1row portal_page {}] } {
 		    # Check if the fs folder exists
-		    if { [db_0or1row folder {
-			select m.element_id, value as folder_id, p.page_id as current_page_id
-			from portal_element_parameters ep,
-			portal_element_map m,
-			portal_pages p
-			where ep.element_id = m.element_id
-			and m.page_id = p.page_id
-			and p.portal_id = :portal_id
-			and ep.key = 'folder_id'
-			and m.pretty_name = :fs_link
-			
-			limit 1
-		    }] } {
+		    if { [db_0or1row folder {}] } {
 			# If portlet isn't in the right page, place it there
 			if { $page_id != $current_page_id } {
-			    db_dml update_portlet {
-				update portal_element_map
-				set page_id = :page_id,
-				state = 'full'
-				where element_id = :element_id
-			    }
+			    db_dml update_portlet {}
 			}
 			
 			# Folder exists, see if it has contents
@@ -99,65 +77,13 @@ namespace eval lorsm::menu {
 		}
 	    }
 
-	    db_foreach mans {
-		select 
-		cp.man_id, cp.fs_package_id, cp.folder_id
-		from
-		ims_cp_manifests cp, 
-                -- acs_objects acs, 
-                ims_cp_manifest_class cpmc
-		where 
-		-- cp.man_id = acs.object_id
-		-- and
-		cp.man_id = cpmc.man_id
-		and
-		--	   acs.context_id = :package
-		cpmc.lorsm_instance_id = :package
-		and
-		cpmc.isenabled = 't'
-		order by cp.man_id desc -- acs.creation_date desc
-	    } {
-		foreach org_id [db_list organizations {
-		    select 
-		    org.org_id,
-		    org.org_title as org_title,
-		    org.hasmetadata,
-		    tree_level(cr.tree_sortkey) as indent
-		    from
-		    ims_cp_organizations org,
-                    -- acs_objects o
-		    cr_items cr
-		    where
-		    cr.item_id = ( select item_id from cr_revisions where revision_id = org.org_id)
-		    and
-		    man_id = :man_id
-		    order by
-		    org_id
-		}] {
+	    db_foreach mans {} {
+		foreach org_id [db_list organizations {}] {
 		    set items_list [list]
 
 		   set indent_list [lorsm::get_items_indent -org_id $org_id]		    
 		    template::util::list_of_lists_to_array $indent_list indent_array
-		    db_foreach sql {		   
-			SELECT
-			i.ims_item_id as item_id,
-			i.item_title as item_title
-			FROM 
-                        ims_cp_items i
-			WHERE 
-			i.org_id = :org_id
-
-			AND
-			EXISTS
-			(select 1
-			 from acs_object_party_privilege_map p
-			 where p.object_id = i.ims_item_id 
-			 and p.party_id = :user_id
-			 and p.privilege = 'read')
-			
-			ORDER BY 
-			i.ims_item_id --, tree_sortkey
-		    } {
+		    db_foreach sql {} {
 # FIXME DAVEB I think this is rather fragile, but it seems to be working right now to set the indent. I guess we need to really have the indent of the org_id item as well
 			set indent [expr $indent_array($item_id) -1 ]
 set item_url [export_vars -base "${lorsm_url}/delivery3/record-view" {man_id item_id}]
@@ -176,9 +102,9 @@ lappend items [list url $item_url man_id $man_id id $item_id title $item_title i
 		set item_id $item(id)
 		set folder_id $item(folder_id)
 		
-		set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
+		set url2 "[db_string select_folder_key {}]/"
 		
-		set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.ims_item_id = :item_id and ir.res_id = r.res_id" -default ""]
+set href [db_string href {} -default ""]
 		
 		set fs_item_id [fs::get_item_id -folder_id $folder_id -name $href]
 		

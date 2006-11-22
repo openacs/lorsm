@@ -2,6 +2,25 @@
 <queryset>
    <rdbms><type>postgresql</type><version>7.1</version></rdbms>
 
+<fullquery name="lorsm::get_item_list.organizations">      
+      <querytext>
+      		select 
+		org.org_id,
+		org.org_title as org_title,
+		org.hasmetadata,
+		tree_level(o.tree_sortkey) as indent
+		from
+		ims_cp_organizations org, acs_objects o
+		where
+		org.org_id = o.object_id
+		and
+		man_id = :man_id
+		order by
+		org_id
+      </querytext>
+</fullquery>
+
+
 <fullquery name="lorsm::get_folder_labels.get_url">      
       <querytext>
 

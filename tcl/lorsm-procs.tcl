@@ -106,7 +106,7 @@ variable ims_man_id
 		    default {
 
 			set url1 "[apm_package_url_from_id $fs_local_package_id]view/"
-			set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]"
+			set url2 "[db_string select_folder_key {}]"
 			set url3 [lorsm::fix_url -url $identifierref]
 			set content_root [fs::get_root_folder -package_id $fs_package_id]
 			set url "<a href=\"[export_vars -base $url1$url2/$url3 {content_root}]\" target=\"body\">$item_title</a>"
@@ -132,7 +132,7 @@ variable ims_man_id
 	@author Ernie Ghiglione (ErnieG@mm.st)
     } {
 
-	return [db_string course_name {select course_name from ims_cp_manifests where man_id = :manifest_id}]
+	return [db_string course_name {}]
 
     }
 
@@ -217,7 +217,7 @@ variable ims_man_id
 		    default {
 			set url1 "[apm_package_url_from_id $fs_local_package_id]view/"
 			set folder_id $folder_id
-			set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
+			set url2 "[db_string select_folder_key {}]/"
 			set url3 [lorsm::fix_url -url $identifierref]
 			set content_root [fs::get_root_folder -package_id $fs_package_id]
 			set item_id $item_id
@@ -336,48 +336,9 @@ ad_proc -public get_ims_item_id { } {
 
 ad_proc -public get_item_list { man_id user_id } {
 	set item_list [list]
-	db_foreach organizations {
-		select 
-		org.org_id,
-		org.org_title as org_title,
-		org.hasmetadata,
-		tree_level(o.tree_sortkey) as indent
-		from
-		ims_cp_organizations org, acs_objects o
-		where
-		org.org_id = o.object_id
-		and
-		man_id = :man_id
-		order by
-		org_id
-	} {
+	db_foreach organizations {} {
 
-		db_foreach sql {		   
-			SELECT
-		        i.parent_item,
-			i.ims_item_id,
-			i.item_title as item_title
-			FROM 
-			acs_objects o, ims_cp_items i, cr_items cr
-			WHERE 
-			o.object_type = 'ims_item_object'
-			AND
-			i.org_id = :org_id
-			AND
-			o.object_id = i.ims_item_id
-		        AND 
-                        cr.item_id = ( select item_id from cr_revisions where revision_id = i.ims_item_id)
-	                AND 
-			EXISTS
-			(select 1
-			 from acs_object_party_privilege_map p
-			 where p.object_id = i.ims_item_id 
-			 and p.party_id = :user_id
-			 and p.privilege = 'read')
-
-			ORDER BY 
-			i.sort_order, o.object_id, cr.tree_sortkey
-		} {
+		db_foreach sql {} {
 			lappend item_list $ims_item_id
 		}
 	}
@@ -392,14 +353,14 @@ ad_proc -public record_view { item_id man_id } {
 
 	set revision_id [item::get_best_revision $item_id]
 
-	db_1row manifest_info "select fs_package_id, folder_id from ims_cp_manifests where man_id = :man_id"
+	db_1row manifest_info {}
 	set content_root [fs::get_root_folder -package_id $fs_package_id]
 
-	set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
+	set url2 "[db_string select_folder_key {}]/"
 
-	set href [db_string href "select href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.ims_item_id = :item_id and ir.res_id = r.res_id" -default ""]
+	set href [db_string href {} -default ""]
 
-	db_1row item_info "select item_title from ims_cp_items where ims_item_id = :item_id"
+	db_1row item_info {}
 
 	set fs_item_id [fs::get_item_id -folder_id $folder_id -name $href]
 
@@ -581,13 +542,13 @@ set item_id $ims_item_id
 }
 
 ad_proc -public lorsm::get_root_folder_id { } { } {
-    return [db_string get_root_folder { select folder_id from cr_folders where label = 'LORSM Root Folder' } -default ""]
+    return [db_string get_root_folder {} -default ""]
 }    
 
 ad_proc -public lorsm::get_folder_id { 
     -name:required
 } {
-    return [db_string get_root_folder { select folder_id from cr_folders where label = :name } -default ""]
+    return [db_string get_root_folder {} -default ""]
 }    
 
 ad_proc -public lorsm::get_items_indent {
@@ -597,15 +558,11 @@ ad_proc -public lorsm::get_items_indent {
 } {
 
     # We need all the count of all items (just live revisions)
-    set items_count [db_string get_items_count { select count(ims_item_id)
-	from ims_cp_items where ims_item_id in ( select live_revision
-						 from cr_items where content_type = 'ims_item_object') and
-	org_id = :org_id
-    }]
+    set items_count [db_string get_items_count {}]
     
     # Get the root items
     set count 0
-    db_foreach get_root_item { select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id } {
+    db_foreach get_root_item { } {
 	lappend items_list [list $ims_item_id 1]
 	set items_array($ims_item_id) 1
 	incr count
@@ -616,7 +573,7 @@ ad_proc -public lorsm::get_items_indent {
 	foreach item $items_list {
 	    set item_id [lindex $item 0]
 	    set indent [expr [lindex $item 1] + 1]
-	    db_foreach get_items {select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id } {
+	    db_foreach get_items {} {
 		if { ![info exist items_array($ims_item_id)] } {
 		    lappend items_list [list $ims_item_id $indent]
 		    set items_array($ims_item_id) $indent
@@ -668,7 +625,7 @@ ad_proc -public lorsm::register_xml_object_id {
     # Get the package_id associated with the current community
     # FIXME this is a hack until I figure out how to get the
     # package_id of the current community
-    ad_conn -set package_id [db_string get_package_id {select dotlrn_community_applets.package_id from dotlrn_community_applets join apm_packages on (dotlrn_community_applets.package_id=apm_packages.package_id) where community_id = :community_id and package_key='lorsm'}]
+    ad_conn -set package_id [db_string get_package_id {}]
     
     set object_id [lorsm::import_imscp -upload_file $xml_file -tmp_dir $tmp_dir]
 

@@ -7,11 +7,8 @@ ad_page_contract {
     @author Ernie Ghiglione (ErnieG@mm.st)
     @creation-date 2004-06-15
     @arch-tag: 9d893919-9a02-45cd-b6ad-19e3a34ba747
-<<<<<<< user-lorsm.tcl
     @cvs-id $Id$
-=======
-    @cvs-id $Id$
->>>>>>> 1.8.2.4
+
 } {
     
 } -properties {
@@ -101,17 +98,7 @@ foreach package $package_id {
 
             # micheles
    	    set context [site_node::get_url_from_object_id -object_id $lorsm_instance_id]
-	    if ([db_0or1row query "
-    		select
-           		cpr.man_id,
-           		cpr.res_id,
-                        'delivery' as needscorte
-    			from
-           			ims_cp_resources cpr
-    			where
-				cpr.man_id = :man_id 
-			order by cpr.scorm_type desc limit 1"
-		]) {
+	    if ([db_0or1row query {} ]) {
 
 
 		ns_log Debug "lorsm - $needscorte"
@@ -128,9 +115,9 @@ foreach package $package_id {
         # DEDS: these are expensive
         # and for demo purposes only
         db_0or1row get_last_viewed { }
-        set all_items [db_list get_total_items { }]
+        set all_items [db_list get_total_items {}]
         set total_item_count [llength $all_items]
-        set viewed_items [db_list get_viewed_items { }]
+        set viewed_items [db_list get_viewed_items {}]
         set viewed_item_count [llength $viewed_items]
 
         ns_log Debug "lorsm - viewed_item_count: $viewed_item_count"

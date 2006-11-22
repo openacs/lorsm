@@ -24,7 +24,7 @@
            ims_cp_manifests cp, 
 	   acs_objects acs, 
            ims_cp_manifest_class cpmc, 
-           lorsm_course_presentation_formats pf
+           lorsm_course_presentation_fmts pf
 	where 
            cp.man_id = acs.object_id
 	and
@@ -40,21 +40,6 @@
   </querytext>
 </fullquery>
 
-<fullquery name="get_last_viewed">
-  <querytext>
-            select v.last_viewed
-              from views v,
-                   ims_cp_items i,
-                   ims_cp_organizations o
-             where v.viewer_id = :user_id
-               and v.object_id = i.ims_item_id
-               and i.org_id = o.org_id
-               and o.man_id = :man_id
-            order by v.last_viewed desc
-            limit 1
-  </querytext>
-</fullquery>
-
 <fullquery name="get_total_items">
   <querytext>
             select i.ims_item_id
@@ -67,21 +52,18 @@
 
 <fullquery name="get_viewed_items">
   <querytext>
-            select v.object_id
-              from views v
-             where v.viewer_id = :user_id
-               and v.object_id in ([join $all_items ,])
+	select v.object_id
+	from views_views v
+	where v.viewer_id = :user_id
+	and v.object_id in ([join $all_items ", "])
   </querytext>
 </fullquery>
 
 <fullquery name="get_item_id">
   <querytext>
-	select 
-		item_id 
-	from 
-		cr_revisions 
-	where 
-		revision_id = :man_id
+	select item_id 
+	from cr_revisions 
+	where revision_id = :man_id
   </querytext>
 </fullquery>
 

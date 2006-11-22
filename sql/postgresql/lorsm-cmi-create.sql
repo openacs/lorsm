@@ -160,7 +160,7 @@ create table lorsm_cmi_objectives (
                        	constraint lorsm_cmi_objectives_track_id_fk
                        	references lorsm_student_track (track_id)
                         on delete cascade,
-	_count		int,                                    -- start with 0
+	objectives_count		int,                                    -- start with 0
 	student_id	varchar(100),
 	id		varchar(256), 				-- not mandatory, gettable, settable
 	score_raw	varchar(10), 				-- not mandatory, gettable, settable
@@ -170,11 +170,11 @@ create table lorsm_cmi_objectives (
 			default 'not attempted',
         constraint lorsm_cmi_objectives_status_ck check
                 (status in ('passed', 'completed', 'failed', 'incomplete', 'browsed', 'not attempted')),
-        constraint lorsm_cmi_objectives_id_pk primary key (track_id, _count)
+        constraint lorsm_cmi_objectives_id_pk primary key (track_id, objectives_count)
 );
 
 
-create index lorsm_cmi_objectives__stud_id_idx on lorsm_cmi_objectives (student_id);
+create index lorsm_cmi_obj_stud_id_idx on lorsm_cmi_objectives (student_id);
 
 comment on table lorsm_cmi_objectives is '
 Identifies how the student has performed on individual objectives covered in the SCO.
@@ -252,7 +252,7 @@ create table lorsm_cmi_student_preference (
 	text		int	 				-- not mandatory, gettable, settable
 );
 
-create index lorsm_cmi_student_preference__stud_id_idx on lorsm_cmi_student_preference (student_id);
+create index lorsm_cmi_st_pref_stud_id_idx on lorsm_cmi_student_preference (student_id);
 
 comment on table lorsm_cmi_student_preference is '
 Selected options that are appropriate for subsequent SCOs
@@ -281,7 +281,7 @@ create table lorsm_cmi_interactions (
                         	constraint lorsm_cmi_interactions_track_id_fk
                         	references lorsm_student_track (track_id)
                                 on delete cascade,
-	_count		        int,                                    -- start with 0
+	interactions_count		        int,                                    -- start with 0
 	student_id		varchar(100),
 	id			varchar(256), 				-- not mandatory, not gettable, settable
 	time			timestamptz, 				-- not mandatory, not gettable, settable
@@ -294,7 +294,7 @@ create table lorsm_cmi_interactions (
 	correct_responses       int,                                    -- current number of elements in the cmi.correct_responses list
         constraint lorsm_cmi_interactions_type_ck check
         (type in ('true-false', 'choice', 'fill-in', 'matching', 'performance', 'sequencing', 'likert', 'numeric')),
-	constraint lorsm_cmi_interactions_id_pk primary key (track_id, _count)
+	constraint lorsm_cmi_interactions_id_pk primary key (track_id, interactions_count)
 );
 
 create index lorsm_cmi_interactions__stud_id_idx on lorsm_cmi_interactions (student_id);
@@ -340,49 +340,49 @@ Data Type: CMITimespan.
 
 -- cmi.interactions.objectives list
 
-create table lorsm_cmi_interactions_objectives (
+create table lorsm_cmi_interact_objectives (
 	track_id		int
                         	constraint lorsm_cmi_interactions_obj_track_id_fk
                         	references lorsm_student_track (track_id),
 	interaction_num	        int,                                    -- number in the interactions list
-	_count		        int,                                    -- start with 0
+	interactions_objectives_count		        int,                                    -- start with 0
 	student_id		varchar(100),
 	id			varchar(256),				-- not mandatory, not gettable, settable
-	constraint lorsm_cmi_interactions_obj_id_pk primary key (track_id, interaction_num, _count)
+	constraint lorsm_cmi_interactions_obj_id_pk primary key (track_id, interaction_num, interactions_objectives_count)
 );
 
-create index lorsm_cmi_interactions_obj__stud_id_idx on lorsm_cmi_interactions_objectives (student_id);
+create index lorsm_cmi_int_obj_stud_id_idx on lorsm_cmi_interact_objectives (student_id);
 
-comment on table lorsm_cmi_interactions_objectives is '
+comment on table lorsm_cmi_interact_objectives is '
 Identify a list of objectives that the interaction is for.
 ';
 
-comment on column lorsm_cmi_interactions_objectives.id is '
+comment on column lorsm_cmi_interact_objectives.id is '
 Developer created identifier for an objective.
 The SCO is responsible for determining this value.
 ';
 
 -- cmi.correct.responses.correct_responses list
 
-create table lorsm_cmi_interactions_correct_responses (
+create table lorsm_cmi_int_correct_respons (
 	track_id		int
                         	constraint lorsm_cmi_interactions_corr_track_id_fk
                         	references lorsm_student_track (track_id)
                                 on delete cascade,
 	interaction_num	        int,                                    -- number in the interactions list
-	_count		        int,                                    -- start with 0
+	correct_responses_count		        int,                                    -- start with 0
 	student_id		varchar(100),
 	pattern			varchar(256), 				-- not mandatory, not gettable, settable
-        constraint lorsm_cmi_interactions_corr_id_pk primary key (track_id, interaction_num, _count)
+        constraint lorsm_cmi_interactions_corr_id_pk primary key (track_id, interaction_num, correct_responses_count)
 );
 
-create index lorsm_cmi_interactions_corr__stud_id_idx on lorsm_cmi_interactions_correct_responses (student_id);
+create index lorsm_cmi_interactions_corr__stud_id_idx on lorsm_cmi_int_correct_respons (student_id);
 
-comment on table lorsm_cmi_interactions_correct_responses is '
+comment on table lorsm_cmi_int_correct_respons is '
 Description of possible responses to the interaction.
 ';
 
-comment on column lorsm_cmi_interactions_correct_responses.pattern is '
+comment on column lorsm_cmi_int_correct_respons.pattern is '
 Description of possible student responses to the interaction provided by the SCO.
 There may be more than one correct response, and some responses may be more correct than others.
 The format is dependent on cmi.interactions.n.type.

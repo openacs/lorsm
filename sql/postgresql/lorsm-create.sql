@@ -70,7 +70,7 @@ create table lorsm_student_bookmark (
 	course_id	int
 			constraint lorsm_st_track_course_id_fk
 			references ims_cp_manifests (man_id),
-	date		timestamptz,
+	bookmark_date		timestamptz,
 			constraint lorsm_st_book_id_pk
 			primary key (user_id, community_id, course_id)
 );
@@ -91,7 +91,7 @@ Multiplicity: One bookmark per course/class/student
 
 -- Course presentation formats
 
-create table lorsm_course_presentation_formats (
+create table lorsm_course_presentation_fmts (
 	format_id  			integer
 						constraint lorsm_cpformats_pk
 						primary key,
@@ -100,9 +100,9 @@ create table lorsm_course_presentation_formats (
 	folder_name			varchar(100)
 );
 
-create index lorsm_cpformats__format_id_idx on lorsm_course_presentation_formats (format_id);
+create index lorsm_cpfmts__format_id_idx on lorsm_course_presentation_fmts (format_id);
 
-comment on table lorsm_course_presentation_formats is '
+comment on table lorsm_course_presentation_fmts is '
 This table stores the available presentation formats for the courses. Its contains the pretty name
 for the format, an id, and the folder in packages/lorsm/www/ where the presentation format is stored.
 Currently just two presentation formats exists, delivery and delivery-wihout-index, which we store on creation';

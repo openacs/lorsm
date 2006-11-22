@@ -15,5 +15,6 @@ drop table lorsm_cmi_objectives;
 drop table lorsm_cmi_student_data;
 drop table lorsm_cmi_student_preference;
 drop table lorsm_cmi_interactions;
-drop table lorsm_cmi_interactions_objectives;
-drop table lorsm_cmi_interactions_correct_responses;
+drop table lorsm_cmi_interact_objectives;
+drop table lorsm_cmi_int_correct_respons;
+drop table lorsm_course_presentation_fmts;

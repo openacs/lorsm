@@ -28,6 +28,7 @@
   <msg key="Add_another_Scheme">Adicionar um outro Esquema</msg>
   <msg key="Add_another_Size">Adicionar um outro Tamanho</msg>
   <msg key="Add_another_Source">Adicionar uma outra Fonte</msg>
+  <msg key="Add_another_Taxonomy">Adicionar outra Taxonomia</msg>
   <msg key="Add_another_title">Adicionar um outro título</msg>
   <msg key="Add_Catalog-Entry">Adicionar uma Entrada de Catálogo</msg>
   <msg key="Add_Classification">Adicionar Classificação</msg>
@@ -64,6 +65,7 @@
   <msg key="Add_Source">Adicionar Fonte</msg>
   <msg key="Add_Status">Adicionar Status</msg>
   <msg key="Add_Structure">Adicionar Estrutura</msg>
+  <msg key="Add_Taxonomy">Adicionar Taxonomia</msg>
   <msg key="Add_Title">Adicionar Título</msg>
   <msg key="Add_Titles">Adicionar Títulos</msg>
   <msg key="Add_Typical_Age_Rang">Adicionar Intervalo de Idade Típico</msg>
@@ -158,6 +160,7 @@
   <msg key="Edit_Size">Editar Tamanho</msg>
   <msg key="Edit_Status">Editar Status</msg>
   <msg key="Edit_Structure">Editar Estrutura</msg>
+  <msg key="Edit_Taxonomy">Editar Taxonomia</msg>
   <msg key="Edit_Titles">Editar Títulos</msg>
   <msg key="Edit_Version">Editar Versão</msg>
   <msg key="Educational_MD">MD Educacional</msg>

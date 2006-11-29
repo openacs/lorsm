@@ -130,13 +130,14 @@
   <msg key="Date">Fecha:</msg>
   <msg key="Date_1">Fecha</msg>
   <msg key="Date_of_contribution">Fecha de contribución</msg>
+  <msg key="Default_delivery">¿Entrega por defecto?</msg>
   <msg key="Description">Descripción:</msg>
   <msg key="Description_1">Descripcion</msg>
   <msg key="Descriptions">Descripciones:</msg>
   <msg key="difference_seconds">%difference% segundos</msg>
   <msg key="Difficulty">Dificultad:</msg>
   <msg key="Difficulty_1">Dificultad</msg>
-  <msg key="Disable">Deshailitar</msg>
+  <msg key="Disable">Deshabilitar</msg>
   <msg key="Disabled">Deshabilitado</msg>
   <msg key="Done">Hecho!</msg>
   <msg key="Duration">Duración:</msg>
@@ -776,6 +777,7 @@
   <msg key="See_metadata">Ver metadata</msg>
   <msg key="Semantic_Density">Densidad Semántica:</msg>
   <msg key="Semantic_Density_1">Densidad Semántica</msg>
+  <msg key="Sesion_Runtime_Data">Datos de la sesión</msg>
   <msg key="Set_Course_Options">Ingresar Opciones del Curso</msg>
   <msg key="Set_Course_Status">Ingresar Estado del Curso</msg>
   <msg key="Set_Course_Status_">Ingresar Estado del Curso \</msg>

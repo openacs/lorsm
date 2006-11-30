@@ -11,8 +11,8 @@
 <h1>@current_title@</h1>
 <p><list name="progress_list"><if @progress_list:item@ eq @progress_index@><span class="current-item">[@progress_list:item@]</span></if><else>[@progress_list:item@]</else></list>
 </p>
-<if @__include@ not nil>
-<include src="@__include@">
+<if @include_content@ not nil>
+@include_content;noquote@
 </if>
 <if @show_next@>
 <if @next_item_id@ ne "">

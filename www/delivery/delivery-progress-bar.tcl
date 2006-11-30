@@ -4,6 +4,7 @@ ad_page_contract {
     
 } {
     {__include ""}
+    {__include_vars ""}
     {next_item_id ""}
 } -properties {
 } -validate {
@@ -91,3 +92,4 @@ if {[string match "*assessment*" $__include] && ![string match "*assessment/lib/
     set show_next 1
 }
 
+set include_content [template::adp_include $__include $__include_vars]

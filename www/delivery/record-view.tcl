@@ -64,7 +64,8 @@ switch $type {
     ::xowiki::Page {
 	set form [rp_getform]
 	ns_set delkey $form item_id
-	rp_form_put item_id [string trimleft $href "/o/"]
+	rp_form_put template_file view-plain
+	rp_form_put __include_vars [list item_id [string trimleft $href "/o/"]]
 	rp_form_put __include /packages/xowiki/lib/view
 	db_1row get_format "select folder_name as delivery_folder_name, isscorm from lorsm_course_presentation_formats f, ims_cp_manifests m where f.format_id=m.course_presentation_format and m.man_id=:man_id"
 	if {$isscorm} {

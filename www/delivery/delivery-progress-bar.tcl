@@ -80,16 +80,15 @@ set current_title [db_string get_title "select item_title from ims_cp_items wher
 
 set progress_list [template::util::number_list [llength $item_list] 1]
 set progress_index [expr {$curr_index + 1}]
-
 if {[string match "*assessment*" $__include] && ![string match "*assessment/lib/session*" $__include]} {
     set show_next 0
 } else {
     if { $next_item_id eq "" } {
 	set next_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
-	set progress_index ""
     }
 
     set show_next 1
 }
 
 set include_content [template::adp_include $__include $__include_vars]
+regsub -all {<a(.*?)>} $include_content {<a target=\"_new\" \1 >} include_content

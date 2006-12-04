@@ -76,10 +76,11 @@ set next_url [export_vars -base "${lorsm_url}/record-view" -url {{item_id $next_
 
 set prev_title [db_string get_title "select item_title from ims_cp_items where ims_item_id=:prev_item_id" -default ""]
 set next_title [db_string get_title "select item_title from ims_cp_items where ims_item_id=:next_item_id" -default ""]
-set current_title [db_string get_title "select item_title from ims_cp_items where ims_item_id=:last_item_viewed" -default ""]
+set current_title [db_string get_title "select item_title from ims_cp_items where ims_item_id=:item_id" -default ""]
 
 set progress_list [template::util::number_list [llength $item_list] 1]
 set progress_index [expr {$curr_index + 1}]
+set last_item_p [expr {$curr_index == [expr {[llength $item_list] - 1}]}]
 if {[string match "*assessment*" $__include] && ![string match "*assessment/lib/session*" $__include]} {
     set show_next 0
 } else {

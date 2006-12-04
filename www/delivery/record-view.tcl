@@ -50,8 +50,8 @@ set type [db_string get_type "select type from ims_cp_resources r, ims_cp_items_
 
 # Get the item title
 set item_title [lorsm::delivery::get_ims_item_title -ims_item_id $revision_id]
-
-switch $type {
+ns_log notice "lorsm record-viw.tcl type='${type}'"
+switch -glob -- $type {
     as_sections {
 	# FIXME stupidly assume that a section can only be in one assessment
 	set section_item_id [string trimleft $href "/o/"]
@@ -61,7 +61,7 @@ switch $type {
 	ad_returnredirect [export_vars -base assessment/assessment {assessment_id {single_section_id $section_id}}]
 	ad_script_abort
     }
-    ::xowiki::Page {
+    ::xowiki::* {
 	set form [rp_getform]
 	ns_set delkey $form item_id
 	rp_form_put template_file view-plain

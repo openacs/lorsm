@@ -14,16 +14,15 @@
 <if @include_content@ not nil>
 @include_content;noquote@
 </if>
-<if @show_next@>
+<if @show_next@ and @last_item_p@ false>
 <p>
 <span class="next-button">
 <a href="@next_url;noquote@">Next</a>
 </span>
 </p>
 </if>
-<else>
+<if @last_item_p@ true>
 <a href="@next_url;noquote@">EXIT COURSE</a>
-</else>
-
+</if>
 </body>
 </html>

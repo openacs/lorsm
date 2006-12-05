@@ -34,7 +34,7 @@ ad_form -name classificationmd_key \
     -mode edit \
     -form {
 
-    ims_md_cl_ke_id:key(ims_md_classification_keyword_seq)
+    ims_md_cl_ke_id:key(ims_md_classif_keyword_seq)
 
     {keyword_l:text,nospell
 	{section "[_ lorsm.lt_AddEdit_Classificatio_6]"}	
@@ -55,20 +55,12 @@ ad_form -name classificationmd_key \
     {ims_md_cl_id:text(hidden) {value $ims_md_cl_id}
     }
 
-} -select_query  {select * from ims_md_classification_keyword where ims_md_cl_ke_id = :ims_md_cl_ke_id and ims_md_cl_id = :ims_md_cl_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_classification_keyword
-            set keyword_l = :keyword_l,
-            keyword_s = :keyword_s
-            where ims_md_cl_ke_id = :ims_md_cl_ke_id"
+} -select_query_name select_md_class_key \
+  -edit_data {
+        db_dml do_update ""
 
 } -new_data {
-        db_dml do_insert "
-            insert into ims_md_classification_keyword (ims_md_cl_ke_id, ims_md_cl_id, keyword_l, keyword_s)
-            values 
-            (:ims_md_cl_ke_id, :ims_md_cl_id, :keyword_l, :keyword_s)"
+        db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "classification" {ims_md_cl_id ims_md_id}]
@@ -84,6 +76,7 @@ template::list::create \
     -elements {
 	keyword {
 	    label ""
+	    display_eval {[concat \[$keyword_l\] $keyword_s]}
 	}
         export {
             display_eval {\[Edit\]}
@@ -93,17 +86,4 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_key select_cl_key {
-    select
-    '[' || kw.keyword_l || '] ' || kw.keyword_s as keyword,
-    kw.ims_md_cl_ke_id,
-    cl.ims_md_cl_id,
-    cl.ims_md_id
-    from 
-           ims_md_classification_keyword kw,
-           ims_md_classification cl
-    where
-           kw.ims_md_cl_id = cl.ims_md_cl_id
-    and
-           kw.ims_md_cl_id = :ims_md_cl_id
-} 
+db_multirow d_cl_key select_cl_key {} 

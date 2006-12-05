@@ -45,17 +45,11 @@ ad_form -name educationalmd_lang \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_educational_lang where ims_md_ed_la_id = :ims_md_ed_la_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_educational_lang
-            set language = :language
-            where ims_md_ed_la_id = :ims_md_ed_la_id "
+} -select_query_name select_md_edu_lang \
+  -edit_data {
+        db_dml do_update ""
 } -new_data {
-       db_dml do_insert "
-            insert into ims_md_educational_lang (ims_md_ed_la_id, ims_md_id, language) 
-            values (:ims_md_ed_la_id, :ims_md_id, :language)"
+       db_dml do_insert ""
 } -after_submit {
     ad_returnredirect [export_vars -base "../educationalmd" {ims_md_id}]
         ad_script_abort
@@ -79,13 +73,4 @@ q            link_html {title "[_ lorsm.Edit_Record]"}
         }
     }
 
-db_multirow d_ed_lang select_ed_lang {
-    select 
-        language,
-        ims_md_ed_la_id,
-        ims_md_id
-    from 
-           ims_md_educational_lang
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_lang select_ed_lang {} 

@@ -51,18 +51,11 @@ ad_form -name educationalmd_cont \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_educational_context where ims_md_ed_co_id = :ims_md_ed_co_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_educational_context
-            set context_s = :context_s,
-            context_v = :context_v
-            where ims_md_ed_co_id = :ims_md_ed_co_id "
+} -select_query_name  select_md_edu \
+ -edit_data {
+        db_dml do_update ""
 } -new_data {
-       db_dml do_insert "
-            insert into ims_md_educational_context (ims_md_ed_co_id, ims_md_id, context_s, context_v) 
-            values (:ims_md_ed_co_id, :ims_md_id, :context_s, :context_v)"
+       db_dml do_insert ""
 } -after_submit {
     ad_returnredirect [export_vars -base "../educationalmd" {ims_md_id}]
         ad_script_abort
@@ -77,6 +70,7 @@ template::list::create \
     -elements {
 	context {
             label "[_ lorsm.Context_1]"
+    	    display_eval {[concat \[$context_s\] $context_v]}
         }
         export {
             display_eval {\[[_ lorsm.Edit_1]\]}
@@ -86,13 +80,4 @@ template::list::create \
         }
     }
 
-db_multirow d_ed_cont select_ed_cont {
-    select 
-        '[' || context_s || '] ' || context_v as context,
-        ims_md_ed_co_id,
-        ims_md_id
-    from 
-           ims_md_educational_context
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_cont select_ed_cont {} 

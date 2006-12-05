@@ -31,14 +31,7 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_pur select_cl_pur {
-    select purpose_s,
-           purpose_v
-    from 
-           ims_md_classification
-    where
-           ims_md_cl_id = :ims_md_cl_id
-} 
+db_multirow d_cl_pur select_cl_pur {} 
 
 # Classification Taxonomic Path 
 template::list::create \
@@ -50,6 +43,7 @@ template::list::create \
     -elements {
         source {
             label ""
+	    display_eval {[concat \[$source_l\] $source_v]}
         }
 	export {
             display_eval {\[[_ lorsm.View]\]}
@@ -59,19 +53,7 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_tpath select_cl_tpath {
-    select
-    '[' || ctp.source_l || '] ' || ctp.source_v as source,
-    ctp.ims_md_cl_ta_id,
-    ctp.ims_md_cl_id,
-    cl.ims_md_id
-    from 
-           ims_md_classification_taxpath ctp,
-           ims_md_classification cl
-    where
-           ctp.ims_md_cl_id = :ims_md_cl_id
-    and    cl.ims_md_cl_id = :ims_md_cl_id
-} 
+db_multirow d_cl_tpath select_cl_tpath {} 
 
 # Classification Description
 template::list::create \
@@ -81,19 +63,13 @@ template::list::create \
     -actions [list "[_ lorsm.Add_Description]" [export_vars -base classification_desc {ims_md_cl_id ims_md_id}] "[_ lorsm.lt_Add_another_Descripti]"] \
     -html { align right style "width: 100%;" } \
     -elements {
-        desc {
+        descrip {
             label ""
+	    display_eval {[concat \[$descrip_l\] $descrip_s]}
         }
     }
 
-db_multirow d_cl_desc select_cl_desc {
-    select 
-    '[' || descrip_l || '] ' || descrip_s as desc
-    from 
-           ims_md_classification_descrip
-    where
-           ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_desc select_cl_desc {}
 
 # Classification Keywords
 template::list::create \
@@ -105,14 +81,8 @@ template::list::create \
     -elements {
         keyword {
             label ""
+	    display_eval {[concat \[$keyword_l\] $keyword_s]}
         }
     }
 
-db_multirow d_cl_key select_cl_key {
-    select 
-    '[' || keyword_l || '] ' || keyword_s as keyword
-    from 
-           ims_md_classification_keyword
-    where
-           ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_key select_cl_key {}

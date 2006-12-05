@@ -51,18 +51,11 @@ ad_form -name educationalmd_tar \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_educational_tar where ims_md_ed_ta_id = :ims_md_ed_ta_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_educational_tar
-            set tar_l = :tar_l,
-            tar_s = :tar_s
-            where ims_md_ed_ta_id = :ims_md_ed_ta_id "
+} -select_query_name select_md_edu_tar \
+  -edit_data {
+        db_dml do_update ""
 } -new_data {
-       db_dml do_insert "
-            insert into ims_md_educational_tar (ims_md_ed_ta_id, ims_md_id, tar_l, tar_s) 
-            values (:ims_md_ed_ta_id, :ims_md_id, :tar_l, :tar_s)"
+       db_dml do_insert ""
 } -after_submit {
     ad_returnredirect [export_vars -base "../educationalmd" {ims_md_id}]
         ad_script_abort
@@ -77,6 +70,7 @@ template::list::create \
     -elements {
 	tar {
             label "[_ lorsm.Typical_Age_Range_1]"
+	    display_eval {[concat \[$tar_l\] $tar_s]}
         }
         export {
             display_eval {\[Edit\]}
@@ -86,13 +80,4 @@ template::list::create \
         }
     }
 
-db_multirow d_ed_tar select_ed_tar {
-    select 
-        '[' || tar_l || '] ' || tar_s as tar,
-        ims_md_ed_ta_id,
-        ims_md_id
-    from 
-           ims_md_educational_tar
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_tar select_ed_tar {} 

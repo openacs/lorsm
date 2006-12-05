@@ -50,21 +50,13 @@ ad_form -name educationalmd_tlt \
 } -on_submit {
     # check if the educational typical learning time details already exist...
 
-    if {[db_0or1row select_size {select ims_md_id from ims_md_educational where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_size {}]} {
 
-        db_dml do_update "
-            update ims_md_educational
-            set type_lrn_time_s = :type_lrn_time_s, 
-            type_lrn_time_l = :type_lrn_time_l,
-            type_lrn_time = :type_lrn_time
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_educational (ims_md_id, type_lrn_time_s, type_lrn_time_l, type_lrn_time)
-            values
-            (:ims_md_id, :type_lrn_time_s, :type_lrn_time_l, :type_lrn_time) "
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -84,16 +76,8 @@ template::list::create \
         }
 	tlt_ls {
             label "[_ lorsm.Language_1]"
+	    display_eval {[concat \[$type_lrn_time_l\] $time_lrn_time_s]}
         }
     }
 
-db_multirow d_ed_tlt select_ed_tlt {
-    select
-    type_lrn_time as tlt,
-    '[' || type_lrn_time_l || '] ' || type_lrn_time_s as tlt_ls,
-    ims_md_id
-    from 
-           ims_md_educational
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_tlt select_ed_tlt {} 

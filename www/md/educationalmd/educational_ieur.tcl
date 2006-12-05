@@ -51,18 +51,11 @@ ad_form -name educationalmd_ieur \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_educational_ieur where ims_md_ed_ie_id = :ims_md_ed_ie_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_educational_ieur
-            set ieur_s = :ieur_s,
-            ieur_v = :ieur_v
-            where ims_md_ed_ie_id = :ims_md_ed_ie_id"
+} -select_query_name select_md_edu_ieur \
+  -edit_data {
+        db_dml do_update ""
 } -new_data {
-       db_dml do_insert "
-            insert into ims_md_educational_ieur (ims_md_ed_ie_id, ims_md_id, ieur_s, ieur_v) 
-            values (:ims_md_ed_ie_id, :ims_md_id, :ieur_s, :ieur_v)"
+       db_dml do_insert ""
 } -after_submit {
     ad_returnredirect [export_vars -base "../educationalmd" {ims_md_id}]
         ad_script_abort
@@ -77,6 +70,7 @@ template::list::create \
     -elements {
 	ieur {
             label "[_ lorsm.lt_Intended_End_User_Rol_1]"
+	    display_eval {[concat \[$ieur_s\] $ieur_v]}
         }
         export {
             display_eval {\[[_ lorsm.Edit_1]\]}
@@ -86,13 +80,4 @@ template::list::create \
         }
     }
 
-db_multirow d_ed_ieur select_ed_ieur {
-    select 
-        '[' || ieur_s || '] ' || ieur_v as ieur,
-        ims_md_ed_ie_id,
-        ims_md_id
-    from 
-           ims_md_educational_ieur
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_ieur select_ed_ieur {} 

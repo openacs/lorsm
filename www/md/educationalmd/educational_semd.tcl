@@ -45,20 +45,13 @@ ad_form -name educationalmd_semd \
 } -on_submit {
     # check if the ED Semantic Density already exist...
 
-    if {[db_0or1row select_size {select ims_md_id from ims_md_educational where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_size {}]} {
 
-        db_dml do_update "
-            update ims_md_educational
-            set sem_density_s = :sem_density_s,
-            sem_density_v = :sem_density_v
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_educational (ims_md_id, sem_density_s, sem_density_v)
-            values
-            (:ims_md_id, :sem_density_s, :sem_density_v) "
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -75,15 +68,8 @@ template::list::create \
     -elements {
 	semd {
             label "[_ lorsm.Semantic_Density_1]"
+	    display_eval {[concat \[$sem_density_s\] $sem_density_v]}
         }
     }
 
-db_multirow d_ed_semd select_ed_semd {
-    select 
-        '[' || sem_density_s || '] ' || sem_density_v as semd,
-        ims_md_id
-    from 
-           ims_md_educational
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_semd select_ed_semd {} 

@@ -23,11 +23,4 @@ template::list::create \
         }
     }
 
-db_multirow d_pres select_ge_titles {
-    select 
-           object_type
-    from 
-           acs_objects
-    where
-           object_id = :ims_md_id
-}
+db_multirow d_pres select_ge_titles {}

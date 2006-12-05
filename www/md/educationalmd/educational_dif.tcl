@@ -45,19 +45,13 @@ ad_form -name educationalmd_dif \
 } -on_submit {
     # check if the educational difficulty details already exist...
 
-    if {[db_0or1row select_size {select ims_md_id from ims_md_educational where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_size {}]} {
 
-        db_dml do_update "
-            update ims_md_educational
-            set difficulty_s = :difficulty_s, difficulty_v = :difficulty_v
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_educational (ims_md_id, difficulty_s, difficulty_v)
-            values
-            (:ims_md_id, :difficulty_s, :difficulty_v) "
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -74,15 +68,8 @@ template::list::create \
     -elements {
 	diff {
             label "[_ lorsm.Difficulty_1]"
+	    display_eval {[concat \[$ difficulty_s\] $ difficulty_v]}
         }
     }
 
-db_multirow d_ed_dif select_ed_dif {
-    select 
-        '[' || difficulty_s || '] ' || difficulty_v as diff,
-        ims_md_id
-    from 
-           ims_md_educational
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ed_dif select_ed_dif {} 

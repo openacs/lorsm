@@ -32,7 +32,7 @@ ad_form -name classificationmd_tsource \
     -mode edit \
     -form {
 
-    ims_md_cl_ta_id:key(ims_md_classification_taxpath_seq)
+    ims_md_cl_ta_id:key(ims_md_classif_taxpath_seq)
 
     {source_l:text,nospell
 	{section "[_ lorsm.lt_AddEdit_Classificatio_9]"}
@@ -53,14 +53,9 @@ ad_form -name classificationmd_tsource \
     {ims_md_id:text(hidden) {value $ims_md_id}
     } 
 
-} -select_query  {select * from ims_md_classification_taxpath where ims_md_cl_ta_id = :ims_md_cl_ta_id and ims_md_cl_id = :ims_md_cl_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_classification_taxpath
-            set source_l = :source_l,
-            source_v = :source_v
-            where ims_md_cl_ta_id = :ims_md_cl_ta_id"
+} -select_query_name select_md_cl_tax \
+  -edit_data {
+        db_dml do_update ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "classification_tpath" {ims_md_cl_ta_id ims_md_cl_id ims_md_id}]
@@ -76,6 +71,7 @@ template::list::create \
     -elements {
 	source {
             label ""
+	    display_eval {[concat \[$source_l\] $source_v]}
         }
         export {
             display_eval {\[[_ lorsm.Edit_1]\]}
@@ -85,16 +81,4 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_tsource select_cl_tsource {
-   select
-    '[' || ctp.source_l || '] ' || ctp.source_v as source,
-    ctp.ims_md_cl_ta_id,
-    ctp.ims_md_cl_id,
-    cl.ims_md_id
-    from 
-           ims_md_classification_taxpath ctp,
-           ims_md_classification cl
-    where
-           ctp.ims_md_cl_ta_id = :ims_md_cl_ta_id
-    and    cl.ims_md_cl_id = :ims_md_cl_id
-} 
+db_multirow d_cl_tsource select_cl_tsource {} 

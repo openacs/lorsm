@@ -50,21 +50,13 @@ ad_form -name technicalmd_dur \
 } -on_submit {
     # check if the tech duration details already exist...
 
-    if {[db_0or1row select_duration {select ims_md_id from ims_md_technical where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_duration {}]} {
 
-        db_dml do_update "
-            update ims_md_technical
-            set duration_s = :duration_s,
-            duration_l = :duration_l,
-            duration = :duration
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_technical (ims_md_id, duration_l, duration_s)
-            values
-            (:ims_md_id, :duration_l, :duration_s)"
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -91,14 +83,4 @@ template::list::create \
 
     }
 
-db_multirow d_te_dur select_te_dur {
-    select 
-        duration_l,
-        duration_s,
-        duration || 's' as duration_sec,
-        ims_md_id
-    from 
-           ims_md_technical
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_te_dur select_te_dur {} 

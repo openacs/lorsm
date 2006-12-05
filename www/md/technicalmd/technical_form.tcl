@@ -19,10 +19,10 @@ ad_page_contract {
 
 # set context & title
 if { ![ad_form_new_p -key ims_md_te_fo_id]} {
-    set context [list [list [export_vars -base ".." ims_md_id] "I[_ lorsm.MS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" im\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Edit_Format]"]
+    set context [list [list [export_vars -base ".." ims_md_id] "I[_ lorsm.MS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" ims_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Edit_Format]"]
     set title "[_ lorsm.lt_Edit_Technical_MD_For]"
 } else {
-    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" im\s_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Add_Format]"]
+    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  [list [export_vars -base "../technicalmd" ims_md_id] "[_ lorsm.Technical_MD]"] "[_ lorsm.Add_Format]"]
     set title "[_ lorsm.lt_Add_Technical_MD_Form]"
 }
 
@@ -44,19 +44,12 @@ ad_form -name technicalmd_form \
 
     {ims_md_id:text(hidden) {value $ims_md_id}}
     
-} -select_query  {select * from ims_md_technical_format where ims_md_te_fo_id = :ims_md_te_fo_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_technical_format
-            set format = :format
-            where ims_md_te_fo_id = :ims_md_te_fo_id "
+} -select_query_name select_md_tech_format \
+  -edit_data {
+        db_dml do_update ""
 
 } -new_data {
-       db_dml do_insert "
-            insert into ims_md_technical_format (ims_md_te_fo_id, ims_md_id, format)
-            values
-            (:ims_md_te_fo_id, :ims_md_id, :format)"
+       db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "../technicalmd" {ims_md_id}]
@@ -81,12 +74,4 @@ template::list::create \
         }
     }
 
-db_multirow d_te_form select_te_form {
-    select format,
-           ims_md_te_fo_id,
-           ims_md_id
-    from 
-           ims_md_technical_format
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_te_form select_te_form {} 

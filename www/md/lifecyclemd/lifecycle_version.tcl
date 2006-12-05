@@ -47,20 +47,14 @@ ad_form -name lifecyclemd_ver \
 
     # check if the LC version already exists...
 
-    if {[db_0or1row select_lc_version {select ims_md_id from ims_md_life_cycle where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_lc_version {}]} {
 
-        db_dml do_update "
-            update ims_md_life_cycle
-            set version_l = :version_l, version_s = :version_s
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_life_cycle (ims_md_id, version_l, version_s)
-            values
-            (:ims_md_id, :version_l, :version_s)"
+        db_dml do_insert ""
 
     }
 
@@ -84,13 +78,5 @@ template::list::create \
         }
     }
 
-db_multirow d_lf_ver select_lf_ver {
-    select version_l,
-           version_s, 
-           ims_md_id
-    from 
-           ims_md_life_cycle
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_lf_ver select_lf_ver {}
 

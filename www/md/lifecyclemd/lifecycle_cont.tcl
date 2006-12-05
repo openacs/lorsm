@@ -75,43 +75,21 @@ ad_form -name lifecyclemd_cont \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {
-     select * from 
-        ims_md_life_cycle_contrib lfc, 
-        ims_md_life_cycle_contrib_entity lfce 
-    where
-        lfc.ims_md_lf_cont_id = :ims_md_lf_cont_id
-    and
-        lfc.ims_md_id = :ims_md_id
-    and
-        lfce.ims_md_lf_cont_id = :ims_md_lf_cont_id
-
-} -edit_data {
+} -select_query_name select_ims_contrib  \
+  -edit_data {
     db_transaction {
-	    db_dml update_lfc "
-            update ims_md_life_cycle_contrib
-            set role_v = :role_v, 
-            role_s = :role_s, 
-            cont_date = :cont_date, 
-            cont_date_l = :cont_date_l, 
-            cont_date_s = :cont_date_s
-            where ims_md_lf_cont_id = :ims_md_lf_cont_id"
+	    db_dml update_lfc ""
             
-            db_dml update_lfce "
-            update ims_md_life_cycle_contrib_entity
-            set entity = :entity
-            where ims_md_lf_cont_id = :ims_md_lf_cont_id"
+            db_dml update_lfce ""
     }
          
 } -new_data {
     db_transaction {
-	    db_dml insert_lfc "
-            insert into ims_md_life_cycle_contrib (ims_md_lf_cont_id, ims_md_id, role_s, role_v, cont_date, cont_date_l, cont_date_s)
-            values (:ims_md_lf_cont_id, :ims_md_id, :role_s, :role_v, :cont_date, :cont_date_l, :cont_date_s)"
+	    db_dml insert_lfc ""
 
-	    db_dml insert_lfce "
-            insert into ims_md_life_cycle_contrib_entity (ims_md_lf_cont_enti_id, ims_md_lf_cont_id, entity)
-            values (nextval('ims_md_life_cycle_contrib_entity_seq'), :ims_md_lf_cont_id, :entity)"
+            set ims_md_lf_cont_enti_id [db_nextval ims_md_lf_c_contrib_enty_seq]
+
+	    db_dml insert_lfce ""
     }
 
 } -after_submit {
@@ -128,6 +106,7 @@ template::list::create \
     -elements {
         role {
             label "[_ lorsm.Role]"
+	    display_eval {[concat $role_v \[$role_s\]]}
         }
         entity {
             label "[_ lorsm.Entity_1]"
@@ -137,6 +116,7 @@ template::list::create \
 	}
 	cont_date_ls {
 	    label "[_ lorsm.Description_1]"
+	    display_eval {[concat \[$cont_date_l\] $cont_date_s]}
 	}
         export {
             display_eval {\[Edit\]}
@@ -146,20 +126,5 @@ template::list::create \
         }
     }
 
-db_multirow d_lf_cont select_lf_cont {
-    select
-        lfc.role_v || ' ' || '[' || lfc.role_s || ']' as role,
-        lfce.entity,
-        lfc.cont_date,
-        '[' || lfc.cont_date_l || ']' || ' ' || lfc.cont_date_s as cont_date_ls,
-        lfc.ims_md_lf_cont_id,
-        lfc.ims_md_id
-    from 
-        ims_md_life_cycle_contrib lfc, 
-        ims_md_life_cycle_contrib_entity lfce 
-    where
-        lfc.ims_md_lf_cont_id = lfce.ims_md_lf_cont_id
-    and
-        lfc.ims_md_id = :ims_md_id
-}
+db_multirow d_lf_cont select_lf_cont {}
 

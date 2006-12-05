@@ -45,19 +45,13 @@ ad_form -name rightsmd_desc \
 } -on_submit {
     # check if the Rights Description details already exist...
 
-    if {[db_0or1row select_type {select ims_md_id from ims_md_rights where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_type {}]} {
 
-        db_dml do_update "
-            update ims_md_rights
-            set descrip_l = :descrip_l, descrip_s = :descrip_s
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_rights (ims_md_id, descrip_l, descrip_s)
-            values
-            (:ims_md_id, :descrip_l, :descrip_s) "
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -72,17 +66,10 @@ template::list::create \
     -no_data "[_ lorsm.lt_No_Description_Availa]" \
     -html { align right style "width: 100%;" } \
     -elements {
-	desc {
+	descrip {
             label "[_ lorsm.Description_1]"
+	    display_eval {[concat \[$descrip_l\] $descrip_s]}
         }
     }
 
-db_multirow d_ri_desc select_ri_desc {
-    select 
-        '[' || descrip_l || '] ' || descrip_s as desc,
-        ims_md_id
-    from 
-           ims_md_rights
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ri_desc select_ri_desc {} 

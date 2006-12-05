@@ -38,19 +38,13 @@ ad_form -name metamd_lang \
 } -on_submit {
     # check if the mdmd language details already exist...
 
-    if {[db_0or1row select_lang {select ims_md_id from ims_md_metadata where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_lang {}]} {
 
-        db_dml do_update "
-            update ims_md_metadata
-            set language = :language
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_metadata (ims_md_id, language)
-            values
-            (:ims_md_id, :language)"
+        db_dml do_insert ""
 
     }
 
@@ -71,11 +65,4 @@ template::list::create \
         }
     }
 
-db_multirow d_md_lang select_md_lang {
-    select language, 
-           ims_md_id
-    from 
-           ims_md_metadata
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_md_lang select_md_lang {} 

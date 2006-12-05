@@ -32,15 +32,7 @@ template::list::create \
 	}
     }
 
-db_multirow d_re_kind select_re_kind {
-    select kind_s,
-           kind_v
-    from 
-           ims_md_relation
-    where
-           ims_md_re_id = :ims_md_re_id 
-    and    ims_md_id = :ims_md_id
-} 
+db_multirow d_re_kind select_re_kind {} 
 
 # Relation Resource Identifier
 template::list::create \
@@ -55,14 +47,7 @@ template::list::create \
 	}
     }
 
-db_multirow d_re_ident select_re_ident {
-    select identifier
-    from 
-           ims_md_relation_resource
-    where
-           ims_md_re_id = :ims_md_re_id
-    and    ims_md_re_re_id = :ims_md_re_re_id
-}
+db_multirow d_re_ident select_re_ident {}
 
 # Relation Resource Catalog-Entry
 template::list::create \
@@ -83,15 +68,7 @@ template::list::create \
 	}
     }
 
-db_multirow d_re_cata select_re_cata {
-    select catalog,
-           entry_l,
-           entry_s
-    from 
-           ims_md_relation_resource_catalog
-    where
-           ims_md_re_re_id = :ims_md_re_re_id
-}
+db_multirow d_re_cata select_re_cata {}
 
 # Relation Resource Description
 template::list::create \
@@ -103,16 +80,10 @@ template::list::create \
     -elements {
         descrip {
 	    label ""
+	    display_eval {[concat \[$descrip_l\] $descrip_s]}
 	}
     }
 
-db_multirow d_re_desc select_re_desc {
-    select '[' || descrip_l || ']' || ' ' || descrip_s as descrip
-    from 
-           ims_md_relation_resource
-    where
-           ims_md_re_id = :ims_md_re_id
-    and    ims_md_re_re_id = :ims_md_re_re_id
-}
+db_multirow d_re_desc select_re_desc {}
 
 

@@ -32,13 +32,11 @@ ad_form -name relationmd_add \
 
 } -new_data {
     db_transaction {
-        db_dml do_insert_relation "
-            insert into ims_md_relation (ims_md_re_id, ims_md_id) 
-            values (:ims_md_re_id, :ims_md_id)"
+        db_dml do_insert_relation ""
 
-	db_dml do_insert_resource "
-            insert into ims_md_relation_resource (ims_md_re_re_id, ims_md_re_id)
-            values (nextval('ims_md_relation_resource_seq'), :ims_md_re_id)"
+	set ims_md_re_re_id [db_nextval ims_md_relation_resource_seq]
+
+	db_dml do_insert_resource ""
     }
 
 } -after_submit {

@@ -57,18 +57,11 @@ ad_form -name metamd_cata \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_metadata_cata where ims_md_md_cata_id = :ims_md_md_cata_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_metadata_cata
-            set catalog = :catalog, entry_l = :entry_l, entry_s = :entry_s
-            where ims_md_md_cata_id = :ims_md_md_cata_id"
+} -select_query_name select_md_metadata_cata \
+  -edit_data {
+        db_dml do_update ""
 } -new_data {
-        db_dml do_insert "
-            insert into ims_md_metadata_cata (ims_md_md_cata_id, ims_md_id, catalog, entry_l, entry_s)
-            values
-            (:ims_md_md_cata_id, :ims_md_id, :catalog, :entry_l, :entry_s)"
+        db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "../metamd" {ims_md_id}]
@@ -87,6 +80,7 @@ template::list::create \
 	}
         entry_ls {
             label "Language Entry"
+	    display_eval {[contat \[$entry_l\] $entry_s]}
         }
         export {
             display_eval {\[Edit\]}
@@ -96,14 +90,5 @@ template::list::create \
         }
     }
 
-db_multirow d_md_cata select_md_cata {
-    select catalog,
-    '[' || entry_l || ']' || ' ' || entry_s as entry_ls,
-    ims_md_md_cata_id,
-    ims_md_id       
-    from 
-           ims_md_metadata_cata
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_md_cata select_md_cata {} 
 

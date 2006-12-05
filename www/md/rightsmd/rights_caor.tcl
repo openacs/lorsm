@@ -45,19 +45,13 @@ ad_form -name rightsmd_caor \
 } -on_submit {
     # check if the Rights Copyright details already exist...
 
-    if {[db_0or1row select_type {select ims_md_id from ims_md_rights where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_type {}]} {
 
-        db_dml do_update "
-            update ims_md_rights
-            set caor_s = :caor_s, caor_v = :caor_v
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_rights (ims_md_id, caor_s, caor_v)
-            values
-            (:ims_md_id, :caor_s, :caor_v) "
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -74,15 +68,8 @@ template::list::create \
     -elements {
 	caor {
             label "[_ lorsm.Copyright_Info]"
+	    display_eval {[concat \[$caor_s\] $caor_v]}
         }
     }
 
-db_multirow d_ri_caor select_ri_caor {
-    select 
-        '[' || caor_s || '] ' || caor_v as caor,
-        ims_md_id
-    from 
-           ims_md_rights
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ri_caor select_ri_caor {} 

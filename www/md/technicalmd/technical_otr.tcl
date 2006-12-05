@@ -44,20 +44,13 @@ ad_form -name technicalmd_otr \
 } -on_submit {
     # check if the tech other platform req details already exist...
 
-    if {[db_0or1row select_size {select ims_md_id from ims_md_technical where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_size {}]} {
 
-        db_dml do_update "
-            update ims_md_technical
-            set otr_plt_l = :otr_plt_l,
-            otr_plt_s = :otr_plt_s
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_technical (ims_md_id, otr_plt_l, otr_plt_s)
-            values
-            (:ims_md_id, :otr_plt_l, :otr_plt_s)"
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -74,15 +67,8 @@ template::list::create \
     -elements {
         otr_plt {
             label "[_ lorsm.Other_Platform_Req]"
+	    display_eval {[concat \[$otr_plt_l\] $otr_plt_s]}
         }
     }
 
-db_multirow d_te_otr select_te_otr {
-    select 
-        '[' || otr_plt_l || ']' || ' ' || otr_plt_s as otr_plt,
-        ims_md_id
-    from 
-           ims_md_technical
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_te_otr select_te_otr {} 

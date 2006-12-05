@@ -45,13 +45,9 @@ ad_form -name relationmd_ident \
     {ims_md_re_id:text(hidden) {value $ims_md_re_id}
     }
 
-} -select_query  {select * from ims_md_relation_resource where ims_md_re_re_id = :ims_md_re_re_id and ims_md_re_id = :ims_md_re_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_relation_resource
-            set identifier = :identifier
-            where ims_md_re_re_id = :ims_md_re_re_id "
+} -select_query_name select_rel_resource \
+  -edit_data {
+        db_dml do_update ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "relation" {ims_md_re_re_id ims_md_re_id ims_md_id}]
@@ -70,15 +66,4 @@ template::list::create \
         }
     }
 
-db_multirow d_re_ident select_re_ident {
-   select rere.identifier,
-           rere.ims_md_re_re_id,
-           re.ims_md_re_id,
-           re.ims_md_id
-    from 
-           ims_md_relation_resource rere,
-           ims_md_relation re
-    where
-           rere.ims_md_re_id = :ims_md_re_id
-    and    re.ims_md_re_id = :ims_md_re_id
-} 
+db_multirow d_re_ident select_re_ident {} 

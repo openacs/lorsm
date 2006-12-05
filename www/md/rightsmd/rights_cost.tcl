@@ -45,19 +45,13 @@ ad_form -name rightsmd_cost \
 } -on_submit {
     # check if the Rights Cost details already exist...
 
-    if {[db_0or1row select_type {select ims_md_id from ims_md_rights where ims_md_id = :ims_md_id}]} {
+    if {[db_0or1row select_type {}]} {
 
-        db_dml do_update "
-            update ims_md_rights
-            set cost_s = :cost_s, cost_v = :cost_v
-            where ims_md_id = :ims_md_id "
+        db_dml do_update ""
 
     } else {
 
-        db_dml do_insert "
-            insert into ims_md_rights (ims_md_id, cost_s, cost_v)
-            values
-            (:ims_md_id, :cost_s, :cost_v) "
+        db_dml do_insert ""
     }
 
 } -after_submit {
@@ -74,15 +68,8 @@ template::list::create \
     -elements {
 	cost {
             label "[_ lorsm.Cost_1]"
+	    display_eval {[concat \[$cost_s\] $cost_v]}
         }
     }
 
-db_multirow d_ri_cost select_ri_cost {
-    select 
-        '[' || cost_s || '] ' || cost_v as cost,
-        ims_md_id
-    from 
-           ims_md_rights
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_ri_cost select_ri_cost {} 

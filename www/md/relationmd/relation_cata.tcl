@@ -35,7 +35,7 @@ ad_form -name relationmd_cata \
     -mode edit \
     -form {
 
-    ims_md_re_re_ca_id:key(ims_md_relation_resource_catalog_seq)
+    ims_md_re_re_ca_id:key(ims_md_relation_resource_cat_seq)
 
     {catalog:text,nospell
 	{section "[_ lorsm.lt_AddEdit_Relation_MD_R]"}	
@@ -65,21 +65,12 @@ ad_form -name relationmd_cata \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_relation_resource_catalog where ims_md_re_re_ca_id = :ims_md_re_re_ca_id and ims_md_re_re_id = :ims_md_re_re_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_relation_resource_catalog
-            set catalog = :catalog,
-            entry_l = :entry_l,
-            entry_s = :entry_s
-            where ims_md_re_re_ca_id = :ims_md_re_re_ca_id"
+} -select_query_name select_md_resource \
+  -edit_data {
+        db_dml do_update ""
 
 } -new_data {
-        db_dml do_insert "
-            insert into ims_md_relation_resource_catalog (ims_md_re_re_ca_id, ims_md_re_re_id, catalog, entry_l, entry_s)
-            values 
-            (:ims_md_re_re_ca_id, :ims_md_re_re_id, :catalog, :entry_l, :entry_s)"
+        db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "relation" {ims_md_re_id ims_md_re_re_id ims_md_id}]
@@ -110,20 +101,4 @@ template::list::create \
         }
     }
 
-db_multirow d_re_cata select_re_cata {
-    select
-    reca.catalog,
-    reca.entry_l,
-    reca.entry_s,
-    reca.ims_md_re_re_ca_id,
-    reca.ims_md_re_re_id,
-    re.ims_md_id,
-    re.ims_md_re_id
-    from 
-           ims_md_relation_resource_catalog reca,
-           ims_md_relation re
-    where
-           reca.ims_md_re_re_id = :ims_md_re_re_id
-    and
-           re.ims_md_re_id = :ims_md_re_id
-} 
+db_multirow d_re_cata select_re_cata {} 

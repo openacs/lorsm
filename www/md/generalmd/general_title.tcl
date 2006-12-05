@@ -33,7 +33,7 @@ ad_form -name generalmd_title \
     -mode edit \
     -form {
 
-    ims_md_ge_ti_id:key(ims_md_general_title_seq)
+	ims_md_ge_ti_id:key(ims_md_general_title_seq)
 
     {title_l:text,nospell,optional
 	{section "[_ lorsm.lt_AddEdit_General_MD_Ti]"}
@@ -48,26 +48,19 @@ ad_form -name generalmd_title \
         {label "[_ lorsm.Title]"}
     }
 
-    {ims_md_id:text(hidden) {value $ims_md_id}
-    }
+    {ims_md_id:text(hidden) {value $ims_md_id}}
 
-} -select_query  {select * from ims_md_general_title where ims_md_ge_ti_id = :ims_md_ge_ti_id and ims_md_id = :ims_md_id
+} -select_query_name select_general_title \
+-edit_data {
+      db_dml do_update ""
 
-} -edit_data {
-        db_dml do_update "
-            update ims_md_general_title
-            set title_l = :title_l, title_s = :title_s
-            where ims_md_ge_ti_id = :ims_md_ge_ti_id "
 } -new_data {
-       db_dml do_insert "
-            insert into ims_md_general_title (ims_md_ge_ti_id, ims_md_id, title_l, title_s)
-            values
-            (:ims_md_ge_ti_id, :ims_md_id, :title_l, :title_s)"
+    db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "../generalmd" {ims_md_id}]
-        ad_script_abort
-} 
+    ad_script_abort
+}
 
 # General Title
 template::list::create \
@@ -90,16 +83,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_titles select_ge_titles {
-    select title_l,
-           title_s, 
-           ims_md_ge_ti_id,
-           ims_md_id
-    from 
-           ims_md_general_title
-    where
-           ims_md_id = :ims_md_id
-} {
+db_multirow d_gen_titles select_ge_titles {} {
     set item_url [export_vars -base "item" { ims_md_id }]
 }
 

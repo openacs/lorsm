@@ -45,18 +45,11 @@ ad_form -name generalmd_lang \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_general_lang where ims_md_ge_lang_id = :ims_md_ge_lang_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_general_lang
-            set language = :language
-            where ims_md_ge_lang_id = :ims_md_ge_lang_id "
+} -select_query_name select_general_lang \
+  -edit_data {
+        db_dml do_update ""
 } -new_data {
-        db_dml do_insert "
-            insert into ims_md_general_lang (ims_md_ge_lang_id, ims_md_id, language)
-            values
-            (:ims_md_ge_lang_id, :ims_md_id, :language)"
+        db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "../generalmd" {ims_md_id}]
@@ -81,12 +74,4 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_lang select_ge_lang {
-    select language, 
-           ims_md_ge_lang_id,
-           ims_md_id
-    from 
-           ims_md_general_lang
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_gen_lang select_ge_lang {} 

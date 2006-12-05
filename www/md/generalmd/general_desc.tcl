@@ -51,18 +51,11 @@ ad_form -name generalmd_desc \
     {ims_md_id:text(hidden) {value $ims_md_id}
     }
 
-} -select_query  {select * from ims_md_general_desc where ims_md_ge_desc_id = :ims_md_ge_desc_id and ims_md_id = :ims_md_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_general_desc
-            set descrip_l = :descrip_l, descrip_s = :descrip_s
-            where ims_md_ge_desc_id = :ims_md_ge_desc_id "
+} -select_query_name  select_general_desc \
+   -edit_data {
+        db_dml do_update ""
 } -new_data {
-        db_dml do_insert "
-            insert into ims_md_general_desc (ims_md_ge_desc_id, ims_md_id, descrip_l, descrip_s)
-            values
-            (:ims_md_ge_desc_id, :ims_md_id, :descrip_l, :descrip_s)"
+        db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "../generalmd" {ims_md_id}]
@@ -90,13 +83,4 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_desc select_ge_desc {
-    select descrip_l,
-           descrip_s,
-           ims_md_ge_desc_id,
-           ims_md_id
-    from 
-           ims_md_general_desc
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_gen_desc select_ge_desc {} 

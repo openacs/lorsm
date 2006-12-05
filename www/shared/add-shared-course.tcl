@@ -37,9 +37,7 @@ if {[db_string isshared {select isshared from ims_cp_manifests where man_id = :m
 
 # check if the course is already added as course for this class
 
-if {![db_0or1row exists {select man_id, lorsm_instance_id from ims_cp_manifest_class where man_id = :man_id \
-			     and lorsm_instance_id = :package_id \
-			     and community_id = :community_id}]} {
+if {![db_0or1row exists {}]} {
     ad_complain "The course [lorsm::get_course_name -manifest_id $man_id], is already part of your class"
 
 

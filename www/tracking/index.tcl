@@ -67,22 +67,7 @@ if {$group == 1} {
 	    }
 	}
 
-    db_multirow -extend { ims_md_id } student_track select_students {
-	select 
-	user_id as student_name,
-	start_time,
-	end_time
-	from
-	lorsm_student_track
-	where 
-	community_id = :community_id
-	and
-	course_id    = :man_id
-        and
-           end_time NOTNULL
-	order by  
-	start_time desc
-    } {
+    db_multirow -extend { ims_md_id } student_track select_students1 {} {
 	set ims_md_id $man_id
     }
     
@@ -96,7 +81,7 @@ if {$group == 1} {
             viewer_name {
                 label "[_ lorsm.Viewed_By]"
             }
-            views {
+            views_count {
                 label "[_ lorsm.Total_Views]"
             }
             last_viewed {
@@ -111,20 +96,7 @@ if {$group == 1} {
 	set extra_where ""
     }
 
-    db_multirow -extend {viewer_name} object_views objects_views "
-        select v.*,
-               i.item_title as title
-        from views v,
-             ims_cp_items i,
-             ims_cp_organizations o
-        where
-             i.ims_item_id = v.object_id
-        and
-             i.org_id = o.org_id
-	and
-             o.man_id = :man_id
-        $extra_where
-    " {
+    db_multirow -extend {viewer_name} object_views objects_views1 "" {
         set viewer_name [acs_user::get_element -user_id $viewer_id -element name]
     }
 
@@ -155,22 +127,7 @@ if {$group == 1} {
 	    }
 	}
 
-    db_multirow -extend { ims_md_id } student_track select_students {
-	select 
-	user_id as student_name,
-	count(*) as counter,
-	sum(end_time - start_time) as time_spent
-	from
-	lorsm_student_track
-	where 
-	community_id = :community_id
-	and
-	   course_id    = :man_id
-	and 
-	   end_time  NOTNULL
-	group by user_id
-
-    } {
+    db_multirow -extend { ims_md_id } student_track select_students2 {} {
 	set ims_md_id $man_id
     }
 
@@ -181,7 +138,7 @@ if {$group == 1} {
             title {
                 label "[_ lorsm.Title_1]"
             }
-            views {
+            views_count {
                 label "[_ lorsm.Total_Views]"
             }
             unique_views {
@@ -198,19 +155,6 @@ if {$group == 1} {
 	set extra_where ""
     }
 
-    db_multirow object_views objects_views "
-        select v.*,
-               i.item_title as title
-        from view_aggregates v,
-             ims_cp_items i,
-             ims_cp_organizations o
-        where
-             i.ims_item_id = v.object_id
-        and
-             i.org_id = o.org_id
-	and
-             o.man_id = :man_id
-        $extra_where
-    "
+    db_multirow object_views objects_views2 ""
 
 }

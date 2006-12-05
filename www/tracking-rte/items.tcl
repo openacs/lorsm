@@ -31,29 +31,6 @@ ad_page_contract {
     set indent [expr $indent +1]
 
 db_multirow -extend { item_id items_title identifierref } suborgs select_suborgs {
-        SELECT
-		o.object_id,
-		i.item_id,
-                i.item_title as item_title,
-                i.hasmetadata,
-		i.item_id as identifierref,
-		i.type,
-                i.org_id,
-                m.fs_package_id,
-	        m.folder_id,
-	        m.course_name
-        FROM 
-		acs_objects o, ims_cp_items i, ims_cp_manifests m
-	WHERE 
-		o.object_type = 'ims_item'
-           AND
-		i.org_id = :org_id
-	   AND
-		o.object_id = i.item_id
-           AND
-                m.man_id = :man_id
-        ORDER BY 
-                object_id, tree_sortkey
 } {
 	set item_id $item_id
 } 

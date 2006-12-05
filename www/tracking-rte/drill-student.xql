@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<queryset>
+
+<fullquery name="single_student">
+  <querytext>
+	select * 
+	from lorsm_student_track lorsm, lorsm_cmi_core cmi, ims_cp_manifests manif, ims_cp_items imsitems
+ 	where lorsm.community_id=:community_id
+	and lorsm.track_id=cmi.track_id
+	and lorsm.course_id=:man_id
+	and manif.man_id=:man_id
+	and cmi.man_id=:man_id
+	and user_id=:user_id
+	and imsitems.ims_item_id=cmi.item_id
+	order by cmi.track_id asc
+  </querytext>
+</fullquery>
+
+</queryset>

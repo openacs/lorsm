@@ -41,13 +41,9 @@ ad_form -name annotationmd_ent \
     {ims_md_id:text(hidden) {value $ims_md_id}
     } 
 
-} -select_query  {select * from ims_md_annotation where ims_md_an_id = :ims_md_an_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_annotation
-            set entity = :entity
-            where ims_md_an_id = :ims_md_an_id "
+} -select_query select_md_ann \
+  -edit_data {
+        db_dml do_update ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "annotation" {ims_md_an_id ims_md_id}]
@@ -66,13 +62,4 @@ template::list::create \
         }
     }
 
-db_multirow d_an_ent select_an_ent {
-    select 
-        entity,
-        ims_md_an_id,
-        ims_md_id
-    from 
-           ims_md_annotation
-    where
-           ims_md_an_id = :ims_md_an_id
-} 
+db_multirow d_an_ent select_an_ent {} 

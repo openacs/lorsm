@@ -53,15 +53,9 @@ ad_form -name annotationmd_date \
     {ims_md_id:text(hidden) {value $ims_md_id}
     } 
 
-} -select_query  {select * from ims_md_annotation where ims_md_an_id = :ims_md_an_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_annotation
-            set date = :date,
-            date_l = :date_l,
-            date_s = :date_s
-            where ims_md_an_id = :ims_md_an_id "
+} -select_query_name  select_md_ann \
+  -edit_data {
+        db_dml do_update ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "annotation" {ims_md_an_id ims_md_id}]
@@ -75,21 +69,13 @@ template::list::create \
     -no_data "[_ lorsm.No_Date_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
-	date {
+	annotation_date {
             label "[_ lorsm.Date_1]"
         }
 	datels {
 	    label "[_ lorsm.Description_1]"
+	    display_eval {[concat \[$date_l\] $date_s]}
 	}
     }
 
-db_multirow d_an_date select_an_date {
-    select date,
-    '[' || date_l || '] ' || date_s as datels,
-    ims_md_an_id,
-    ims_md_id   
-    from 
-           ims_md_annotation
-    where
-           ims_md_an_id = :ims_md_an_id
-} 
+db_multirow d_an_date select_an_date {} 

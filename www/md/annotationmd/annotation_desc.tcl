@@ -55,20 +55,12 @@ ad_form -name annotationmd_desc \
     {ims_md_an_id:text(hidden) {value $ims_md_an_id}
     }
 
-} -select_query  {select * from ims_md_annotation_descrip where ims_md_an_de_id = :ims_md_an_de_id and ims_md_an_id = :ims_md_an_id
-
-} -edit_data {
-        db_dml do_update "
-            update ims_md_annotation_descrip
-            set descrip_l = :descrip_l,
-            descrip_s = :descrip_s
-            where ims_md_an_de_id = :ims_md_an_de_id"
+} -select_query_name select_md_ann_desc \
+  -edit_data {
+        db_dml do_update ""
 
 } -new_data {
-        db_dml do_insert "
-            insert into ims_md_annotation_descrip (ims_md_an_de_id, ims_md_an_id, descrip_l, descrip_s)
-            values 
-            (:ims_md_an_de_id, :ims_md_an_id, :descrip_l, :descrip_s)"
+        db_dml do_insert ""
 
 } -after_submit {
     ad_returnredirect [export_vars -base "annotation" {ims_md_an_id ims_md_id}]
@@ -82,8 +74,9 @@ template::list::create \
     -no_data "No Description Available" \
     -html { align right style "width: 100%;" } \
     -elements {
-	desc {
+	descrip {
 	    label ""
+	    display_eval {[concat \[$descrip_l\] $descrip_s]}
 	}
         export {
             display_eval {\[Edit\]}
@@ -93,17 +86,4 @@ template::list::create \
         }
     }
 
-db_multirow d_an_desc select_an_desc {
-    select
-    '[' || ande.descrip_l || '] ' || ande.descrip_s as desc,
-    ande.ims_md_an_de_id,
-    an.ims_md_an_id,
-    an.ims_md_id
-    from 
-           ims_md_annotation_descrip ande,
-           ims_md_annotation an
-    where
-           ande.ims_md_an_id = an.ims_md_an_id
-    and
-           ande.ims_md_an_id = :ims_md_an_id
-} 
+db_multirow d_an_desc select_an_desc {} 

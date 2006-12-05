@@ -28,13 +28,7 @@ template::list::create \
         }
     }
 
-db_multirow d_an_ent select_an_ent {
-    select entity
-    from 
-           ims_md_annotation
-    where
-           ims_md_an_id = :ims_md_an_id
-} 
+db_multirow d_an_ent select_an_ent {} 
 
 # Annotation Date 
 template::list::create \
@@ -44,22 +38,16 @@ template::list::create \
     -actions [list "[_ lorsm.Add_Date]" [export_vars -base annotation_date {ims_md_an_id ims_md_id}] "[_ lorsm.Add_another_Date]"] \
     -html { align right style "width: 100%;" } \
     -elements {
-        date {
+        annotation_date {
             label "[_ lorsm.Date_1]"
         }
 	datels {
 	    label "[_ lorsm.Description_1]"
+	    display_eval {[concat \[$date_l\] $date_s]}
 	}
     }
 
-db_multirow d_an_date select_an_date {
-    select date,
-    '[' || date_l || '] ' || date_s as datels
-    from 
-           ims_md_annotation
-    where
-           ims_md_an_id = :ims_md_an_id
-} 
+db_multirow d_an_date select_an_date {} 
 
 # Annotation Description
 template::list::create \
@@ -71,14 +59,8 @@ template::list::create \
     -elements {
         desc {
             label ""
+	    display_eval {[concat \[$descrip_l\] $descrip_s]}
         }
     }
 
-db_multirow d_an_desc select_an_desc {
-    select 
-    '[' || descrip_l || '] ' || descrip_s as desc
-    from 
-           ims_md_annotation_descrip
-    where
-           ims_md_an_id = :ims_md_an_id
-} 
+db_multirow d_an_desc select_an_desc {} 

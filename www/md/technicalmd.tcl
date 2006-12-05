@@ -27,12 +27,7 @@ template::list::create \
     }
 
 db_multirow d_te_form select_te_form {
-    select 
-           format
-    from 
-           ims_md_technical_format
-    where
-           ims_md_id = :ims_md_id
+
 } 
 
 # Technical Size
@@ -48,14 +43,7 @@ template::list::create \
         }
     }
 
-db_multirow d_te_size select_te_size {
-    select 
-           t_size || ' bytes' as t_size_bytes
-    from 
-           ims_md_technical
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_te_size select_te_size {} 
 
 # Technical Location
 template::list::create \
@@ -73,15 +61,7 @@ template::list::create \
         }
     }
 
-db_multirow d_te_loca select_te_loca {
-    select 
-           type, 
-           location
-    from 
-           ims_md_technical_location
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_te_loca select_te_loca {} 
 
 # Technical Requirements 
 template::list::create \
@@ -93,9 +73,11 @@ template::list::create \
     -elements {
         type {
             label "[_ lorsm.Type]"
+	    display_eval {[concat \[$type_s\] $type_v]}
         }
         name {
             label "[_ lorsm.Name]"
+	    display_eval {[concat \[$name_s\] $name_v]}
         }
         min_version {
             label "[_ lorsm.Min_Version]"
@@ -105,17 +87,7 @@ template::list::create \
         }
     }
 
-db_multirow d_te_req select_te_req {
-    select 
-    '[' || type_s || ']' || ' ' || type_v as type, 
-    '[' || name_s || ']' || ' ' || name_v as name,
-    min_version,
-    max_version
-    from 
-           ims_md_technical_requirement
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_te_req select_te_req {} 
 
 # Technical Installation Remarks
 template::list::create \
@@ -127,17 +99,11 @@ template::list::create \
     -elements {
         instl_rmrks {
             label ""
+	    display_eval {[concat \[$instl_rmrks_l\] $instl_rmrks_s]}
         }
     }
 
-db_multirow d_te_inst select_te_inst {
-    select 
-    '[' || instl_rmrks_l || ']' || ' ' || instl_rmrks_s as instl_rmrks
-    from 
-           ims_md_technical
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_te_inst select_te_inst {}
 
 # Technical Other Platform Requirements
 template::list::create \
@@ -149,17 +115,11 @@ template::list::create \
     -elements {
         otr_plt {
             label ""
+	    display_eval {[concat \[$otr_plt_l\] $otr_plt_s]}
         }
     }
 
-db_multirow d_te_otr select_te_otr {
-    select 
-    '[' || otr_plt_l || ']' || ' ' || otr_plt_s as otr_plt
-    from 
-           ims_md_technical
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_te_otr select_te_otr {}
 
 # Technical Duration
 template::list::create \
@@ -180,13 +140,4 @@ template::list::create \
 	}
     }
 
-db_multirow d_te_dur select_te_dur {
-    select 
-    duration_l,
-    duration_s,
-    duration || 's' as duration_sec
-    from 
-           ims_md_technical
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_te_dur select_te_dur {}

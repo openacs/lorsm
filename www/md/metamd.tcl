@@ -26,18 +26,11 @@ template::list::create \
         }
         entry_ls {
             label "[_ lorsm.Language_Entry]"
+	    display_eval {[concat \[$entry_l\] $entry_s]}
         }
     }
 
-db_multirow d_md_cata select_md_cata {
-    select 
-           catalog,
-    '[' || entry_l || ']' || ' ' || entry_s as entry_ls
-    from 
-           ims_md_metadata_cata
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_md_cata select_md_cata {} 
 
 
 # Metametadata Contrib
@@ -50,6 +43,7 @@ template::list::create \
     -elements {
         role {
             label "[_ lorsm.Role]"
+	    display_eval {[concat $role_v \[$role_s\]]}
         }
         entity {
             label "[_ lorsm.Entity_1]"
@@ -59,23 +53,11 @@ template::list::create \
         }
         cont_date_ls {
             label "[_ lorsm.Description_1]"
+	    display_eval {[concat \[$cont_date_l\] $cont_date_s]}
         }
     }
 
-db_multirow d_md_cont select_md_cont {
-select 
-    mdc.role_v || ' ' || '[' || mdc.role_s || ']' as role,
-    mdce.entity,
-    mdc.cont_date,
-    '[' || mdc.cont_date_l || ']' || ' ' || mdc.cont_date_s as cont_date_ls
-from 
-    ims_md_metadata_contrib mdc, 
-    ims_md_metadata_contrib_entity mdce 
-where 
-    mdc.ims_md_md_cont_id = mdce.ims_md_md_cont_id 
-and
-    mdc.ims_md_id = :ims_md_id
-} 
+db_multirow d_md_cont select_md_cont {} 
 
 # Metametadata metadatascheme
 template::list::create \
@@ -90,14 +72,7 @@ template::list::create \
         }
     }
 
-db_multirow d_md_scheme select_md_scheme {
-    select 
-           scheme
-    from 
-           ims_md_metadata_scheme
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_md_scheme select_md_scheme {} 
 
 # Metametadata language
 template::list::create \
@@ -112,11 +87,4 @@ template::list::create \
         }
     }
 
-db_multirow d_md_lang select_md_lang {
-    select 
-           language
-    from 
-           ims_md_metadata
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_md_lang select_md_lang {} 

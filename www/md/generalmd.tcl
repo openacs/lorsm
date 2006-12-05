@@ -31,14 +31,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_titles select_ge_titles {
-    select title_l,
-           title_s
-    from 
-           ims_md_general_title
-    where
-           ims_md_id = :ims_md_id
-} {
+db_multirow d_gen_titles select_ge_titles {} {
     set item_url [export_vars -base "item" { ims_md_id }]
 }
 
@@ -58,14 +51,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_desc select_ge_desc {
-    select descrip_l,
-           descrip_s
-    from 
-           ims_md_general_desc
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_gen_desc select_ge_desc {} 
 
 # General Catalog-entry
 template::list::create \
@@ -86,16 +72,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_cata select_ge_cata {
-    select 
-           catalog,
-           entry_l,
-           entry_s
-    from 
-           ims_md_general_cata
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_gen_cata select_ge_cata {} 
 
 
 
@@ -112,14 +89,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_lang select_ge_lang {
-    select 
-           language
-    from 
-           ims_md_general_lang
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_gen_lang select_ge_lang {} 
 
 # General Keywords
 template::list::create \
@@ -137,15 +107,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_key select_ge_key {
-    select 
-           keyword_l,
-           keyword_s
-    from 
-           ims_md_general_key
-    where
-           ims_md_id = :ims_md_id
-} 
+db_multirow d_gen_key select_ge_key {} 
 
 # General Coverage
 template::list::create \
@@ -163,15 +125,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_cover select_ge_cover {
-    select 
-           cover_l,
-           cover_s
-    from 
-           ims_md_general_cover
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_gen_cover select_ge_cover {}
 
 # General Structure
 template::list::create \
@@ -189,15 +143,7 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_struc select_ge_struc {
-    select 
-           structure_s,
-           structure_v
-    from 
-           ims_md_general
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_gen_struc select_ge_struc {}
 
 
 # General Aggregation level
@@ -216,12 +162,4 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_aggl select_ge_aggl {
-    select 
-           agg_level_s,
-           agg_level_v
-    from 
-           ims_md_general
-    where
-           ims_md_id = :ims_md_id
-}
+db_multirow d_gen_aggl select_ge_aggl {}

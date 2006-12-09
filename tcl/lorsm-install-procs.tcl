@@ -73,7 +73,7 @@ ad_proc -private lorsm::install::package_install {} {
 
     set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
     db_dml create_no_index_format {
-	insert into lorsm_course_presentation_formats values (-3,:pretty_name,'progress-bar','delivery-progress-bar')
+	insert into lorsm_course_presentation_formats values (-4,:pretty_name,'progress-bar','delivery-progress-bar')
     }
 
     # Service contract implementations - fts 	 

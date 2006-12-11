@@ -684,6 +684,7 @@
   <msg key="lt_Whether_copyright_or_">Whether copyright or other restrictions apply</msg>
   <msg key="lt_Whether_use_of_the_re">Whether use of the resource requires payment</msg>
   <msg key="lt_With_Bottom_Navigatio">With Bottom Navigation Bar</msg>
+  <msg key="lt_With_Progress_bar">With Progres_bar</msg>
   <msg key="lt_Without_LORSM_Index_S">Without LORSM Index Style</msg>
   <msg key="lt_You_are_about_to_add_">You are about to add %course_name% to your class.</msg>
   <msg key="lt_You_can_add_courses_a">You can add courses already existing in the repository</msg>

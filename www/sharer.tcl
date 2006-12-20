@@ -48,7 +48,7 @@ ad_form -name sharer \
 	{isshared:text(inform)
 	    {label "[_ lorsm.Current_Status]"}
 	}
-	{share:text(radio)
+	{share_p:text(radio)
 	    {label Status?}
 	    {options {{"[_ lorsm.Shared]" t} {"[_ lorsm.Not_Shared]" f}}}
 	}
@@ -63,10 +63,10 @@ ad_form -name sharer \
 	db_transaction {
 	    db_dml do_update {
             	update ims_cp_manifests
-	            set isshared = :share
+	            set isshared = :share_p
         	    where man_id = :man_id }
 
-	    if {$share == "t"} {
+	    if {$share_p == "t"} {
 
 	        set party_id_students [db_string party_id {select segment_id from rel_segments \
         	                                             where rel_type = 'dotlrn_student_profile_rel'}]

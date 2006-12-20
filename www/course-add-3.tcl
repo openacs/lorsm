@@ -289,7 +289,7 @@ db_transaction {
 
         set organizations [$manifest child all organizations]
         set man_orgs_default [lors::imsmd::getAtt $organizations default]
-
+	ns_log Debug "lors-debug course-add-3 Organizations: $organizations *******************"
         set man_id [lors::imscp::manifest_add \
 			-course_name $course_name \
 			-identifier $man_identifier \
@@ -302,7 +302,18 @@ db_transaction {
                         -fs_package_id $fs_package_id \
 		        -community_id $community_id \
 		        -content_folder_id $new_parent_id]
+#Borrar
+	ns_log Debug "lors-debug course-add-3 isscorm: $man_isscorm"
+	set name "nombre cambiado"
+#	db_dml update "update ims_cp_manifests
+	#        set course_name = :name_name, identifier = :man_identifier, version = :man_version, 
+	 #           orgs_default = :man_orgs_default, 
+	  #          folder_id = :new_items_parent_id, fs_package_id= :fs_package_id, 
+	   #         course_presentation_format = :format_id
+	    #    where man_id = :man_id"
+#Borrar
 
+	ns_log Debug "lors-debug course-add-3 man_id: $man_id"
 
 	ns_write "[_ lorsm.lt_Granting_permissions__1]<br>"
 
@@ -366,15 +377,14 @@ db_transaction {
 
         }
 
-
         if { ![empty_string_p $organizations] } {
 
 	    # for multiple organizations
             set add [list]
 
             foreach organization [$organizations child all organization] {
-
-                set org_identifier [lors::imsmd::getResource -node $organization -att identifier]
+		ns_log Debug "lors-debug course-add-3 organization: $organization"
+                #set org_identifier [lors::imsmd::getResource -node $organization -att identifier]
 
                 set org_identifier [lors::imsmd::getResource -node $organization -att identifier]
                 set org_structure [lors::imsmd::getResource -node $organization -att structure]
@@ -384,7 +394,7 @@ db_transaction {
 		    set org_title ""
 		}
                 set org_hasmetadata [lors::imsmd::hasMetadata $organization]
-                
+		ns_log Debug "lors-debug course-add-3 org_hasmetadata: $org_hasmetadata"
                 set org_id [lors::imscp::organization_add \
                                 -man_id $man_id \
                                 -identifier $org_identifier \
@@ -395,8 +405,9 @@ db_transaction {
 
 		ns_write "[_ lorsm.lt_Adding_Organization_o]<br>"
 
+		ns_log Debug "lors-debug course-add-3 org_id: $org_id"
 
-                if {$org_hasmetadata == 1} {
+                if { $org_hasmetadata == 1} {
                     # adds manifest metadata
                     set aa [lors::imsmd::addMetadata \
                                 -acs_object $org_id \
@@ -409,6 +420,7 @@ db_transaction {
 #                ns_write "[_ lorsm.lt_here_is_list_items_li]"
 
                 set add [concat $add [lors::imscp::addItems -itm_folder_id $new_items_parent_id -org_id $org_id $list_items 0 $tmp_dir]]
+		ns_log Debug "lors-debug course-add-3 add: $add" 
 
 		set tempval [llength $add]
 		ns_write "[_ lorsm.lt_Adding_tempval_items_]<br>"

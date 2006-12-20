@@ -47,12 +47,12 @@ ad_form -name formater \
 			{label "[_ lorsm.Format_1]"}
 			{options {[db_list_of_lists select_formats_for_select_widget {select format_pretty_name,
 				format_id
-				from lorsm_course_presentation_formats
+				from lorsm_course_presentation_fmts
 				order by format_pretty_name}]}}
 		}
 	} -select_query {
 		select cp.course_presentation_format as format, pf.format_pretty_name
-		from ims_cp_manifests cp, lorsm_course_presentation_formats pf
+		from ims_cp_manifests cp, lorsm_course_presentation_fmts pf
 		where cp.man_id = :man_id
 		and cp.course_presentation_format = pf.format_id
 	} -edit_data {

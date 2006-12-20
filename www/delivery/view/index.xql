@@ -7,11 +7,21 @@
 <!-- @cvs-id $Id$ -->
 
 <queryset>
-  <fullquery name="manifest_info">
+
+<fullquery name="manifest_info">
     <querytext>
       select fs_package_id, folder_id
       from ims_cp_manifests
       where man_id = :man_id
     </querytext>
-  </fullquery>
+</fullquery>
+
+<fullquery name="check_file_to_imsitem">
+      <querytext>
+	select i.ims_item_id as imsitem_id 
+	from ims_cp_items_to_resources i, ims_cp_files f 
+	where f.file_id=:file_id and i.res_id=f.res_id;
+      </querytext>
+</fullquery>
+
 </queryset>

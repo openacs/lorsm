@@ -1,4 +1,4 @@
-# packages/lorsm/www/delivery/index.tcl
+# packages/lorsm/www/delivery/menu-mk.tcl
 
 ad_page_contract {
     

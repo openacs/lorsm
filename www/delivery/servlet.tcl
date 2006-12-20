@@ -94,30 +94,7 @@ switch -regexp $functionCalled {
     		ns_log $level "SCORM called with no track id for current session (istrackable is off): try to fetch one"
 		#here track id was not set (course is not lors-trackable)
 		#we should first try to see if we find an already open track in lorsm.track
-		if { ! [ db_0or1row isanysuspendedsession "
-						select lorsm.track_id as track_id from lorsm_student_track lorsm, lorsm_cmi_core cmi
-						where 
-							lorsm.user_id = $user_id
-						and
-							lorsm.community_id = $community_id
-						and
-							lorsm.course_id = $currentcourse
-						and
-							lorsm.track_id = cmi.track_id 
-						and 
-							not (
-								cmi.lesson_status = 'completed'
-							or		
-								cmi.lesson_status = 'passed'
-							)
-						and 	
-							cmi.man_id = $currentcourse
-						and 	
-							cmi.item_id = $currentpage
-						order by 
-							lorsm.track_id desc
-						limit 1
-								" ] } { #faccio un nuovo trackid
+		if { ! [ db_0or1row isanysuspendedsession "" ] } { #faccio un nuovo trackid
 			#we create a new track which is going to be the new 'master track' for this cmi data set
 			set currenttrackid [lorsm::track::new \
 			      	-user_id $user_id \
@@ -138,30 +115,7 @@ switch -regexp $functionCalled {
 	} else {
     		ns_log $level "SCORM called with track id for current session (=$lorsmstudenttrack) (istrackable is on): going to check whether to create a lorsm_cmi_core new track"
 		#now we look for the existance of a lorsm.cmi.core track id for this user / course / class which is still not completed 
-		if { ! [ db_0or1row isanysuspendedsession "
-                                                select lorsm.track_id as track_id from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                                                where
-                                                        lorsm.user_id = $user_id
-                                                and
-                                                        lorsm.community_id = $community_id
-                                                and
-                                                        lorsm.course_id = $currentcourse
-                                                and
-                                                        lorsm.track_id = cmi.track_id
-                                                and
-                                                        not (
-                                                                cmi.lesson_status = 'completed'
-                                                        or
-                                                                cmi.lesson_status = 'passed'
-                                                        )
-						and 	
-							cmi.man_id = $currentcourse
-						and 	
-							cmi.item_id = $currentpage
-                                                order by
-                                                        lorsm.track_id desc
-                                                limit 1
-                                                                " ] } { 
+		if { ! [ db_0or1row isanysuspendedsession "" ] } { 
 			set currenttrackid $lorsmstudenttrack
                 } else {
 			set currenttrackid $track_id
@@ -169,27 +123,18 @@ switch -regexp $functionCalled {
 	}
 	#in any case at this stage track_id is currentely set to the value it should have in lorsm_cmi_core (disregarding if we have still to create it)
 
-	if { ! [ db_0or1row istherealready "select * from lorsm_cmi_core where track_id = :currenttrackid "]} {
+	if { ! [ db_0or1row istherealready ""]} {
 	        ns_log $level "SCORM Inserting track id in lorsm_cmi_core: value will be $currenttrackid"
 		ns_log $level "SCORM I now have a track_id=$currenttrackid but i cannot find no corresponding record in lorsm_cmi_core "
 		#get initialization data from manifest data already imported
-		db_0or1row get_adlcp_student_data { select datafromlms,maxtimeallowed,timelimitaction,masteryscore from ims_cp_items where ims_item_id=:currentpage; }
+		db_0or1row get_adlcp_student_data1 {}
 		ns_log $level "SCORM data for lorsm_cmi_student_data is $datafromlms, $maxtimeallowed, $timelimitaction, $masteryscore"
 
 		#
-		db_dml lmsinitialize { insert into lorsm_cmi_core(track_id,man_id,item_id,student_id,student_name,lesson_location,
-								lesson_status,
-								launch_data,
-								comments,comments_from_lms, session_time, total_time, time_stamp)
-								values(:currenttrackid,:currentcourse,:currentpage,:username,:name,:currentcourse,
-								'not attempted',
-								:datafromlms,
-								'','commenti da lors',0,0,CURRENT_TIMESTAMP) }
-		db_dml lmsinitialize { insert into lorsm_cmi_student_data(track_id,student_id,max_time_allowed,time_limit_action,mastery_score)
-								values(:currenttrackid,:username,:maxtimeallowed,:timelimitaction,:masteryscore)
-								}
+		db_dml lmsinitialize1 {}
+		db_dml lmsinitialize2 {}
 		ad_set_client_property lorsm currenttrackid $currenttrackid
-		db_1row istherealready "select * from lorsm_cmi_core where track_id = :currenttrackid"
+		db_1row istherealready ""
 
 #AURALOG HACK
 #adjust on a per-server basis
@@ -206,7 +151,7 @@ set student_id "testscorm711"
 	} else {
 		ad_set_client_property lorsm currenttrackid $currenttrackid
 		#retrieve data other than core
-		db_0or1row get_adlcp_student_data { select max_time_allowed ,time_limit_action ,mastery_score from lorsm_cmi_student_data where track_id=:currenttrackid; }
+		db_0or1row get_adlcp_student_data2 {}
 		#
 		# THIS CHECK is somehow just a previous bug catcher, shouldn't actually be needed
 						if { [db_resultrows] == 1 } { 

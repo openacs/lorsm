@@ -6,7 +6,7 @@
 	select man_id, community_id, lorsm_instance_id
 	from ims_cp_manifest_class
 	where man_id = :man_id
-	and community_id = :community_id
+	  and community_id = :community_id
   </querytext>
 </fullquery>
 
@@ -14,7 +14,7 @@
   <querytext>
 	select cp.man_id, cp.course_name,
 	cp.identifier, cp.version,
-	text 'Yes' as hello,
+--	text 'Yes' as hello,
         case
             when hasmetadata = 't' then 'Yes'
             else 'No'
@@ -41,10 +41,6 @@
 	where man_id = :man_id
 	and parent_man_id = :man_id
   </querytext>
-</fullquery>
-
-<fullquery name="select_te_req">
-  <querytext>
 </fullquery>
 
 </queryset>

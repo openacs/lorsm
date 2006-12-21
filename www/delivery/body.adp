@@ -30,13 +30,13 @@
 
     <if @last_page_viewed@ defined>
       <p>
-	Last page viewed: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
+	#lorsm.lt_The_last_page_you_vie#: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
     </if>
     <else>
-        You have not yet viewed any material from this course.
+       #lorsm.you_no_yet_viewed_any_material#
     </else>
     <p>
-      Click on the menu items on the left to view course materials
+      #lorsm.lt_Click_on_menu_to_the_#
     </if>
 <!--      
       <link rel="stylesheet" type="text/css" href="/resources/acs-templating/forms.css" media="all">

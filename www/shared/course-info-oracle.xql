@@ -46,7 +46,7 @@
                 m.fs_package_id, m.folder_id, m.course_name
         from ims_cp_items i, ims_cp_manifests m
         where i.org_id = :org_id and m.man_id = :man_id
-        order by indent, ims_item_id;
+        order by indent, ims_item_id
   </querytext>
 </fullquery>
 

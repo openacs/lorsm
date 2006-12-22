@@ -289,7 +289,7 @@ function systemcheck() {
 
 <div id="menudiv">
 <if @menu_off@ lt 1>
-    <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: fixed;" class="button" target="_top">Exit Course</a>
+    <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: fixed;" class="button" target="_top">#lorsm.Exit_Course#</a>
 &nbsp;
 <hr size=1>
 </if>
@@ -309,14 +309,14 @@ function systemcheck() {
 </script>
 </if>
 <else>
-Menu not available.
+Menu not available
 </else>
 </div>
 
 
 <HR>
 <if @debuglevel@ gt 0>
-debug is: ON 
+debug is: ON
 </if>
 
 </BODY>

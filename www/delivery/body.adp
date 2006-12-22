@@ -30,7 +30,7 @@
 
     <if @last_page_viewed@ defined>
       <p>
-	#lorsm.lt_The_last_page_you_vie#: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
+	#lorsm.lt_The_last_page_you_vie# <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
     </if>
     <else>
        #lorsm.you_no_yet_viewed_any_material#

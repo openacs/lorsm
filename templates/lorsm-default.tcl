@@ -1,41 +1,7 @@
-# Put the current revision's attributes in a onerow datasource named "content".
-# The detected content type is "content_revision".
-
-lorsm::get_content content_revision
-
-if { [info exists content(item_id)] } {
-    if { ![string equal -length 4 "text" $content(mime_type)] } {
-	# It's a file.
-	cr_write_content -revision_id $content(revision_id)
-	ad_script_abort
-    } elseif { [string equal "text/css" $content(mime_type)]} {
-	# we treat CSS files as if they would be binaries and deliver
-	# them straight to the browser (maybe we should do the same
-	# thing for XML files (?)
-	cr_write_content -revision_id $content(revision_id)
-    }
-
-
-    # Ordinary text/* mime type.
-    template::util::array_to_vars content
-
-
-
-    set text [cr_write_content -string -revision_id $revision_id]
-
-    if { ![string equal "text/html" $content(mime_type)] &&  ![string equal "text/xml" $content(mime_type)] } {
-	set text [ad_html_text_convert -from $mime_type -to text/html $text]
-    }
-}
+# this is only called for items with no content of their own. This
+# means we want to see whats inside this item.
 
 set imsitem_id [lorsm::get_ims_item_id] 
-
-set html_document_p 0
-if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $text match] } {
-	set html_document_p 1
-	# parent window
- 	regsub -all -nocase {target=.?(_top)} $text {target="content"} text
-}
 
 # We set all this blank variables in the case that the ims_item does
 # not have a resource id
@@ -43,8 +9,8 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 set title ""
 multirow create children child_item_id child_title
 set parent_item ""
-set community_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
-
+#set community_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set community_url ""
 
 # There are pages that are not necesarily part of one ims_item_id
 # but are part of a particular resource. 
@@ -54,8 +20,6 @@ if { [info exists content(item_id)] } {
     # No content to edit
     set write_p 0
 }
-
-
 
 if {![empty_string_p $imsitem_id]} {
     set imsitem_id [content::item::get_live_revision -item_id $imsitem_id]

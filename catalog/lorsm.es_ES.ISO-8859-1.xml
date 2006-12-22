@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.7d" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.7d1" locale="es_ES" charset="ISO-8859-1">
 
   <msg key="_Add">Clasificación</msg>
   <msg key="_Add_1">Papel previsto de Usuario Final</msg>
@@ -9,7 +9,7 @@
   <msg key="_No">versión Disponible</msg>
   <msg key="_the_package_has">: es paquete tiene</msg>
   <msg key="_Viewed">% Vistos</msg>
-  <msg key="Access_Course">Accesar Curso</msg>
+  <msg key="Access_Course">Acceder Curso</msg>
   <msg key="Action_Not_Allowed">Acción No Permitida</msg>
   <msg key="Add_Annotation">Agregar Anotación</msg>
   <msg key="Add_another_Context">Agregar otro Contexto</msg>
@@ -130,6 +130,8 @@
   <msg key="Date">Fecha:</msg>
   <msg key="Date_1">Fecha</msg>
   <msg key="Date_of_contribution">Fecha de contribución</msg>
+  <msg key="Default_delivery">Presentación por defecto?</msg>
+  <msg key="debug_is_ON">debug esta: ON</msg>
   <msg key="Description">Descripción:</msg>
   <msg key="Description_1">Descripcion</msg>
   <msg key="Descriptions">Descripciones:</msg>
@@ -690,6 +692,7 @@
   <msg key="Max_Version">Versión Max</msg>
   <msg key="Maximum_Version">Versión Máxima</msg>
   <msg key="MD_Schema">Esquema MD</msg>
+  <msg key="Menu_not_availab">Menú no disponible</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -776,6 +779,7 @@
   <msg key="See_metadata">Ver metadata</msg>
   <msg key="Semantic_Density">Densidad Semántica:</msg>
   <msg key="Semantic_Density_1">Densidad Semántica</msg>
+  <msg key="Sesion_Runtime_Data">Datos de sesión</msg>
   <msg key="Set_Course_Options">Ingresar Opciones del Curso</msg>
   <msg key="Set_Course_Status">Ingresar Estado del Curso</msg>
   <msg key="Set_Course_Status_">Ingresar Estado del Curso \</msg>
@@ -846,5 +850,7 @@
   <msg key="Welcome_to_LEON">Bienvenido a LEON</msg>
   <msg key="Yes">Sí</msg>
   <msg key="You_can">Usted puede</msg>
+  <msg key="you_no_yet_viewed_any_material">Todavía no ha visto este material</msg>
+  <msg key="Your_session_has_expired">Su sesión ha terminado. Por favor contacte con el Administrador y comenteselo.</msg>
   <msg key="Your_Stats">Sus estadísticas</msg>
 </message_catalog>

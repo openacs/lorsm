@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.7d" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.7d1" locale="en_US" charset="ISO-8859-1">
 
   <msg key="_Add">Classification</msg>
   <msg key="_Add_1">Intended End User Role</msg>
@@ -131,6 +131,7 @@
   <msg key="Date_1">Date</msg>
   <msg key="Date_of_contribution">Date of contribution</msg>
   <msg key="Default_delivery">Default delivery?</msg>
+  <msg key="debug_is_ON">debug is: ON</msg>
   <msg key="Description">Description:</msg>
   <msg key="Description_1">Description</msg>
   <msg key="Descriptions">Descriptions:</msg>
@@ -224,6 +225,7 @@
   <msg key="Location_1">Location:</msg>
   <msg key="Locations">Locations:</msg>
   <msg key="Log_Out">Log Out</msg>
+  <msg key="lorsmdebug_is_ON">debug is: ON</msg>
   <msg key="lt_Add_a_IMSSCORM_Compli">Add a IMS/SCORM Compliant Course</msg>
   <msg key="lt_Add_Aggregation_Level">Add Aggregation Level</msg>
   <msg key="lt_Add_Annotation_MD_Des">Add Annotation MD Description</msg>
@@ -692,6 +694,7 @@
   <msg key="Max_Version">Max Version</msg>
   <msg key="Maximum_Version">Maximum Version:</msg>
   <msg key="MD_Schema">MD Schema</msg>
+  <msg key="Menu_not_availab">Menu not available</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -849,6 +852,7 @@
   <msg key="Welcome_to_LEON">Welcome to LEON</msg>
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
+  <msg key="you_no_yet_viewed_any_material">You no yet viewed any material</msg>
   <msg key="Your_session_has_expired">Your session has expired. Please notify this problem to the System Administrator.</msg>
   <msg key="Your_Stats">Your Stats:</msg>
 </message_catalog>

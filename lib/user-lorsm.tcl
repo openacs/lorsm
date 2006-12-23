@@ -110,9 +110,8 @@ foreach package $package_id {
 			order by cpr.scorm_type desc limit 1"
 		]) {
 
-		set delivery_method $needscorte
 		ns_log Debug "lorsm - $needscorte"
-		
+		set delivery_method delivery
 		set course_url_url [export_vars -base "[lindex $context 0]$delivery_method" -url {man_id}]
 		set course_url "<a href=\"$course_url_url\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
 		ns_log Debug "lorsm - course_url: $course_url"

@@ -37,7 +37,6 @@
     </else>
     <p>
       Click on the menu items on the left to view course materials
-    </if>
 <!--      
       <link rel="stylesheet" type="text/css" href="/resources/acs-templating/forms.css" media="all">
     

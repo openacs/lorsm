@@ -232,7 +232,6 @@ var findgetAppletInfo = 0;
 
 //-->
 </SCRIPT>
-</if>
 </head>
 <if @debuglevel@ gt 0>
 <frameset rows="100,100%" border=0> 

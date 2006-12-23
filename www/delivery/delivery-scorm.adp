@@ -1,10 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 
 
-<html>
-
 <head>
-
 <title>@course_name@</title>
 
 <SCRIPT LANGUAGE="javascript">
@@ -263,8 +260,3 @@ var findgetAppletInfo = 0;
 <frame src="blank.html" name="content" scrolling=auto>
 </frameset>
 </frameset>
-
-
-
-</html>
-

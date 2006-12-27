@@ -90,23 +90,25 @@ db_foreach organizations {} {
 
     set total_items [db_string items_count {select count(*) from ims_cp_items where org_id=:org_id} -default 0]
 
+    set indent_list [lorsm::get_items_indent -org_id $org_id]
+    template::util::list_of_lists_to_array $indent_list indent_array
 
     append orgs_list "<tr class=\"list-even\"><td valign=\"top\" width=\"20%\">$org_title</td><td valign=\"top\" align=\"center\" width=\"5%\">$hasmetadata</td><td>"
 
     set indent [expr $indent +1]
-    set missing_text "Nothing here"
+    set missing_text "[_ lorsm.Nothing_here]"
     set return_url [export_vars -base [ns_conn url] man_id]
     set table_extra_html { width="100%" }
    
     set track_id 0
-    set table_extra_vars {return_url fs_local_package_id track_id}
+    set table_extra_vars {return_url fs_local_package_id track_id indent_array}
     set table_def {
 	{ title "\#lorsm.Item_Name\#" "no_sort" "<td>
            [set indent  \"\"
-                      for { set i 0 } { $i < [expr $indent -1]} { incr i } {
+                      for { set i 0 } { $i < [expr $indent_array($item_id)-1]} { incr i } {
                       append indent \"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"
                       }
-           if {![empty_string_p $identifierref]} {set href \"<a href='[lorsm::fix_href2 -item_id $item_id -identifierref $identifierref -fs_package_id $fs_package_id -fs_local_package_id $fs_local_package_id -folder_id $folder_id -type $type -track_id $track_id]' target='body' title='$item_title'>$item_title</a>\"} else {set href $item_title}]</td>"	}
+           if {![empty_string_p $identifierref]} {set href \"$indent<a href='[lorsm::fix_href2 -item_id $item_id -identifierref $identifierref -fs_package_id $fs_package_id -fs_local_package_id $fs_local_package_id -folder_id $folder_id -type $type -track_id $track_id]' target='body' title='$item_title'>$item_title</a>\"} else {set href [concat $indent$item_title]}]</td>"	}
 	{ metadata "\#lorsm.Metadata_1\#" "no_sort" "<td align=\"center\">[if {$hasmetadata == \"f\"} {set hasmetadata \"No\"} else {set hasmetadata \"<a href=md/?ims_md_id=$item_id>Metadata\"}]</a></td>" }
 	{ type   "\#lorsm.Type\#" "no_sort" "<td align=\"center\">$type</td>" }
     }

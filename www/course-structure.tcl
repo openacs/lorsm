@@ -118,7 +118,7 @@ db_foreach organizations { } {
                       for { set i 0 } { $i < [expr $indent_array($item_id)-1]} { incr i } {
                       append indent \"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"
                       }
-            if {![empty_string_p $identifierref]} {set href \"$indent<a href='[apm_package_url_from_id_mem $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]'>$item_title</a>\"} else {set href $item_title}]</td>" }
+            if {![empty_string_p $identifierref]} {set href \"$indent<a href='[apm_package_url_from_id_mem $fs_package_id]view/[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/[lorsm::fix_url -url $identifierref]'>$item_title</a>\"} else {set href [concat $indent$item_title]}]</td>" }
 	{ Edit "\#lorsm.Edit\#" "no_sort" "<td align=\"center\">[if {![empty_string_p $identifierref]} { if { $lorsm_p } { set href \"<a href=\'[export_vars -base edit-content {identifierref folder_id return_url fs_package_id}]\'>[_ lorsm.Edit_1]</a></td>\"} else { set href \"Edit\" }}]"}
 	{ metadata "\#lorsm.Metadata_1\#" "no_sort" "<td align=\"center\">[if {$hasmetadata == \"f\"} { if { $lorsm_p } { set hasmetadata \"<a href=md?ims_md_id=$item_id>No\"}  else { set hasmetadata \"No\"} } else { if { $lorsm_p } { set hasmetadata \"<a href=md/?ims_md_id=$item_id>Yes\"} else { set hasmetadata \"Yes\"}}]</a></td>" }
 	{ type   "\#lorsm.Type\#" "no_sort" "<td align=\"center\">$type</td>" }

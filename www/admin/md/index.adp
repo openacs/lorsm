@@ -3,7 +3,7 @@
 <property name="context">@context;noquote@</property>
 
 <if @hasmetadata@ >
-<include src="../lib/md-record"
+<include src="/packages/lorsm/lib/md-record"
     ims_md_id="@ims_md_id;noquote@"/>
 
 

@@ -11,7 +11,7 @@
    <td>
      <blockquote>
         <p>#lorsm.lt_You_can_add_courses_a#
-        <include src="lib/repository-shared-courses">
+        <include src="/packages/lorsm/lib/repository-shared-courses">
      </blockquote>
    </td>
  </tr>

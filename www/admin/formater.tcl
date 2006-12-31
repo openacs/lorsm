@@ -17,14 +17,6 @@ ad_page_contract {
 set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
 
-# check admin permisssion for the community
-set admin_p [dotlrn::user_can_admin_community_p  \
-				 -user_id $user_id  \
-		 -community_id $community_id ]
-
-# Permissions
-dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
-
 # check write permisssion for the learning object/manifest
 permission::require_write_permission -object_id $man_id -creation_user $user_id
 

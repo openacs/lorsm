@@ -30,7 +30,6 @@ ad_page_contract {
 
 # Permissions
 set user_id [ad_conn user_id]
-dotlrn::require_user_admin_community -user_id $user_id -community_id [dotlrn_community::get_community_id]
 
 # unzips the file
 if { ![empty_string_p $upload_file] &&

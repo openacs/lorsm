@@ -5,11 +5,11 @@
 <table width="100%">
   <tr>
     <td valign="top">
-        <h2>#lorsm.lt_Shared_Courses_in_the#</h2>
+        <h2>#lorsm.lt_Courses_in_your_Repos#</h2>
      </td>
   <tr>
    <td>
-	  <include src="../lib/repository-shared-courses">
+        <listtemplate name="d_courses"></listtemplate>
    </td>
  </tr>
 </table>

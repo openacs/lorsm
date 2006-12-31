@@ -21,9 +21,6 @@ set community_id [dotlrn_community::get_community_id]
 
 set title "[_ lorsm.Preview_Course_1]"
 
-# Permissions
-dotlrn::require_user_admin_community -user_id [ad_conn user_id] -community_id $community_id
-
 # In order to share courses across classes, we need to share
 # file-storage objects across file-storage instances. This has been
 # proven to be really tricky. But here we pass the fs_package_id for

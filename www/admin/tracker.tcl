@@ -1,12 +1,12 @@
-# packages/lorsm/www/enabler.tcl
+# packages/lorsm/www/tracker.tcl
 
 ad_page_contract {
     
-    enable/disable courses for a class
+    set a course for a class to be trackable
     
     @author Ernie Ghiglione (ErnieG@mm.st)
-    @creation-date 2004-05-19
-    @arch-tag ebea2a9b-b6d6-4083-83c5-58686ba9e201
+    @creation-date 2004-05-25
+    @arch-tag 07ceb832-2053-4579-bec2-76708522707a
     @cvs-id $Id$
 } {
     man_id:integer,notnull
@@ -16,20 +16,12 @@ ad_page_contract {
 }
 
 set package_id [ad_conn package_id]
-set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
 
-set admin_p [dotlrn::user_can_admin_community_p  \
-		 -user_id $user_id  \
-		 -community_id $community_id ]
+set title "[_ lorsm.lt_Set_Course_Track_Opti]"
+set context [list "[_ lorsm.Set_Course_Options]"]
 
-# Permissions
-dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
-
-set title [list "[_ lorsm.Set_Course_Trackable]"]
-set context [list "[_ lorsm.Set_Course_Status]"]
-
-ad_form -name enabler \
+ad_form -name tracker \
     -export {package_id} \
     -form {
 	{man_id:key}
@@ -37,25 +29,25 @@ ad_form -name enabler \
 	    {label "[_ lorsm.Course_Name]"}
 	    {value {[lorsm::get_course_name -manifest_id $man_id]}}
 	}
-	{isenabled:text(inform)
+	{istrackable:text(inform)
 	    {label "[_ lorsm.Current_Status]"}
 	}
 	{enable:text(radio)
-	    {label "[_ lorsm.Status_3]"}
-	    {options {{"[_ lorsm.Enable]" t} {"[_ lorsm.Disable]" f}}}
+	    {label Status?}
+	    {options {{"[_ lorsm.Trackable_1]" t} {"[_ lorsm.No_Thanks]" f}}}
 	}
     } -select_query {
         select 
-        case when isenabled = 't' then 'Enabled'
-          else 'Disabled'
-        end as isenabled
+        case when istrackable = 't' then 'Yes'
+          else 'No'
+        end as istrackable
 	from ims_cp_manifest_class
 	where man_id = :man_id and 
 	lorsm_instance_id = :package_id
     } -edit_data {
         db_dml do_update "
             update ims_cp_manifest_class
-            set isenabled = :enable
+            set istrackable = :enable
             where man_id = :man_id and 
             lorsm_instance_id = :package_id"
     } -after_submit {

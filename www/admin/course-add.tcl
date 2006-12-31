@@ -17,10 +17,6 @@ if { ![info exists man_id] } {
    set man_id ""
 }
 
-# Permissions
-dotlrn::require_user_admin_community -user_id $user_id -community_id $community_id
-
-
 # Gets file-storage root folder_id
 # eventually, we should provide an option so it can be imported in
 # different subfolders
@@ -49,8 +45,6 @@ set fs_url [apm_package_url_from_id $fs_package_id]
 
 set user_id [ad_conn user_id]
 set package_id [ad_conn package_id]
-# check for admin permission on folder
-set admin_p [permission::permission_p -party_id $user_id -object_id $package_id -privilege admin]
 
 # set course id
 set course_id 1

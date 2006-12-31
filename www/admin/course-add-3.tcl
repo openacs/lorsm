@@ -590,7 +590,7 @@ db_transaction {
     ns_write "[_ lorsm.Done]<p></blockquote><hr>"
 
     # jump to the front page
-    ad_progress_bar_end -url [apm_package_url_from_id [ad_conn package_id]]
+    ad_progress_bar_end -url [apm_package_url_from_id [ad_conn package_id]]/admin
 
 
 }

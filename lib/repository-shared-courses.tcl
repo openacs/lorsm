@@ -23,10 +23,6 @@ set context [list "[_ lorsm.Shared_Courses]"]
 set package_id [ad_conn package_id]
 set community_id [dotlrn_community::get_community_id]
 
-set admin_p [dotlrn::user_can_admin_community_p  \
-		 -user_id [ad_conn user_id]  \
-		 -community_id $community_id ]
-
 set com_url [dotlrn_community::get_community_url $community_id]
 
 template::list::create \

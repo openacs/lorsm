@@ -618,7 +618,7 @@
   <msg key="lt_resource_id_res_ident">%resource_id% %res_identifier% \n</msg>
   <msg key="lt_Rights_Metadata_Copyr">Rights Metadata Copyright or other Restrictions</msg>
   <msg key="lt_Rights_Metadata_Descr">Rights Metadata Description</msg>
-  <msg key="lt_SCORM_complaint_packa">SCORM complaint package</msg>
+  <msg key="lt_SCORM_complaint_packa">SCORM compliant package</msg>
   <msg key="lt_Search_for_Learninng_">Search for Learninng Objects in the Repository</msg>
   <msg key="lt_Search_Learning_Objec">Search Learning Objects</msg>
   <msg key="lt_Set_Course_Presentati">Set Course Presentation Format</msg>

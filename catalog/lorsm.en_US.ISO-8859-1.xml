@@ -121,6 +121,7 @@
   <msg key="Course_Name">Course Name:</msg>
   <msg key="Course_Name_1">Course Name</msg>
   <msg key="Course_Structure">Course Structure</msg>
+  <msg key="Course_Versions">Course Versions</msg>
   <msg key="Coverage">Coverage:</msg>
   <msg key="Coverage_1">Coverage</msg>
   <msg key="Create_a_new_course">Create a new course</msg>

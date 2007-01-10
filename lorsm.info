@@ -17,6 +17,7 @@
         <provides url="lorsm" version="0.8d"/>
         <requires url="lors" version="0.4d"/>
         <requires url="views" version="0.1d"/>
+        <requires url="acs-datetime" version="5.2.2"/>
 
         <callbacks>
             <callback type="after-install"  proc="lorsm::install::package_install"/>

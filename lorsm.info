@@ -6,7 +6,6 @@
     <pretty-plural>LORS Management</pretty-plural>
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
-    <auto-mount>lorsm</auto-mount>
 
     <version name="0.8d" url="http://openacs.org/repository/download/apm/lorsm-0.8d.apm">
         <owner url="mailto:ernieg@mm.st">Ernie Ghiglione</owner>

@@ -43,7 +43,6 @@ set url2 $folder_name
 
 # Get the href of the item
 set href [lorsm::delivery::get_href -ims_item_id $revision_id]
-
 # handle regular acs_object here since it's not stored in the CR
 
 set type [db_string get_type "select type from ims_cp_resources r, ims_cp_items_to_resources i2r where i2r.ims_item_id=:revision_id and i2r.res_id=r.res_id" -default webcontent]
@@ -58,7 +57,7 @@ switch -glob -- $type {
 	db_1row get_assessment_id "select ci.item_id as assessment_id, m.section_id from as_assessment_section_map m, cr_items ci, cr_items ci2  where ci.latest_revision = m.assessment_id and m.section_id=ci2.latest_revision and ci2.item_id=:section_item_id"
 #	rp_form_put assessment_id $assessment_id
 #	ad_return_complaint 1 "assessment_id = '${assessment_id}' section_id='${section_id}'"
-	ad_returnredirect [export_vars -base assessment/assessment {assessment_id {single_section_id $section_id}}]
+	ad_returnredirect [export_vars -base ../../assessment/assessment {assessment_id {single_section_id $section_id}}]
 	ad_script_abort
     }
     ::xowiki::* {

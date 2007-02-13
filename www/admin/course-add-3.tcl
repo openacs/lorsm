@@ -219,37 +219,17 @@ db_transaction {
         # NOTE: it requires that the manifest contains a metadata record (which is not always the case) :-(
         ##
 
-        # gets metadata node
-        set metadata [$manifest child all metadata]
-
-        if { ![empty_string_p $metadata] } {
-	    # gets metadataschema
-	    set MetadataSchema [lindex [lindex [lors::imsmd::getMDSchema $metadata] 0] 0]
-	    set MetadataSchemaVersion [lindex [lors::imsmd::getMDSchema $metadata] 1]
-	    if {![empty_string_p $MetadataSchema]} {
-		set isSCORM [regexp -nocase scorm $MetadataSchema]
-	    }
-	    if {$isSCORM == 1} {
-		set man_isscorm 1
-	    } else {
-		set man_isscorm 0
-	    }
-	} else {
-	    set man_isscorm 0
-	}
         # use isscorm proc!
         set man_isscorm [lors::imscp::isSCORM -node $manifest]
 
-        if { ![empty_string_p $metadata] } {
-            set man_hasmetadata 1
-        } else {
-            set man_hasmetadata 0
-        }
+        # gets metadata node
+        set metadata [$manifest child all metadata]
 
+        set man_hasmetadata [expr {$metadata ne ""}]
         
         ## Gets manifest title
 
-        if { ![empty_string_p $metadata] } {
+        if { $metadata ne "" } {
             set lom [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 0]
             set prefix [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 1]
             if { $lom != 0 } {

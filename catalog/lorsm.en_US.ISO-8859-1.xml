@@ -123,7 +123,6 @@
   <msg key="Course_Structure">Course Structure</msg>
   <msg key="Coverage">Coverage:</msg>
   <msg key="Coverage_1">Coverage</msg>
-  <msg key="Create_a_new_course">Create a new course</msg>
   <msg key="Created_By">Created By:</msg>
   <msg key="Creation_Date">Creation Date</msg>
   <msg key="Current_Format">Current Format</msg>
@@ -685,7 +684,6 @@
   <msg key="lt_Whether_copyright_or_">Whether copyright or other restrictions apply</msg>
   <msg key="lt_Whether_use_of_the_re">Whether use of the resource requires payment</msg>
   <msg key="lt_With_Bottom_Navigatio">With Bottom Navigation Bar</msg>
-  <msg key="lt_With_Progress_bar">With Progres_bar</msg>
   <msg key="lt_Without_LORSM_Index_S">Without LORSM Index Style</msg>
   <msg key="lt_You_are_about_to_add_">You are about to add %course_name% to your class.</msg>
   <msg key="lt_You_can_add_courses_a">You can add courses already existing in the repository</msg>
@@ -694,6 +692,7 @@
   <msg key="Max_Version">Max Version</msg>
   <msg key="Maximum_Version">Maximum Version:</msg>
   <msg key="MD_Schema">MD Schema</msg>
+  <msg key="Menu">Menu</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -745,7 +744,6 @@
   <msg key="of_the_content">of the content.</msg>
   <msg key="OK">...OK</msg>
   <msg key="Open">Open</msg>
-  <msg key="or_upload_existing_course">or Upload an existing course</msg>
   <msg key="Organization">Organization</msg>
   <msg key="Organizations">Organizations</msg>
   <msg key="Other_Platform_Req">Other Platform Req.</msg>
@@ -852,9 +850,5 @@
   <msg key="Welcome_to_LEON">Welcome to LEON</msg>
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
-  <msg key="Your_session_has_expired">Your session has expired. Please notify this problem to the System Administrator.</msg>
   <msg key="Your_Stats">Your Stats:</msg>
-  <msg key="Default_delivery">Default delivery?</msg>
-  <msg key="SCORM_session">SCORM session</msg>
-  <msg key="Sesion_Runtime_Data">Sesion_Runtime_Data</msg>
 </message_catalog>

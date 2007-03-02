@@ -226,9 +226,9 @@ db_transaction {
 	    # gets metadataschema
 	    set MetadataSchema [lindex [lindex [lors::imsmd::getMDSchema $metadata] 0] 0]
 	    set MetadataSchemaVersion [lindex [lors::imsmd::getMDSchema $metadata] 1]
-	    if {![empty_string_p $MetadataSchema]} {
-		set isSCORM [regexp -nocase scorm $MetadataSchema]
-	    }
+
+	    set isSCORM [lors::imscp::isSCORM -node $manifest]
+
 	    if {$isSCORM == 1} {
 		set man_isscorm 1
 	    } else {

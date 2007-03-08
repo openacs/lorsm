@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Rights Metadata Description</h3>
+<h3>#lorsm.lt_AddEdit_Rights_MD_Des#</h3>
 <blockquote>
  <formtemplate id="rightsmd_desc" style="standard-lars"></formtemplate>
 </blockquote>

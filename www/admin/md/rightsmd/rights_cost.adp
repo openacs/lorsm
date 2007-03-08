@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Rights Metadata Cost</h3>
+<h3>#lorsm.lt_AddEdit_Rights_MD_Cos#</h3>
 <blockquote>
  <formtemplate id="rightsmd_cost" style="standard-lars"></formtemplate>
 </blockquote>

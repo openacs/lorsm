@@ -38,7 +38,6 @@ ad_form -name classificationmd_taxon \
     ims_md_cl_ta_ta_id:key(ims_md_classification_taxpath_taxon_seq)
 
     {identifier:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Classificatio_8]"}	
 	{html {size 50}}
 	{help_text "[_ lorsm.lt_Taxons_identifier_in_]"}
 	{label "[_ lorsm.Identifier]"}

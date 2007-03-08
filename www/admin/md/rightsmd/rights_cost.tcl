@@ -29,9 +29,8 @@ ad_form -name rightsmd_cost \
     -form {
 
     {cost_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Rights_MD_Cos]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 

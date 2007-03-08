@@ -33,9 +33,8 @@ ad_form -name classificationmd_pur \
     ims_md_cl_id:key(ims_md_classification_seq)
 
     {purpose_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Classificatio_7]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
     

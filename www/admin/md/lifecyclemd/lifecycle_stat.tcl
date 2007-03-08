@@ -28,9 +28,8 @@ ad_form -name lifecyclemd_stat \
     -form {
 
     {status_v:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Lifecycle_MD__1]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Learning_objects_edit]"}
+        {help_text "[_ lorsm.lt_Learning_objects_edit]"}
         {label "[_ lorsm.Status]"}
     }
     

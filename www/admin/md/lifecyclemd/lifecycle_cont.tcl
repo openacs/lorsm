@@ -37,9 +37,8 @@ ad_form -name lifecyclemd_cont \
     ims_md_lf_cont_id:key(ims_md_life_cycle_contrib_seq)
 
     {role_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Lifecycle_MD_]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 

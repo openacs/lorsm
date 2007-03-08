@@ -29,9 +29,8 @@ ad_form -name lifecyclemd_ver \
 
 
     {version_l:text,nospell,optional
-	{section "[_ lorsm.lt_AddEdit_Lifecycle_MD__1]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     

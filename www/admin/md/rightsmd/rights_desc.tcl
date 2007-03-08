@@ -29,9 +29,8 @@ ad_form -name rightsmd_desc \
     -form {
 
     {descrip_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Rights_MD_Des]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 

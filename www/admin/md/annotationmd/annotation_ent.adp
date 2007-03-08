@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Annotation Metadata Entity</h3>
+<h3>#lorsm.lt_AddEdit_Annotation_MD_1#</h3>
 <blockquote>
  <formtemplate id="annotationmd_ent" style="standard-lars"></formtemplate>
 </blockquote>

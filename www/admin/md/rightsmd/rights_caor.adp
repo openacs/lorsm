@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Rights Metadata Copyright or other Restrictions</h3>
+<h3>#lorsm.lt_AddEdit_Rights_MD_Cop#</h3>
 <blockquote>
  <formtemplate id="rightsmd_caor" style="standard-lars"></formtemplate>
 </blockquote>

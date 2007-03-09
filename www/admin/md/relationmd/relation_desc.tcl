@@ -32,15 +32,14 @@ ad_form -name relationmd_desc \
     ims_md_re_re_id:key(ims_md_relation_resource_seq)
 
     {descrip_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Relation_MD_R_1]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     
     {descrip_s:text(textarea),nospell
         {html {rows 2 cols 50}}
-	{help_text "[_ lorsm.lt_Description_of_the_ot]"}
+        {help_text "[_ lorsm.lt_Description_of_the_ot]"}
         {label "[_ lorsm.Description]"}
     }
 

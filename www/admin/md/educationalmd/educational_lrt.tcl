@@ -34,15 +34,14 @@ ad_form -name educationalmd_lrt \
     ims_md_ed_lr_id:key(ims_md_educational_lrt_seq)
 
     {lrt_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_18]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {lrt_v:text,nospell
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Type_of_interactivity]"}
+        {help_text "[_ lorsm.lt_Type_of_interactivity]"}
         {label "[_ lorsm.lt_Learning_Resource_Typ]"}
     }
 

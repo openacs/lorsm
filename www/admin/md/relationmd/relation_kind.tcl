@@ -33,15 +33,14 @@ ad_form -name relationmd_kind \
     ims_md_re_id:key(ims_md_relation_seq)
 
     {kind_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Relation_MD_K]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
     
     {kind_v:text,nospell
         {html {size 20}}
-	{help_text "[_ lorsm.lt_Nature_of_the_relatio]"}
+        {help_text "[_ lorsm.lt_Nature_of_the_relatio]"}
         {label "[_ lorsm.Kind]"}
     }
 

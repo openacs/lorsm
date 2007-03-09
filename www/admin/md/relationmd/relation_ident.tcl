@@ -33,9 +33,8 @@ ad_form -name relationmd_ident \
     ims_md_re_re_id:key(ims_md_relation_resource_seq)
 
     {identifier:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Relation_MD_R_2]"}
         {html {size 50}}
-	{help_text "[_ lorsm.lt_Unique_identifier_of_]"}
+        {help_text "[_ lorsm.lt_Unique_identifier_of_]"}
         {label "[_ lorsm.Identifier]"}
     }
 

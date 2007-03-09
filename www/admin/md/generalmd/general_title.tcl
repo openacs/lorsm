@@ -36,15 +36,14 @@ ad_form -name generalmd_title \
     ims_md_ge_ti_id:key(ims_md_general_title_seq)
 
     {title_l:text,nospell,optional
-	{section "[_ lorsm.lt_AddEdit_General_MD_Ti]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     
     {title_s:text,nospell
         {html {size 50}}
-	{help_text "[_ lorsm.lt_Learning_objects_name]"}
+        {help_text "[_ lorsm.lt_Learning_objects_name]"}
         {label "[_ lorsm.Title]"}
     }
 

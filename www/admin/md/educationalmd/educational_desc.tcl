@@ -36,15 +36,14 @@ ad_form -name educationalmd_desc \
     ims_md_ed_de_id:key(ims_md_educational_descrip_seq)
 
     {descrip_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_12]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {descrip_s:text(textarea),nospell
         {html {rows 2 cols 50}}
-	{help_text "[_ lorsm.lt_How_the_learning_obje]"}
+        {help_text "[_ lorsm.lt_How_the_learning_obje]"}
         {label "[_ lorsm.Description]"}
     }
 

@@ -30,15 +30,14 @@ ad_form -name generalmd_aggl \
 
 
     {agg_level_v:text,nospell
-	{section "[_ lorsm.lt_AddEdit_General_MD_Ag]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Functional_size_of_th]"}
+        {help_text "[_ lorsm.lt_Functional_size_of_th]"}
         {label "[_ lorsm.Aggregation_Level]"}
     }
     
     {agg_level_s:text,nospell,optional
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
     

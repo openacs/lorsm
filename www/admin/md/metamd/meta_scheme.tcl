@@ -36,9 +36,8 @@ ad_form -name metamd_scheme \
     ims_md_md_sch_id:key(ims_md_metadata_scheme_seq)
 
     {scheme:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Meta_MD_Schem]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Structure_of_meta-dat]"}
+        {help_text "[_ lorsm.lt_Structure_of_meta-dat]"}
         {label "[_ lorsm.Scheme]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}

@@ -28,15 +28,14 @@ ad_form -name technicalmd_inst \
     -form {
 
     {instl_rmrks_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Technical_MD__2]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {instl_rmrks_s:text(textarea),nospell
         {html {rows 5 cols 60}}
-	{help_text "[_ lorsm.lt_Information_on_how_to]"}
+        {help_text "[_ lorsm.lt_Information_on_how_to]"}
         {label "[_ lorsm.Installation_Remarks]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}    

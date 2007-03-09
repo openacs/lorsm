@@ -36,9 +36,8 @@ ad_form -name technicalmd_form \
     ims_md_te_fo_id:key(ims_md_technical_format_seq)
 
     {format:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Technical_MD__1]"}
         {html {size 30}}
-	{help_text "[_ lorsm.lt_Technical_data_type_o]"}
+        {help_text "[_ lorsm.lt_Technical_data_type_o]"}
         {label "[_ lorsm.Format]"}
     }
 

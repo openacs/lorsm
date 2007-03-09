@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Relation Metadata Kind</h3>
+<h3>#lorsm.lt_AddEdit_Relation_MD_K#</h3>
 <blockquote>
  <formtemplate id="relationmd_kind" style="standard-lars"></formtemplate>
 </blockquote>

@@ -29,15 +29,14 @@ ad_form -name educationalmd_semd \
     -form {
 
     {sem_density_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_19]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {sem_density_v:text,nospell
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Learning_objects_usef]"}
+        {help_text "[_ lorsm.lt_Learning_objects_usef]"}
         {label "[_ lorsm.Semantic_Density]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

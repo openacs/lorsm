@@ -36,15 +36,14 @@ ad_form -name educationalmd_ieur \
     ims_md_ed_ie_id:key(ims_md_educational_ieur_seq)
 
     {ieur_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_14]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {ieur_v:text,nospell
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Normal_user_of_the_le]"}
+        {help_text "[_ lorsm.lt_Normal_user_of_the_le]"}
         {label "[_ lorsm.lt_Intended_End_User_Rol]"}
     }
 

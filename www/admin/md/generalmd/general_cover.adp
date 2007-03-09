@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit General Metadata Coverage</h3>
+<h3>#lorsm.lt_AddEdit_General_MD_Co#</h3>
 <blockquote>
  <formtemplate id="generalmd_cover" style="standard-lars"></formtemplate>
 </blockquote>

@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Educational Metadata Typical Age Range</h3>
+<h3>#lorsm.lt_AddEdit_Educational_M_20#</h3>
 <blockquote>
  <formtemplate id="educationalmd_tar" style="standard-lars"></formtemplate>
 </blockquote>

@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit General Metadata Structure</h3>
+<h3>#lorsm.lt_AddEdit_General_MD_St#</h3>
 <blockquote>
  <formtemplate id="generalmd_struc" style="standard-lars"></formtemplate>
 </blockquote>

@@ -36,9 +36,8 @@ ad_form -name educationalmd_lang \
     ims_md_ed_la_id:key(ims_md_educational_lang_seq)
 
     {language:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_17]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
@@ -68,13 +67,13 @@ template::list::create \
     -no_data "[_ lorsm.lt_No_Language_Available]" \
     -html { align right style "width: 100%;" } \
     -elements {
-	language {
+        language {
             label "[_ lorsm.Language_1]"
         }
         export {
             display_eval {\[Edit\]}
             link_url_eval { [export_vars -base "educational_lang" {ims_md_ed_la_id ims_md_id}] }
-q            link_html {title "[_ lorsm.Edit_Record]"}
+            link_html {title "[_ lorsm.Edit_Record]"}
             html { align center }
         }
     }

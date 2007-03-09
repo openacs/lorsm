@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit General Metadata Title</h3>
+<h3>#lorsm.lt_AddEdit_General_MD_Ti#</h3>
 <blockquote>
  <formtemplate id="generalmd_title" style="standard-lars"></formtemplate>
 </blockquote>

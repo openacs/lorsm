@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Technical Metadata Installation Remarks</h3>
+<h3>#lorsm.lt_AddEdit_Technical_MD__2#</h3>
 <blockquote>
  <formtemplate id="technicalmd_inst" style="standard-lars"></formtemplate>
 </blockquote>

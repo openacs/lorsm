@@ -28,15 +28,14 @@ ad_form -name technicalmd_otr \
     -form {
 
     {otr_plt_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Technical_MD__4]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {otr_plt_s:text(textarea),nospell
         {html {rows 5 cols 60}}
-	{help_text "[_ lorsm.lt_Information_on_other_]"}
+        {help_text "[_ lorsm.lt_Information_on_other_]"}
         {label "[_ lorsm.lt_Other_Platform_Requir]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

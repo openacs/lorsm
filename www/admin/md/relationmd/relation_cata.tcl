@@ -38,10 +38,9 @@ ad_form -name relationmd_cata \
     ims_md_re_re_ca_id:key(ims_md_relation_resource_catalog_seq)
 
     {catalog:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Relation_MD_R]"}	
-	{html {size 50}}
-	{help_text "[_ lorsm.Name_of_the_catalog]"}
-	{label "[_ lorsm.Catalog]"}
+        {html {size 50}}
+        {help_text "[_ lorsm.Name_of_the_catalog]"}
+        {label "[_ lorsm.Catalog]"}
     }
 
     {entry_l:text,nospell,optional	

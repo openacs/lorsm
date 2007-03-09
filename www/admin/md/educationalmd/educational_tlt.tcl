@@ -28,21 +28,20 @@ ad_form -name educationalmd_tlt \
     -form {
 
     {type_lrn_time_l:text,nospell,optional
-	{section "[_ lorsm.lt_AddEdit_Educational_M_21]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {type_lrn_time_s:text(textarea),nospell,optional
         {html {rows 2 cols 50}}
-	{help_text "[_ lorsm.lt_Brief_Description_Req]"}
+        {help_text "[_ lorsm.lt_Brief_Description_Req]"}
         {label "[_ lorsm.Description]"}
     }
 
     {type_lrn_time:text,nospell
         {html {size 20}}
-	{help_text "[_ lorsm.lt_Amount_of_time_it_tak]"}
+        {help_text "[_ lorsm.lt_Amount_of_time_it_tak]"}
         {label "[_ lorsm.lt_Typical_Learning_Time]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

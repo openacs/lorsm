@@ -36,15 +36,14 @@ ad_form -name educationalmd_cont \
     ims_md_ed_co_id:key(ims_md_educational_context_seq)
 
     {context_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_11]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {context_v:text,nospell
         {html {size 20}}
-	{help_text "[_ lorsm.lt_Learning_environment_]"}
+        {help_text "[_ lorsm.lt_Learning_environment_]"}
         {label "[_ lorsm.Context]"}
     }
 

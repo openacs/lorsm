@@ -106,5 +106,23 @@ comment on table lorsm_course_presentation_formats is '
 This table stores the available presentation formats for the courses. Its contains the pretty name
 for the format, an id, and the name of an adp in packages/lorsm/www/delivery where the presentation format is stored.';
 
+create table lorsm_custom_pages (
+	man_id integer
+	constraint lors_st_end_pgs_man_id_pk
+        primary key 
+	constraint lors_st_end_pgs_man_id_fk
+        references ims_cp_manifests (man_id),
+	page_id integer
+	constraint lors_st_end_pgs_start_id_fk
+	references cr_items (item_id),
+	type varchar(100)
+);
+
+comment on table lorsm_custom_pages is '
+Allow a course creator to designate an ims_cp_item as the start page 
+which appears before the couse is started, or tracking is enabled so the user 
+can see what the course is about. End page is a concluding page that works the
+same way';
+
 \i lorsm-packages.sql
 \i lorsm-cmi-create.sql

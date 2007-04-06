@@ -6,7 +6,6 @@ ad_page_contract {
 set path_info [ad_conn path_info]
 set path_list [split $path_info /]
 set base [lindex $path_list 0]
-	
 set dotlrn_package_id [dotlrn_community::get_community_id]	
 
 set lorsm_url [dotlrn_community::get_community_url $dotlrn_package_id]lorsm/
@@ -69,7 +68,7 @@ switch $base {
 			rp_internal_redirect /packages/assessment/www/view/index.vuh
 			ad_script_abort
 		}
-
+	rp_form_put show_title_p 0
 	set path [join [lrange $path_list 1 end] /]
 	if {[file exists [acs_root_dir]/packages/assessment/lib/${path}.tcl]} {
 	    rp_form_put __include /packages/assessment/lib/$path
@@ -88,7 +87,11 @@ switch $base {
 	end {
 	    rp_form_put __include /packages/lorsm/lib/end
 	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+	    ad_script_abort
 	}
 	default {
+	    rp_form_put __include /packages/lorsm/lib/default
+	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+	    ad_script_abort		
 	}	
 }	

@@ -34,13 +34,13 @@ if { [info exists item_id] } {
 	}
 } else {
     ad_set_client_property lorsm ims_id ""
-    ns_log notice "UNSETTING LORSM IMS_ID '[ad_conn url]'"
+#    ns_log notice "UNSETTING LORSM IMS_ID '[ad_conn url]'"
 }
 
 if { [info exists ims_id] } {
     set item_id $ims_id
     ad_set_client_property lorsm ims_id $ims_id    
-    ns_log notice "SETTING LORSM IMS_ID = '${ims_id}' '[ad_conn url]'"
+#    ns_log notice "SETTING LORSM IMS_ID = '${ims_id}' '[ad_conn url]'"
     set body_url [export_vars -base "record-view" -url {item_id man_id}]
 }
 
@@ -79,8 +79,9 @@ set community_id [dotlrn_community::get_community_id]
 set user_id [ad_conn user_id]
 ad_set_client_property lorsm currentcourse $man_id
 
+set start_page [lorsm::get_custom_page_ims_item_id -man_id $man_id -type start]
 
-if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
+if {$start_page eq "" && [lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
     set track_id [lorsm::track::new \
 		      -user_id $user_id \
 		      -community_id $community_id \

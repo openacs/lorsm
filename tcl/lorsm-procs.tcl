@@ -365,7 +365,7 @@ ad_proc -public get_item_list { man_id user_id } {
 			AND
 			o.object_id = i.ims_item_id
 		        AND 
-                        cr.item_id = ( select item_id from cr_revisions where revision_id = i.ims_item_id)
+                        cr.live_revision=i.ims_item_id
 	                AND 
 			EXISTS
 			(select 1
@@ -373,7 +373,8 @@ ad_proc -public get_item_list { man_id user_id } {
 			 where p.object_id = i.ims_item_id 
 			 and p.party_id = :user_id
 			 and p.privilege = 'read')
-
+		        and not exists (select 1 from lorsm_custom_pages
+                        where page_id=cr.item_id and man_id=:man_id)
 			ORDER BY 
 			i.sort_order, o.object_id, cr.tree_sortkey
 		} {
@@ -590,20 +591,28 @@ ad_proc -public lorsm::get_folder_id {
 
 ad_proc -public lorsm::get_items_indent {
    -org_id:required
+    {-exclude {}}
 } {
     Returns a list of the form \{ims_item_id indent\} from one org_id
 } {
 
+    if {[info exists exclude] && [llength $exclude]} {
+	set exclude_where " and ims_cp_items.ims_item_id not in ([template::util::tcl_to_sql_list $exclude]) "
+    } else {
+	set exclude_where ""
+    }
+
     # We need all the count of all items (just live revisions)
-    set items_count [db_string get_items_count { select count(ims_item_id)
-	from ims_cp_items, cr_items where ims_item_id = live_revision
-        and org_id = :org_id
-    }]
+    set items_count [db_string get_items_count " select count(ims_item_id)
+	from ims_cp_items, cr_items cr where ims_item_id = live_revision
+        and org_id = :org_id $exclude_where
+    "]
     
     # Get the root items
     set count 0
     set items_list [list]
-    foreach ims_item_id [db_list get_root_item "select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id"] {
+
+    foreach ims_item_id [db_list get_root_item "select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id $exclude_where"] {
 	lappend items_list [list $ims_item_id 1]
 	set items_array($ims_item_id) 1
 	incr count
@@ -622,7 +631,7 @@ ad_proc -public lorsm::get_items_indent {
             ns_log notice "adding to array item_id $item_id"                
                 set visited_items($item_id) $item_id
                 set indent [expr [lindex $item 1] + 1]
-                foreach ims_item_id [db_list get_items {select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id}] {
+                foreach ims_item_id [db_list get_items "select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id $exclude_where"] {
                     if { ![info exist items_array($ims_item_id)] } {
                         lappend items_list [list $ims_item_id $indent]
                         set items_array($ims_item_id) $indent
@@ -643,6 +652,7 @@ ad_proc -public lorsm::get_items_indent {
             set count $items_count
         }
     }
+#    ad_return_complaint 1 "$items_list"
     return $items_list
 }
 
@@ -735,3 +745,35 @@ ad_proc -public lorsm::register_xml_object_id {
 # 	return $result
 #     }
 # }
+
+ad_proc lorsm::set_custom_page {
+    -man_id
+    -item_id
+    -type
+} {
+    Set one of the ims_cp_items from this manifest
+    as a start or end page
+
+    @param man_id Manifest_id of the course
+    @item_id cr_items.item_id of the ims_cp_item page to use
+    @type start or end for start or end page
+} {
+    if {![db_0or1row get_page "select 1 from lorsm_custom_pages where man_id=:man_id and type=:type"]} {
+	db_dml add_page "insert into lorsm_custom_pages (man_id,page_id,type) values (:man_id,:item_id,:type)"
+    } else {
+	db_dml update_page "update lorsm_custom_pages 
+set man_id=:man_id,
+page_id=:item_id,
+type=:type"
+    }
+}
+
+ad_proc lorsm::get_custom_page_ims_item_id {
+    -man_id
+    -type
+} {
+    Get the ims_item_id for a custom page if it exists
+    or empty string if it does not
+} {
+    return [db_string get_custom_page "select live_revision from cr_items, lorsm_custom_pages where page_id=item_id and man_id=:man_id and type=:type" -default ""]
+}

@@ -143,6 +143,12 @@ switch -glob -- $type {
 	    if { [info exists lorsm::item_id] } {
 		set lorsm::item_id ""
 	    }
+	    set delivery_format [db_string get_format "select folder_name from lorsm_course_presentation_formats f, ims_cp_manifests m where f.format_id=m.course_presentation_format and m.man_id=:man_id"]
+	    if {$delivery_format eq "delivery-progress-bar"} {
+		rp_form_put __include /packages/lorsm/lib/default
+		rp_internal_redirect /packages/lorsm/www/delivery/delivery-progress-bar
+		ad_script_abort
+	    }	    
 	    rp_internal_redirect -absolute_path [acs_root_dir]/templates/lorsm-default
 	}
     }

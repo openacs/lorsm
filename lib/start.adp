@@ -1,1 +1,1 @@
-This is the beginning.
+#lorsm.lt_Default_start_page_content#

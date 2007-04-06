@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.7d" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.8d" locale="en_US" charset="ISO-8859-1">
 
   <msg key="_Add">Classification</msg>
   <msg key="_Add_1">Intended End User Role</msg>
@@ -32,6 +32,7 @@
   <msg key="Add_another_title">Add another title</msg>
   <msg key="Add_Catalog-Entry">Add Catalog-Entry</msg>
   <msg key="Add_Classification">Add Classification</msg>
+  <msg key="Add_Content">Add Content</msg>
   <msg key="Add_Context">Add Context</msg>
   <msg key="Add_Contributor">Add Contributor</msg>
   <msg key="Add_Contributors">Add Contributors</msg>
@@ -92,6 +93,7 @@
   <msg key="Annotator">Annotator</msg>
   <msg key="Assets">Assets</msg>
   <msg key="Available_Courses">Available Courses</msg>
+  <msg key="Begin">Begin</msg>
   <msg key="Browse">Browse...</msg>
   <msg key="Catalog">Catalog:</msg>
   <msg key="Catalog-Entries">Catalog-Entries:</msg>
@@ -121,7 +123,7 @@
   <msg key="Course_Name">Course Name:</msg>
   <msg key="Course_Name_1">Course Name</msg>
   <msg key="Course_Structure">Course Structure</msg>
-  <msg key="Course_Versions">Course Versions</msg>
+  <msg key="Course_Versions">%version% Course Version(s)</msg>
   <msg key="Coverage">Coverage:</msg>
   <msg key="Coverage_1">Coverage</msg>
   <msg key="Create_a_new_course">Create a new course</msg>
@@ -444,6 +446,8 @@
   <msg key="lt_Course_Presentation_S">Course Presentation Style</msg>
   <msg key="lt_Courses_in_your_Repos">Courses in your Repository</msg>
   <msg key="lt_Date_and_Time_descrip">Date and Time description</msg>
+  <msg key="lt_Default_end_page_content">Course complete.</msg>
+  <msg key="lt_Default_start_page_content">Begin course.</msg>
   <msg key="lt_Deleting_temporary_fo">Deleting temporary folder...</msg>
   <msg key="lt_Describes_contributio">Describes contribution</msg>
   <msg key="lt_Describes_learning_ob">Describes learning object's content</msg>
@@ -619,7 +623,7 @@
   <msg key="lt_resource_id_res_ident">%resource_id% %res_identifier% \n</msg>
   <msg key="lt_Rights_Metadata_Copyr">Rights Metadata Copyright or other Restrictions</msg>
   <msg key="lt_Rights_Metadata_Descr">Rights Metadata Description</msg>
-  <msg key="lt_SCORM_complaint_packa">SCORM compliant package</msg>
+  <msg key="lt_SCORM_complaint_packa">SCORM complaint package</msg>
   <msg key="lt_Search_for_Learninng_">Search for Learninng Objects in the Repository</msg>
   <msg key="lt_Search_Learning_Objec">Search Learning Objects</msg>
   <msg key="lt_Set_Course_Presentati">Set Course Presentation Format</msg>
@@ -686,7 +690,7 @@
   <msg key="lt_Whether_copyright_or_">Whether copyright or other restrictions apply</msg>
   <msg key="lt_Whether_use_of_the_re">Whether use of the resource requires payment</msg>
   <msg key="lt_With_Bottom_Navigatio">With Bottom Navigation Bar</msg>
-  <msg key="lt_With_Progress_bar">With Progres_bar</msg>
+  <msg key="lt_With_Progress_Bar">Delivery with Progress Bar</msg>
   <msg key="lt_Without_LORSM_Index_S">Without LORSM Index Style</msg>
   <msg key="lt_You_are_about_to_add_">You are about to add %course_name% to your class.</msg>
   <msg key="lt_You_can_add_courses_a">You can add courses already existing in the repository</msg>
@@ -708,6 +712,7 @@
   <msg key="Name">Name</msg>
   <msg key="Name_1">Name:</msg>
   <msg key="Name_of_the_catalog">Name of the catalog</msg>
+  <msg key="Next">Next</msg>
   <msg key="No">No</msg>
   <msg key="No_Context_Available">No Context Available</msg>
   <msg key="No_Cost_Available">No Cost Available</msg>
@@ -855,7 +860,4 @@
   <msg key="You_can">You can</msg>
   <msg key="Your_session_has_expired">Your session has expired. Please notify this problem to the System Administrator.</msg>
   <msg key="Your_Stats">Your Stats:</msg>
-  <msg key="Default_delivery">Default delivery?</msg>
-  <msg key="SCORM_session">SCORM session</msg>
-  <msg key="Sesion_Runtime_Data">Sesion_Runtime_Data</msg>
 </message_catalog>

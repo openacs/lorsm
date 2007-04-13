@@ -13,9 +13,9 @@ db_transaction {
     db_list lock_rows "select ims_item_id from ims_cp_items where parent_item=:parent_item for update"
 
     if { $dir eq "up" } {
-	set next_sort_order [expr { $sort_order - 1 }]
+        set next_sort_order [db_string get_prev_sort_order "" -default 1]
     } else {
-	set next_sort_order [expr { $sort_order + 1 }]
+        set next_sort_order [db_string get_next_sort_order "" -default 1]
     }
 
     db_dml swap_sort_orders "

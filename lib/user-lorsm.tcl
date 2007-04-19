@@ -119,7 +119,7 @@ foreach package $package_id {
 		set course_url "NO RESOURCES ERROR"
 	    } 
 	} else {
-	    set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>" 
+	    set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" >$course_name</a>" 
 	}
 
         # DEDS: these are expensive

@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Technical Metadata Size</h3>
+<h3>#lorsm.lt_AddEdit_Technical_MD__6#</h3>
 <blockquote>
  <formtemplate id="technicalmd_size" style="standard-lars"></formtemplate>
 </blockquote>

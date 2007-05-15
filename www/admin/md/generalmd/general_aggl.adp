@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit General Metadata Aggregation Level</h3>
+<h3>#lorsm.lt_AddEdit_General_MD_Ag#</h3>
 <blockquote>
  <formtemplate id="generalmd_aggl" style="standard-lars"></formtemplate>
 </blockquote>

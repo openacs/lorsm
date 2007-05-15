@@ -36,15 +36,14 @@ ad_form -name generalmd_key \
     ims_md_ge_key_id:key(ims_md_general_key_seq)
 
     {keyword_l:text,nospell,optional
-	{section "[_ lorsm.lt_AddEdit_General_MD_Ke]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     
     {keyword_s:text,nospell
         {html {size 50}}
-	{help_text "[_ lorsm.lt_Keyword_description_o]"}
+        {help_text "[_ lorsm.lt_Keyword_description_o]"}
         {label "[_ lorsm.Keyword]"}
     }
 

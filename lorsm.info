@@ -14,7 +14,8 @@
         <description format="text/html">This application manages the services from the Learning Object Repository: upload courses, manage and create metadata, delete resources and courses. </description>
 
         <provides url="lorsm" version="0.8d"/>
-        <requires url="lors" version="0.4d"/>
+        <requires url="acs-datetime" version="5.2.2"/>
+        <requires url="lors" version="0.6d4"/>
         <requires url="views" version="0.1d"/>
         <requires url="acs-datetime" version="5.2.2"/>
 

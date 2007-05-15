@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Educational Metadata Semantic Density</h3>
+<h3>#lorsm.lt_AddEdit_Educational_M_19#</h3>
 <blockquote>
  <formtemplate id="educationalmd_semd" style="standard-lars"></formtemplate>
 </blockquote>

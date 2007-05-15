@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Classification Metadata Taxonomic Path Taxonomy</h3>
+<h3>#lorsm.lt_AddEdit_Classificatio_8#</h3>
 <blockquote>
  <formtemplate id="classificationmd_taxon" style="standard-lars"></formtemplate>
 </blockquote>

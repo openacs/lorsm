@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Educational Metadata Description</h3>
+<h3>#lorsm.lt_AddEdit_Educational_M_12#</h3>
 <blockquote>
  <formtemplate id="educationalmd_desc" style="standard-lars"></formtemplate>
 </blockquote>

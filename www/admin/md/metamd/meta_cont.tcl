@@ -37,9 +37,8 @@ ad_form -name metamd_cont \
     ims_md_md_cont_id:key(ims_md_metadata_contrib_seq)
 
     {role_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Meta_MD_Contr]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 

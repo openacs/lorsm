@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Educational Metadata Typical Learning Time</h3>
+<h3>#lorsm.lt_AddEdit_Educational_M_21#</h3>
 <blockquote>
  <formtemplate id="educationalmd_tlt" style="standard-lars"></formtemplate>
 </blockquote>

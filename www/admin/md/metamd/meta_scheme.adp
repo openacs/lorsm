@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Meta Metadata Scheme</h3>
+<h3>#lorsm.lt_AddEdit_Meta_MD_Schem#</h3>
 <blockquote>
  <formtemplate id="metamd_scheme" style="standard-lars"></formtemplate>
 </blockquote>

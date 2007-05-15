@@ -1,8 +1,8 @@
 <html>
 <head>
 <title></title>
-<script language="javascript" src="/resources/acs-templating/mktree.js"></script>
-<link rel="stylesheet" href="/resources/acs-templating/mktree.css" type="text/css"> 
+<script language="javascript" type="text/javascript" src="/resources/acs-templating/mktree.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/acs-templating/mktree.css" type="text/css"> 
 
 <style type="text/css">
       body { background-color: #6C9A83; margin:0px; }

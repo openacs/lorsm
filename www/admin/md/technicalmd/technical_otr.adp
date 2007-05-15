@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Technical Metadata Other Platform Requirements</h3>
+<h3>#lorsm.lt_AddEdit_Technical_MD__4#</h3>
 <blockquote>
  <formtemplate id="technicalmd_otr" style="standard-lars"></formtemplate>
 </blockquote>

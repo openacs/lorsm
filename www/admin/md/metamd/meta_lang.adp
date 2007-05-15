@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Meta Metadata Language</h3>
+<h3>#lorsm.lt_AddEdit_Meta_MD_Langu#</h3>
 <blockquote>
  <formtemplate id="metamd_lang" style="standard-lars"></formtemplate>
 </blockquote>

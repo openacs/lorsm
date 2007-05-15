@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Meta Metadata Contributor</h3>
+<h3>#lorsm.lt_AddEdit_Meta_MD_Contr#</h3>
 <blockquote>
  <formtemplate id="metamd_cont" style="standard-lars"></formtemplate>
 </blockquote>

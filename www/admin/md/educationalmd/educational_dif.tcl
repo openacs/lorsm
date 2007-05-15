@@ -28,15 +28,14 @@ ad_form -name educationalmd_dif \
     -form {
 
     {difficulty_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_13]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {difficulty_v:text,nospell
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Level_of_difficulty_i]"}
+        {help_text "[_ lorsm.lt_Level_of_difficulty_i]"}
         {label "[_ lorsm.Difficulty]"}
     }
 

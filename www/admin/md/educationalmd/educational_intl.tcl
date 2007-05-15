@@ -29,15 +29,14 @@ ad_form -name educationalmd_intl \
     -form {
 
     {int_level_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_15]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {int_level_v:text,nospell
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Level_of_interactivit]"}
+        {help_text "[_ lorsm.lt_Level_of_interactivit]"}
         {label "[_ lorsm.Interactivity_Level]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

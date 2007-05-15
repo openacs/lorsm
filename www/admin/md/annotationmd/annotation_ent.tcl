@@ -32,9 +32,8 @@ ad_form -name annotationmd_ent \
     ims_md_an_id:key(ims_md_annotation_seq)
 
     {entity:text(textarea),nospell
-	{section "[_ lorsm.lt_AddEdit_Annotation_MD_1]"}
         {html {rows 5 cols 50}}
-	{help_text "[_ lorsm.Annotator]"}
+        {help_text "[_ lorsm.Annotator]"}
         {label "[_ lorsm.Entity]"}
     }
 

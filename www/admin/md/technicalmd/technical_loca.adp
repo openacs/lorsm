@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Technical Metadata Format</h3>
+<h3>#lorsm.lt_AddEdit_Technical_MD__3#</h3>
 <blockquote>
  <formtemplate id="technicalmd_loca" style="standard-lars"></formtemplate>
 </blockquote>

@@ -28,9 +28,8 @@ ad_form -name metamd_lang \
     -form {
 
     {language:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Meta_MD_Langu]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

@@ -36,15 +36,14 @@ ad_form -name educationalmd_tar \
     ims_md_ed_ta_id:key(ims_md_educational_tar_seq)
 
     {tar_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_20]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {tar_s:text,nospell
         {html {size 20}}
-	{help_text "[_ lorsm.lt_Age_of_the_typical_in]"}
+        {help_text "[_ lorsm.lt_Age_of_the_typical_in]"}
         {label "[_ lorsm.Typical_Age_Range]" }
     }
 

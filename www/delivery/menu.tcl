@@ -19,9 +19,10 @@ ad_page_contract {
 }
 
 set debuglevel [ad_get_client_property lorsm debuglevel]
-
-set org_id [db_string get_org_id { } ]
-set items_list [lorsm::get_items_indent -org_id $org_id]
+set items_list [list]
+foreach org_id [db_list get_org_id { } ] {
+    foreach item [lorsm::get_items_indent -org_id $org_id] {lappend items_list $item}
+}
 template::util::list_of_lists_to_array $items_list items_array
 set fs_package_id [db_string get_fs_package_id { } -default "" ]
 

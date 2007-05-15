@@ -29,15 +29,14 @@ ad_form -name generalmd_struc \
     -form {
 
     {structure_v:text
-	{section "[_ lorsm.lt_AddEdit_General_MD_St]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Organizational_struct]"}
+        {help_text "[_ lorsm.lt_Organizational_struct]"}
         {label "[_ lorsm.Structure]"}
     }
     
     {structure_s:text,nospell,optional
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

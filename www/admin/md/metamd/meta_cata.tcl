@@ -36,10 +36,9 @@ ad_form -name metamd_cata \
     ims_md_md_cata_id:key(ims_md_metadata_cata_seq)
 
     {catalog:text,nospell
-	{section "Add/Edit Meta MD Catalog-Entry"}
-	{html {size 50}}
-	{help_text "Name of the catalog"}
-	{label "Catalog:"}
+        {html {size 50}}
+        {help_text "Name of the catalog"}
+        {label "Catalog:"}
     }
 
     {entry_l:text,nospell,optional

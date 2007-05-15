@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Classification Metadata Keyword</h3>
+<h3>#lorsm.lt_AddEdit_Classificatio_6#</h3>
 <blockquote>
  <formtemplate id="classificationmd_key" style="standard-lars"></formtemplate>
 </blockquote>

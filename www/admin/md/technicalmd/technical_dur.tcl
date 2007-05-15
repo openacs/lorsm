@@ -28,21 +28,20 @@ ad_form -name technicalmd_dur \
     -form {
 
     {duration:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Technical_MD_]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Time_the_continuous_l]"}
+        {help_text "[_ lorsm.lt_Time_the_continuous_l]"}
         {label "[_ lorsm.Duration] "}
     }
 
     {duration_l:text,nospell,optional
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {duration_s:text,nospell,optional
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

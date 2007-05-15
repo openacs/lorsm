@@ -28,9 +28,8 @@ ad_form -name technicalmd_size \
     -form {
 
     {t_size:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Technical_MD__6]"}
         {html {size 30}}
-	{help_text "[_ lorsm.lt_Size_of_the_resource_]"}
+        {help_text "[_ lorsm.lt_Size_of_the_resource_]"}
         {label "[_ lorsm.Size]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

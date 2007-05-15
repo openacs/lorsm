@@ -36,15 +36,14 @@ ad_form -name technicalmd_loca \
     ims_md_te_lo_id:key(ims_md_technical_location_seq)
 
     {type:text,nospell,optional
-	{section "[_ lorsm.lt_AddEdit_Technical_MD__3]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Reference_to_location]"}
+        {help_text "[_ lorsm.lt_Reference_to_location]"}
         {label "[_ lorsm.Type_1]"}
     }
 
     {location:text,nospell
         {html {size 50}}
-	{help_text "[_ lorsm.lt_Location_of_the_resou]"}
+        {help_text "[_ lorsm.lt_Location_of_the_resou]"}
         {label "[_ lorsm.Location_1]"}
     }
 

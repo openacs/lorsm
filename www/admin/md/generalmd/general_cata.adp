@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit General Metadata Catalog-Entry</h3>
+<h3>#lorsm.lt_AddEdit_General_MD_Ca#</h3>
 <blockquote>
  <formtemplate id="generalmd_cata" style="standard-lars"></formtemplate>
 </blockquote>

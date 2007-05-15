@@ -28,15 +28,14 @@ ad_form -name educationalmd_intt \
     -form {
 
     {int_type_s:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Educational_M_16]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
+        {help_text "[_ lorsm.lt_Source_of_vocabulary_]"}
         {label "[_ lorsm.Source]"}
     }
 
     {int_type_v:text,nospell
         {html {size 10}}
-	{help_text "[_ lorsm.lt_Type_of_interactivity]"}
+        {help_text "[_ lorsm.lt_Type_of_interactivity]"}
         {label "[_ lorsm.Interactivity_Type]"}
     }
     {ims_md_id:text(hidden) {value $ims_md_id}}

@@ -36,9 +36,8 @@ ad_form -name generalmd_lang \
     ims_md_ge_lang_id:key(ims_md_general_lang_seq)
 
     {language:text,nospell
-	{section "[_ lorsm.lt_AddEdit_General_MD_La]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     

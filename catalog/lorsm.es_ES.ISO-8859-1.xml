@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="lorsm" package_version="0.7d" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="lorsm" package_version="0.8d" locale="es_ES" charset="ISO-8859-1">
 
   <msg key="_Add">Clasificación</msg>
   <msg key="_Add_1">Papel previsto de Usuario Final</msg>
@@ -9,7 +9,7 @@
   <msg key="_No">versión Disponible</msg>
   <msg key="_the_package_has">: es paquete tiene</msg>
   <msg key="_Viewed">% Vistos</msg>
-  <msg key="Access_Course">Accesar Curso</msg>
+  <msg key="Access_Course">Acceder a Curso</msg>
   <msg key="Action_Not_Allowed">Acción No Permitida</msg>
   <msg key="Add_Annotation">Agregar Anotación</msg>
   <msg key="Add_another_Context">Agregar otro Contexto</msg>
@@ -49,7 +49,7 @@
   <msg key="Add_Keyword">Agregar Palabra Clave</msg>
   <msg key="Add_Keywords">Agregar Palabras Clave</msg>
   <msg key="Add_Kind">Agregar Tipo</msg>
-  <msg key="Add_Language">Agregar Lenguage</msg>
+  <msg key="Add_Language">Agregar Idioma</msg>
   <msg key="Add_Location">Agregar Localización</msg>
   <msg key="Add_Meta_MD_Scheme">Agregar Esquema de Meta MD</msg>
   <msg key="Add_metadata">Agregar metadata</msg>
@@ -65,7 +65,7 @@
   <msg key="Add_Source">Agregar Fuente</msg>
   <msg key="Add_Status">Agregar Estado</msg>
   <msg key="Add_Structure">Agregar Estructura</msg>
-  <msg key="Add_Taxonomic_Path">Agregar Trayectoria Toxonómica</msg>
+  <msg key="Add_Taxonomic_Path">Agregar trayectoria taxonómica</msg>
   <msg key="Add_Taxonomy">Agregar Taxonomía</msg>
   <msg key="Add_Title">Agregar Título</msg>
   <msg key="Add_Titles">Agregar Títulos</msg>
@@ -102,8 +102,8 @@
   <msg key="Classification_MD">Clasificación MD</msg>
   <msg key="Classifications">Clasificaciones:</msg>
   <msg key="classlist">class=&quot;list&quot;</msg>
-  <msg key="Confirm">Confirmar?</msg>
-  <msg key="Confirm_q">Confirmar?</msg>
+  <msg key="Confirm">¿Confirmar?</msg>
+  <msg key="Confirm_q">¿Confirmar?</msg>
   <msg key="Confirmation">Confirmación</msg>
   <msg key="Context">Contexto:</msg>
   <msg key="Context_1">Contexto</msg>
@@ -130,18 +130,19 @@
   <msg key="Date">Fecha:</msg>
   <msg key="Date_1">Fecha</msg>
   <msg key="Date_of_contribution">Fecha de contribución</msg>
+  <msg key="Default_delivery">¿Entrega por defecto?</msg>
   <msg key="Description">Descripción:</msg>
   <msg key="Description_1">Descripcion</msg>
   <msg key="Descriptions">Descripciones:</msg>
   <msg key="difference_seconds">%difference% segundos</msg>
   <msg key="Difficulty">Dificultad:</msg>
   <msg key="Difficulty_1">Dificultad</msg>
-  <msg key="Disable">Deshailitar</msg>
+  <msg key="Disable">Deshabilitar</msg>
   <msg key="Disabled">Deshabilitado</msg>
-  <msg key="Done">Hecho!</msg>
+  <msg key="Done">¡Hecho!</msg>
   <msg key="Duration">Duración:</msg>
   <msg key="Duration_Seconds">Duración (Segundos)</msg>
-  <msg key="Edit">Editar?</msg>
+  <msg key="Edit">¿Editar?</msg>
   <msg key="Edit_1">Editar</msg>
   <msg key="Edit_Catalog-Entry">Editar Entrada de Catálogo</msg>
   <msg key="Edit_Context">Editar Contexto</msg>
@@ -690,6 +691,7 @@
   <msg key="Max_Version">Versión Max</msg>
   <msg key="Maximum_Version">Versión Máxima</msg>
   <msg key="MD_Schema">Esquema MD</msg>
+  <msg key="Menu">Menú</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -776,6 +778,7 @@
   <msg key="See_metadata">Ver metadata</msg>
   <msg key="Semantic_Density">Densidad Semántica:</msg>
   <msg key="Semantic_Density_1">Densidad Semántica</msg>
+  <msg key="Sesion_Runtime_Data">Datos de la sesión</msg>
   <msg key="Set_Course_Options">Ingresar Opciones del Curso</msg>
   <msg key="Set_Course_Status">Ingresar Estado del Curso</msg>
   <msg key="Set_Course_Status_">Ingresar Estado del Curso \</msg>

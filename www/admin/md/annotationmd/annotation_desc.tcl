@@ -37,7 +37,6 @@ ad_form -name annotationmd_desc \
     ims_md_an_de_id:key(ims_md_annotation_descrip_seq)
 
     {descrip_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Annotation_MD]"}	
 	{html {size 10}}
 	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
 	{label "[_ lorsm.Language]"}

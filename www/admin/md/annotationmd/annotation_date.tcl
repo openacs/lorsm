@@ -32,7 +32,6 @@ ad_form -name annotationmd_date \
     ims_md_an_id:key(ims_md_annotation_seq)
 
     {date:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Annotation_MD_2]"}	
 	{html {size 10}}
 	{help_text "[_ lorsm.Date_of_contribution]"}
 	{label "[_ lorsm.Date]"}

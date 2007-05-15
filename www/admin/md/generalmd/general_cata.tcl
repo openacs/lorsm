@@ -36,21 +36,20 @@ ad_form -name generalmd_cata \
     ims_md_ge_cata_id:key(ims_md_general_cata_seq)
 
     {catalog:text,nospell
-	{section "[_ lorsm.lt_AddEdit_General_MD_Ca]"}
-	{html {size 50}}
-	{help_text "[_ lorsm.Name_of_the_catalog]"}
-	{label "[_ lorsm.Catalog]"}
+        {html {size 50}}
+        {help_text "[_ lorsm.Name_of_the_catalog]"}
+        {label "[_ lorsm.Catalog]"}
     }
 
     {entry_l:text,nospell,optional
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
     
     {entry_s:text,nospell
         {html {size 50}}
-	{help_text "[_ lorsm.lt_Number_in_the_Catalog]"}
+        {help_text "[_ lorsm.lt_Number_in_the_Catalog]"}
         {label "[_ lorsm.Entry]"}
     }
 

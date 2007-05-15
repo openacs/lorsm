@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Relation Metadata Resource Description</h3>
+<h3>#lorsm.lt_AddEdit_Relation_MD_R_1#</h3>
 <blockquote>
  <formtemplate id="relationmd_desc" style="standard-lars"></formtemplate>
 </blockquote>

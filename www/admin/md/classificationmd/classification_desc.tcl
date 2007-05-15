@@ -37,7 +37,6 @@ ad_form -name classificationmd_desc \
     ims_md_cl_de_id:key(ims_md_classification_desc_seq)
 
     {descrip_l:text,nospell
-	{section "[_ lorsm.lt_AddEdit_Classificatio_5]"}	
 	{html {size 10}}
 	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
 	{label "[_ lorsm.Language]"}

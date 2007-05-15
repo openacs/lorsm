@@ -36,15 +36,14 @@ ad_form -name generalmd_desc \
     ims_md_ge_desc_id:key(ims_md_general_desc_seq)
 
     {descrip_l:text,nospell,optional
-	{section "[_ lorsm.lt_AddEdit_General_MD_De]"}
         {html {size 10}}
-	{help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
+        {help_text "[_ lorsm.lt_ie_en_AU_for_Australi]"}
         {label "[_ lorsm.Language]"}
     }
 
     {descrip_s:text(textarea),nospell
         {html {rows 5 cols 50}}
-	{help_text "[_ lorsm.lt_Describes_learning_ob]"}
+        {help_text "[_ lorsm.lt_Describes_learning_ob]"}
         {label "[_ lorsm.Description]"}
     }
     

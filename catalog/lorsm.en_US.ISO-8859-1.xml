@@ -126,7 +126,6 @@
   <msg key="Course_Versions">%version% Course Version(s)</msg>
   <msg key="Coverage">Coverage:</msg>
   <msg key="Coverage_1">Coverage</msg>
-  <msg key="Create_a_new_course">Create a new course</msg>
   <msg key="Created_By">Created By:</msg>
   <msg key="Creation_Date">Creation Date</msg>
   <msg key="Current_Format">Current Format</msg>
@@ -699,6 +698,7 @@
   <msg key="Max_Version">Max Version</msg>
   <msg key="Maximum_Version">Maximum Version:</msg>
   <msg key="MD_Schema">MD Schema</msg>
+  <msg key="Menu">Menu</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -751,7 +751,6 @@
   <msg key="of_the_content">of the content.</msg>
   <msg key="OK">...OK</msg>
   <msg key="Open">Open</msg>
-  <msg key="or_upload_existing_course">or Upload an existing course</msg>
   <msg key="Organization">Organization</msg>
   <msg key="Organizations">Organizations</msg>
   <msg key="Other_Platform_Req">Other Platform Req.</msg>
@@ -858,6 +857,5 @@
   <msg key="Welcome_to_LEON">Welcome to LEON</msg>
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
-  <msg key="Your_session_has_expired">Your session has expired. Please notify this problem to the System Administrator.</msg>
   <msg key="Your_Stats">Your Stats:</msg>
 </message_catalog>

@@ -22,7 +22,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Technical Metadata Duration</h3>
+<h3>#lorsm.lt_AddEdit_Technical_MD_#</h3>
 <blockquote>
  <formtemplate id="technicalmd_dur" style="standard-lars"></formtemplate>
 </blockquote>

@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Lifecycle Metadata Status</h3>
+<h3>#lorsm.lt_AddEdit_Lifecycle_Met_1#</h3>
 <blockquote>
  <formtemplate id="lifecyclemd_stat" style="standard-lars"></formtemplate>
 </blockquote>

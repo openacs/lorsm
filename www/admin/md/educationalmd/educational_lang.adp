@@ -23,7 +23,7 @@
 </blockquote>
 <p>
 
-<h3>Add/Edit Educational Metadata Language</h3>
+<h3>#lorsm.lt_AddEdit_Educational_M_17#</h3>
 <blockquote>
  <formtemplate id="educationalmd_lang" style="standard-lars"></formtemplate>
 </blockquote>

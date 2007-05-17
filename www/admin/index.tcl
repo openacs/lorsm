@@ -104,6 +104,12 @@ template::list::create \
             link_html {title "[_ lorsm.Admin_Course]" class button}
 	    html { align center }
         }
+	permissions {
+	    label "Permissions"
+	    display_eval {Permissions}
+	    link_url_eval {[export_vars -base permissions {{object_id $man_id}}]}
+	    link_html {class button}
+	}
     }
 
 

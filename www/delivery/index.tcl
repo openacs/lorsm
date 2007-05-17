@@ -79,6 +79,23 @@ set community_id [dotlrn_community::get_community_id]
 set user_id [ad_conn user_id]
 ad_set_client_property lorsm currentcourse $man_id
 
+
+set enabled_p [db_string enabled_p "select isenabled from ims_cp_manifest_class where man_id=:man_id and community_id=:community_id" -default "f"]
+set item_list [lorsm::get_item_list $man_id $user_id]
+
+if {$enabled_p} {
+	permission::require_permission \
+		-party_id $user_id \
+	        -object_id $man_id \
+                -privilege read
+} else {
+	permission::require_permission \
+		-party_id $user_id \
+	        -object_id $man_id \
+                -privilege admin
+}
+
+
 set start_page [lorsm::get_custom_page_ims_item_id -man_id $man_id -type start]
 
 if {$start_page eq "" && [lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {

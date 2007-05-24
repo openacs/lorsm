@@ -69,7 +69,7 @@ set cmd "zip -r '$out_file' *"
 
 # create the archive
 with_catch errmsg {
-    exec bash -c "cd '$file'; $cmd; cd -"
+    exec bash -c "cd \"$file\" && $cmd; cd -"
 } {
     # some day we'll do something useful here
     error $errmsg

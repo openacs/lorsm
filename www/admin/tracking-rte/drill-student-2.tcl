@@ -82,13 +82,17 @@ db_foreach organizations {
 #	{ title "" "no_sort" "<td>Item: $item_id $indent [if {![empty_string_p $identifierref]} {set href \"<a href='$item_id' target='body' title='$item_title'>$item_title</a>\"} else {set href \"AAA $item_title\"}]</td>" }
 #    }
 
+	regsub -all {[\{\}]} $org_title "" org_title
+
     	append orgs_list "<HR><TABLE $table_extra_html BORDER=0>"
-    	append orgs_list "<TH colspan=6>Organization: $org_title ($org_id)</TH></TR>"
+    append orgs_list "<TH ALIGN=left colspan=6> $org_title (id: $org_id) </TH></TR>"
+
+	set indent_items [lorsm::get_items_indent -org_id $org_id]
 
 db_foreach organization_item {
         SELECT
 		o.object_id,
- 		repeat('&nbsp;', (tree_level(tree_sortkey) - :indent)* 2) as indent,
+	 		--repeat('&nbsp;', (tree_level(tree_sortkey) - :indent)* 2) as indent,
 		i.ims_item_id,
                 i.item_title as item_title,
                 i.hasmetadata,
@@ -101,7 +105,7 @@ db_foreach organization_item {
         FROM 
 		acs_objects o, ims_cp_items i, ims_cp_manifests m
 	WHERE 
-		o.object_type = 'ims_item'
+			o.object_type like 'ims_item_object'
            AND
 		i.org_id = :org_id
 	   AND
@@ -109,24 +113,38 @@ db_foreach organization_item {
            AND
                 m.man_id = :man_id
         ORDER BY 
-                object_id, tree_sortkey
+	                object_id
+					--, tree_sortkey
 } {
+
+    foreach indent_item $indent_items {
+            set indent_item_id [lindex $indent_item 0]
+            set indent_indent [lindex $indent_item 1]
+            if { [string equal $indent_item_id $ims_item_id] } {
+				set indent $indent_indent
+			}
+	}
+	
+	set table_item ""
+	
+	for {set x 0} {$x<$indent} {incr x} {
+		append table_item "<td width=5%></td>"
+	}	
+
+	append table_item "<td colspan=99><table width=100% border=0><tr>"
 
 
 	if { [empty_string_p $identifierref] } {
-		set table_item "<td colspan=6>Item: $item_id $indent AAA $item_title" 
-		#set table_item "<td colspan=6>Item: $item_id $indent AAA $item_title" 
+		append table_item "<td colspan=6>Item: $ims_item_id $indent $item_title"
+		#set table_item "<td colspan=6>Item: $item_id $indent AAA $item_title</td>" 
 	} else {
 		#set table_item "<td colspan=6 bgcolor=#aca>Item: $item_id $indent <a href='$item_id' target='body' title='$item_title'>[string trim $item_title]</a>" 
-		set table_item "<td colspan=6 bgcolor=#aca>$indent $indent [string trim $item_title]" 
+		append table_item "<td colspan=6>[string trim $item_title], (id: $ims_item_id)" 
 	}
 #    set table_item [concat $table_item [ad_table -Tmissing_text $missing_text -Textra_vars {fs_local_package_id track_id}  -Ttable_extra_html $table_extra_html $table_def]]
     #set table_item [concat $table_item [ad_table -Tmissing_text $missing_text -Textra_vars {fs_local_package_id track_id}  -Ttable_extra_html $table_extra_html $table_def]]
 
     	append orgs_list [string trim $table_item]
-
-	
-
 	set item_table ""
 
 db_foreach student_activity {
@@ -148,7 +166,7 @@ db_foreach student_activity {
                 and
                         user_id=:user_id
                 and
-                        imsitems.item_id=cmi.item_id
+                        imsitems.ims_item_id=cmi.item_id
                 order by
                         cmi.track_id asc
   } {
@@ -167,17 +185,22 @@ db_foreach student_activity {
 
 }
 	if { [empty_string_p $item_table] } {
-    		append orgs_list ": <I> No scorm data </I></td>"
+    	append orgs_list "<I> : 	No RTE scorm data </I></td>"
 		append orgs_list "</tr>"	
 					} else {
     		append orgs_list "</td></tr><td width=10%></td><td>"
     		append orgs_list "<table width=100% border=1 cellpadding=0 cellspacing=0 bordercolor=#fff>"
 		append orgs_list "<td>score</td><td>status</td><td>total time</td><td>first visit</td><td>detail sessions</td></tr>"
 		append orgs_list $item_table
-    		append orgs_list "</table><td></tr>"
+		append orgs_list "</table>"
+		append orgs_list "</td></tr>"
 	}
 
+	append orgs_list "</table>"
+	append orgs_list "</td></tr>"
 } 
+
+append orgs_list "</td></tr>"
 append orgs_list "</TABLE>"
 
 }

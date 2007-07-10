@@ -13,6 +13,7 @@ ad_page_contract {
 } -errors {
 }
 
+set menu_type [ad_get_client_property lorsm menu_type]
 set debuglevel [ad_get_client_property lorsm debuglevel]
 if {$debuglevel > 0} {
     set app_width 150

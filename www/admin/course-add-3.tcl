@@ -90,7 +90,12 @@ db_transaction {
 
 	# We need to separate folders (since now all are cr_items) one for the files (content) and the other
 	# one for the created cr_items
-        set new_parent_id [lors::cr::add_folder -parent_id $parent_id -folder_name $cr_dir]
+	
+	if { [ catch {set new_parent_id [lors::cr::add_folder -parent_id $parent_id -folder_name $cr_dir]} errMsg] } {
+		ns_write "<H1>Unfortunately the same context contains a course with same exact name. hit back and change name.</H1>"
+		ad_script_abort
+	} 
+		
         set new_items_parent_id [lors::cr::add_folder -parent_id $parent_id -folder_name "${cr_dir}_items"]
 
 	# PERMISSIONS FOR FILE-STORAGE

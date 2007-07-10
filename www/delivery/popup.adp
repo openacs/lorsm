@@ -252,7 +252,7 @@ function waitforapplet() {
 }
 
 function init() {
-    this.childwindow=popit('popup','popup2?man_id=@man_id@<if @ims_id@ defined>&ims_id=@ims_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if> ',810,540,20,20);
+    this.childwindow=popit('popup','popup2?man_id=@man_id@<if @ims_item_id@ defined>&ims_id=@ims_item_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if> ',810,540,20,20);
     <if @debuglevel@ gt 0>
     this.debugwindow=popit('debuggerwindow','blank.html',210,640,10,10);
     </if>
@@ -343,7 +343,7 @@ function refreshFrame() {
 //chiamata quando trovato adapter
 <if @menu_off@ lt 1>
 childwindow.frames['content'].window.location.href = "blank.html";
-childwindow.frames['content'].window.location.href = "<if @ims_id@ defined>@body_url;noquote@</if><else>body?man_id=@man_id@</else>";
+childwindow.frames['content'].window.location.href = "<if @ims_item_id@ defined>@body_url;noquote@</if><else>body?man_id=@man_id@</else>";
 </if>
 //not ready yet to show menu
 //debug(typeof(this.childwindow));
@@ -372,9 +372,9 @@ var findgetAppletInfo = 0;
         KeepAlive();
 	<if @menu_off@ lt 1>
 	childwindow.frames['content'].document.location.href = "blank.html";
-	childwindow.frames['content'].document.location.href = "<if @ims_id@ defined>@body_url;noquote@</if><else>body?man_id=@man_id@</else>";
+	childwindow.frames['content'].document.location.href = "<if @ims_item_id@ defined>@body_url;noquote@</if><else>body?man_id=@man_id@</else>";
 	//let's show menu now
-	childwindow.frames['menu'].document.location.href = "menu?man_id=@man_id@<if @ims_id@ defined>&ims_id=@ims_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if>";
+	childwindow.frames['menu'].document.location.href = "menu?man_id=@man_id@<if @ims_item_id@ defined>&ims_id=@ims_item_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if>";
 	//obviously no menu if menu is off...
 	</if>
 	<else>
@@ -387,10 +387,10 @@ var findgetAppletInfo = 0;
    		myTimer=setTimeout("refreshFrame()",2500);
 		return(0);
 	}
-	childwindow.frames['content'].document.location.href = "record-view?man_id=@man_id@&item_id=@item_id@";
+	childwindow.frames['content'].document.location.href = "record-view?man_id=@man_id@&item_id=@ims_item_id@";
 	childwindow.caller=self;
 	childwindow.focus();
-	debug("calling @man_id@ with @item_id@");
+	debug("calling @man_id@ with @ims_item_id@");
 	</else>
         if (findgetAppletInfo> 7) {
             debug("I cannot talk to APIAdapter: try reloading me. Please notify support of your sw configuration ;) ");
@@ -441,7 +441,6 @@ Please don't close this window. <BR>
   <param name = "archive" value = "stuff.jar" >
 
 
-  <comment>
 
   <applet code="org.adl.samplerte.client.APIAdapterApplet.class" MAYSCRIPT
             archive="stuff.jar"
@@ -461,7 +460,7 @@ Please don't close this window. <BR>
 </else>
             name="APIAdapter">
 </applet>
-</comment>
+
 </object>
 
 </body>

@@ -11,47 +11,71 @@ ad_page_contract {
 } {
     man_id:integer,notnull  
     ims_id:integer,notnull,optional
-    track_id:integer,notnull
+	menu_off:integer,notnull,optional
+	track_id:integer,notnull,optional
 } -properties {
 } -validate {
 } -errors {
 }
 
+set debuglevel [ad_get_client_property lorsm debuglevel]
+set deliverymethod [ad_get_client_property lorsm deliverymethod]
 
+if { ![info exists menu_off] } {
+        set menu_off 0
+}
+
+if { ![info exists track_id] } {
+        set track_id 0
+}
+
+#original menu below
+set target "content"
 set items_list [list]
 set control_list [list]
 
-set org_id [db_string get_org_id { select org_id from ims_cp_organizations where man_id = :man_id} ]
+#set org_id [db_string get_org_id { select org_id from ims_cp_organizations where man_id = :man_id} ]
+
+
+#we handle multiple orgs
+foreach org_id [db_list get_org_id { } ] {
+    set count 0
+	lappend items_list [list $org_id 0]
+	foreach item [lorsm::get_items_indent -org_id $org_id] 	{
+		#we shift everything to the right to get the orgs inserted there
+		set indent [expr [lindex $item 1] +1 ]
+		set item_id [lindex $item 0]
+		set item [list $item_id $indent]
+		lappend items_list $item
+	}
 # We need all the count of all items (just live revisions)
 set items_count [db_string get_items_count { select count(ims_item_id) 
     from ims_cp_items where ims_item_id in ( select live_revision 
 					     from cr_items where content_type = 'ims_item_object') and
     org_id = :org_id
 }]
-
 # Get the root items
-set count 0
 db_foreach get_root_item { select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id } {
-    lappend items_list [list $ims_item_id 1]
-    lappend control_list $ims_item_id
+	    #lappend items_list [list $ims_item_id 1]
+	    #lappend control_list $ims_item_id
     incr count
 }
-
-template::multirow create tree_items link label indent last_indent target 
-
 while { $count < $items_count } {
     foreach item $items_list {
 	set item_id [lindex $item 0]
 	set indent [expr [lindex $item 1] + 1]
 	db_foreach get_items { select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id } {
             if { [string equal [lsearch -exact $control_list $ims_item_id] "-1"] } {
-		lappend items_list [list $ims_item_id $indent]
-		lappend control_list $ims_item_id
+						#this duplicates ITEMS lappend items_list [list $ims_item_id $indent]
+						#lappend control_list $ims_item_id
 		incr count
 	    }
 	}
     }
 }
+}
+
+template::multirow create tree_items icon link label indent last_indent target 
 
 set community_id [dotlrn_community::get_community_id]
 set counter 1
@@ -97,7 +121,7 @@ proc generate_tree_menu { items index rlevel } {
 		# Another item in the same level, just add to the list
 		lappend TREE_HASH "TREE_HASH\[\"ims_id.$item_id\"\] = $counter;"
 		lappend levelitems "\['$title', $url\]"
-		template::multirow append tree_items $url $title $level
+		template::multirow append tree_items "SAMELEVEL" $url $title $level
 		incr counter
 	    } elseif { $level < $nextlevel } {
 		# Next item is a sub-item
@@ -105,7 +129,7 @@ proc generate_tree_menu { items index rlevel } {
 		incr counter
 		set submenu "[generate_tree_menu $items $index [expr $rlevel + 1]]"
 		lappend TREE_HASH "TREE_HASH\[\"ims_id.$item_id\"\] = $ocounter;"
-		template::multirow append tree_items $url $title $level
+		template::multirow append tree_items "NEXTLEVEL" $url $title $level
 		if { [llength $submenu] } {
 		    # There's a submenu
 		    lappend levelitems \
@@ -143,7 +167,7 @@ proc generate_tree_menu { items index rlevel } {
 		    return [list]
 		} else {
 		    lappend TREE_HASH "TREE_HASH\[\"ims_id.$item_id\"\] = $counter;"
-		template::multirow append tree_items $url $title $level
+		template::multirow append tree_items "LEAF" $url $title $level
 		    incr counter
 		    return [join \
 				[lappend levelitems \
@@ -187,6 +211,8 @@ db_foreach organizations {
     order by
        org_id
 } {
+	#trying to visualize organizations
+	lappend js [list 0 $org_id $org_title $man_id "ims/organization" ""]    
 
     db_foreach sql {		   
         SELECT
@@ -194,10 +220,11 @@ db_foreach organizations {
          	i.parent_item,
  		i.ims_item_id,
                 i.item_title as item_title,
+				i.prerequisites_s as prerequisites,
 	        cr.mime_type
         FROM 
 		acs_objects o, ims_cp_items i, cr_items ci, cr_revisions cr,
-	        ims_cp_items_map im
+		        ims_cp_manifest_class im
 	WHERE 
 		o.object_type = 'ims_item_object'
            AND
@@ -205,10 +232,8 @@ db_foreach organizations {
 	   AND
 		o.object_id = i.ims_item_id
 	   AND
-		i.ims_item_id = im.ims_item_id
-           and im.man_id=:man_id
-	   and im.org_id=:org_id
-	   and im.hide_p='f'
+			im.man_id=:man_id
+		    and im.isenabled='t'
 	   and im.community_id=:community_id
 	   and ci.item_id=cr.item_id
            and cr.revision_id=i.ims_item_id
@@ -228,7 +253,7 @@ db_foreach organizations {
             set item_id [lindex $item 0]
             set indent [lindex $item 1]
             if { [string equal $item_id $ims_item_id] } {
-		lappend js [list $indent $ims_item_id $item_title $man_id $mime_type]    
+		lappend js [list $indent $ims_item_id $item_title $man_id $mime_type $prerequisites]    
 	    }
 	}
     }
@@ -237,11 +262,187 @@ db_foreach organizations {
 if { [info exists js] } {
     set last_indent 1
     foreach l $js {
-	foreach {indent item_id title man_id mime_type} $l {break}
-	template::multirow append tree_items [export_vars -base "record-view" \
-			 -url {item_id man_id}] "$title  $mime_type" $indent $last_indent
+	foreach {indent item_id title man_id mime_type prerequisites} $l {break}
+	
+	#analyzing LESSON STATUS for the ITEM
+	#this could as well become a lorsm:scorm:function
+	
+	ns_log debug "MENU-MK tree :  $indent $item_id $title "
+	
+	if { ! [string equal $mime_type "ims/organization"] } {
+	
+	if {  [ db_0or1row isnotanemptyitem "select res_id 
+						from ims_cp_items_to_resources 
+						where ims_item_id= $item_id
+						limit 1" ] } {
+							set icon ""
+	} else {
+							#since the item has no elements it's a placeholder, we assume it's a folder.
+							#time will tell if the assumption is correct.
+							set icon "<img src=\"/lorsm/resources/icons/folder.gif\" alt=\"Folder\">"
+	}
+	
+	if { ! [ db_0or1row isanysuspendedsession "select lorsm.track_id as track_id, 
+												cmi.lesson_status as lesson_status from 
+												lorsm_student_track lorsm, lorsm_cmi_core cmi
+											where 
+												lorsm.user_id = $user_id
+											and
+												lorsm.community_id = $community_id
+											and
+												lorsm.course_id = $man_id
+											and
+												lorsm.track_id = cmi.track_id 
+											and 	
+												cmi.man_id = $man_id
+											and 	
+												cmi.item_id = $item_id
+											order by 
+												lorsm.track_id desc
+											limit 1" ] 	} {	
+												#item has no track for the user
+												#the icon should be the same as per "not yet visited"
+												append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" 
+	} else {											
+												switch -regexp $lesson_status {
+													null { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+													incomplete { append icon "<img src=\"/lorsm/resources/icons/flag_orange.gif\" alt=\"Incomplete\">" }
+													complete { append icon "<img src=\"/lorsm/resources/icons/flag_green.gif\" alt=\"Completed\">" }
+													failed { append icon "<img src=\"/lorsm/resources/icons/flag_red.gif\" alt=\"Failed\">" }
+													"not attempted" { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+													passed { append icon "<img src=\"/lorsm/resources/icons/icon_accept.gif\" alt=\"Passed\">" }
+													default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/lorsm/resources/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+												}
+	}
+		
+	
+	#we analize now prerequisites.
+	
+	#regsub -all {&} $prerequisites " " prerequisites
+	regsub -all {[\{\}]} $prerequisites "" prerequisites
+	regsub -all { & } $prerequisites " " prerequisites
+	set prerequisites_list [split $prerequisites]
+	
+	foreach prer $prerequisites_list {
+			if { ! [empty_string_p $prer]  } {
+				ns_log debug "MENU prerequisites for $item_id are $prer "
+				#in the following query we disregard the organization
+				if { ! [ db_0or1row givemeid "select i.ims_item_id as id_from_ref
+												from 												
+													ims_cp_items i, 
+												    ims_cp_manifest_class im,
+													ims_cp_organizations o
+												WHERE 
+													i.identifier=:prer
+												
+												AND
+													o.org_id = i.org_id
+												AND 
+													o.man_id = :man_id
+											    AND 
+													im.man_id= :man_id
+												AND
+													im.isenabled='t'
+											    AND 
+													im.community_id=:community_id"
+				] } {
+					ns_log warning "MENU-MK: prerequisites not found comm: $community_id, man: $man_id, org: $org_id, item: $item_id"
+					continue
+				} else {
+					ns_log debug "THE REQUIRED ITEM IS $id_from_ref ";
+				}
+			}
+			if { ! [empty_string_p $id_from_ref]  } {
+				ns_log debug "MENU prerequisites for $item_id are $id_from_ref"
+				if { ! [ db_0or1row isanysuspendedsession "
+                                                select lorsm.track_id as track_id, cmi.lesson_status as lex_status
+													from lorsm_student_track lorsm, lorsm_cmi_core cmi
+                                                where
+                                                        lorsm.user_id = $user_id
+                                                and
+                                                        lorsm.community_id = $community_id
+                                                and
+                                                        lorsm.course_id = $man_id
+                                                and
+                                                        lorsm.track_id = cmi.track_id
+												and 	
+														cmi.man_id = $man_id
+												and 	
+														cmi.item_id = $id_from_ref
+                                                order by
+                                                        lorsm.track_id desc
+                                                " ] } {
+													ns_log debug "NOT FOUND TRACK"
+													append icon "<img src=\"/lorsm/resources/icons/page_lock.gif\" alt=\"Missing prerequisite: Not attempted\">"
+												} else {
+													ns_log debug "ITEM ID $id_from_ref HAS A TRACK WITH $lex_status"
+													switch -regexp $lex_status {
+														null { append icon "<img src=\"/lorsm/resources/icons/page_lock.gif\" alt=\"Missing prerequisite: Not attempted\">" }
+														incomplete { append icon "<img src=\"/lorsm/resources/icons/page_lock.gif\" alt=\"Missing prerequisite: Incomplete\">" }
+														failed { append icon "<img src=\"/lorsm/resources/icons/page_lock.gif\" alt=\"Missing prerequisite: Failed\">" }
+														"not attempted" { append icon "<img src=\"/lorsm/resources/icons/page_lock.gif\" alt=\"Missing prerequisite: Not attempted\">" }
+														passed {  append icon "<img src=\"/lorsm/resources/icons/page_tick.gif\" alt=\"Prerequisite fulfilled\">" }
+														complete { append icon "<img src=\"/lorsm/resources/icons/page_tick.gif\" alt=\"Prerequisite fulfilled\">" }
+														default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/lorsm/resources/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+													}
+				} 
+				#if found session for id_from_ref
+			} 
+			#if found id_from_ref
+	} 
+	#foreach close
+	
+	template::multirow append tree_items $icon [export_vars -base "record-view" \
+			 -url {item_id man_id}] "$title $mime_type" $indent $last_indent $target
 	set last_indent $indent
+	
+	} else {
+	
+	regsub -all {[\{\}]} $title "" title
+	
+	set icon "<img src=\"/lorsm/resources/icons/folder_page.gif\" alt=\"Content Folder\">"
+	
+	if { ! [ db_0or1row isanysuspendedsession "
+                                                select lorsm.track_id as track_id, cmi.lesson_status as lesson_status
+													from lorsm_student_track lorsm, lorsm_cmi_core cmi
+                                                where
+                                                        lorsm.user_id = $user_id
+                                                and
+                                                        lorsm.community_id = $community_id
+                                                and
+                                                        lorsm.course_id = $man_id
+                                                and
+                                                        lorsm.track_id = cmi.track_id
+												and 	
+														cmi.man_id = $man_id
+												and 	
+														cmi.item_id = $item_id
+                                                order by
+                                                        lorsm.track_id desc
+                                                " ] } {
+													ns_log debug "Menu-mk: no org tracking found"
+													
+													append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" 
+	} else {											
+													switch -regexp $lesson_status {
+														null { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+														incomplete { append icon "<img src=\"/lorsm/resources/icons/flag_orange.gif\" alt=\"Incomplete\">" }
+														complete { append icon "<img src=\"/lorsm/resources/icons/flag_green.gif\" alt=\"Completed\">" }
+														failed { append icon "<img src=\"/lorsm/resources/icons/flag_red.gif\" alt=\"Failed\">" }
+														"not attempted" { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+														passed { append icon "<img src=\"/lorsm/resources/icons/icon_accept.gif\" alt=\"Passed\">" }
+														default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/lorsm/resources/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+													}
+	} 
+	
+	set last_indent $indent
+	template::multirow append tree_items $icon "" $title $indent $last_indent ""
+	
+	set last_indent $indent
+	
+	}
     }
 }
 # return_url
 set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+	

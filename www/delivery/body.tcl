@@ -10,6 +10,7 @@ ad_page_contract {
     @cvs-id $Id$
 } {
     man_id:notnull
+	lmsfinish:optional
 } -properties {
 } -validate {
 } -errors {
@@ -17,6 +18,31 @@ ad_page_contract {
 
 set user_id [ad_conn user_id]
 set community_id [dotlrn_community::get_community_id]
+
+if { ! [info exists lmsfinish] } {
+        set lmsfinish 0
+}
+
+#SCORM for finish
+set initedonpage [ad_get_client_property lorsm initedonpage]
+
+if { $initedonpage!=0 && $initedonpage!=""  } {
+	if { $lmsfinish > 0 } {
+			ns_log warning "SCORM : back to record view after lms finish, but it hasn't worked!"
+			ns_log warning "SCORM : resetting all visiting parameters."
+			ad_set_client_property lorsm studenttrack 0
+ 			ad_set_client_property lorsm studenttrack ""
+			ad_set_client_property lorsm currenttrackid ""
+			ad_set_client_property lorsm initedonpage ""
+		} else {
+			ad_set_client_property lorsm studenttrack 0
+ 			ns_log warning "SCORM : new content item with still open course ???"
+  			ns_log warning "SCORM : we call for LMSFinish in place of the content!!!!!!???"
+			ad_returnredirect [export_vars -base lmsfinish {man_id initedonpage} ]
+	}
+}
+
+
 db_0or1row get_last_viewed {
     select ims_item_id as imsitem_id, coalesce(acs_object__name(object_id),'Item '||object_id) as last_page_viewed
     from views v,

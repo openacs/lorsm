@@ -40,6 +40,8 @@ set the_url [join [lrange [split $the_url "/"] 1 end] "/"]
 
 set template_root [db_string template_root ""]
 
+ns_log debug "view/index.vuh serving the url : $the_url with template root: $template_root"
+
 # Serve the page
 # DRB: Note that content::init modifies the local variable the_root, which is treated
 # as though it's been passed by reference.   This requires that the redirect treat the
@@ -71,10 +73,12 @@ if { ![empty_string_p $revision_id] } {
     cr_write_content -revision_id $revision_id
 } else {
     # Write the ims_item_id that we recieve on the page since this is the one that holds the content
-    cr_write_content -revision_id $ims_item_id	
+	ns_log warning "We have no CONTENT for this url: $the_url "
+    #cr_write_content -revision_id $ims_item_id	
 }
 
-ad_script_abort
+#ad_script_abort
+
 if { [lorsm::init the_url the_root  $content_root $template_root public "" $content_type] } {
     # we introduced our own template
     rp_internal_redirect -absolute_path [acs_root_dir]/templates/lorsm-default

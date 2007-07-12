@@ -59,7 +59,7 @@ create table lorsm_cmi_core (
         constraint lorsm_cmi_core_man_id_fk foreign key
                 (man_id) references ims_cp_manifests (man_id),
         constraint lorsm_cmi_core_item_id_fk foreign key
-                (item_id) references ims_cp_items(ims_item_id)
+                (item_id) references acs_objects (object_id)
 );
 
 create index lorsm_cmi_core__stud_id_idx on lorsm_cmi_core (student_id);
@@ -212,7 +212,7 @@ create table lorsm_cmi_student_data (
                                 on delete cascade,
 	student_id		varchar(100),
 	mastery_score   	varchar(10), 				-- not mandatory, gettable, not settable
-   	max_time_allowed 	character varying(12), 			-- mandatory, not gettable, settable
+   	max_time_allowed 	character varying(14), 			-- mandatory, not gettable, settable
 	time_limit_action   	varchar(100) 				-- not mandatory, gettable, not settable
 );
 

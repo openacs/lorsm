@@ -1,19 +1,19 @@
 /*	body {background: url(/dotlrn/resources/00_sfondo.gif) repeat-x top;} */
 body {background-color: #000; }
 
-      a { font-family: Helvetica,Arial;
+a { font-family: Helvetica,Arial;
        font-weight: bold;
        font-size: 0.7em;
        color: #FFFFFF;
-           white-space:normal;
-      }
+       white-space:normal;
+}
 
-      a.current a:active { font-family: Helvetica,Arial;
+a.current a:active { font-family: Helvetica,Arial;
        font-weight: bold;
        font-size: 0.7em;
        color: #FFFF00;
            white-space:normal;
-      }
+}
 
 a.two { color: #6A6; }
 a.one { color: #fff; }
@@ -39,7 +39,6 @@ a.button:hover  {
 	border: 3px inset #00b;
 }
 
-
 h1, h2, h3, h4, h5, h6 {
 		font-family: Helvetica,Arial;
 		font-weight: bold;
@@ -55,6 +54,13 @@ h1, h2, h3, h4, h5, h6 {
         white-space:normal;
 }
 
+.usermessage_class {
+		font-family: Helvetica,Arial;
+		font-weight: bold;
+		font-size: 0.7em;
+		white-space:normal; 
+		color: red; 
+}
 
 /*      a.button {
        font: 65% arial;

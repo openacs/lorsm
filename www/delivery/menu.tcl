@@ -1,4 +1,4 @@
-# packages/lorsm/www/delivery/index.tcl
+# packages/lorsm/www/delivery/menu.tcl
 
 ad_page_contract {
     
@@ -26,6 +26,12 @@ if { ![info exists menu_off] } {
 
 set debuglevel [ad_get_client_property lorsm debuglevel]
 set deliverymethod [ad_get_client_property lorsm deliverymethod]
+
+if { [string equal $deliverymethod "delivery-scorm"] } {
+	set rte true
+} else {
+	set rte false
+}
 
 set items_list [list]
 
@@ -170,15 +176,14 @@ db_foreach organizations { } {
     }
 
     db_foreach sql {        SELECT
-
          	i.parent_item,
- 		i.ims_item_id,
-                i.item_title as item_title
+			i.ims_item_id,
+            i.item_title as item_title
         FROM 
-		ims_cp_items i, cr_items ci, cr_revisions cr
-	WHERE 
-		i.org_id = :org_id
-	AND     ci.item_id=cr.item_id
+			ims_cp_items i, cr_items ci, cr_revisions cr
+		WHERE 
+				i.org_id = :org_id
+		AND     ci.item_id=cr.item_id
         AND     cr.revision_id=i.ims_item_id
 	AND EXISTS (select 1
                     from acs_object_party_privilege_map p
@@ -193,8 +198,6 @@ db_foreach organizations { } {
 	lappend js [list $indent $ims_item_id $item_title]    
     }
 }
-
-
 
 if { [info exists js] } {
     set index 0

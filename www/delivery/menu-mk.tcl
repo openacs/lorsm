@@ -1,4 +1,4 @@
-# packages/lorsm/www/delivery/index.tcl
+# packages/lorsm/www/delivery/menu-mk.tcl
 
 ad_page_contract {
     
@@ -18,21 +18,25 @@ ad_page_contract {
 } -errors {
 }
 
+if { ![info exists track_id] } {
+        set track_id 0 }
+
+if { ![info exists menu_off] } {
+        set menu_off 0 }
+		
 set debuglevel [ad_get_client_property lorsm debuglevel]
 set deliverymethod [ad_get_client_property lorsm deliverymethod]
 
-if { ![info exists menu_off] } {
-        set menu_off 0
+if { [string equal $deliverymethod "delivery-scorm"] } {
+	set rte true
+} else {
+	set rte false
 }
 
-if { ![info exists track_id] } {
-        set track_id 0
-}
 
-#original menu below
-set target "content"
 set items_list [list]
 set control_list [list]
+set target "content"
 
 #set org_id [db_string get_org_id { select org_id from ims_cp_organizations where man_id = :man_id} ]
 
@@ -48,31 +52,31 @@ foreach org_id [db_list get_org_id { } ] {
 		set item [list $item_id $indent]
 		lappend items_list $item
 	}
-# We need all the count of all items (just live revisions)
-set items_count [db_string get_items_count { select count(ims_item_id) 
-    from ims_cp_items where ims_item_id in ( select live_revision 
-					     from cr_items where content_type = 'ims_item_object') and
-    org_id = :org_id
-}]
-# Get the root items
-db_foreach get_root_item { select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id } {
+	# We need all the count of all items (just live revisions)
+	set items_count [db_string get_items_count { select count(ims_item_id) 
+						from ims_cp_items where ims_item_id in ( select live_revision 
+								from cr_items where content_type = 'ims_item_object') and
+								org_id = :org_id
+		}]
+	# Get the root items
+	db_foreach get_root_item { select ims_item_id from ims_cp_items where parent_item = :org_id and org_id = :org_id } {
 	    #lappend items_list [list $ims_item_id 1]
 	    #lappend control_list $ims_item_id
-    incr count
-}
-while { $count < $items_count } {
-    foreach item $items_list {
-	set item_id [lindex $item 0]
-	set indent [expr [lindex $item 1] + 1]
-	db_foreach get_items { select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id } {
-            if { [string equal [lsearch -exact $control_list $ims_item_id] "-1"] } {
+	    incr count
+	}	
+	while { $count < $items_count } {
+		foreach item $items_list {
+		set item_id [lindex $item 0]
+		set indent [expr [lindex $item 1] + 1]
+		db_foreach get_items { select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id } {
+				if { [string equal [lsearch -exact $control_list $ims_item_id] "-1"] } {
 						#this duplicates ITEMS lappend items_list [list $ims_item_id $indent]
 						#lappend control_list $ims_item_id
-		incr count
-	    }
-	}
-    }
-}
+				incr count
+				}
+			}
+		}
+	}  
 }
 
 template::multirow create tree_items icon link label indent last_indent target 
@@ -213,30 +217,30 @@ db_foreach organizations {
 } {
 	#trying to visualize organizations
 	lappend js [list 0 $org_id $org_title $man_id "ims/organization" ""]    
-
+	
     db_foreach sql {		   
-        SELECT
- 	--	(tree_level(ci.tree_sortkey) - :indent) as indent,
-         	i.parent_item,
- 		i.ims_item_id,
-                i.item_title as item_title,
+	        SELECT
+	 		-- (tree_level(ci.tree_sortkey) - :indent ) as indent,
+	         	i.parent_item,
+				i.ims_item_id,
+	            i.item_title as item_title,
 				i.prerequisites_s as prerequisites,
-	        cr.mime_type
-        FROM 
-		acs_objects o, ims_cp_items i, cr_items ci, cr_revisions cr,
+		        cr.mime_type
+	        FROM 
+			acs_objects o, ims_cp_items i, cr_items ci, cr_revisions cr,
 		        ims_cp_manifest_class im
-	WHERE 
-		o.object_type = 'ims_item_object'
-           AND
-		i.org_id = :org_id
-	   AND
-		o.object_id = i.ims_item_id
-	   AND
+		WHERE 
+			o.object_type = 'ims_item_object'
+	           AND
+			i.org_id = :org_id
+		   AND
+			o.object_id = i.ims_item_id
+		   AND
 			im.man_id=:man_id
 		    and im.isenabled='t'
-	   and im.community_id=:community_id
-	   and ci.item_id=cr.item_id
-           and cr.revision_id=i.ims_item_id
+		    and im.community_id=:community_id
+		    and ci.item_id=cr.item_id
+	        and cr.revision_id=i.ims_item_id
 
 	   AND 
 	   	EXISTS

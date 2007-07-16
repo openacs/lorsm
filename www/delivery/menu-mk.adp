@@ -19,18 +19,18 @@ debuglevel=@debuglevel@+0;
 <link rel="stylesheet" type="text/css" href="scorm.css" media="all">
 </head>
 
-<BODY onload="return menu_init();">
-
-<div id="usermessage" STYLE="font-family: Helvetica,Arial;
-       font-weight: bold; 
-       font-size: 0.7em;
-       color: #FFFFFF;
-       white-space:normal; color: red;">
-
-<if @debuglevel@ gt 0>
-debug is: ON <br>
-delivery is: @deliverymethod@
+<if @rte@ true>
+	<BODY onload="return menu_init();">
 </if>
+<else>
+	<BODY>
+</else>
+	
+<div id="usermessage" class="usermessage_class">
+	<if @debuglevel@ gt 0>
+	debug is: ON <br>
+	delivery is: @deliverymethod@
+	</if>
 </div>
 
 <div id="abort" onclick="return selfcheck();">
@@ -41,14 +41,16 @@ delivery is: @deliverymethod@
 
 <div id="menudiv">
 <if @menu_off@ lt 1>
-<p>
-<span id="upperbutton">
-<a onclick="return selfcheck();" href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"  style="display: block; position: absolute; top=20px; left=10px;" class="button" target="_top">#lorsm.Exit_Course# <br> #lorsm.return_to_LRN#</a>
-</span>
-</p>
-<p>
+
+<div id="upperbutton">
+<a onclick="return selfcheck();" href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@"
+class="button" target="_top">#lorsm.Exit_Course# <br> #lorsm.return_to_LRN#</a>
+</div>
+<div id="spacer">
+<br><br><br>
+</div>
 <!-- beware the weird hr closing is necessary for mktree to work correctely -->
-<span id="tree-within-menu" STYLE="display: block; position: absolute; top=80px; left=15px;">
+<div id="tree-within-menu">
 <hr size="1" />
 <ul class="mktree" id="tree1">
 <multiple name="tree_items">
@@ -65,17 +67,16 @@ delivery is: @deliverymethod@
 	<li id="@man_id@-@return_url@-@tree_items.rownum@" remember="1">@tree_items.icon;noquote@
 	<span class="organization_class">@tree_items.label@</span>
 </else>
-<if @tree_items.rownum@ eq @tree_items:rowcount@></li></if>
+	<if @tree_items.rownum@ eq @tree_items:rowcount@></li></if>
 </multiple>
-</ul>
-</li>
-</ul>
+	</ul>
+	</li>
+	</ul>
 </if>
 <else>
 Menu not available.
 </else>
-</p>
-</span>
+</div>
 
 </div>
 </body>

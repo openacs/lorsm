@@ -44,7 +44,7 @@ set last_item_viewed [db_string select_last_item_viewed {
 } -default "no_item"]
 
 set first_item_id [lindex $item_list 0]
-set first_item_url "<a href=\"[export_vars -base "record-view" -url {{item_id $first_item_id} man_id}]\" target=\"content\"><img src=\"../Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
+set first_item_url "<a href=\"[export_vars -base "record-view" -url {{item_id $first_item_id} man_id}]\" target=\"content\"><img src=\"../delivery/Images/home.png\" border=\"0\" title=\"home\" onclick=\"window.location.reload()\"></a>"
 
 set curr_index [expr [lsearch -exact $item_list $last_item_viewed]]
 set prev_item_id [lindex $item_list [expr $curr_index - 1]]

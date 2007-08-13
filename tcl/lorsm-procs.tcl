@@ -622,13 +622,13 @@ ad_proc -public lorsm::get_items_indent {
     # that could be expensive if the tree is long or deep.
     array set visited_items [list]
     while { $count < $items_count } {
-        ns_log notice "loop [incr i]"
+        ns_log debug "lorsm::get_items_indent loop [incr i]"
         if {$i > 2} {break}
 	foreach item $items_list {
 	    set item_id [lindex $item 0]
-            ns_log notice "item_id $item_id [info exists visited_items($item_id)]"
+            ns_log debug "lorsm::get_items_indent item_id $item_id [info exists visited_items($item_id)]"
             if {![info exists visited_items($item_id)]} {
-            ns_log notice "adding to array item_id $item_id"                
+            ns_log debug "lorsm::get_items_indent adding to array item_id $item_id"                
                 set visited_items($item_id) $item_id
                 set indent [expr [lindex $item 1] + 1]
                 foreach ims_item_id [db_list get_items "select ims_item_id from ims_cp_items where parent_item = :item_id and org_id = :org_id $exclude_where"] {

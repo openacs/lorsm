@@ -14,6 +14,7 @@ set community_url ""
 
 # There are pages that are not necesarily part of one ims_item_id
 # but are part of a particular resource. 
+
 if { [info exists content(item_id)] } {
     set write_p [fs::item_editable_p -item_id $content(item_id)]
 } else {
@@ -22,11 +23,18 @@ if { [info exists content(item_id)] } {
 }
 
 if {![empty_string_p $imsitem_id]} {
-    set imsitem_id [content::item::get_live_revision -item_id $imsitem_id]
+    set live_imsitem_id [content::item::get_live_revision -item_id $imsitem_id]
+	if {![empty_string_p $live_imsitem_id]} {
+		set imsitem_id $live_imsitem_id
+    } else {
+		ns_log warning "no live revision for item $imsitem_id"
+	}
     # See if they have write and the object is browser editable to offer an edit link.
+    if { [info exists content(item_id)] } {
     set write_p [permission::write_permission_p -object_id $imsitem_id] 
-    if { $write_p && [info exists content(item_id)] } {
+	if { $write_p } { 
 	set write_p [fs::item_editable_p -item_id $content(item_id)]
+	}
     } else {
 	# No content to edit
 	set write_p 0

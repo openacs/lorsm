@@ -20,6 +20,7 @@ set community_id [dotlrn_community::get_community_id]
 
 set lors_central_package_id [apm_package_id_from_key "lors-central"]
 set lors_central_url [apm_package_url_from_id $lors_central_package_id]
+
 set elements_list {
     course_name {
 	label "[_ lorsm.Course_Name_1]"
@@ -36,6 +37,10 @@ set elements_list {
 	}
 	html { width 70% }
     }
+}
+
+if { [empty_string_p $community_id] } {
+	append elements_list {
     subject {
 	label "[_ lorsm.Subject]"
 	display_eval {[dotlrn_community::get_community_name $community_id]}
@@ -43,18 +48,33 @@ set elements_list {
 	link_url_eval {[dotlrn_community::get_community_url $community_id]}
 	link_html {title "[_ lorsm.Access_Course]"}
     }
+	}
+}
+
+append elements_list {
     last_viewed {
 	label "[_ lorsm.Last_Viewed_On]"
 	html { align center width 10% }
 	display_eval {[lc_time_fmt $last_viewed "%x"]}
     }
+ 
     viewed_percent {
 	label "[_ lorsm._Viewed]"
 	html { align right }
 	display_eval {[lc_numeric $viewed_percent "%.2f"]}
     }
+	
+	lesson_status {
+	label "Completed"
+	html { align center }
+	display_template { 
+			@d_courses.lesson_status;noquote@ 
+			}
+	}
 }
 
+
+#label "[_ lorsm._CourseStatus]"
 
 if { ![string equal $lors_central_package_id 0] && ![empty_string_p $community_id] } {
     if { [lors_central::check_inst -user_id $user_id -community_id $community_id] } {
@@ -88,32 +108,36 @@ set extra_query ""
 if {![empty_string_p $community_id]} {
     set extra_query "and cpmc.community_id = :community_id"
 }
+
 foreach package $package_id {
-    db_multirow -extend { admin_p item_id ims_md_id last_viewed total_item_count viewed_item_count viewed_percent course_url } -append d_courses select_d_courses { } {
+    db_multirow -extend { admin_p item_id ims_md_id last_viewed total_item_count viewed_item_count viewed_percent course_url lesson_status } -append d_courses select_d_courses { } {
         set ims_md_id $man_id
+
 	if { [string eq $format_name "default"] } {
 
             # micheles
    	    set context [site_node::get_url_from_object_id -object_id $lorsm_instance_id]
 	    if ([db_0or1row query "
     		select
-           		cpr.man_id,
-           		cpr.res_id,
+           		cp.man_id,
            		case
               			when upper(scorm_type) = 'SCO' then 'delivery-scorm'
               			else 'delivery'
            		end as needscorte
     			from
-           			ims_cp_resources cpr
+           			ims_cp_manifests cp  left join (select man_id, max(scorm_type) as scorm_type from ims_cp_resources group by man_id ) as cpr using (man_id) 
     			where
-				cpr.man_id = :man_id 
-			order by cpr.scorm_type desc limit 1"
+				cp.man_id = :man_id "
 		]) {
-
 		ns_log Debug "lorsm - $needscorte"
 		set delivery_method delivery
-		set course_url_url [export_vars -base "[lindex $context 0]$delivery_method" -url {man_id}]
+			set course_url_url [export_vars -base "[lindex $context 0]$delivery_method/" -url {man_id}]
+			#this popup shouldn't affect delivery should popup blocker be in place
+			if { [string eq $needscorte "delivery-scorm"] } {
+				set course_url "> <a href=\"$course_url_url\" onclick=\"return popupnr(\'$course_url_url\',\'aaa\',1);\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+			} else {
 		set course_url "<a href=\"$course_url_url\" title=\"[_ lorsm.Access_Course]\">$course_name</a>" 
+			}
 		ns_log Debug "lorsm - course_url: $course_url"
 	    } else {
 		set course_url "NO RESOURCES ERROR"
@@ -122,8 +146,78 @@ foreach package $package_id {
 	    set course_url "<a href=\"[site_node::get_url_from_object_id -object_id $lorsm_instance_id]delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" >$course_name</a>" 
 	}
 
+	#LET's CHECK IF delivery is RTE, so there should be some tracking.
+	#the code, differentely than above, check the delivery method as per above
+	
+	# Get the course name
+	if {[db_0or1row manifest "
+		select 
+			cp.course_name,
+			cp.fs_package_id,
+				isscorm,
+			pf.folder_name,
+			pf.format_name,
+		case
+			when upper(scorm_type) = 'SCO' then 'delivery-scorm'
+			else 'delivery'
+        end as deliverymethod
+		from
+           ims_cp_manifests cp  left join (select man_id, max(scorm_type) as scorm_type from ims_cp_resources group by man_id ) as cpr using (man_id) ,
+           lorsm_course_presentation_formats pf
+		where 
+			cp.man_id = :man_id
+			and  cp.parent_man_id = 0
+			and cp.course_presentation_format = pf.format_id "]} {
+		# Course Name
+			if {[empty_string_p $course_name]} {
+				set course_name "No Course Name"
+			} 
+		} else {
+			set course_name "No Course Name"
+	}
+
+	set lesson_status "N/A"
+	
+	if { [string equal $deliverymethod "delivery-scorm"] } {
+			set icon ""
+			if { ! [ db_0or1row isanysuspendedsession "select lorsm.track_id as track_id, 
+									cmi.lesson_status as lesson_status from 
+									lorsm_student_track lorsm, lorsm_cmi_core cmi
+								where 
+									lorsm.user_id = $user_id
+								and
+									lorsm.community_id = $community_id
+								and
+									lorsm.course_id = $man_id
+								and
+									lorsm.track_id = cmi.track_id 
+								and 	
+									cmi.man_id = $man_id
+								and 	
+									cmi.item_id = $man_id
+								order by 
+									lorsm.track_id desc
+								limit 1" ] 	} {	
+								#item has no track for the user
+								#the icon should be the same as per "not yet visited"
+								append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" 
+								} else {											
+								switch -regexp $lesson_status {
+									null { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+									incomplete { append icon "<img src=\"/lorsm/resources/icons/flag_orange.gif\" alt=\"Incomplete\">" }
+									complete { append icon "<img src=\"/lorsm/resources/icons/flag_green.gif\" alt=\"Completed\">" }
+									failed { append icon "<img src=\"/lorsm/resources/icons/flag_red.gif\" alt=\"Failed\">" }
+									"not attempted" { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+									passed { append icon "<img src=\"/lorsm/resources/icons/icon_accept.gif\" alt=\"Passed\">" }
+									default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/lorsm/resources/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+									}
+								}
+	set lesson_status $icon
+	}
+	
         # DEDS: these are expensive
         # and for demo purposes only
+    
         db_0or1row get_last_viewed { }
         set all_items [db_list get_total_items { }]
         set total_item_count [llength $all_items]

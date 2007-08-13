@@ -31,6 +31,9 @@ ad_page_contract {
 # Permissions
 set user_id [ad_conn user_id]
 
+# checl Permissions on target folder
+ad_require_permission $folder_id admin
+
 # unzips the file
 if { ![empty_string_p $upload_file] &&
      [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
@@ -41,24 +44,22 @@ if { ![empty_string_p $upload_file] &&
 # if it is not blank...
 if {![empty_string_p $upload_file]} {
     ns_log Debug "LORS Package: made directory $tmp_dir to extract from ${upload_file.tmpfile} ($upload_file)\n"
+	#checks for nested imsmanifest.xml and sets root there
+	while { [llength [glob -nocomplain [file join $tmp_dir *]]] == 1 } {
+		set tmp_dir [lindex [glob -nocomplain [file join $tmp_dir *]] 0]
     set allfiles [lors::imscp::dir_walk $tmp_dir]
-
+	}
 } else {
     set allfiles [lors::imscp::dir_walk $directory]
-
 }
 
-
-# Permissions on target folder
-ad_require_permission $folder_id admin
-
-
+#unusefully duplicates, leaving unzips around
 # unzips the file
-if { ![empty_string_p $upload_file] && 
-     [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
-    ad_return_complaint 1 "[_ lorsm.lt_The_uploaded_file_doe]"
-    ad_script_abort
-} 
+#if { ![empty_string_p $upload_file] && 
+#     [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
+#    ad_return_complaint 1 "[_ lorsm.lt_The_uploaded_file_doe]"
+#    ad_script_abort
+#} 
 
 # search for manifest file
 set file imsmanifest.xml

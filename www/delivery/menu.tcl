@@ -1,4 +1,4 @@
-# packages/lorsm/www/delivery/index.tcl
+# packages/lorsm/www/delivery/menu.tcl
 
 ad_page_contract {
     
@@ -12,14 +12,29 @@ ad_page_contract {
     man_id:integer,notnull  
     ims_id:integer,notnull,optional
     menu_off:integer,notnull,optional
-    track_id:integer,notnull
+    track_id:integer,notnull,optional
 } -properties {
 } -validate {
 } -errors {
 }
 
+if { ![info exists track_id] } {
+        set track_id 0 }
+
+if { ![info exists menu_off] } {
+        set menu_off 0 }
+
 set debuglevel [ad_get_client_property lorsm debuglevel]
+set deliverymethod [ad_get_client_property lorsm deliverymethod]
+
+if { [string equal $deliverymethod "delivery-scorm"] } {
+	set rte true
+} else {
+	set rte false
+}
+
 set items_list [list]
+
 foreach org_id [db_list get_org_id { } ] {
     foreach item [lorsm::get_items_indent -org_id $org_id] {lappend items_list $item}
 }
@@ -29,9 +44,7 @@ set fs_package_id [db_string get_fs_package_id { } -default "" ]
 set community_id [dotlrn_community::get_community_id]
 set counter 1
 set user_id [ad_conn user_id]
-if { ![info exists menu_off] } {
-        set menu_off 0
-}
+
 
 proc generate_tree_menu { items index rlevel } {
     # This function is recursive
@@ -163,15 +176,14 @@ db_foreach organizations { } {
     }
 
     db_foreach sql {        SELECT
-
          	i.parent_item,
- 		i.ims_item_id,
-                i.item_title as item_title
+			i.ims_item_id,
+            i.item_title as item_title
         FROM 
-		ims_cp_items i, cr_items ci, cr_revisions cr
-	WHERE 
-		i.org_id = :org_id
-	AND     ci.item_id=cr.item_id
+			ims_cp_items i, cr_items ci, cr_revisions cr
+		WHERE 
+				i.org_id = :org_id
+		AND     ci.item_id=cr.item_id
         AND     cr.revision_id=i.ims_item_id
 	AND EXISTS (select 1
                     from acs_object_party_privilege_map p
@@ -186,8 +198,6 @@ db_foreach organizations { } {
 	lappend js [list $indent $ims_item_id $item_title]    
     }
 }
-
-
 
 if { [info exists js] } {
     set index 0

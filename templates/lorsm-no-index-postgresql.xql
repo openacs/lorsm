@@ -4,7 +4,7 @@
   <fullquery name="select_last_item_viewed">      
     <querytext>
 	select item_id
-	from views v, ims_cp_items i, ims_cp_organizations o
+	from views_views v, ims_cp_items i, ims_cp_organizations o
 	where v.viewer_id = :user_id
 	and v.object_id = i.item_id
 	and i.org_id = o.org_id

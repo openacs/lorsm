@@ -32,25 +32,8 @@ ad_proc -private lorsm::install::package_install {} {
     Install the lorsm-templates
     
 } {
-    # location where the templates file are
-    set temp_location "[acs_root_dir]/packages/lorsm/templates"
-
-    # location where we are going to copy the files to 
-    set temp_dir "[acs_root_dir]/templates"
-
-    # check if the template directory exists
-    # Otherwise create it. 
-    if {![file exists $temp_dir]} {
-
-	file mkdir $temp_dir
-
-    }
-
-    foreach file [glob -nocomplain [file join $temp_location lorsm-*]] {
-
-	file copy -force $file $temp_dir
-
-    }
+    
+    lorsm::install::templates
 
     # by the moment we only have tree format presentations and there is no
     # way (by the moment) to add more dinamically, so we create them with an non dynamic id
@@ -93,10 +76,32 @@ ad_proc -private lorsm::install::after_upgrade {
 	-to_version_name $to_version_name \
 	-spec {
 	    0.7d 0.8d {
-		set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
-		db_dml create_no_index_format {
-		    insert into lorsm_course_presentation_formats values (-4,:pretty_name,'progress-bar','delivery-progress-bar')
-		}
+            set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
+            db_dml create_no_index_format {
+		    inse    rt into lorsm_course_presentation_formats values (-4,:pretty_name,'progress-bar','delivery-progress-bar')
+            }
 	    }
+        0.8d1 0.8d2 {
+            lorsm::install::templates
+        }
 	}
+}
+
+ad_proc -private lorsm::install::templates {
+} {
+    # location where the templates file are
+    set temp_location "[acs_root_dir]/packages/lorsm/templates"
+
+    # location where we are going to copy the files to 
+    set temp_dir "[acs_root_dir]/templates"
+
+    # check if the template directory exists
+    # Otherwise create it. 
+    if {![file exists $temp_dir]} {
+        file mkdir $temp_dir
+    }
+
+    foreach file [glob -nocomplain [file join $temp_location lorsm-*]] {
+        file copy -force $file $temp_dir
+    }
 }

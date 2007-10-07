@@ -307,23 +307,23 @@ function LMSInitialize(placeholder) {
 	debug("<B>returning from LMSInitialize =("+initialized+")</B>");
 	initialized=initialized+'';
 	if(initialized=='true') {
-		if (menu_off < 1 ) {
-		menu_frame=parent.frames['menu'];
-		menu_frameset=parent.document.getElementById("menuvscontent");
-		
-		menu_x=parent.document.getElementById("left");
-		menu_x.onmouseover = FocusListener;
-		menu_x.onmouseout = BlurListener;
-
-		menu_frame.toggleBox('menudiv',0);
-		menu_frame.toggleBox('abort',0);
-		menu_frame.toggleBox('btn_finish',0);
-		
-		menu_frameset.cols="5%,*";
-		menu_frame.writit('<FONT SIZE=1>EXIT</FONT><BR>','usermessage');
-		menu_frame.writit('<a href=\"'+exit_url+'\"  style=\"display: block; \" class=\"button\" target=\"_top\"><B>Abort</B> Course <BR>(clicking this will not record tracking information)</a>','abort');
-		menu_frame.writit('<a href=\"'+main_body_url+'\"  style=\"display: block; \" class=\"button\" target=\"content\"><B>Close</B> Unit <BR>(force LMSFinish)</a>','btn_finish');	
-		}
+//		if (menu_off < 1 ) {
+//		menu_frame=parent.frames['menu'];
+//		menu_frameset=parent.document.getElementById("menuvscontent");
+//		
+//		menu_x=parent.document.getElementById("left");
+//		menu_x.onmouseover = FocusListener;
+//		menu_x.onmouseout = BlurListener;
+//
+//		menu_frame.toggleBox('menudiv',0);
+//		menu_frame.toggleBox('abort',0);
+//		menu_frame.toggleBox('btn_finish',0);
+//		
+//		menu_frameset.cols="5%,*";
+//		menu_frame.writit('<FONT SIZE=1>EXIT</FONT><BR>','usermessage');
+//		menu_frame.writit('<a href=\"'+exit_url+'\"  style=\"display: block; \" class=\"button\" target=\"_top\"><B>Abort</B> Course <BR>(clicking this will not record tracking information)</a>','abort');
+//		menu_frame.writit('<a href=\"'+main_body_url+'\"  style=\"display: block; \" class=\"button\" target=\"content\"><B>Close</B> Unit <BR>(force LMSFinish)</a>','btn_finish');	
+//		}
 		APIFinder.LastServerError="";
 	} else {
 		if (menu_off < 1 ) {

@@ -78,7 +78,7 @@ ad_proc -private lorsm::install::after_upgrade {
 	    0.7d 0.8d {
             set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
             db_dml create_no_index_format {
-		    inse    rt into lorsm_course_presentation_formats values (-4,:pretty_name,'progress-bar','delivery-progress-bar')
+		    insert into lorsm_course_presentation_formats values (-4,:pretty_name,'progress-bar','delivery-progress-bar')
             }
 	    }
         0.8d1 0.8d2 {

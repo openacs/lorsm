@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<message_catalog package_key="lorsm" package_version="0.8d" locale="el_GR" charset="utf-8">
+<message_catalog package_key="lorsm" package_version="0.8d2" locale="el_GR" charset="utf-8">
 
   <msg key="_Viewed">Προβολές %</msg>
   <msg key="Access_Course">Προβολή</msg>
-  <msg key="Course_Name_1">onoma mathimatos</msg>
+  <msg key="Course_Name_1">Όνομα Μαθήματος</msg>
   <msg key="Last_Viewed_On">Τελευταία προβολή στις</msg>
   <msg key="No_Courses">Κανένα Μάθημα</msg>
-  <msg key="Subject">thema</msg>
+  <msg key="Subject">Θέμα</msg>
 </message_catalog>

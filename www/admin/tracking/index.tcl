@@ -27,56 +27,51 @@ if {![exists_and_not_null group]} {
     set group 1
 }
 
-if {$group == 1} {
+if {$group eq "1"} {
 
     template::list::create \
-	-name student_track \
-	-multirow student_track \
-	-actions [list "[_ lorsm.Summarize]" [export_vars -base ".?group=0" {man_id item_id}] "[_ lorsm.lt_Summarize_all_student]"] \
-	-key man_id \
-	-html {width 50%} \
-	-no_data "[_ lorsm.No_Students]" \
-	-elements {
-	    student_name {
-		label "[_ lorsm.Student_Name]"
-		display_eval {[person::name -person_id $student_name]}
-		link_url_eval {[acs_community_member_url -user_id $student_name]}
-		link_html {title "[_ lorsm.Students_profile]"}
-	    }
-	    start_time {
-		label "[_ lorsm.Start_Course]"
-		display_eval {[lc_time_fmt $start_time "%x %T"]}
-		html { align center }
-	    }
-	    end_time {
-		label "[_ lorsm.Exit_Course]"
-		display_eval {[lc_time_fmt $end_time "%x %T"]}
-		html { align center }
-	    }
-	    time_spend {
-		label "[_ lorsm.Time_Spent]"
-		display_eval {[lorsm::dates_calc -start_date [string range $start_time 0 18] -end_date [string range $end_time 0 18]]}
-		html { align center }
-	    }
-	}
+        -name student_track \
+        -multirow student_track \
+        -actions [list "[_ lorsm.Summarize]" [export_vars -base ".?group=0" {man_id item_id}] "[_ lorsm.lt_Summarize_all_student]"] \
+        -key man_id \
+        -html {width 50%} \
+        -no_data "[_ lorsm.No_Students]" \
+        -elements {
+            student_name {
+                label "[_ lorsm.Student_Name]"
+                display_eval {[person::name -person_id $student_name]}
+                link_url_eval {[acs_community_member_url -user_id $student_name]}
+                link_html {title "[_ lorsm.Students_profile]"}
+            }
+            start_time {
+                label "[_ lorsm.Start_Course]"
+                display_eval {[lc_time_fmt $start_time "%x %T"]}
+                html { align center }
+            }
+            end_time {
+                label "[_ lorsm.Exit_Course]"
+                display_eval {[lc_time_fmt $end_time "%x %T"]}
+                html { align center }
+            }
+            time_spend {
+                label "[_ lorsm.Time_Spent]"
+                display_eval {[lorsm::dates_calc -start_date [string range $start_time 0 18] -end_date [string range $end_time 0 18]]}
+                html { align center }
+            }
+        }
 
     db_multirow -extend { ims_md_id } student_track select_students {
-	select 
-	user_id as student_name,
-	start_time,
-	end_time
-	from
-	lorsm_student_track
-	where 
-	community_id = :community_id
-	and
-	course_id    = :man_id
-        and
-           end_time NOTNULL
-	order by  
-	start_time desc
+        select 
+          user_id as student_name,
+          start_time,
+          end_time
+        from lorsm_student_track
+        where community_id = :community_id
+          and course_id    = :man_id
+          and end_time NOTNULL
+        order by start_time desc
     } {
-	set ims_md_id $man_id
+        set ims_md_id $man_id
     }
     
     template::list::create \
@@ -89,32 +84,32 @@ if {$group == 1} {
             viewer_name {
                 label "[_ lorsm.Viewed_By]"
             }
-            views {
+            views_count {
                 label "[_ lorsm.Total_Views]"
             }
             last_viewed {
                 label "[_ lorsm.Last_Viewed_On]"
-	        display_eval {[lc_time_fmt $last_viewed "%x %X"]}
+                display_eval {[lc_time_fmt $last_viewed "%x %X"]}
             }
         }
 
     if {$item_id} {
-	set extra_where " and v.object_id = :item_id"
+        set extra_where " and v.object_id = :item_id"
     } else {
-	set extra_where ""
+        set extra_where ""
     }
 
     db_multirow -extend {viewer_name} object_views objects_views "
         select v.*,
                i.item_title as title
-        from views v,
+        from views_views v,
              ims_cp_items i,
              ims_cp_organizations o
         where
              i.ims_item_id = v.object_id
         and
              i.org_id = o.org_id
-	and
+    and
              o.man_id = :man_id
         $extra_where
     " {
@@ -125,46 +120,42 @@ if {$group == 1} {
     # group display
 
     template::list::create \
-	-name student_track \
-	-multirow student_track \
-	-key man_id \
-	-actions [list "[_ lorsm.Expand]" [export_vars -base ".?group=1" {man_id item_id}] "Expand all students"] \
-	-html {width 50%} \
-	-no_data "[_ lorsm.No_Students]" \
-	-elements {
-	    student_name {
-		label "Student Name"
-		display_eval {[person::name -person_id $student_name]}
-		link_url_eval {[acs_community_member_url -user_id $student_name]}
-		link_html {title "Student's profile"}
-	    }
-	    counter {
-		label "[_ lorsm.Times_Viewed]"
-		html { align center }
-	    }
-	    time_spent {
-		label "[_ lorsm.Time_Spent]"
-		html { align center }
-	    }
-	}
+        -name student_track \
+        -multirow student_track \
+        -key man_id \
+        -actions [list "[_ lorsm.Expand]" [export_vars -base ".?group=1" {man_id item_id}] "Expand all students"] \
+        -html {width 50%} \
+        -no_data "[_ lorsm.No_Students]" \
+        -elements {
+            student_name {
+                label "Student Name"
+                display_eval {[person::name -person_id $student_name]}
+                link_url_eval {[acs_community_member_url -user_id $student_name]}
+                link_html {title "Student's profile"}
+            }
+            counter {
+                label "[_ lorsm.Times_Viewed]"
+                html { align center }
+            }
+            time_spent {
+                label "[_ lorsm.Time_Spent]"
+                html { align center }
+            }
+        }
 
     db_multirow -extend { ims_md_id } student_track select_students {
-	select 
-	user_id as student_name,
-	count(*) as counter,
-	sum(end_time - start_time) as time_spent
-	from
-	lorsm_student_track
-	where 
-	community_id = :community_id
-	and
-	   course_id    = :man_id
-	and 
-	   end_time  NOTNULL
-	group by user_id
+        select 
+          user_id as student_name,
+          count(*) as counter,
+          sum(end_time - start_time) as time_spent
+        from lorsm_student_track
+        where community_id = :community_id
+          and course_id    = :man_id
+          and end_time  NOTNULL
+        group by user_id
 
     } {
-	set ims_md_id $man_id
+        set ims_md_id $man_id
     }
 
     template::list::create \
@@ -174,7 +165,7 @@ if {$group == 1} {
             title {
                 label "[_ lorsm.Title_1]"
             }
-            views {
+            views_count {
                 label "[_ lorsm.Total_Views]"
             }
             unique_views {
@@ -186,13 +177,12 @@ if {$group == 1} {
         }
     
     if {$item_id} {
-	set extra_where " and v.object_id = :item_id"
+        set extra_where " and v.object_id = :item_id"
     } else {
-	set extra_where ""
+        set extra_where ""
     }
 
-    db_multirow object_views objects_views "
-        select v.*,
+    db_multirow object_views objects_views "select v.*,
                i.item_title as title
         from view_aggregates v,
              ims_cp_items i,
@@ -201,9 +191,8 @@ if {$group == 1} {
              i.ims_item_id = v.object_id
         and
              i.org_id = o.org_id
-	and
+        and
              o.man_id = :man_id
-        $extra_where
-    "
+        $extra_where"
 
 }

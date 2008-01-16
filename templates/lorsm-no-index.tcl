@@ -46,7 +46,7 @@ if { [string eq $content(mime_type) "text/html"] && [regexp -nocase {<html>} $te
 			# last item, it's a special case
 			set last_item_viewed [db_string select_last_item_viewed {    
 				select item_id
-				from views v,
+				from views_views v,
 				ims_cp_items i,
 				ims_cp_organizations o
 				where v.viewer_id = :user_id

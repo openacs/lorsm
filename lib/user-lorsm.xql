@@ -43,7 +43,7 @@
 <fullquery name="get_last_viewed">
   <querytext>
             select v.last_viewed
-              from views v,
+              from views_views v,
                    ims_cp_items i,
                    ims_cp_organizations o
              where v.viewer_id = :user_id
@@ -68,7 +68,7 @@
 <fullquery name="get_viewed_items">
   <querytext>
             select v.object_id
-              from views v
+              from views_views v
              where v.viewer_id = :user_id
                and v.object_id in ([join $all_items ,])
   </querytext>

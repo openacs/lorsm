@@ -1,9 +1,12 @@
 <html>
 <head>
 <title></title>
-<script language="javascript" type="text/javascript" src="/resources/acs-templating/mktree.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/acs-templating/mktree.css" media="all"> 
+<link rel="stylesheet" type="text/css" href="scorm.css" media="all">
 
-<script language="JavaScript">
+<script type="text/javascript" src="/resources/acs-templating/mktree.js"></script>
+
+<script type="text/javascript">
 //<!--
 record_view_url="record-view?man_id=@man_id@&item_id=@ims_item_id@";
 applet_url="applet?man_id=@man_id@&return_url=@return_url@<if @ims_item_id@ defined>&item_id=@ims_item_id@</if><if @ims_id@ defined>&ims_id=@ims_item_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if>";
@@ -15,8 +18,6 @@ debuglevel=@debuglevel@+0;
 
 <script language="JavaScript" src="menu.js"></script>
 
-<link rel="stylesheet" type="text/css" href="/resources/acs-templating/mktree.css" type="text/css"> 
-<link rel="stylesheet" type="text/css" href="scorm.css" media="all">
 </head>
 
 <if @rte@ true>

@@ -18,7 +18,7 @@ ad_page_contract {
 set user_id [ad_conn user_id]
 db_0or1row get_last_viewed {
     select ims_item_id as imsitem_id, coalesce(acs_object__name(object_id),'Item '||object_id) as last_page_viewed
-    from views v,
+    from views_views v,
          ims_cp_items i,
          ims_cp_organizations o
     where v.viewer_id = :user_id
@@ -39,7 +39,7 @@ set all_items [db_list get_total_items {
 set total_item_count [llength $all_items]
 set viewed_items [db_list get_viewed_items "
             select v.object_id
-              from views v
+              from views_views v
              where v.viewer_id = :user_id
                and v.object_id in ([join $all_items ,])
         "]

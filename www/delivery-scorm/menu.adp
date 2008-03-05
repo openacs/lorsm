@@ -2,7 +2,7 @@
 <head>
 <title></title>
 
-<script language="JavaScript">
+<script type="text/javascript">
 //<!--
 
 var API;
@@ -132,9 +132,9 @@ function seekAndDestroy( ims_id ) {
 //-->
 </script>
 
-<script language="JavaScript" src="tigra/tree.js"></script>
+<script type="text/javascript" src="tigra/tree.js"></script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 <!--
       var TREE_ITEMS = [['Course Index', 'body?man_id=@man_id@',
 
@@ -219,7 +219,7 @@ function seekAndDestroy( ims_id ) {
 <hr>
 
 	<if @TREE_ITEMS@ defined>
-	<script language="JavaScript">
+	<script type="text/javascript">
 	//<!--
 
 		menu = new tree (TREE_ITEMS, tree_tpl);

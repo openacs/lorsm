@@ -1,13 +1,13 @@
 <html>
 <head>
 <title>@course_name@</title>
-<script language="JavaScript">
+<script type="text/javascript">
 <!--
 @jsfile;noquote@
 -->
 </script>
-<script language="JavaScript" src="tocParas.js"></script>
-<script language="JavaScript" src="displayToc.js"></script>
+<script type="text/javascript" src="tocParas.js"></script>
+<script type="text/javascript" src="displayToc.js"></script>
 </head>
 
 <frameset cols="200,*" border=0 onload="reDisplay('0',true)">

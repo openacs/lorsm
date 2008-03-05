@@ -21,7 +21,7 @@
       <link rel="stylesheet" type="text/css" href="/resources/acs-subsite/default-master.css" media="all">
     
 
-    <script src="/resources/acs-subsite/core.js" language="javascript"></script>
+    <script src="/resources/acs-subsite/core.js" type="text/javascript"></script>
 
     <textarea id="holdtext" style="display: none;"></textarea>
 

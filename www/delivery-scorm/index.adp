@@ -8,7 +8,7 @@
 <head>
 
 <title>@course_name@</title>
-<SCRIPT LANGUAGE="javascript">
+<SCRIPT type="text/javascript">
 //<--!
 
 this.releasemenu=null;

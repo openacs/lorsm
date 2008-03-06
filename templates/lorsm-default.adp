@@ -14,12 +14,12 @@
 
   <if @write_p@>
 
-    <a href="@community_url@/file-storage/file-content-edit?file_id=@content.item_id@<if @return_url@ defined>&@return_url;noquote@</if>" target="_top"><img src="/resources/Edit16.gif" border=0 align="right" alt="image"></a>
+    <a href="@community_url@/file-storage/file-content-edit?file_id=@content.item_id@<if @return_url@ defined>&@return_url;noquote@</if>" target="_top"><img src="/resources/Edit16.gif" border="0" align="right" alt="image"></a>
 
   </if>
 
   <if @man_id@ defined>
-    <a href="@community_url@/lorsm/admin/tracking?man_id=@man_id@<if @return_url@ defined>&@return_url;noquote@</if>" target="_top"><img src="/resources/ZoomIn16.gif" border=0 align="right" alt="image"></a>
+    <a href="@community_url@/lorsm/admin/tracking?man_id=@man_id@<if @return_url@ defined>&@return_url;noquote@</if>" target="_top"><img src="/resources/ZoomIn16.gif" border="0" align="right" alt="image"></a>
   </if>
 
 

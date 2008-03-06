@@ -35,7 +35,7 @@ set elements_list {
 	       </if>
             </if>
 	}
-	html { width 70% }
+	html { style "width:70%" }
     }
 }
 
@@ -44,7 +44,7 @@ if { [empty_string_p $community_id] } {
     subject {
 	label "[_ lorsm.Subject]"
 	display_eval {[dotlrn_community::get_community_name $community_id]}
-	html { align center width 20% }
+	html { align center style "width:20%" }
 	link_url_eval {[dotlrn_community::get_community_url $community_id]}
 	link_html {title "[_ lorsm.Access_Course]"}
     }
@@ -54,7 +54,7 @@ if { [empty_string_p $community_id] } {
 append elements_list {
     last_viewed {
 	label "[_ lorsm.Last_Viewed_On]"
-	html { align center width 10% }
+	html { align center style "width:10%" }
 	display_eval {[lc_time_fmt $last_viewed "%x"]}
     }
  

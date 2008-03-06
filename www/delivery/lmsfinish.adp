@@ -3,7 +3,7 @@
 <HEAD>
 <meta http-equiv=Content-Type content="text/html;  charset=ISO-8859-1">
 <TITLE>SCORM FINISHER</TITLE>
-<SCRIPT LANGUAGE="JavaScript">
+<SCRIPT type="text/javascript">
 var API = null;
 <!--
 // addition of backslash ahead of forward slash in closing SCRIPT tag
@@ -93,7 +93,7 @@ var API=null;
 I will send you to:
 the new item_id is @item_id@, while the old one is @initedonpage@
 
-<script language="JavaScript">
+<script type="text/javascript">
 <if @item_id@ gt 0>
 location.replace("record-view?man_id=@man_id@&item_id=@item_id@&lmsfinish=1");
 </if>

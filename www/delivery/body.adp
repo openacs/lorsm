@@ -1,15 +1,12 @@
-<%
-#
-#<master>
-#
-#
-%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+
 <html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title></title>
 <link rel="stylesheet" type="text/css" href="/resources/dotlrn/dotlrn-master.css" media="all">
 </head>
-<body border=1>
+<body>
 <center>
     <script type="text/javascript">
       <!--
@@ -25,12 +22,12 @@
     </script>
 
 <br>    
-<h1><b>@course_name@</h1>
+<h1><b>@course_name@</b></h1>
 <p>
 
     <if @last_page_viewed@ defined>
       <p>
-	Last page viewed: <b><a href="record-view?man_id=@man_id@&item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
+	Last page viewed: <b><a href="record-view?man_id=@man_id@&amp;item_id=@imsitem_id@">@last_page_viewed;noquote@</a></b>
     </if>
     <else>
         You have not yet viewed any material from this course.
@@ -42,13 +39,13 @@
     
     
 
-    <script src="/resources/acs-subsite/core.js" language="javascript"></script>
+    <script src="/resources/acs-subsite/core.js" type="text/javascript"></script>
 
     <textarea id="holdtext" style="display: none;"></textarea>
     
 -->
 
-
+   </center>
  </body>
 </html>
 

@@ -2,7 +2,7 @@
 <if @menu_off@ gt 0>
 <link rel="stylesheet" type="text/css" href="scorm.css" media="all">
 </if>
-<SCRIPT LANGUAGE="javascript">
+<SCRIPT type="text/javascript">
 //<--!
 
 this.releasemenu=null;

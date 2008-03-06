@@ -1,10 +1,11 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
 <html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title></title>
-
 <link rel="stylesheet" type="text/css" href="scorm.css" media="all">
-<script language="JavaScript" src="tigra/tree.js"></script>
-<script language="JavaScript">
+<script type="text/javascript" src="tigra/tree.js"></script>
+<script type="text/javascript">
 //<!--
 record_view_url="record-view?man_id=@man_id@&item_id=@ims_item_id@";
 applet_url="applet?man_id=@man_id@&return_url=@return_url@<if @ims_item_id@ defined>&item_id=@ims_item_id@</if><if @ims_id@ defined>&ims_id=@ims_item_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if>";
@@ -21,7 +22,7 @@ var TREE_HASH = new Array();
 
 //-->
 </script>
-<script language="JavaScript" src="menu.js"></script>
+<script type="text/javascript" src="menu.js"></script>
 </head>
 
 <if @rte@ true>
@@ -46,7 +47,7 @@ var TREE_HASH = new Array();
 
 <div id="menudiv">
 <if @menu_off@ lt 1>
-  <a href="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@" 
+  <a href="exit?man_id=@man_id@&amp;track_id=@track_id@&amp;return_url=@return_url@" 
   class="button" target="_top">#lorsm.Exit_Course# <br> #lorsm.return_to_LRN#</a>
 <div id="spacer">
 <br><br><br>
@@ -56,7 +57,7 @@ var TREE_HASH = new Array();
 </if>
 
 <if @TREE_ITEMS@ defined>
-<script language="JavaScript">
+<script type="text/javascript">
 //<!--
 	menu = new tree (this.TREE_ITEMS, this.tree_tpl);
 	<if @ims_id@ defined>

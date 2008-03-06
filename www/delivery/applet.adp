@@ -1,5 +1,5 @@
 <HEAD>
-<SCRIPT LANGUAGE="javascript">
+<SCRIPT type="text/javascript">
 debuglevel=@debuglevel@+0;
 ses_renew=@ses_renew@+0;
 menu_off=@menu_off@+0;
@@ -12,9 +12,9 @@ record_view_url="record-view?man_id=@man_id@&item_id=@item_id@";
 </SCRIPT>
 
 
-<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="applet.js"> </SCRIPT>
+<SCRIPT TYPE="text/javascript" SRC="applet.js"> </SCRIPT>
  
-<script language="JavaScript"> 
+<script type="text/javascript"> 
 //procedura di massimizzazione della finestra
 top.window.moveTo(0,0); 
 if (document.all) 

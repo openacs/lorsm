@@ -21,7 +21,7 @@
 <p>
 #lorsm.lt_No_metadata_record_ex# 
 <if @write_p@ eq 1>
-<ul><li><a href=addmd?ims_md_id=@ims_md_id;noquote@>#lorsm.Add_metadata#</a></li></ul>
+<ul><li><a href="addmd?ims_md_id=@ims_md_id;noquote@">#lorsm.Add_metadata#</a></li></ul>
 </if>
 </else>
 

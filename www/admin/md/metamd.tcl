@@ -19,7 +19,7 @@ template::list::create \
     -multirow d_md_cata \
     -no_data "[_ lorsm.lt_No_Catalog_Entry_Avai]" \
     -actions [list "[_ lorsm.Add_Catalog-Entry]" [export_vars -base metamd/meta_cata {ims_md_id}] "[_ lorsm.lt_Add_another_Catalog-E]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align: right;" } \
     -elements {
         catalog {
             label "[_ lorsm.Catalog_1]"
@@ -46,7 +46,7 @@ template::list::create \
     -multirow d_md_cont \
     -no_data "[_ lorsm.lt_No_Contributors_Avail]" \
     -actions [list "[_ lorsm.Add_Contributors]" [export_vars -base metamd/meta_cont {ims_md_id}] "[_ lorsm.lt_Add_another_Contribut]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right; " } \
     -elements {
         role {
             label "[_ lorsm.Role]"
@@ -83,7 +83,7 @@ template::list::create \
     -multirow d_md_scheme \
     -no_data "[_ lorsm.No_Scheme_Available]" \
     -actions [list "[_ lorsm.Add_Scheme]" [export_vars -base metamd/meta_scheme {ims_md_id}] "[_ lorsm.Add_another_Scheme]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         scheme {
             label ""
@@ -105,7 +105,7 @@ template::list::create \
     -multirow d_md_lang \
     -no_data "[_ lorsm.lt_No_Language_Available]" \
     -actions [list "[_ lorsm.Add_Language]" [export_vars -base metamd/meta_lang {ims_md_id}] "[_ lorsm.lt_Add_another_Languages]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align: right;" } \
     -elements {
         language {
             label ""

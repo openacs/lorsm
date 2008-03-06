@@ -73,7 +73,7 @@ template::list::create \
     -name d_gen_titles \
     -multirow d_gen_titles \
     -no_data "[_ lorsm.No_Titles_Available]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         title_l {
             label "[_ lorsm.Language_1]"

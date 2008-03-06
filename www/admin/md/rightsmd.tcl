@@ -19,7 +19,7 @@ template::list::create \
     -multirow d_ri_cost \
     -no_data "[_ lorsm.No_Cost_Available]" \
     -actions [list "[_ lorsm.Add_Cost]" [export_vars -base rightsmd/rights_cost {ims_md_id}] "[_ lorsm.Add_another_Cost]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         cost {
             label ""
@@ -41,7 +41,7 @@ template::list::create \
     -multirow d_ri_caor \
     -no_data "[_ lorsm.lt_No_Copyright_or_other]" \
     -actions [list "[_ lorsm.lt_Add_Copyright_or_othe]" [export_vars -base rightsmd/rights_caor {ims_md_id}] "[_ lorsm.lt_Add_another_Copyright]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         caor {
             label ""
@@ -63,7 +63,7 @@ template::list::create \
     -multirow d_ri_desc \
     -no_data "[_ lorsm.lt_No_Description_Availa]" \
     -actions [list "[_ lorsm.Add_Description]" [export_vars -base rightsmd/rights_desc {ims_md_id}] "[_ lorsm.lt_Add_another_Descripti]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         desc {
             label ""

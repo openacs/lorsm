@@ -70,7 +70,7 @@ template::list::create \
     -name d_gen_struc \
     -multirow d_gen_struc \
     -no_data "[_ lorsm.lt_No_Structure_Availabl]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         structure_s {
             label "[_ lorsm.Source_1]"

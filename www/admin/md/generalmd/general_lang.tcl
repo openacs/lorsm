@@ -67,7 +67,7 @@ template::list::create \
     -name d_gen_lang \
     -multirow d_gen_lang \
     -no_data "[_ lorsm.lt_No_Language_Available]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         language {
             label "[_ lorsm.Language_1]"

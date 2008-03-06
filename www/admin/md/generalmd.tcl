@@ -21,7 +21,7 @@ template::list::create \
     -multirow d_gen_titles \
     -no_data "[_ lorsm.No_Titles_Available]" \
     -actions [list "[_ lorsm.Add_Title]" [export_vars -base generalmd/general_title {ims_md_id}] "[_ lorsm.Add_another_title]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align: right" } \
     -elements {
         title_l {
             label ""
@@ -48,7 +48,7 @@ template::list::create \
     -multirow d_gen_desc \
     -no_data "[_ lorsm.lt_No_Description_Availa]" \
     -actions [list "[_ lorsm.Add_Description]" [export_vars -base generalmd/general_desc {ims_md_id}] "[_ lorsm.lt_Add_another_Descripti]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align: right;" } \
     -elements {
         descrip_l {
             label ""
@@ -73,7 +73,7 @@ template::list::create \
     -multirow d_gen_cata \
     -no_data "[_ lorsm.lt_No_Catalog_Entry_Avai]" \
     -actions [list "[_ lorsm.Add_Catalog-Entry]" [export_vars -base generalmd/general_cata {ims_md_id}] "[_ lorsm.lt_Add_another_Catalog-E]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align: right;" } \
     -elements {
         catalog {
             label ""
@@ -105,7 +105,7 @@ template::list::create \
     -multirow d_gen_lang \
     -no_data "[_ lorsm.lt_No_Language_Available]" \
     -actions [list "[_ lorsm.Add_Language]"  [export_vars -base generalmd/general_lang {ims_md_id}] "[_ lorsm.Add_another_Language]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         language {
             label ""
@@ -127,7 +127,7 @@ template::list::create \
     -multirow d_gen_key \
     -no_data "[_ lorsm.lt_No_Keywords_Available]" \
     -actions [list "[_ lorsm.Add_Keywords]" [export_vars -base generalmd/general_key {ims_md_id}] "[_ lorsm.Add_another_Keywords]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right" } \
     -elements {
         keyword_l {
             label ""
@@ -153,7 +153,7 @@ template::list::create \
     -multirow d_gen_cover \
     -no_data "[_ lorsm.lt_No_Coverage_Available]" \
     -actions [list "[_ lorsm.Add_Coverage]" [export_vars -base generalmd/general_cover {ims_md_id}] "[_ lorsm.Add_another_Coverage]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         cover_l {
             label ""
@@ -179,7 +179,7 @@ template::list::create \
     -multirow d_gen_struc \
     -no_data "[_ lorsm.lt_No_Structure_Availabl]" \
     -actions [list "[_ lorsm.Add_Structure]" [export_vars -base generalmd/general_struc {ims_md_id}] "[_ lorsm.lt_Add_another_Structure]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         structure_s {
             label ""
@@ -206,7 +206,7 @@ template::list::create \
     -multirow d_gen_aggl \
     -no_data "[_ lorsm.lt_No_Aggregation_Level_]" \
     -actions [list "[_ lorsm.lt_Add_Aggregation_Level]" [export_vars -base generalmd/general_aggl {ims_md_id}]  "[_ lorsm.lt_Add_another_Aggregati]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align: right;" } \
     -elements {
         agg_level_s {
             label ""

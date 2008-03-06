@@ -42,12 +42,12 @@ template::list::create \
             label "[_ lorsm.Metadata_1]"
             display_template {
 		<if @d_courses.lorsm_p@>
-		<center>
-		<a href=md/?ims_md_id=@d_courses.ims_md_id@ title="[_ lorsm.See_metadata]">@d_courses.hasmetadata@</a>
-		                </center>
+		<div style="text-align: center;">
+		<a href="md/?ims_md_id=@d_courses.ims_md_id@" title="[_ lorsm.See_metadata]">@d_courses.hasmetadata@</a>
+		                </div>
 		                </if>
 		                <else>
-		   <center> @d_courses.hasmetadata@</center>
+		   <div style="text-align:center;"> @d_courses.hasmetadata@</div>
 		                </else>
 	    }
 	}
@@ -73,8 +73,9 @@ template::list::create \
             label "[_ lorsm.SCORM_session]"
             display_template {
 		<if @d_courses.hasrtedata@>
-		<center>
-		<a href=tracking-rte/?man_id=@d_courses.man_id@ title="[_ lorsm.Sesion_Runtime_Data]">@d_courses.hasrtedata@</a>
+		<div style="text-align:center;">
+		<a href="tracking-rte/?man_id=@d_courses.man_id@" title="[_ lorsm.Sesion_Runtime_Data]">@d_courses.hasrtedata@</a>
+        </div>
 		</if>
 	    }
         }
@@ -91,9 +92,9 @@ template::list::create \
             label "[_ lorsm.Export]"
 	    display_template {
 		<if @d_courses.lorsm_p@>
-		<center>
+		<div style="text-align:center;">
 		<a href="export/?folder_id=@d_courses.folder_id@" title="[_ lorsm.lt_Export_as_IMS_Content]">\[zip\]</a>
-		</center>
+		</div>
                 </if>
 	    }
         }

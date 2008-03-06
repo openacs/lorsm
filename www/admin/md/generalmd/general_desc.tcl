@@ -73,7 +73,7 @@ template::list::create \
     -name d_gen_desc \
     -multirow d_gen_desc \
     -no_data "[_ lorsm.lt_No_Description_Availa]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:rigth;" } \
     -elements {
         descrip_l {
             label "[_ lorsm.Language_1]"

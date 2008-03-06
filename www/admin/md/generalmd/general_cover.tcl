@@ -73,7 +73,7 @@ template::list::create \
     -name d_gen_cover \
     -multirow d_gen_cover \
     -no_data "[_ lorsm.lt_No_Coverage_Available]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         cover_l {
             label "[_ lorsm.Language_1]"

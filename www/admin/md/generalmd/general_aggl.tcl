@@ -72,7 +72,7 @@ template::list::create \
     -name d_gen_aggl \
     -multirow d_gen_aggl \
     -no_data "[_ lorsm.lt_No_Aggregation_Level__1]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         agg_level_s {
             label "[_ lorsm.Source_1]" 

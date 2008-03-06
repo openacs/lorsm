@@ -20,7 +20,7 @@ template::list::create \
     -multirow d_an_annot \
     -no_data "[_ lorsm.lt_No_Annotation_Availab]" \
     -actions [list "[_ lorsm.Add_Annotation]" [export_vars -base annotationmd/annotation_add {ims_md_id}] "[_ lorsm.lt_Add_another_Annotatio_1]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         entity {
             label "[_ lorsm.Entry_1]"

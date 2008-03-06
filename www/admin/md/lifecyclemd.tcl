@@ -20,7 +20,7 @@ template::list::create \
     -multirow d_lf_ver \
     -no_data "[_ lorsm.No_Version_Available]" \
     -actions [list "[_ lorsm.Add_Version]" [export_vars -base lifecyclemd/lifecycle_version {ims_md_id}] "[_ lorsm.Add_Version]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         version_l {
             label ""
@@ -45,7 +45,7 @@ template::list::create \
     -multirow d_lf_stat \
     -no_data "[_ lorsm.No_Status_Available]" \
     -actions [list "[_ lorsm.Add_Status]" [export_vars -base lifecyclemd/lifecycle_stat {ims_md_id}] "[_ lorsm.Add_Status]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right" } \
     -elements {
         status_s {
             label ""
@@ -71,7 +71,7 @@ template::list::create \
     -multirow d_lf_cont \
     -no_data "[_ lorsm.lt_No_Contributors_Avail]" \
     -actions [list "[_ lorsm.Add_Contributors]" [export_vars -base lifecyclemd/lifecycle_cont {ims_md_id}] "[_ lorsm.lt_Add_another_Contribut]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         role {
             label "[_ lorsm.Role]"

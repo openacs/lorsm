@@ -20,7 +20,7 @@ template::list::create \
     -multirow d_cl_class \
     -no_data "[_ lorsm.lt_No_Classification_Ava]" \
     -actions [list "[_ lorsm.Add_Classification]" [export_vars -base classificationmd/classification_add {ims_md_id}] "[_ lorsm.lt_Add_another_Classific_2]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         purpose_s {
             label ""

@@ -19,7 +19,7 @@ template::list::create \
     -multirow d_ed_intt \
     -no_data "[_ lorsm.lt_No_Interactivity_Type]" \
     -actions [list "[_ lorsm.lt_Add_Interactivity_Typ]" [export_vars -base educationalmd/educational_intt {ims_md_id}] "[_ lorsm.lt_Add_another_Interacti]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         intt {
             label ""
@@ -41,7 +41,7 @@ template::list::create \
     -multirow d_ed_lrt \
     -no_data "[_ lorsm.lt_No_Learning_Resource_]" \
     -actions [list "[_ lorsm.lt_Add_Learning_Resource]" [export_vars -base educationalmd/educational_lrt {ims_md_id}] "[_ lorsm.lt_Add_another_Learning_]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         lrt {
             label ""
@@ -63,7 +63,7 @@ template::list::create \
     -multirow d_ed_intl \
     -no_data "[_ lorsm.lt_No_Interactivity_Leve]" \
     -actions [list "[_ lorsm.lt_Add_Interactivity_Lev]" [export_vars -base educationalmd/educational_intl {ims_md_id}] "[_ lorsm.lt_Add_another_Interacti_1]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         intl {
             label ""
@@ -85,7 +85,7 @@ template::list::create \
     -multirow d_ed_semd \
     -no_data "[_ lorsm.lt_No_Semantic_Density_A]" \
     -actions [list "[_ lorsm.Add_Semantic_Density]" [export_vars -base educationalmd/educational_semd {ims_md_id}] "[_ lorsm.lt_Add_another_Semantic_]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         semd {
             label ""
@@ -107,7 +107,7 @@ template::list::create \
     -multirow d_ed_ieur \
     -no_data "[_ lorsm.lt_No_Intended_End_User_]" \
     -actions [list "[_ lorsm.lt_Add_Intended_End_User]" [export_vars -base educationalmd/educational_ieur {ims_md_id}] "[_ lorsm.lt_Add_another_Intended_]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         ieur {
             label ""
@@ -129,7 +129,7 @@ template::list::create \
     -multirow d_ed_cont \
     -no_data "[_ lorsm.No_Context_Available]" \
     -actions [list "[_ lorsm.Add_Context]" [export_vars -base educationalmd/educational_cont {ims_md_id}] "[_ lorsm.Add_another_Context]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         context {
             label ""
@@ -151,7 +151,7 @@ template::list::create \
     -multirow d_ed_tar \
     -no_data "[_ lorsm.lt_No_Typical_Age_Range_]" \
     -actions [list "[_ lorsm.lt_Add_Typical_Age_Range]" [export_vars -base educationalmd/educational_tar {ims_md_id}] "[_ lorsm.lt_Add_another_Typical_A]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         tar {
             label ""
@@ -173,7 +173,7 @@ template::list::create \
     -multirow d_ed_dif \
     -no_data "[_ lorsm.lt_No_Difficulty_Availab]" \
     -actions [list "[_ lorsm.Add_Difficulty_Type]" [export_vars -base educationalmd/educational_dif {ims_md_id}] "[_ lorsm.lt_Add_another_Difficult]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         diff {
             label ""
@@ -195,7 +195,7 @@ template::list::create \
     -multirow d_ed_tlt \
     -no_data "[_ lorsm.lt_No_Typical_Learning_T]" \
     -actions [list "[_ lorsm.lt_Add_Typical_Learning_]" [export_vars -base educationalmd/educational_tlt {ims_md_id}] "[_ lorsm.lt_Add_another_Typical_L]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         tlt {
             label ""
@@ -221,7 +221,7 @@ template::list::create \
     -multirow d_ed_desc \
     -no_data "[_ lorsm.lt_No_Description_Availa]" \
     -actions [list "[_ lorsm.Add_Description]" [export_vars -base educationalmd/educational_desc {ims_md_id}] "[_ lorsm.lt_Add_another_Descripti]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         desc {
             label ""
@@ -243,7 +243,7 @@ template::list::create \
     -multirow d_ed_lang \
     -no_data "[_ lorsm.lt_No_Language_Available]" \
     -actions [list "[_ lorsm.Add_Language]" [export_vars -base educationalmd/educational_lang {ims_md_id}] "[_ lorsm.Add_another_Language]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         language {
             label ""
@@ -257,4 +257,4 @@ db_multirow d_ed_lang select_ed_lang {
            ims_md_educational_lang
     where
            ims_md_id = :ims_md_id
-} 
+}

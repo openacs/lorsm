@@ -20,7 +20,7 @@ template::list::create \
     -multirow d_re_relat \
     -no_data "[_ lorsm.lt_No_Relation_Available]" \
     -actions [list "[_ lorsm.Add_Relation]" [export_vars -base relationmd/relation_add {ims_md_id}] "[_ lorsm.lt_Add_another_Relation__1]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         kind_s {
             label ""

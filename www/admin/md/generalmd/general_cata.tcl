@@ -79,7 +79,7 @@ template::list::create \
     -name d_gen_cata \
     -multirow d_gen_cata \
     -no_data "[_ lorsm.lt_No_Catalog_Entry_Avai]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
 	catalog {
 	    label "[_ lorsm.Catalog_1]"

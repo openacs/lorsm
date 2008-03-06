@@ -19,7 +19,7 @@ template::list::create \
     -multirow d_te_form \
     -no_data "[_ lorsm.No_Format_Available]" \
     -actions [list "[_ lorsm.Add_Format]" [export_vars -base technicalmd/technical_form {ims_md_id}] "[_ lorsm.Add_another_Format]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         format {
             label ""
@@ -41,7 +41,7 @@ template::list::create \
     -multirow d_te_size \
     -no_data "[_ lorsm.No_Size_Available]" \
     -actions [list "[_ lorsm.Add_Size]" [export_vars -base technicalmd/technical_size {ims_md_id}] "[_ lorsm.Add_another_Size]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         t_size_bytes {
             label ""
@@ -63,7 +63,7 @@ template::list::create \
     -multirow d_te_loca \
     -no_data "No Location Available" \
     -actions [list "Add Location" [export_vars -base technicalmd/technical_loca {ims_md_id}] "Add another Location"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         type {
             label ""
@@ -89,7 +89,7 @@ template::list::create \
     -multirow d_te_req \
     -no_data "[_ lorsm.lt_No_Requirements_Avail]" \
     -actions [list "[_ lorsm.Add_Requirements]" [export_vars -base technicalmd/technical_req {ims_md_id}] "[_ lorsm.lt_Add_another_Requireme]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         type {
             label "[_ lorsm.Type]"
@@ -123,7 +123,7 @@ template::list::create \
     -multirow d_te_inst \
     -no_data "[_ lorsm.lt_No_Installation_Remar]" \
     -actions [list "[_ lorsm.lt_Add_Installation_Rema]" [export_vars -base technicalmd/technical_inst {ims_md_id}] "[_ lorsm.lt_Add_another_Installat]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         instl_rmrks {
             label ""
@@ -145,7 +145,7 @@ template::list::create \
     -multirow d_te_otr \
     -no_data "[_ lorsm.lt_No_Other_Platform_Req]" \
     -actions [list "[_ lorsm.lt_Add_Other_Platform_Re]" [export_vars -base technicalmd/technical_otr {ims_md_id}] "[_ lorsm.lt_Add_another_Other_Pla]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         otr_plt {
             label ""
@@ -167,7 +167,7 @@ template::list::create \
     -multirow d_te_dur \
     -no_data "[_ lorsm.lt_No_Duration_Available]" \
     -actions [list "[_ lorsm.Add_Duration]" [export_vars -base technicalmd/technical_dur {ims_md_id}] "[_ lorsm.Add_another_Duration]"] \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         duration_sec {
             label ""

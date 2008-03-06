@@ -73,7 +73,7 @@ template::list::create \
     -name d_gen_key \
     -multirow d_gen_key \
     -no_data "[_ lorsm.lt_No_Keywords_Available]" \
-    -html { align right style "width: 100%;" } \
+    -html { style "width: 100%; align:right;" } \
     -elements {
         keyword_l {
             label ""

@@ -227,6 +227,7 @@
   <msg key="Location_1">Location:</msg>
   <msg key="Locations">Locations:</msg>
   <msg key="Log_Out">Log Out</msg>
+  <msg key="LORS_Management">LORS Management</msg>
   <msg key="lt_Add_a_IMSSCORM_Compli">Add a IMS/SCORM Compliant Course</msg>
   <msg key="lt_Add_Aggregation_Level">Add Aggregation Level</msg>
   <msg key="lt_Add_Annotation_MD_Des">Add Annotation MD Description</msg>

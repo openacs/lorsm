@@ -62,13 +62,13 @@ class="button" target="_top">#lorsm.Exit_Course# <br> #lorsm.return_to_LRN#</a>
 <if @tree_items.indent@ lt @tree_items.last_indent@></ul></if>
 <if @tree_items.indent@ eq @tree_items.last_indent@ and @tree_items.rownum@ ne 1></if>
 <if @tree_items.link@ not nil>
-	<li id="@man_id@-@return_url@-@tree_items.rownum@" remember="1">@tree_items.icon;noquote@
+	<li id="lorsm-@man_id@-@tree_items.rownum@">@tree_items.icon;noquote@
 	<a href="@tree_items.link@" 
 	<if @tree_items.target@ not nil>target="@tree_items.target@"</if>>@tree_items.label@ </a></if>
 <else>
 	</ul>
-	<ul class="mktree" id="@man_id@-@return_url@-@tree_items.rownum@">
-	<li id="@man_id@-@return_url@-@tree_items.rownum@" remember="1">@tree_items.icon;noquote@
+	<ul class="mktree">
+	<li id="lorsm-@man_id@-@tree_items.rownum@">@tree_items.icon;noquote@
 	<span class="organization_class">@tree_items.label@</span>
 </else>
 	<if @tree_items.rownum@ eq @tree_items:rowcount@></li></ul></if>

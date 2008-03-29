@@ -7,6 +7,12 @@
 <link rel="stylesheet" type="text/css" href="/resources/acs-templating/mktree.css" media="all"> 
 <link rel="stylesheet" type="text/css" href="scorm.css" media="all">
 
+<script type="text/javascript">
+//<!--
+var mktree_remember = true;
+//-->
+</script>
+
 <script type="text/javascript" src="/resources/acs-templating/mktree.js"></script>
 
 <script type="text/javascript">

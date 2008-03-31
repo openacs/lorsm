@@ -527,7 +527,7 @@ db_transaction {
 	if {[llength $found_file] > 1} {
 	    # we are suppose to get only one element back, so we have
 	    # to refine the search a bit more.
-	    set found_file [lsearch -all -regexp $all_files $tmp_dir/$filename]
+	    set found_file [lsearch -all -regexp -exact $all_files $tmp_dir/$filename]
 	}
 
 	if {![empty_string_p $found_file]} {

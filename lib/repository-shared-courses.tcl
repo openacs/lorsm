@@ -35,7 +35,7 @@ template::list::create \
         course_name {
             label "[_ lorsm.Available_Courses]"
             display_col course_name
-            link_url_eval {[export_vars -base $community_url/lorsm/shared/course-info {man_id fs_package_id folder_id}]}
+            link_url_eval {[export_vars -base $community_url/lorsm/admin/shared/course-info {man_id fs_package_id folder_id}]}
             link_html {title "[_ lorsm.Access_Course]"}
 
         }
@@ -57,7 +57,7 @@ template::list::create \
         admin {
             label "[_ lorsm.Course_Info]"
 	    display_eval {Info/View}
-            link_url_eval {[export_vars -base $community_url/lorsm/shared/course-info man_id]}
+            link_url_eval {[export_vars -base $community_url/lorsm/admin/shared/course-info man_id]}
             link_html {title "[_ lorsm.Info]" class button}
 	    html { align center }
         }

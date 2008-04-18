@@ -858,5 +858,6 @@
   <msg key="Welcome_to_LEON">Welcome to LEON</msg>
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
+  <msg key="Your_session_has_expired">Your session has expired.</msg>
   <msg key="Your_Stats">Your Stats:</msg>
 </message_catalog>

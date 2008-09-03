@@ -127,10 +127,13 @@ if {$enabled_p} {
 set start_page [lorsm::get_custom_page_ims_item_id -man_id $man_id -type start]
 
 if {$start_page eq "" && [lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
-    set track_id [lorsm::track::new \
-		      -user_id $user_id \
-		      -community_id $community_id \
-		      -course_id $man_id]
+    set track_id [lorsm::track::get_track_id -user_id $user_id -man_id $man_id -community_id $community_id]    
+    if {$track_id eq "" || $track_id eq 0} {
+	set track_id [lorsm::track::new \
+			  -user_id $user_id \
+			  -community_id $community_id \
+			  -course_id $man_id]
+    }
     ad_set_client_property lorsm studenttrack $track_id
 } else {
     set track_id 0

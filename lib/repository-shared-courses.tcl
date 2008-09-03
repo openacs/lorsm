@@ -35,7 +35,7 @@ template::list::create \
         course_name {
             label "[_ lorsm.Available_Courses]"
             display_col course_name
-            link_url_eval {[export_vars -base $community_url/lorsm/shared/course-info {man_id fs_package_id folder_id}]}
+            link_url_eval {[export_vars -base $community_url/lorsm/admin/shared/course-info {man_id fs_package_id folder_id}]}
             link_html {title "[_ lorsm.Access_Course]"}
 
         }
@@ -54,10 +54,17 @@ template::list::create \
             label "[_ lorsm.Creation_Date]"
             display_eval {[lc_time_fmt $creation_date "%x %X"]}
         }
+	add {
+	    label ""
+	    display_eval {[_ lorsm.Add_Course]}
+	    link_url_eval {[export_vars -base $community_url/lorsm/admin/add-shared-course {man_id}]}
+	    link_html {title "[_ lorsm.lt_Add_course_to_my_clas]" class button}
+
+	}
         admin {
             label "[_ lorsm.Course_Info]"
 	    display_eval {Info/View}
-            link_url_eval {[export_vars -base $community_url/lorsm/shared/course-info man_id]}
+            link_url_eval {[export_vars -base $community_url/lorsm/admin/shared/course-info man_id]}
             link_html {title "[_ lorsm.Info]" class button}
 	    html { align center }
         }

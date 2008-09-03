@@ -137,34 +137,41 @@ variable ims_man_id
     }
 
     ad_proc -public dates_calc {
-	-start_date:required
-	-end_date:required
+	-start_date
+	-end_date
+	-seconds
     } {
 	Returns the number of minutes, hours or dates given a start
-	and end date. 
+	and end date or a number of seconds. If seconds is specified
+	date is ignored.
 
 	@param start_date Starting date
 	@param end_date   Ending date
 	@author Ernie Ghiglione (ErnieG@mm.st)
     } {
-
-	set start [clock scan "$start_date"]
-	set end   [clock scan "$end_date"]
-
-	set difference [expr {$end - $start}]
-	
+	if {[info exists seconds]} {
+	    if {$seconds ne ""} {
+	    set difference $seconds
+	    } else {
+		return ""
+	    }
+	} else {
+	    set start [clock scan "$start_date"]
+	    set end   [clock scan "$end_date"]
+	    set difference [expr {$end - $start}]
+	}
 	if {$difference >= 0 && $difference < 60} {
 	    return "[_ lorsm.difference_seconds]"
 	} elseif {$difference >= 60 && $difference < 3600} {
-	    set tempval [expr {$difference / 60.0}]
+	    set tempval [expr {$difference / 60}]
 	    return "[_ lorsm.tempval_minutes]"
 
 	} elseif {$difference >= 3600 && $difference < 86400} {
-	    set tempval [expr {$difference / 60.0 /60.0 }]
+	    set tempval [expr {$difference / 3600 }]
 	    return "[_ lorsm.tempval_hours]"
 
 	} else {
-	    set tempval [expr {$difference / 60.0 / 60.0 / 24.0}]
+	    set tempval [expr {$difference / 86400}]
 	    return "[_ lorsm.tempval_days]"
 	}
     }
@@ -548,7 +555,7 @@ set item_id $ims_item_id
 	return
     }
 
-
+    ns_log notice "lorsm::get_content item_id $item_id"
     # Get the live revision
     set revision_id [db_string get_revision ""]
 

@@ -529,7 +529,7 @@ db_transaction {
 	    # to refine the search a bit more.
 	    set found_file [lsearch -all -regexp -exact $all_files $tmp_dir/$filename]
 	}
-
+		
 	if {![empty_string_p $found_file]} {
 	    set file_id [lindex [lindex $all_files $found_file] 3]
             set file_rev_id [content::item::get_live_revision -item_id $file_id]

@@ -63,29 +63,21 @@ namespace eval lorsm::track {
     } {
 	Sets the time when the student leaves the delivery environment
 	
-	@param track_id Track ID given when the delivery session opened
+	@param track_id Track ID (given when the delivery session opened
 	@author Ernie Ghiglione (ErnieG@mm.st)
 	
     } {
-	
+
 	db_transaction {
 	    set track_id [db_exec_plsql track_st_exit {
-		
+
 		select lorsm_student_track__exit (
-						  :track_id
-						  );
-		
+						 :track_id
+						 );
+
 	    }
 			 ]
-	    if {$track_id ne ""} {
-		db_0or1row get_track "select * from lorsm_student_track where track_id=:track_id"
-		if {[ad_conn -connected_p]} {
-		    set package_id [ad_conn package_id]
-		} else {
-		    set package_id ""
-		}
-		callback lorsm::track::update -course_id $course_id -user_id $user_id -package_id $package_id -credit $credit_earned -track_id $track_id -start_time $start_time -end_time $end_time -elapsed_time $elapsed_seconds
-	    }
+	    
 	}
 	return $track_id
     }
@@ -96,7 +88,7 @@ namespace eval lorsm::track {
     } {
 	Checks whether the instance of this course in the specified
         community is trackable.
-	
+
 	If it is, then it returns 1. Otherwise, 0.
 	
 	@param course_id Course ID (or manifest_id)
@@ -104,91 +96,25 @@ namespace eval lorsm::track {
 	@author Ernie Ghiglione (ErnieG@mm.st)
 	
     } {
-	
+
 	set istrackable [db_string trackable {
 	    select istrackable from ims_cp_manifest_class
 	    where man_id = :course_id and lorsm_instance_id = :package_id
 	}]
-	
+
 	if {$istrackable == "f"} {
 	    return 0
 	} else {
 	    return 1
 	}
-	
-    }
 
-    ad_proc -private update_elapsed_seconds {
-	-track_id
-    } {
-	
-	set last_item_viewed [db_string select_last_item_viewed {    
-	    select to_char(v.last_viewed,'YYYY-MM-DD HH24:MI:SS') as last_viewed
-	    from views_views v,
-	    ims_cp_items i,
-	    ims_cp_organizations o,
-	    lorsm_student_track t
-	    where t.track_id = :track_id
-	    and v.viewer_id = t.user_id
-	    and v.object_id = i.ims_item_id
-	    and i.org_id = o.org_id
-	    and o.man_id = t.course_id
-	    order by v.last_viewed desc
-	    limit 1
-	} -default ""]
-	if {$last_item_viewed ne ""} {
-	    set current_seconds [clock seconds]
-	    set last_seconds [clock scan $last_item_viewed]
-	    set elapsed_seconds [expr {$current_seconds - $last_seconds}]
-	    if {$elapsed_seconds > 600} {
-		set elapsed_seconds 600
-	    }
-	    db_dml update_elapsed_seconds "update lorsm_student_track set elapsed_seconds = coalesce(elapsed_seconds,0) + :elapsed_seconds where track_id = :track_id"
-	}
-    }
-
-    ad_proc -private get_track_id {
-	-user_id
-	-man_id
-	-community_id
-    } {
-	Get an existing tracking id from either a client property
-	or the database is a session has not been completed but 
-	they have logged out or their session has expired.
-    } {
-	set track_id [ad_get_client_property lorsm studenttrack]
-	ns_log notice "lors::tack::get_track_id client_property '${track_id}'"
-	if {$track_id eq "" || $track_id eq "0"} {
-	    set track_id [db_string get_track_id {} -default ""]
-	    ns_log notice "lors::tack::get_track_id database '${track_id}'"
-	}
-	return $track_id
     }
 
 }
 
-ad_proc -callback lorsm::track::exit_course {
-    -course_id
-    -user_id
-    -track_id
-    -credit
-    -package_id
-} {
-    Notify listeners that a user has exited a course
-} -
 
-ad_proc -callback lorsm::track::update {
-    -course_id
-    -user_id
-    -track_id
-    -credit
-    -start_time
-    -end_time
-    -elapsed_time
-    -package_id 
-} {
-    Notify listeners that someting interesting happeneed
-    with this course tracking
-} -
 
- 
+
+
+
+

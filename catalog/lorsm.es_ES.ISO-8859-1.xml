@@ -32,6 +32,7 @@
   <msg key="Add_another_title">Agregar otro Título</msg>
   <msg key="Add_Catalog-Entry">Agregar Entrada de Catálogo</msg>
   <msg key="Add_Classification">Agregar Clasificación</msg>
+  <msg key="Add_Content">Añadir contenido</msg>
   <msg key="Add_Context">Agregar Contexto</msg>
   <msg key="Add_Contributor">Agregar Contribuyente</msg>
   <msg key="Add_Contributors">Agregar Contribuyentes</msg>
@@ -92,6 +93,7 @@
   <msg key="Annotator">Anotador</msg>
   <msg key="Assets">Activos</msg>
   <msg key="Available_Courses">Cursos Disponibles</msg>
+  <msg key="Begin">Empezar</msg>
   <msg key="Browse">Buscar...</msg>
   <msg key="Catalog">Catálogo:</msg>
   <msg key="Catalog-Entries">Entradas de Catalogo:</msg>
@@ -121,6 +123,7 @@
   <msg key="Course_Name">Nombre del Curso:</msg>
   <msg key="Course_Name_1">Nombre del Curso</msg>
   <msg key="Course_Structure">Estructura del Curso</msg>
+  <msg key="Course_Versions">Version %version%</msg>
   <msg key="Coverage">Cobertura:</msg>
   <msg key="Coverage_1">Cobertura</msg>
   <msg key="Created_By">Creado Por:</msg>
@@ -224,6 +227,7 @@
   <msg key="Location_1">Localización:</msg>
   <msg key="Locations">Localizaciones:</msg>
   <msg key="Log_Out">Salir</msg>
+  <msg key="LORS_Management">LORS</msg>
   <msg key="lt_Add_a_IMSSCORM_Compli">Agregar Curso Compatible con IMS/SCORM</msg>
   <msg key="lt_Add_Aggregation_Level">Agregar Nivel de Agregación</msg>
   <msg key="lt_Add_Annotation_MD_Des">Agregar Anotación de Descripción de MD</msg>
@@ -442,6 +446,8 @@
   <msg key="lt_Course_Presentation_S">Estilo de presentación</msg>
   <msg key="lt_Courses_in_your_Repos">Cursos en su Repositorio</msg>
   <msg key="lt_Date_and_Time_descrip">Descripción de Fecha y Hora</msg>
+  <msg key="lt_Default_end_page_content">Curso completado</msg>
+  <msg key="lt_Default_start_page_content">Empezar curso</msg>
   <msg key="lt_Deleting_temporary_fo">Borrando folder temporal...</msg>
   <msg key="lt_Describes_contributio">Describe la Contribución</msg>
   <msg key="lt_Describes_learning_ob">Describe el contenido de los Objetos de Aprendizaje</msg>
@@ -683,6 +689,7 @@
   <msg key="lt_Whether_copyright_or_">Si derechos reservados u otra restriccion se aplique</msg>
   <msg key="lt_Whether_use_of_the_re">Si el uso de este recurso requiere pago</msg>
   <msg key="lt_With_Bottom_Navigatio">Con barra de navegación abajo</msg>
+  <msg key="lt_With_Progress_Bar">Mostrar con barra de progreso</msg>
   <msg key="lt_Without_LORSM_Index_S">Estilo Sin índice</msg>
   <msg key="lt_You_are_about_to_add_">Usted esta apunto de agregar a su clase el curso %course_name%</msg>
   <msg key="lt_You_can_add_courses_a">Puede agregar cursos que yá existan en el repositorio</msg>
@@ -705,6 +712,7 @@
   <msg key="Name">Nombre</msg>
   <msg key="Name_1">Nombre:</msg>
   <msg key="Name_of_the_catalog">Nombre del catálogo</msg>
+  <msg key="Next">Siguiente</msg>
   <msg key="No">No</msg>
   <msg key="No_Context_Available">No hay contexto Disponible</msg>
   <msg key="No_Cost_Available">No hay Costo Disponible</msg>
@@ -849,5 +857,6 @@
   <msg key="Welcome_to_LEON">Bienvenido a LEON</msg>
   <msg key="Yes">Sí</msg>
   <msg key="You_can">Usted puede</msg>
+  <msg key="Your_session_has_expired">Su sesión ha expirado</msg>
   <msg key="Your_Stats">Sus estadísticas</msg>
 </message_catalog>

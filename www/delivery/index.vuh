@@ -13,7 +13,9 @@ set delivery_url ${lorsm_url}delivery
 # figure out the next page after we are done with this...
 set ims_item_id [ad_get_client_property lorsm ims_id]
 set man_id [ad_get_client_property lorsm man_id]
-
+if {$man_id eq ""} {
+	ad_returnredirect -message "[_ lorsm.Session_Expired]" "../"
+}
 set user_id [ad_conn user_id]
 
 set enabled_p [db_string enabled_p "select isenabled from ims_cp_manifest_class where man_id=:man_id and community_id=:dotlrn_package_id" -default "f"]

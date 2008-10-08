@@ -200,16 +200,16 @@ foreach package $package_id {
 								limit 1" ] 	} {	
 								#item has no track for the user
 								#the icon should be the same as per "not yet visited"
-								append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">" 
+								append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" 
 								} else {											
 								switch -regexp $lesson_status {
-									null { append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">" }
-									incomplete { append icon "<img src=\"/resources/lorsm/icons/flag_orange.gif\" alt=\"Incomplete\">" }
-									complete { append icon "<img src=\"/resources/lorsm/icons/flag_green.gif\" alt=\"Completed\">" }
-									failed { append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"Failed\">" }
-									"not attempted" { append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">" }
-									passed { append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"Passed\">" }
-									default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+									null { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+									incomplete { append icon "<img src=\"/lorsm/resources/icons/flag_orange.gif\" alt=\"Incomplete\">" }
+									complete { append icon "<img src=\"/lorsm/resources/icons/flag_green.gif\" alt=\"Completed\">" }
+									failed { append icon "<img src=\"/lorsm/resources/icons/flag_red.gif\" alt=\"Failed\">" }
+									"not attempted" { append icon "<img src=\"/lorsm/resources/icons/flag_white.gif\" alt=\"Not attempted\">" }
+									passed { append icon "<img src=\"/lorsm/resources/icons/icon_accept.gif\" alt=\"Passed\">" }
+									default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/lorsm/resources/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
 									}
 								}
 	set lesson_status $icon

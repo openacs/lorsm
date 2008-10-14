@@ -91,6 +91,7 @@
   <msg key="Annotation_Metadata">Annotation Metadata</msg>
   <msg key="Annotations">Annotations:</msg>
   <msg key="Annotator">Annotator</msg>
+  <msg key="Applet_frame">Applet Frame</msg>
   <msg key="Assets">Assets</msg>
   <msg key="Available_Courses">Available Courses</msg>
   <msg key="Begin">Begin</msg>
@@ -107,6 +108,7 @@
   <msg key="Confirm">Confirm?</msg>
   <msg key="Confirm_q">Confirm?</msg>
   <msg key="Confirmation">Confirmation</msg>
+  <msg key="Contents">Contents</msg>
   <msg key="Context">Context:</msg>
   <msg key="Context_1">Context</msg>
   <msg key="Contribution">Contribution:</msg>
@@ -700,6 +702,7 @@
   <msg key="Maximum_Version">Maximum Version:</msg>
   <msg key="MD_Schema">MD Schema</msg>
   <msg key="Menu">Menu</msg>
+  <msg key="Menu_area">Menu Area</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -781,6 +784,7 @@
   <msg key="Scheme_1">Scheme</msg>
   <msg key="SCORM">SCORM?</msg>
   <msg key="SCORM_Package_Info">SCORM Package Info</msg>
+  <msg key="SCORM_Player">SCORM Player</msg>
   <msg key="SCORM_session">SCORM session</msg>
   <msg key="SCOs">SCOs</msg>
   <msg key="seconds">seconds</msg>

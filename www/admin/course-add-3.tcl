@@ -42,19 +42,19 @@ ad_progress_bar_begin \
     -message_2 "[_ lorsm.lt_We_will_continue_auto]"
 
 
-ns_write "<h2>[_ lorsm.lt_Initiating_Updating_l]</h2><blockquote>"
+ns_write "<h2>[_ lorsm.lt_Initiating_Updating_l]</h2>"
 
 # Is this a Blackboard6 package?
 set isBB [lors::imscp::bb6::isBlackboard6 -tmp_dir $tmp_dir]
 
 if {$isBB == 1} {
     ns_write "<p><font color=\"red\"><b>[_ lorsm.lt_Blackboard6_Content_P]</b></font>.<br> [_ lorsm.lt_Modifying_package_to_]"
-    ns_write "<blockquote><br> [_ lorsm.lt_Cleaning_up_unused_ap]"
+    ns_write "<br> [_ lorsm.lt_Cleaning_up_unused_ap]"
     lors::imscp::bb6::clean_items -tmp_dir $tmp_dir -file "imsmanifest.xml"
     ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font>"
     ns_write "<br> [_ lorsm.lt_Renaming_content_type]"
     lors::imscp::bb6::extract_html -tmp_dir $tmp_dir -file "imsmanifest.xml"
-    ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font></blockquote>"
+    ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font>"
 
 }
 
@@ -179,12 +179,12 @@ db_transaction {
                     set files [lors::cr::has_files -fs_dir $subdir]
 
 		    #For display purposes
-		    ns_write "[_ lorsm.Processing_files]<blockquote>"
+		    ns_write "[_ lorsm.Processing_files]<p>"
 		    foreach file $files {
 			set tempval [regsub $tmp_dir $file {}]
 			ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<font color=\"green\">[_ lorsm.OK]</font><br>"
 		    }
-		    ns_write "</blockquote>"
+		    ns_write "</p>"
 		    #
 
                     if ![empty_string_p $files] {
@@ -572,7 +572,7 @@ db_transaction {
     ns_log Debug "Delete temporary folder $tmp_dir"
     lors::imscp::deltmpdir $tmp_dir
 
-    ns_write "[_ lorsm.Done]<p></blockquote><hr>"
+    ns_write "[_ lorsm.Done]<hr>"
 
     # jump to the front page
     ad_progress_bar_end -url [apm_package_url_from_id [ad_conn package_id]]/admin

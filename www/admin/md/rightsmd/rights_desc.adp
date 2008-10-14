@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Rights Metadata Description</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Rights Metadata</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Rights_MD_Des#</h3>
-<blockquote>
+
  <formtemplate id="rightsmd_desc" style="standard-lars"></formtemplate>
-</blockquote>

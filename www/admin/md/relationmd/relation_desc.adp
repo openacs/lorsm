@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Relation Metadata Resource Description</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Relation Metadata Resource</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Relation_MD_R_1#</h3>
-<blockquote>
+
  <formtemplate id="relationmd_desc" style="standard-lars"></formtemplate>
-</blockquote>

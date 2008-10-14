@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Educational Metadata Language</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Educational Metadata</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Educational_M_17#</h3>
-<blockquote>
+
  <formtemplate id="educationalmd_lang" style="standard-lars"></formtemplate>
-</blockquote>

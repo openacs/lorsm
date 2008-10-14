@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Relation Metadata Kind</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Relation Metadata Kind</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Relation_MD_K#</h3>
-<blockquote>
+
  <formtemplate id="relationmd_kind" style="standard-lars"></formtemplate>
-</blockquote>

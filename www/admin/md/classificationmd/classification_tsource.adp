@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Classification Metadata Taxonomic Path Source</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Classification Metadata Taxonomic Path</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Classificatio_9#</h3>
-<blockquote>
+
  <formtemplate id="classificationmd_tsource" style="standard-lars"></formtemplate>
-</blockquote>

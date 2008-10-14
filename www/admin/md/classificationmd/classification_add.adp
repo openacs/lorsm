@@ -7,7 +7,7 @@
 />
 
 <h3>Classification Metadata Entry</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Classification Metadata</th>
@@ -19,4 +19,3 @@
       <formtemplate id="classificationmd_add" style="standard-lars"></formtemplate>
     </tr>
   </table>
-</blockquote>

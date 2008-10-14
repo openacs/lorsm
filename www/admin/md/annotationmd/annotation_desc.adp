@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Annotation Metadata Description</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Annotation Metadata</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Annotation_MD#</h3>
-<blockquote>
+
  <formtemplate id="annotationmd_desc" style="standard-lars"></formtemplate>
-</blockquote>

@@ -32,8 +32,6 @@
 
     <h3><img src="/resources/Open16.gif" alt="Open Item">@title;noquote@</h3>
   
-    <blockquote>
-
       <if @text@ defined>
         @text;noquote@
       </if>
@@ -46,7 +44,6 @@
       
       <br>
         
-    </blockquote>
     <if @parent_item@>
       <a href="@parent_href@"><img border="0" src="/resources/right.gif" align="right" alt="Back to Parent"></a>
     </if>

@@ -48,13 +48,13 @@ ns_write "<h2>[_ lorsm.lt_Initiating_Updating_l]</h2>"
 set isBB [lors::imscp::bb6::isBlackboard6 -tmp_dir $tmp_dir]
 
 if {$isBB == 1} {
-    ns_write "<p><font color=\"red\"><b>[_ lorsm.lt_Blackboard6_Content_P]</b></font>.<br> [_ lorsm.lt_Modifying_package_to_]"
+    ns_write "<p><span style=\"color:red\"><strong>[_ lorsm.lt_Blackboard6_Content_P]</strong></span>.<br>[_ lorsm.lt_Modifying_package_to_]</p>"
     ns_write "<br> [_ lorsm.lt_Cleaning_up_unused_ap]"
     lors::imscp::bb6::clean_items -tmp_dir $tmp_dir -file "imsmanifest.xml"
-    ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font>"
+    ns_write "<span style=\"color:green\"><strong>[_ lorsm.Done]</strong></span>"
     ns_write "<br> [_ lorsm.lt_Renaming_content_type]"
     lors::imscp::bb6::extract_html -tmp_dir $tmp_dir -file "imsmanifest.xml"
-    ns_write "<font color=\"green\"><b>[_ lorsm.Done]</b></font>"
+    ns_write "<span style=\"color:"green\"><strong>[_ lorsm.Done]</strong></span>"
 
 }
 
@@ -182,7 +182,7 @@ db_transaction {
 		    ns_write "[_ lorsm.Processing_files]<p>"
 		    foreach file $files {
 			set tempval [regsub $tmp_dir $file {}]
-			ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<font color=\"green\">[_ lorsm.OK]</font><br>"
+			ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<span style=\"color:green\">[_ lorsm.OK]</span><br>"
 		    }
 		    ns_write "</p>"
 		    #

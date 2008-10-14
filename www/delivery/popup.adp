@@ -65,10 +65,10 @@ function moveaway() {
 }
 
 function debug(message) {
-	//childwindow.frames['talk'].document.write("<FONT SIZE=1>"+message+"<HR>");
+	//childwindow.frames['talk'].document.write(message+"<HR>");
 	<if @debuglevel@ gt 0>
 		try {
-		this.debugwindow.document.write("<FONT SIZE=1>"+message+"<HR>");
+		this.debugwindow.document.write(message+"<HR>");
 		} catch (err)  {
 			//cosa fare qui 
 		}
@@ -379,7 +379,7 @@ var findgetAppletInfo = 0;
 	</if>
 	<else>
 	try {
-	childwindow.frames['content'].document.write("<FONT SIZE=2>Please wait. Loading contents.<BR>Attendere prego. Caricamento contenuti.<BR>")
+	childwindow.frames['content'].document.write("Please wait. Loading contents.<BR>")
 	} catch (err) {
 		//we are on a slow browser somehow
 		//or something has gotten really wrong

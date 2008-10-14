@@ -15,7 +15,7 @@ this.finishing=false;
 function debug(message) {
 		if (debuglevel ==1) {
 			if (menu_off < 1 ) {
-					parent.frames['talk'].document.write("<FONT SIZE=1>"+message+"<HR>");
+					parent.frames['talk'].document.write(message+"<HR>");
 			}
 		}
 		return;
@@ -101,7 +101,7 @@ function AliveReLoad() {
    isalive=APIFinder.KeepAlive();
    if(!(isalive=='true')) {
 		if (menu_off < 1 ) {
-		message="<FONT SIZE=1>Server failure: Error in communication to server:<BR>"+APIFinder.LastServerError;
+		message="Server failure: Error in communication to server:<BR>"+APIFinder.LastServerError;
 		parent.frames['menu'].writit(message,'usermessage');
 		} else {
 		debug("server error in keepalive");
@@ -109,7 +109,7 @@ function AliveReLoad() {
 		APIFinder.LastServerError="";
 	} else {
 		if (menu_off < 1 ) {
-		message="<FONT SIZE=1>Server online</FONT>";
+		message="Server online";
 		parent.frames['menu'].writit(message,'usermessage');
 		} else {
 		debug("server OK in keepalive");
@@ -284,7 +284,7 @@ var findgetAppletInfo = 0;
 		parent.frames['menu'].window.location.href = menu_url;
 		//obviously no menu if menu is off...
 	} else {
-	messaging("<FONT SIZE=2>Please wait. Loading contents.<BR>Attendere prego. Caricamento contenuti.<BR>");
+	messaging("Please wait. Loading contents.<BR>");
 	parent.frames['content'].location.href = record_view_url;
 	}
         if (findgetAppletInfo> 7) {
@@ -327,7 +327,7 @@ function LMSInitialize(placeholder) {
 		APIFinder.LastServerError="";
 	} else {
 		if (menu_off < 1 ) {
-		message="<FONT SIZE=3>LMSInitialize: Error in communication to server:</FONT><BR><FONT SIZE=1>"+APIFinder.LastServerError+"</FONT>";
+		message="LMSInitialize: Error in communication to server:<BR>"+APIFinder.LastServerError;
 		parent.frames['menu'].writit(message,'usermessage');
 		} else {
 		debug("server error in LMSInitialize");
@@ -360,7 +360,7 @@ function LMSFinish(placeholder) {
 	}
 	finishing=true;
 	if (menu_off < 1 ) {
-		parent.frames['menu'].writit('<FONT SIZE=1>Sending tracking to server....</FONT>','usermessage');
+		parent.frames['menu'].writit('Sending tracking to server....','usermessage');
 	}
 	debug("APPLET.JS sco called LMSFinish("+placeholder+")");
 	debug("<B>calling LMSfinish =(\'\')</B>");
@@ -383,7 +383,7 @@ function LMSFinish(placeholder) {
 				parent.frames['menu'].writit('','abort');
 				parent.frames['menu'].writit('','btn_finish');
 				parent.frames['menu'].toggleBox('menudiv',1);
-				parent.frames['menu'].writit('<FONT SIZE=1>Tracking is OK</FONT>','usermessage');
+				parent.frames['menu'].writit('Tracking is OK','usermessage');
 			} catch (err) {
 				debug ("cannot restore menu... what's up ?")
 			}
@@ -395,7 +395,7 @@ function LMSFinish(placeholder) {
 		//better be conservative. don't give'em menu back
 		//parent.frames['menu'].writit('','abort');
 		//parent.frames['menu'].toggleBox('menudiv',1);
-		message="<FONT SIZE=3>LMSFinish: Error in communication to server:</FONT><BR><FONT SIZE=1>"+APIFinder.LastServerError+"</FONT>";
+		message="LMSFinish: Error in communication to server:<BR>"+APIFinder.LastServerError;
 		parent.frames['menu'].writit(message,'usermessage');
 		} else {
 		debug("ERROR during LMSFinish CALL !!!");
@@ -430,14 +430,14 @@ function LMSCommit(placeholder) {
 	committed=committed+'';
 	if(!(committed=='true')) {
 		if (menu_off < 1 ) {
-		message="<FONT SIZE=3>Commit: Error in communication to server:</FONT><BR><FONT SIZE=1>"+APIFinder.LastServerError+"</FONT>";
+		message="Commit: Error in communication to server:<BR>"+APIFinder.LastServerError;
 		parent.frames['menu'].writit(message,'usermessage');
 		} else {
 		debug("ERROR during LMSCommit CALL !!!");
 		}
 	} else {
 		if (menu_off < 1 ) {
-		parent.frames['menu'].writit('<FONT SIZE=1>Committed OK</FONT>','usermessage');
+		parent.frames['menu'].writit('Committed OK','usermessage');
 		}
 		APIFinder.LastServerError="";
 	}

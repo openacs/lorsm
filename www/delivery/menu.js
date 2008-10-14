@@ -22,7 +22,7 @@ function selfcheck() {
 function debug(message) {
 		if (debuglevel==1) {
 	        try {
-				parent.frames['talk'].document.write("<FONT SIZE=1> menu.adp : "+message+"<HR>");
+				parent.frames['talk'].document.write("menu.adp : "+message+"<HR>");
 			} catch (err) {
 				//alert("no talk ? no party!");
 			}

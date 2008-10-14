@@ -209,7 +209,7 @@ foreach package $package_id {
 									failed { append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"Failed\">" }
 									"not attempted" { append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">" }
 									passed { append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"Passed\">" }
-									default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+									default { append icon "<span style=\"color: #fff\"> $lesson_status **</span> <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
 									}
 								}
 	set lesson_status $icon

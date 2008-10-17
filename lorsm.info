@@ -7,13 +7,13 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
 
-    <version name="0.8d3" url="http://openacs.org/repository/download/apm/lorsm-0.8d3.apm">
+    <version name="0.8" url="http://openacs.org/repository/download/apm/lorsm-0.8.apm">
         <owner url="mailto:ernieg@mm.st">Ernie Ghiglione</owner>
         <summary>Application to manage the services from the Learning Object Repository. </summary>
-        <release-date>2007-07-17</release-date>
+        <release-date>2008-10-17</release-date>
         <description format="text/html">This application manages the services from the Learning Object Repository: upload courses, manage and create metadata, delete resources and courses. </description>
 
-        <provides url="lorsm" version="0.8d3"/>
+        <provides url="lorsm" version="0.8"/>
         <requires url="acs-datetime" version="5.2.2"/>
         <requires url="lors" version="0.6d4"/>
         <requires url="views" version="0.1d3"/>

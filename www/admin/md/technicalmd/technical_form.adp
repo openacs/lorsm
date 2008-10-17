@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Technical Metadata Format</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Technical Metadata</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Technical_MD__1#</h3>
-<blockquote>
+
  <formtemplate id="technicalmd_form" style="standard-lars"></formtemplate>
-</blockquote>

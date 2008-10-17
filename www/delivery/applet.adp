@@ -14,22 +14,6 @@ record_view_url="record-view?man_id=@man_id@&item_id=@item_id@";
 
 <SCRIPT TYPE="text/javascript" SRC="applet.js"> </SCRIPT>
  
-<script type="text/javascript"> 
-//procedura di massimizzazione della finestra
-top.window.moveTo(0,0); 
-if (document.all) 
-   { top.window.resizeTo(screen.availWidth,screen.availHeight); } 
-else if 
-   (document.layers || document.getElementById) 
-	{
-   if 
-    (top.window.outerHeight < screen.availHeight || top.window.outerWidth < 
-screen.availWidth)
-     { top.window.outerHeight = top.screen.availHeight; 
-       top.window.outerWidth = top.screen.availWidth; } 
-		}
-</SCRIPT>
-
 </HEAD>
 
 

@@ -91,6 +91,7 @@
   <msg key="Annotation_Metadata">Anotación Metadata</msg>
   <msg key="Annotations">Anotaciones:</msg>
   <msg key="Annotator">Anotador</msg>
+  <msg key="Applet_frame">Marco de Applet</msg>
   <msg key="Assets">Activos</msg>
   <msg key="Available_Courses">Cursos Disponibles</msg>
   <msg key="Begin">Empezar</msg>
@@ -107,6 +108,7 @@
   <msg key="Confirm">¿Confirmar?</msg>
   <msg key="Confirm_q">¿Confirmar?</msg>
   <msg key="Confirmation">Confirmación</msg>
+  <msg key="Contents">Contenidos</msg>
   <msg key="Context">Contexto:</msg>
   <msg key="Context_1">Contexto</msg>
   <msg key="Contribution">Contribución:</msg>
@@ -699,6 +701,7 @@
   <msg key="Maximum_Version">Versión Máxima</msg>
   <msg key="MD_Schema">Esquema MD</msg>
   <msg key="Menu">Menú</msg>
+  <msg key="Menu_area">Area de Menú</msg>
   <msg key="Meta_MD">Meta MD</msg>
   <msg key="Meta_Metadata">Meta Metadata</msg>
   <msg key="Meta_Metadata_">Meta Metadata \</msg>
@@ -780,6 +783,7 @@
   <msg key="Scheme_1">Esquema:</msg>
   <msg key="SCORM">SCORM?</msg>
   <msg key="SCORM_Package_Info">Información del Paquete SCORM</msg>
+  <msg key="SCORM_Player">Player SCORM</msg>
   <msg key="SCORM_session">Sesión SCORM</msg>
   <msg key="SCOs">SCOs</msg>
   <msg key="seconds">segundos</msg>

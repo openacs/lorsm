@@ -315,7 +315,7 @@ if { [info exists js] } {
                     failed { append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"Failed\">" }
                     "not attempted" { append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">" }
                     passed { append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"Passed\">" }
-                    default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+                    default { append icon "<span style=\"color:#ffffff\"> $lesson_status **</span> <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
                 }
             }
             
@@ -387,7 +387,7 @@ if { [info exists js] } {
                             "not attempted" { append icon "<img src=\"/resources/lorsm/icons/page_lock.gif\" alt=\"Missing prerequisite: Not attempted\">" }
                             passed {  append icon "<img src=\"/resources/lorsm/icons/page_tick.gif\" alt=\"Prerequisite fulfilled\">" }
                             complete { append icon "<img src=\"/resources/lorsm/icons/page_tick.gif\" alt=\"Prerequisite fulfilled\">" }
-                            default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+                            default { append icon "<span style=\"color:#ffffff\"> $lesson_status **</span> <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
                         }
                     } 
                     #if found session for id_from_ref
@@ -435,7 +435,7 @@ if { [info exists js] } {
                     failed { append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"Failed\">" }
                     "not attempted" { append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">" }
                     passed { append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"Passed\">" }
-                    default { append icon "<FONT COLOR=#ffffff> $lesson_status ** <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
+                    default { append icon "<span style=\"color:#ffffff\"> $lesson_status **</span> <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"}
                 }
             } 
             

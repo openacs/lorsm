@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Classification Metadata Keyword</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Classification Metadata</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Classificatio_6#</h3>
-<blockquote>
+
  <formtemplate id="classificationmd_key" style="standard-lars"></formtemplate>
-</blockquote>

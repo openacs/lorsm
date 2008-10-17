@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
   <head>
@@ -32,8 +32,6 @@
 
     <h3><img src="/resources/Open16.gif" alt="Open Item">@title;noquote@</h3>
   
-    <blockquote>
-
       <if @text@ defined>
         @text;noquote@
       </if>
@@ -46,7 +44,6 @@
       
       <br>
         
-    </blockquote>
     <if @parent_item@>
       <a href="@parent_href@"><img border="0" src="/resources/right.gif" align="right" alt="Back to Parent"></a>
     </if>

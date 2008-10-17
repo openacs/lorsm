@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Technical Metadata Duration</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Technical Metadata</th>
@@ -19,10 +19,7 @@
       <td><listtemplate name= "d_te_dur"></listtemplate></td>
     </tr>   
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Technical_MD_#</h3>
-<blockquote>
+
  <formtemplate id="technicalmd_dur" style="standard-lars"></formtemplate>
-</blockquote>

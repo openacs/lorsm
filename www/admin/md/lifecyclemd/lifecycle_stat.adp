@@ -9,7 +9,7 @@
 <hr>
 
 <h3>Lifecyle Metadata Status</h3>
-<blockquote>
+
   <table cellspacing="2" cellpadding="2" border="0" width="50%">
     <tr class="form-section">
       <th colspan="2">Lifecycle Metadata</th>
@@ -20,10 +20,7 @@
     </tr>   
 
   </table>
-</blockquote>
-<p>
 
 <h3>#lorsm.lt_AddEdit_Lifecycle_Met_1#</h3>
-<blockquote>
+
  <formtemplate id="lifecyclemd_stat" style="standard-lars"></formtemplate>
-</blockquote>

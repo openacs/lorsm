@@ -1,7 +1,7 @@
 # packages/lorsm/www/edit-content.tcl
 
 ad_page_contract {
-    
+
     Online content editor for LORSm
 
     Uses htmlarea to edit html/txt file-storage
@@ -23,8 +23,13 @@ ad_page_contract {
 
 set user_id [ad_conn user_id]
 
-set folder [db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]
-set fs_root_folder [db_string sql {select file_storage__get_root_folder(:fs_package_id)}]
+set folder [db_string select_folder_key {select key
+    from fs_folders
+    where folder_id = :folder_id}]
+
+set fs_root_folder [db_string sql {select
+    file_storage__get_root_folder(:fs_package_id)}]
+
 set identifierref [lorsm::fix_url -url $identifierref]
 set pather $folder/$identifierref
 
@@ -33,12 +38,16 @@ set pather $folder/$identifierref
 # get rid of it
 regsub -all {//} $pather {/} pather
 
-set file_id [content::item::get_id -item_path $pather -root_folder_id $fs_root_folder]
+set file_id [content::item::get_id \
+                -item_path $pather \
+                -root_folder_id $fs_root_folder]
 
 # check for permissions
 # By default, only the creator has admin access to content
 
-permission::require_write_permission -object_id $file_id -creation_user $user_id 
+permission::require_write_permission \
+    -object_id $file_id \
+    -creation_user $user_id
 
 #ns_write "[_ lorsm.lt_folder_foldern_pather]"
 #ad_script_abort

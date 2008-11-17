@@ -1,6 +1,6 @@
 <master>
-  <property name="title">@title@</property>
-  <property name="context">@context@</property>
+<property name="title">@title@</property>
+<property name="context">@context@</property>
 
 <BR>
 Runtime Session data:
@@ -9,4 +9,3 @@ Runtime Session data:
 %>
 <BR>
 <include src="list">
-

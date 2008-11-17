@@ -18,5 +18,5 @@ set man_name [lorsm::get_course_name -manifest_id $man_id]
 
 ad_set_client_property trackingrte man_id $man_id
 
-set context [list "$classname,$man_name" ]
+set context [list "$classname,$man_name"]
 

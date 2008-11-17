@@ -1,9 +1,9 @@
 # packages/lorsm/www/formater.tcl
 
 ad_page_contract {
-    
+
     Change course format presentation
-    
+
     @author jopezku@gmail.com
     @cvs-id $Id$
 } {
@@ -27,38 +27,45 @@ set context [list "[_ lorsm.lt_Set_Course_Presentati]"]
 ad_form -name formater \
     -export {return_url} \
     -form {
-		{man_id:key}
-		{project:text(inform)
-			{label "[_ lorsm.Course_Name]"}
-			{value {[lorsm::get_course_name -manifest_id $man_id]}}
-		}
-		{format_pretty_name:text(inform)
-			{label "[_ lorsm.Current_Format]"}
-		}
-		{format:text(select)
-			{label "[_ lorsm.Format_1]"}
-		    {options {[lang::util::localize_list_of_lists -list [db_list_of_lists select_formats_for_select_widget {select format_pretty_name,
-				format_id
-				from lorsm_course_presentation_formats
-			order by format_pretty_name}]]}}
-		}
-	} -edit_request {
-	    db_1row get_data "		select cp.course_presentation_format as format, pf.format_pretty_name
-		from ims_cp_manifests cp, lorsm_course_presentation_formats pf
-		where cp.man_id = :man_id
-		and cp.course_presentation_format = pf.format_id"
-	    set format_pretty_name [lang::util::localize $format_pretty_name]
+        {man_id:key}
 
-	} -edit_data {
-		db_transaction {
-			db_dml do_update {
-				update ims_cp_manifests
-				set course_presentation_format = :format
-				where man_id = :man_id }
-		}	
-	} -after_submit {
-		ad_returnredirect $return_url
-	}
+        {project:text(inform)
+            {label "[_ lorsm.Course_Name]"}
+            {value {[lorsm::get_course_name -manifest_id $man_id]}}
+        }
+
+        {format_pretty_name:text(inform)
+            {label "[_ lorsm.Current_Format]"}
+        }
+
+        {format:text(select)
+            {label "[_ lorsm.Format_1]"}
+            {options {[lang::util::localize_list_of_lists \
+                -list [db_list_of_lists select_formats_for_select_widget {\
+                        select format_pretty_name, format_id
+                        from lorsm_course_presentation_formats
+                        order by format_pretty_name}]]}}
+        }
+
+    } -edit_request {
+        db_1row get_data \
+            "select cp.course_presentation_format as format, pf.format_pretty_name
+            from ims_cp_manifests cp, lorsm_course_presentation_formats pf
+            where cp.man_id = :man_id
+                and cp.course_presentation_format = pf.format_id"
+        set format_pretty_name [lang::util::localize $format_pretty_name]
+
+    } -edit_data {
+        db_transaction {
+            db_dml do_update {
+                update ims_cp_manifests
+                set course_presentation_format = :format
+                where man_id = :man_id }
+        }
+
+    } -after_submit {
+        ad_returnredirect $return_url
+    }
 
 
 

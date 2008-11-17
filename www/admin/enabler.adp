@@ -1,5 +1,5 @@
 <master>
-  <property name="title">@title@</property>
-  <property name="context">@context@</property>
+<property name="title">@title@</property>
+<property name="context">@context@</property>
 
-  <formtemplate id="enabler"></formtemplate>
+<formtemplate id="enabler"></formtemplate>

@@ -1,9 +1,9 @@
 # packages/lorsm/www/sharer.tcl
 
 ad_page_contract {
-    
+
     Enable sharing of courses, organizations and learning objects
-    
+
     @author Ernie Ghiglione (ErnieG@mm.st)
     @creation-date 2004-07-09
     @arch-tag: 0d48cf78-3d5d-4a39-b2e0-2f090bfbecb8
@@ -32,58 +32,74 @@ set context [list "[_ lorsm.lt_Share_CourseLearning_]"]
 ad_form -name sharer \
     -export {return_url folder_id} \
     -form {
-	{man_id:key}
-	{project:text(inform)
-	    {label "[_ lorsm.Course_Name]"}
-	    {value {[lorsm::get_course_name -manifest_id $man_id]}}
-	}
-	{isshared:text(inform)
-	    {label "[_ lorsm.Current_Status]"}
-	}
-	{share:text(radio)
-	    {label Status?}
-	    {options {{"[_ lorsm.Shared]" t} {"[_ lorsm.Not_Shared]" f}}}
-	}
+        {man_id:key}
+
+        {project:text(inform)
+            {label "[_ lorsm.Course_Name]"}
+            {value {[lorsm::get_course_name -manifest_id $man_id]}}
+        }
+
+        {isshared:text(inform)
+            {label "[_ lorsm.Current_Status]"}
+        }
+
+        {share:text(radio)
+            {label Status?}
+            {options {{"[_ lorsm.Shared]" t} {"[_ lorsm.Not_Shared]" f}}}
+        }
+
     } -select_query {
-        select 
+        select
         case when isshared = 't' then 'Shared'
           else 'Not Shared'
         end as isshared
-	from ims_cp_manifests
-	where man_id = :man_id
+        from ims_cp_manifests
+        where man_id = :man_id
+
     } -edit_data {
-	db_transaction {
-	    db_dml do_update {
-            	update ims_cp_manifests
-	            set isshared = :share
-        	    where man_id = :man_id }
+        db_transaction {
+            db_dml do_update {
+                    update ims_cp_manifests
+                    set isshared = :share
+                    where man_id = :man_id }
 
-	    if {$share == "t"} {
+            if {$share == "t"} {
 
-	        set party_id_students [db_string party_id {select segment_id from rel_segments \
-        	                                             where rel_type = 'dotlrn_student_profile_rel'}]
+                set party_id_students [db_string party_id {\
+                    select segment_id \
+                    from rel_segments \
+                    where rel_type = 'dotlrn_student_profile_rel'}]
 
-	        permission::grant -party_id $party_id_students -object_id $man_id -privilege read
-	        permission::grant -party_id $party_id_students -object_id $folder_id -privilege read
+                permission::grant \
+                    -party_id $party_id_students \
+                    -object_id $man_id \
+                    -privilege read
 
+                permission::grant \
+                    -party_id $party_id_students \
+                    -object_id $folder_id \
+                    -privilege read
 
-	    } else {
+            } else {
 
-	        set party_id_students [db_string party_id {select segment_id from rel_segments \
-        	                                             where rel_type = 'dotlrn_student_profile_rel'}]
+                set party_id_students [db_string party_id {\
+                    select segment_id \
+                    from rel_segments \
+                    where rel_type = 'dotlrn_student_profile_rel'}]
 
-                 permission::revoke -party_id $party_id_students -object_id $man_id -privilege read
-                 permission::revoke -party_id $party_id_students -object_id $folder_id -privilege read
+                permission::revoke \
+                    -party_id $party_id_students \
+                    -object_id $man_id \
+                    -privilege read
 
-	    }
-	}	
+                permission::revoke \
+                    -party_id $party_id_students \
+                    -object_id $folder_id \
+                    -privilege read
+
+            }
+        }
     } -after_submit {
         ad_returnredirect $return_url
 
     }
-
-
-
-
-
-

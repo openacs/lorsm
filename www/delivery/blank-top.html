@@ -1,21 +1,18 @@
 <HEAD>
-<SCRIPT type="text/javascript">
-//<--!
+    <SCRIPT type="text/javascript">
+    //<--!
+        parent.caller=null;
 
-parent.caller=null;
-
-function localclose() {
-	try{
-	parent.caller.moveaway();
-	parent.caller.childclosed=true;
-	} catch (err) {
-		//error while closing
-		
-	}
-}
-
-//-->
-</SCRIPT>
+        function localclose() {
+            try{
+                parent.caller.moveaway();
+                parent.caller.childclosed=true;
+            } catch (err) {
+                //error while closing
+            }
+        }
+    //-->
+    </SCRIPT>
 </HEAD>
 
 <BODY onunload="localclose();">

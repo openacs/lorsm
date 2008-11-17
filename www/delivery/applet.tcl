@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     @creation-date 2004-08-07
     @arch-tag: 64f3397b-4558-4298-a995-fc63e472f2a1
     @cvs-id $Id$
@@ -23,15 +23,19 @@ if {$debuglevel > 0} {
     set app_height 0
 }
 set random [clock seconds]
-set ses_renew    [ad_parameter -package_id [ad_acs_kernel_id] SessionRenew security 300]
-set ses_timeout  [ad_parameter -package_id [ad_acs_kernel_id] SessionTimeout security 1200]
+set ses_renew    [ad_parameter \
+                    -package_id [ad_acs_kernel_id] \
+                    SessionRenew security 300]
 
+set ses_timeout  [ad_parameter \
+                    -package_id [ad_acs_kernel_id] \
+                    SessionTimeout security 1200]
 
 set cookie [ad_get_cookie ad_session_id]
 set track_id [ad_get_client_property lorsm studenttrack]
 
 if { ! [info exists menu_off] } {
-	set menu_off 0
+    set menu_off 0
 }
 
 # Student tracking
@@ -47,10 +51,8 @@ if { [info exists ims_id] } {
     set body_url [export_vars -base "record-view" -url {item_id man_id}]
 } else {
     if { ! [empty_string_p $item_id] } {
-    ns_log Notice "APPLET.TCL: item_id is $item_id"
-    set ims_id $item_id
-    set body_url [export_vars -base "record-view" -url {item_id man_id}]
+        ns_log Notice "APPLET.TCL: item_id is $item_id"
+        set ims_id $item_id
+        set body_url [export_vars -base "record-view" -url {item_id man_id}]
     }
 }
-
-

@@ -9,57 +9,69 @@ Data for the selected session:
 <HR>
 Data regarding this session:
 <li>
-id: @student_id@
+    id: @student_id@
 </li>
+
 <li>
-name: @student_name@
+    name: @student_name@
 </li>
+
 <li>
-location: @lesson_location@
+    location: @lesson_location@
 </li>
+
 <li>
-credit: @credit@
+    credit: @credit@
 </li>
+
 <li>
-status: @lesson_status@
+    status: @lesson_status@
 </li>
+
 <li>
-entry: @entry@
+    entry: @entry@
 </li>
+
 <li>
-score: @score_raw@
+    score: @score_raw@
 </li>
+
 <li>
-total time: @total_time@ (seconds - last session excluded) <BR>
+    total time: @total_time@ (seconds - last session excluded) <BR>
 </li>
+
 <li>
-last session time: @session_time@ (seconds) <BR>
+    last session time: @session_time@ (seconds) <BR>
 </li>
+
 <li>
-comments: @comments@ 
+    comments: @comments@
 </li>
+
 <li>
-mode: @lesson_mode@ 
+    mode: @lesson_mode@
 </li>
+
 <li>
-launch data: @launch_data@ 
+    launch data: @launch_data@
 </li>
+
 <li>
-suspend data: @suspend_data@ 
+    suspend data: @suspend_data@
 </li>
+
 <li>
-Session initialization time stamp: @time_stamp@<BR>
+    Session initialization time stamp: @time_stamp@<BR>
 </li>
 
 <%=
-	#time stamp (creation date for this entry must be = first track below) @time_stamp@<BR>
+    #time stamp (creation date for this entry must be = first track below) @time_stamp@<BR>
 %>
 
 <HR>
 Data below is from 'usual' lors tracking and is not provided as scorm compliance.
 <HR>
-<listtemplate name="student_track">
-</listtemplate>
+<listtemplate name="student_track"></listtemplate>
 <HR>
 
 

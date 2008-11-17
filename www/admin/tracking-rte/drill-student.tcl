@@ -24,70 +24,48 @@ set context [list "$classname,$man_name,$student_name"]
 
 ad_set_client_property trackingrte currentlydrilleduser $user_id
 
-#	course_name {
-#		label "titolo"
-#	}
-#	student_id {
-#		label "student ID"
-#	                display_eval {[person::name -person_id $user_id]}
-#	}
+#   course_name {
+#       label "titolo"
+#   }
+#   student_id {
+#       label "student ID"
+#                   display_eval {[person::name -person_id $user_id]}
+#   }
 ###
 template::list::create \
     -name student \
     -multirow student \
     -elements {
-	item_title 	{
-		label "Title"
-	}
-	score_raw {
-		label "Score - sent by sco"
-	}
-	total_total_time {
-		label "Total time - sent by sco"
-	}
-	cut_start_time {
-		label "Time student first entered course"
-	}
-	lesson_status {
-		label "lesson status - sent by sco"
-	}
-	track_id {
-		label "session_id. click for detail"
-		link_url_col drill_url 
-	}
+        item_title  { label "Title" }
+        score_raw { label "Score - sent by sco" }
+        total_total_time { label "Total time - sent by sco" }
+        cut_start_time { label "Time student first entered course" }
+        lesson_status { label "lesson status - sent by sco" }
+        track_id {
+            label "session_id. click for detail"
+            link_url_col drill_url
+        }
     }
-		#label "session_id (cmi.core.track_id=lorsm.studenttrack.track_id)"
+
+#label "session_id (cmi.core.track_id=lorsm.studenttrack.track_id)"
 
 db_multirow \
-    -extend {
-	edit_url
-	drill_url
-	total_total_time
-	cut_start_time
-    } student single_student {
-		select * 
-		from 
-			lorsm_student_track lorsm, lorsm_cmi_core cmi, ims_cp_manifests manif, ims_cp_items imsitems
-		where 
-			lorsm.community_id=:community_id
-		and 
-			lorsm.track_id=cmi.track_id
-		and 
-			lorsm.course_id=:man_id
-		and 
-			manif.man_id=:man_id
-		and 
-			cmi.man_id=:man_id
-		and 
-			user_id=:user_id
-		and 
-			imsitems.ims_item_id=cmi.item_id
-		order by
-			cmi.track_id asc
-  } {
-	set cut_start_time [string range $start_time 0 18]
-	set total_total_time [expr $total_time+$session_time]
-	set edit_url [export_vars -base "drill-student-singletrack" {track_id}]
-	set drill_url [export_vars -base "drill-student-singletrack" {track_id}]
+    -extend { edit_url drill_url total_total_time cut_start_time } \
+    student single_student {
+        select *
+        from lorsm_student_track lorsm, lorsm_cmi_core cmi, ims_cp_manifests manif, ims_cp_items imsitems
+        where lorsm.community_id=:community_id
+            and lorsm.track_id=cmi.track_id
+            and lorsm.course_id=:man_id
+            and manif.man_id=:man_id
+            and cmi.man_id=:man_id
+            and user_id=:user_id
+            and imsitems.ims_item_id=cmi.item_id
+        order by cmi.track_id asc
+    } {
+        set cut_start_time [string range $start_time 0 18]
+        set total_total_time [expr $total_time+$session_time]
+        set edit_url [export_vars -base "drill-student-singletrack" {track_id}]
+        set drill_url [export_vars -base "drill-student-singletrack" {track_id}]
     }
 

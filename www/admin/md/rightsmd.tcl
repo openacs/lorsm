@@ -18,63 +18,54 @@ template::list::create \
     -name d_ri_cost \
     -multirow d_ri_cost \
     -no_data "[_ lorsm.No_Cost_Available]" \
-    -actions [list "[_ lorsm.Add_Cost]" [export_vars -base rightsmd/rights_cost {ims_md_id}] "[_ lorsm.Add_another_Cost]"] \
+    -actions [list  "[_ lorsm.Add_Cost]" \
+                    [export_vars -base rightsmd/rights_cost {ims_md_id}] \
+                    "[_ lorsm.Add_another_Cost]"] \
     -html { style "width: 100%; align:right;" } \
     -elements {
-        cost {
-            label ""
-        }
+        cost { label "" }
     }
 
 db_multirow d_ri_cost select_ri_cost {
-    select 
-    '[' || cost_s || '] ' || cost_v as cost
-    from 
-           ims_md_rights
-    where
-           ims_md_id = :ims_md_id
-} 
+    select '[' || cost_s || '] ' || cost_v as cost
+    from ims_md_rights
+    where ims_md_id = :ims_md_id
+}
 
-# Rights Copyright or other Restrictions 
+# Rights Copyright or other Restrictions
 template::list::create \
     -name d_ri_caor \
     -multirow d_ri_caor \
     -no_data "[_ lorsm.lt_No_Copyright_or_other]" \
-    -actions [list "[_ lorsm.lt_Add_Copyright_or_othe]" [export_vars -base rightsmd/rights_caor {ims_md_id}] "[_ lorsm.lt_Add_another_Copyright]"] \
+    -actions [list  "[_ lorsm.lt_Add_Copyright_or_othe]" \
+                    [export_vars -base rightsmd/rights_caor {ims_md_id}] \
+                    "[_ lorsm.lt_Add_another_Copyright]"] \
     -html { style "width: 100%; align:right;" } \
     -elements {
-        caor {
-            label ""
-        }
+        caor { label "" }
     }
 
 db_multirow d_ri_caor select_ri_caor {
-    select 
-    '[' || caor_s || '] ' || caor_v as caor
-    from 
-           ims_md_rights
-    where
-           ims_md_id = :ims_md_id
-} 
+    select '[' || caor_s || '] ' || caor_v as caor
+    from ims_md_rights
+    where ims_md_id = :ims_md_id
+}
 
 # Rights Description
 template::list::create \
     -name d_ri_desc \
     -multirow d_ri_desc \
     -no_data "[_ lorsm.lt_No_Description_Availa]" \
-    -actions [list "[_ lorsm.Add_Description]" [export_vars -base rightsmd/rights_desc {ims_md_id}] "[_ lorsm.lt_Add_another_Descripti]"] \
+    -actions [list  "[_ lorsm.Add_Description]" \
+                    [export_vars -base rightsmd/rights_desc {ims_md_id}] \
+                    "[_ lorsm.lt_Add_another_Descripti]"] \
     -html { style "width: 100%; align:right;" } \
     -elements {
-        desc {
-            label ""
-        }
+        desc { label "" }
     }
 
 db_multirow d_ri_desc select_ri_desc {
-    select 
-    '[' || descrip_l || '] ' || descrip_s as desc
-    from 
-           ims_md_rights
-    where
-           ims_md_id = :ims_md_id
-} 
+    select '[' || descrip_l || '] ' || descrip_s as desc
+    from ims_md_rights
+    where ims_md_id = :ims_md_id
+}

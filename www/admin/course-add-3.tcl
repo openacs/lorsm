@@ -117,10 +117,7 @@ db_transaction {
         # Set read permissions for community/class dotlrn_member_rel
 
         set community_id [dotlrn_community::get_community_id]
-        set party_id_member [db_string party_id {select segment_id \
-                                    from rel_segments \
-                                    where group_id = :community_id \
-                                    and rel_type = 'dotlrn_member_rel'}]
+        set party_id_member [db_string party_id_member {}]
 
         permission::grant \
             -party_id $party_id_member \
@@ -134,11 +131,7 @@ db_transaction {
 
         # Set read permissions for community/class dotlrn_admin_rel
 
-        set party_id_admin [db_string party_id {
-                                    select segment_id
-                                    from rel_segments
-                                    where group_id = :community_id
-                                    and rel_type = 'dotlrn_admin_rel'}]
+        set party_id_admin [db_string party_id_admin {}]
 
         permission::grant \
             -party_id $party_id_admin \
@@ -153,10 +146,7 @@ db_transaction {
         # Set read permissions for *all* other professors  within .LRN
         # (so they can see the content)
 
-        set party_id_professor [db_string party_id {
-                                    select segment_id
-                                    from rel_segments
-                                    where rel_type = 'dotlrn_professor_profile_rel'}]
+        set party_id_professor [db_string party_id_professor {}]
 
         permission::grant \
             -party_id $party_id_professor \
@@ -171,10 +161,7 @@ db_transaction {
         # Set read permissions for *all* other admins within .LRN
         # (so they can see the content)
 
-        set party_id_admins [db_string party_id {
-                                    select segment_id
-                                    from rel_segments
-                                    where rel_type = 'dotlrn_admin_profile_rel'}]
+        set party_id_admins [db_string party_id_admins {}]
 
         permission::grant \
             -party_id $party_id_admins \
@@ -379,11 +366,7 @@ db_transaction {
 
         set community_id [dotlrn_community::get_community_id]
 
-        set party_id_member [db_string party_id {
-                                    select segment_id
-                                    from rel_segments
-                                    where group_id = :community_id
-                                        and rel_type = 'dotlrn_member_rel'}]
+        set party_id_member [db_string party_id_member {}]
 
         permission::grant \
             -party_id $party_id_member \
@@ -392,11 +375,7 @@ db_transaction {
 
         # Set read permissions for community/class dotlrn_admin_rel
 
-        set party_id_admin [db_string party_id {
-                                select segment_id
-                                from rel_segments
-                                where group_id = :community_id
-                                    and rel_type = 'dotlrn_admin_rel'}]
+        set party_id_admin [db_string party_id_admin {}]
 
         permission::grant \
             -party_id $party_id_admin \
@@ -406,10 +385,7 @@ db_transaction {
         # Set read permissions for *all* other professors  within .LRN
         # (so they can see the content)
 
-        set party_id_professor [db_string party_id {
-                                    select segment_id
-                                    from rel_segments
-                                    where rel_type = 'dotlrn_professor_profile_rel'}]
+        set party_id_professor [db_string party_id_professor {}]
 
         permission::grant \
             -party_id $party_id_professor \
@@ -419,19 +395,14 @@ db_transaction {
         # Set read permissions for *all* other admins within .LRN
         # (so they can see the content)
 
-        set party_id_admins [db_string party_id {
-                                select segment_id
-                                from rel_segments
-                                where rel_type = 'dotlrn_admin_profile_rel'}]
+        set party_id_admins [db_string party_id_admins {}]
 
         permission::grant \
             -party_id $party_id_admins \
             -object_id $man_id \
             -privilege read
 
-
         # Done with Manifest and learning object Permissions
-
 
         ns_write "[_ lorsm.lt_Adding_course_name_Ma]<br>"
 
@@ -443,7 +414,6 @@ db_transaction {
                         -dir $tmp_dir]
             ns_write "[_ lorsm.lt_Adding_Manifest_Metad]<br>"
         }
-
 
         if { ![empty_string_p $organizations] } {
             # for multiple organizations
@@ -599,10 +569,8 @@ db_transaction {
         #ns_write "[_ lorsm.no_page]"
     }
 
-
     # Here's where we link items and resources.  Take into
     # account that a resources can have 1 to many items
-
 
     # So first, let's create a list of only item_identifierrefs
     # [lindex $add 1]. Therefore we can do a lsearch -exact instead of
@@ -671,7 +639,6 @@ db_transaction {
             }
         }
     }
-
 
     # Delete temporary directory
     ns_write "[_ lorsm.lt_Deleting_temporary_fo]<br>"

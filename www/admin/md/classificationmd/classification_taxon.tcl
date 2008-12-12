@@ -91,24 +91,13 @@ ad_form \
 
         {ims_md_cl_ta_id:text(hidden) {value $ims_md_cl_ta_id}}
 
-    } -select_query {
-        select *
-        from ims_md_classification_taxpath_taxon
-        where ims_md_cl_ta_ta_id = :ims_md_cl_ta_ta_id
-            and ims_md_cl_ta_id = :ims_md_cl_ta_id
+    } -select_query_name classificationmd_taxon_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_classification_taxpath_taxon
-            set identifier = :identifier,
-            entry_l = :entry_l,
-            entry_s = :entry_s
-            where ims_md_cl_ta_ta_id = :ims_md_cl_ta_ta_id"
+        db_dml do_update {}
 
     } -new_data {
-        db_dml do_insert \
-            "insert into ims_md_classification_taxpath_taxon (ims_md_cl_ta_ta_id, ims_md_cl_ta_id, identifier, entry_l, entry_s)
-            values (:ims_md_cl_ta_ta_id, :ims_md_cl_ta_id, :identifier, :entry_l, :entry_s)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars \
@@ -136,10 +125,4 @@ template::list::create \
             }
     }
 
-db_multirow d_cl_taxon select_cl_taxon {
-    select ctt.identifier, '[' || ctt.entry_l || '] ' || ctt.entry_s as entry,
-        ctt.ims_md_cl_ta_id, ctt.ims_md_cl_ta_ta_id, cl.ims_md_cl_id, cl.ims_md_id
-    from ims_md_classification_taxpath_taxon ctt, ims_md_classification cl
-    where ctt.ims_md_cl_ta_id = :ims_md_cl_ta_id
-        and cl.ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_taxon select_cl_taxon {}

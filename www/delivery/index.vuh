@@ -1,12 +1,12 @@
 ad_page_contract {
-	check if the page has recorded a redirect url
-} 
+    check if the page has recorded a redirect url
+}
 
 #get base url
 set path_info [ad_conn path_info]
 set path_list [split $path_info /]
 set base [lindex $path_list 0]
-set dotlrn_package_id [dotlrn_community::get_community_id]	
+set dotlrn_package_id [dotlrn_community::get_community_id]
 set lorsm_url [dotlrn_community::get_community_url $dotlrn_package_id]lorsm/
 set delivery_url ${lorsm_url}delivery
 ##########
@@ -14,7 +14,7 @@ set delivery_url ${lorsm_url}delivery
 set ims_item_id [ad_get_client_property lorsm ims_id]
 set man_id [ad_get_client_property lorsm man_id]
 if {$man_id eq ""} {
-	ad_returnredirect -message "[_ lorsm.Session_Expired]" "../"
+    ad_returnredirect -message "[_ lorsm.Session_Expired]" "../"
 }
 set user_id [ad_conn user_id]
 
@@ -22,28 +22,28 @@ set enabled_p [db_string enabled_p "select isenabled from ims_cp_manifest_class 
 set item_list [lorsm::get_item_list $man_id $user_id]
 
 if {$enabled_p} {
-	permission::require_permission \
-		-party_id $user_id \
-	        -object_id $man_id \
-                -privilege read
+    permission::require_permission \
+        -party_id $user_id \
+        -object_id $man_id \
+        -privilege read
 } else {
-	permission::require_permission \
-		-party_id $user_id \
-	        -object_id $man_id \
-                -privilege admin
+    permission::require_permission \
+        -party_id $user_id \
+        -object_id $man_id \
+        -privilege admin
 }
 
-set last_item_viewed [db_string select_last_item_viewed {    
-	select ims_item_id
-	from views_views v,
-	ims_cp_items i,
-	ims_cp_organizations o
-	where v.viewer_id = :user_id
-	and v.object_id = i.ims_item_id
-	and i.org_id = o.org_id
-	and o.man_id = :man_id
-	order by v.last_viewed desc
-		limit 1
+set last_item_viewed [db_string select_last_item_viewed {
+    select ims_item_id
+    from views_views v,
+    ims_cp_items i,
+    ims_cp_organizations o
+    where v.viewer_id = :user_id
+    and v.object_id = i.ims_item_id
+    and i.org_id = o.org_id
+    and o.man_id = :man_id
+    order by v.last_viewed desc
+        limit 1
 } -default "no_item"]
 
 set first_item_id [lindex $item_list 0]
@@ -56,7 +56,7 @@ set next_item_id [lindex $item_list [expr $curr_index + 1]]
 set prev_url [export_vars -base "${delivery_url}/record-view" -url {{item_id $prev_item_id} man_id}]
 set next_url [export_vars -base "${delivery_url}/record-view" -url {{item_id $next_item_id} man_id}]
 if {$next_item_id eq ""} {
-	set next_url ${delivery_url}/end
+    set next_url ${delivery_url}/end
 }
 set form [rp_getform]
 ns_set delkey $form next_url
@@ -72,41 +72,41 @@ if {$isscorm} {
 
 
 switch $base {
-	assessment {
-			# find assessment package_id
-			# get dotlrn package_id
-			set assessment_package_id [dotlrn_community::get_applet_package_id -community_id $dotlrn_package_id -applet_key dotlrn_assessment]
-	ns_log notice " RESETTING ad conn package id $assessment_package_id"
-			ad_conn -set package_id $assessment_package_id
+    assessment {
+            # find assessment package_id
+            # get dotlrn package_id
+            set assessment_package_id [dotlrn_community::get_applet_package_id -community_id $dotlrn_package_id -applet_key dotlrn_assessment]
+    ns_log notice " RESETTING ad conn package id $assessment_package_id"
+            ad_conn -set package_id $assessment_package_id
 
-		if {[string match *view* $path_info]} {
-			rp_internal_redirect /packages/assessment/www/view/index.vuh
-			ad_script_abort
-		}
-	rp_form_put show_title_p 0
-	set path [join [lrange $path_list 1 end] /]
-	if {[file exists [acs_root_dir]/packages/assessment/lib/${path}.tcl]} {
-	    rp_form_put __include /packages/assessment/lib/$path
-
-	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
-	} else {
-		rp_internal_redirect "/packages/assessment/www/$path"
+        if {[string match *view* $path_info]} {
+            rp_internal_redirect /packages/assessment/www/view/index.vuh
+            ad_script_abort
         }
-		ad_script_abort
-	}
-	wiki {
-	    rp_form_put __include /packages/xowiki/lib/view
-	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
-	    ad_script_abort	
-	}
-	end {
-	    rp_form_put __include /packages/lorsm/lib/end
-	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
-	    ad_script_abort
-	}
-	default {
-	    rp_form_put __include /packages/lorsm/lib/default
-	    rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
-	    ad_script_abort		
-	}	
-}	
+    rp_form_put show_title_p 0
+    set path [join [lrange $path_list 1 end] /]
+    if {[file exists [acs_root_dir]/packages/assessment/lib/${path}.tcl]} {
+        rp_form_put __include /packages/assessment/lib/$path
+
+        rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+    } else {
+        rp_internal_redirect "/packages/assessment/www/$path"
+        }
+        ad_script_abort
+    }
+    wiki {
+        rp_form_put __include /packages/xowiki/lib/view
+        rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+        ad_script_abort
+    }
+    end {
+        rp_form_put __include /packages/lorsm/lib/end
+        rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+        ad_script_abort
+    }
+    default {
+        rp_form_put __include /packages/lorsm/lib/default
+        rp_internal_redirect /packages/lorsm/www/delivery/${folder_name}
+        ad_script_abort
+    }
+}

@@ -29,7 +29,8 @@ permission::require_write_permission -object_id $man_id -creation_user $user_id
 set title "[_ lorsm.lt_Share_CourseLearning_]"
 set context [list "[_ lorsm.lt_Share_CourseLearning_]"]
 
-ad_form -name sharer \
+ad_form \
+    -name sharer \
     -export {return_url folder_id} \
     -form {
         {man_id:key}
@@ -48,27 +49,15 @@ ad_form -name sharer \
             {options {{"[_ lorsm.Shared]" t} {"[_ lorsm.Not_Shared]" f}}}
         }
 
-    } -select_query {
-        select
-        case when isshared = 't' then 'Shared'
-          else 'Not Shared'
-        end as isshared
-        from ims_cp_manifests
-        where man_id = :man_id
+    } -select_query_name sharer_ad_form {
 
     } -edit_data {
         db_transaction {
-            db_dml do_update {
-                    update ims_cp_manifests
-                    set isshared = :share
-                    where man_id = :man_id }
+            db_dml do_update {}
 
             if {$share == "t"} {
 
-                set party_id_students [db_string party_id {\
-                    select segment_id \
-                    from rel_segments \
-                    where rel_type = 'dotlrn_student_profile_rel'}]
+                set party_id_students [db_string party_id {}]
 
                 permission::grant \
                     -party_id $party_id_students \
@@ -82,10 +71,7 @@ ad_form -name sharer \
 
             } else {
 
-                set party_id_students [db_string party_id {\
-                    select segment_id \
-                    from rel_segments \
-                    where rel_type = 'dotlrn_student_profile_rel'}]
+                set party_id_students [db_string party_id {}]
 
                 permission::revoke \
                     -party_id $party_id_students \

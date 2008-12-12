@@ -42,28 +42,15 @@ if {![empty_string_p $imsitem_id]} {
 
     set package_id [ad_conn package_id]
     set package_url [apm_package_url_from_id $package_id]
-    set man_id [db_string get_man_id "select man_id
-        from ims_cp_items i, ims_cp_organizations o
-        where i.ims_item_id = :imsitem_id and i.org_id = o.org_id"]
+    set man_id [ db_string get_man_id {} ]
 
-    set folder_id [db_string get_folder__id "select folder_id
-        from ims_cp_manifests
-        where man_id = :man_id"]
+    set folder_id [ db_string get_folder__id {} ]
 
     # We display children
-    db_1row item_info "select item_title, parent_item
-        from ims_cp_items
-        where ims_item_id = :imsitem_id"
+    db_1row item_info {}
 
     # Selected fields are renamed to avoid conflict with existing variables
-    db_multirow -extend {href} children children {
-        select ims_cp_items.ims_item_id as child_item_id,
-            ims_cp_items.item_title as child_title
-        from acs_objects, ims_cp_items
-        where acs_objects.object_id = ims_cp_items.ims_item_id
-        and parent_item = :imsitem_id
-        order by acs_objects.object_id, acs_objects.tree_sortkey
-    } {
+    db_multirow -extend {href} children children {} {
         # Let record-view display the page
         set href ${package_url}delivery/record-view
         set href "[export_vars \
@@ -72,10 +59,8 @@ if {![empty_string_p $imsitem_id]} {
     }
 
     # See if this item only has one child, if so, load that instead
-    if { [template::multirow size children] == 1 && [db_string grandchildren "
-        select count(*)
-        from ims_cp_items
-        where parent_item = [template::multirow get children 1 child_item_id]"] == 0 } {
+    set extracted_sql_children [template::multirow get children 1 child_item_id]
+    if { [template::multirow size children] == 1 && [db_string grandchildren {}] == 0 } {
 
         set href ${package_url}delivery/record-view
         set href "[export_vars \
@@ -98,25 +83,15 @@ if {![empty_string_p $imsitem_id]} {
         # See if I'm a leaf node first
         if { [template::multirow size children] == 0 } {
             # Now see if I'm a lone leaf node
-            if { [db_string siblings {
-                select count(*)
-                from ims_cp_items
-                where parent_item = :parent_item}] == 1 } {
+            if { [db_string siblings {}] == 1 } {
                 # I'm a lone leaf, go to grandparent if it exists
                 # Join to resources just to make sure it exists and
                 # get href while we're at it, might be useful
-                    db_0or1row grandparent {
-                        select ims_cp_items.parent_item as grandparent_item,
-                            ims_cp_resources.href as grandparent_href
-                        from ims_cp_items, ims_cp_resources, ims_cp_items_to_resources
-                        where ims_cp_items.ims_item_id = :parent_item
-                            and ims_cp_items.parent_item = ims_cp_items_to_resources.ims_item_id
-                            and ims_cp_items_to_resources.res_id = ims_cp_resources.res_id
-                    }
-                }
+                    db_0or1row grandparent {}
+            }
         }
 
-        if { [db_0or1row href "select href as parent_href from ims_cp_resources r, ims_cp_items_to_resources ir where ir.ims_item_id = :parent_item and ir.res_id = r.res_id"] || [info exists grandparent_item] } {
+        if { [db_0or1row href {}] || [info exists grandparent_item] } {
             # Let record-view render this page so the child items are
             # shown
             set parent_href ${package_url}delivery/record-view

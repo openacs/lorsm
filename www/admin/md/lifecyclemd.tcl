@@ -32,11 +32,7 @@ template::list::create \
         version_s { label "" }
     }
 
-db_multirow d_lf_ver select_lf_ver {
-    select version_l, version_s
-    from ims_md_life_cycle
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_lf_ver select_lf_ver {}
 
 # Lifecycle status
 template::list::create \
@@ -52,11 +48,7 @@ template::list::create \
         status_v { label "" }
     }
 
-db_multirow d_lf_stat select_lf_stat {
-    select status_s, status_v
-    from ims_md_life_cycle
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_lf_stat select_lf_stat {}
 
 
 # Lifecycle Contrib
@@ -75,11 +67,4 @@ template::list::create \
         cont_date_ls { label "[_ lorsm.Description_1]" }
     }
 
-db_multirow d_lf_cont select_lf_cont {
-    select lfc.role_v || ' ' || '[' || lfc.role_s || ']' as role,
-        lfce.entity, lfc.cont_date,
-        '[' || lfc.cont_date_l || ']' || ' ' || lfc.cont_date_s as cont_date_ls
-    from ims_md_life_cycle_contrib lfc, ims_md_life_cycle_contrib_entity lfce
-    where lfc.ims_md_lf_cont_id = lfce.ims_md_lf_cont_id
-        and lfc.ims_md_id = :ims_md_id
-}
+db_multirow d_lf_cont select_lf_cont {}

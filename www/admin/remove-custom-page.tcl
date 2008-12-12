@@ -6,10 +6,7 @@ ad_page_contract {
     {return_url ""}
 }
 
-db_dml remove_page \
-    "delete from lorsm_custom_pages
-    where man_id=:man_id
-        and type=:type"
+db_dml remove_page {}
 
 if {$return_url eq ""} {
     set return_url [export_vars -base course-structure {man_id}]

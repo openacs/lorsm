@@ -61,23 +61,13 @@ ad_form \
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
-    } -select_query {
-        select *
-        from ims_md_educational_lrt
-        where ims_md_ed_lr_id = :ims_md_ed_lr_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name educationalmd_ltr_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_educational_lrt
-                set lrt_s = :lrt_s,
-                lrt_v = :lrt_v
-            where ims_md_ed_lr_id = :ims_md_ed_lr_id "
+        db_dml do_update {}
 
     } -new_data {
-        db_dml do_insert \
-                "insert into ims_md_educational_lrt (ims_md_ed_lr_id, ims_md_id, lrt_s, lrt_v)
-                values (:ims_md_ed_lr_id, :ims_md_id, :lrt_s, :lrt_v)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../educationalmd" {ims_md_id}]
@@ -102,8 +92,4 @@ template::list::create \
         }
     }
 
-db_multirow d_ed_lrt select_ed_lrt {
-    select '[' || lrt_s || '] ' || lrt_v as lrt, ims_md_ed_lr_id, ims_md_id
-    from ims_md_educational_lrt
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_lrt select_ed_lrt {}

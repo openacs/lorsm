@@ -39,28 +39,9 @@ set fs_local_package_id [site_node_apm_integration::get_child_package_id \
 # Checks whether this course is already in use on this community
 
 
-set active [db_0or1row check "
-    select man_id, community_id, lorsm_instance_id
-    from ims_cp_manifest_class
-    where man_id = :man_id
-        and community_id = :community_id"]
+set active [db_0or1row check {}]
 
-if {[db_0or1row manifest "
-    select cp.man_id, cp.course_name, cp.identifier, cp.version,
-        text 'Yes' as hello,
-        case
-            when hasmetadata = 't' then 'Yes'
-        else 'No'
-        end as man_metadata,
-        case
-            when isscorm = 't' then 'Yes'
-        else 'No'
-        end as isscorm,
-        cp.isshared, acs.creation_user, acs.creation_date, acs.context_id
-    from ims_cp_manifests cp, acs_objects acs
-    where cp.man_id = acs.object_id
-        and cp.man_id = :man_id
-        and cp.parent_man_id = 0"]} {
+if {[db_0or1row manifest {}]} {
 
     # Sets the variable for display.
     set display 1
@@ -82,11 +63,7 @@ if {[db_0or1row manifest "
     set creation_date [lc_time_fmt $creation_date "%x %X"]
 
     # Check for submanifests
-    if {[db_0or1row submans "
-            select count(*) as submanifests
-            from ims_cp_manifests
-            where man_id = :man_id
-            and parent_man_id = :man_id"]} {
+    if {[db_0or1row submans {}]} {
     } else {
         set submanifests 0
     }
@@ -107,14 +84,7 @@ append orgs_list \
             style=\"background-color: #e0e0e0; font-weight: bold;\">Items</th>
     </tr>"
 
-db_foreach organizations \
-    {select org.org_id, org.org_title as org_title, org.hasmetadata,
-        tree_level(o.tree_sortkey) as indent
-    from ims_cp_organizations org, acs_objects o
-    where org.org_id = o.object_id
-        and man_id = :man_id
-    order by org_id
-} {
+db_foreach organizations {} {
     append orgs_list \
         "<tr class=\"list-even\">
             <td valign=\"top\" width=\"20%\">$org_title</td>

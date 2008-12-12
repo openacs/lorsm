@@ -6,21 +6,8 @@
         exit_url="exit?man_id=@man_id@&track_id=@track_id@&return_url=@return_url@";
         return_url="@return_url@";
         main_body_url="body?man_id=@man_id@";
-        content_url="
-            <if @ims_id@ defined>
-                @body_url;noquote@
-            </if>
-            <else>
-                body?man_id=@man_id@
-            </else>";
-        menu_url="@menu_type@?man_id=@man_id@&return_url=@return_url@
-            <if @ims_id@ defined>
-                &ims_id=@ims_id@
-            </if>
-            &track_id=@track_id@
-            <if @menu_off@ defined>
-                &menu_off=@menu_off@
-            </if>";
+        content_url="<if @ims_id@ defined>@body_url;noquote@</if><else>body?man_id=@man_id@</else>";
+        menu_url="@menu_type@?man_id=@man_id@&return_url=@return_url@<if @ims_id@ defined>&ims_id=@ims_id@</if>&track_id=@track_id@<if @menu_off@ defined>&menu_off=@menu_off@</if>";
         record_view_url="record-view?man_id=@man_id@&item_id=@item_id@";
     </script>
     <script type="text/javascript" SRC="applet.js"> </script>
@@ -54,8 +41,6 @@
         <param name = "archive" value = "stuff.jar?@random@" >
     </else>
 </applet>
-
-
 
 </body>
 

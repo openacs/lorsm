@@ -39,24 +39,16 @@ ad_proc -private lorsm::install::package_install {} {
 
     set pretty_name "[_ lorsm.Classic_Style]"
     # Insert default values for the course presentation formats
-    db_dml create_default_format {
-        insert into lorsm_course_presentation_formats
-        values (-1,:pretty_name,'default','delivery')}
+    db_dml create_default_format {}
 
     set pretty_name "[_ lorsm.lt_Without_LORSM_Index_S]"
-    db_dml create_no_index_format {
-        insert into lorsm_course_presentation_formats
-        values (-2,:pretty_name,'without_index','delivery-no-index')}
+    db_dml create_no_index_format {}
 
     set pretty_name "[_ lorsm.lt_With_Bottom_Navigatio]"
-    db_dml create_no_index_format {
-        insert into lorsm_course_presentation_formats
-        values (-3,:pretty_name,'bottom_navigation_bar','delivery-bottom-bar')}
+    db_dml create_no_index_format2 {}
 
     set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
-    db_dml create_no_index_format {
-        insert into lorsm_course_presentation_formats
-        values (-4,:pretty_name,'progress-bar','delivery-progress-bar')}
+    db_dml create_no_index_format3 {}
 
     # Service contract implementations - fts
     lorsm::sc::register_implementations
@@ -76,9 +68,7 @@ ad_proc -private lorsm::install::after_upgrade {
         -spec {
             0.7d 0.8d {
                 set pretty_name "[_ lorsm.lt_With_Progress_Bar]"
-                db_dml create_no_index_format {
-                    insert into lorsm_course_presentation_formats
-                    values (-4,:pretty_name,'progress-bar','delivery-progress-bar')}
+                db_dml create_no_index_format {}
 
             } 0.8d1 0.8d2 {
                 lorsm::install::templates

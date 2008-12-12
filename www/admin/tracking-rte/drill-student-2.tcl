@@ -58,14 +58,7 @@ set track_id [lorsm::track::istrackable \
 
 set extra_vars fs_local_package_id
 
-db_foreach organizations {
-    select org.org_id, org.org_title as org_title, org.hasmetadata,
-       tree_level(o.tree_sortkey) as indent
-    from ims_cp_organizations org, acs_objects o
-    where org.org_id = o.object_id
-        and man_id = :man_id
-    order by org_id
-} {
+db_foreach organizations {} {
 
     set indent [expr $indent +1]
     set missing_text "[_ lorsm.Nothing_here]"
@@ -85,20 +78,7 @@ db_foreach organizations {
 
     set indent_items [lorsm::get_items_indent -org_id $org_id]
 
-    db_foreach organization_item {
-        select o.object_id,
-            --repeat('&nbsp;', (tree_level(tree_sortkey) - :indent)* 2) as indent,
-            i.ims_item_id, i.item_title as item_title, i.hasmetadata,
-            i.ims_item_id as identifierref, i.type, i.org_id, m.fs_package_id,
-            m.folder_id, m.course_name
-        from acs_objects o, ims_cp_items i, ims_cp_manifests m
-        where o.object_type like 'ims_item_object'
-            and i.org_id = :org_id
-            and o.object_id = i.ims_item_id
-            and m.man_id = :man_id
-        order by object_id
-            --, tree_sortkey
-    } {
+    db_foreach organization_item {} {
 
         foreach indent_item $indent_items {
             set indent_item_id [lindex $indent_item 0]
@@ -131,19 +111,7 @@ db_foreach organizations {
         append orgs_list [string trim $table_item]
         set item_table ""
 
-        db_foreach student_activity {
-            select *
-            from lorsm_student_track lorsm, lorsm_cmi_core cmi, ims_cp_manifests manif, ims_cp_items imsitems
-            where lorsm.community_id=:community_id
-                and lorsm.track_id=cmi.track_id
-                and lorsm.course_id=:man_id
-                and manif.man_id=:man_id
-                and cmi.man_id=:man_id
-                and cmi.item_id=:identifierref
-                and user_id=:user_id
-                and imsitems.ims_item_id=cmi.item_id
-            order by cmi.track_id asc
-        } {
+        db_foreach student_activity {} {
             set cut_start_time [string range $start_time 0 18]
             set total_total_time [expr $total_time+$session_time]
             set edit_url [export_vars -base "drill-student-singletrack" \

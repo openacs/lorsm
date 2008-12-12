@@ -26,11 +26,7 @@ template::list::create \
         cost { label "" }
     }
 
-db_multirow d_ri_cost select_ri_cost {
-    select '[' || cost_s || '] ' || cost_v as cost
-    from ims_md_rights
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ri_cost select_ri_cost {}
 
 # Rights Copyright or other Restrictions
 template::list::create \
@@ -45,11 +41,7 @@ template::list::create \
         caor { label "" }
     }
 
-db_multirow d_ri_caor select_ri_caor {
-    select '[' || caor_s || '] ' || caor_v as caor
-    from ims_md_rights
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ri_caor select_ri_caor {}
 
 # Rights Description
 template::list::create \
@@ -63,9 +55,4 @@ template::list::create \
     -elements {
         desc { label "" }
     }
-
-db_multirow d_ri_desc select_ri_desc {
-    select '[' || descrip_l || '] ' || descrip_s as desc
-    from ims_md_rights
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ri_desc select_ri_desc {}

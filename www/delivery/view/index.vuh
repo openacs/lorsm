@@ -2,7 +2,7 @@ ad_page_contract {
     @author Unknown
     @creation-date Unknown
     @cvs-id $Id$
-} {    
+} {
     { ims_item_id "" }
     { man_id "" }
 }
@@ -10,15 +10,16 @@ ad_page_contract {
 # check if the nsv variable exists
 if {![nsv_exists delivery_vars [ad_conn session_id]]} {
     if {$man_id ne ""} {
-	db_1row manifest_info { *SQL* }
-	set content_root [fs::get_root_folder -package_id $fs_package_id]
-	if {[nsv_exists delivery_vars [ad_conn session_id]]} {
-	    nsv_unset delivery_vars [ad_conn session_id]
-	}
-	nsv_set delivery_vars [ad_conn session_id] [list]
-	nsv_lappend delivery_vars [ad_conn session_id] $content_root
+        db_1row manifest_info {}
+        set content_root [fs::get_root_folder -package_id $fs_package_id]
+
+        if {[nsv_exists delivery_vars [ad_conn session_id]]} {
+            nsv_unset delivery_vars [ad_conn session_id]
+        }
+        nsv_set delivery_vars [ad_conn session_id] [list]
+        nsv_lappend delivery_vars [ad_conn session_id] $content_root
     } else {
-	ad_return_complaint 1 "[_ lorsm.Your_session_has_expired]"
+        ad_return_complaint 1 "[_ lorsm.Your_session_has_expired]"
     }
 }
 
@@ -38,7 +39,7 @@ set ims_item_id [lorsm::get_ims_item_id]
 
 set the_url [join [lrange [split $the_url "/"] 1 end] "/"]
 
-set template_root [db_string template_root ""]
+set template_root [db_string template_root {}]
 
 ns_log debug "view/index.vuh serving the url : $the_url with template root: $template_root"
 
@@ -50,20 +51,24 @@ ns_log debug "view/index.vuh serving the url : $the_url with template root: $tem
 # MIGUELM: we need a way to use other content root not only the one for the course since we can have
 #          items from other courses
 
-set item_id [content::item::get_id -item_path $the_url -root_folder_id $content_root -resolve_index "f"]
+set item_id [content::item::get_id \
+    -item_path $the_url \
+    -root_folder_id $content_root \
+    -resolve_index "f"]
+
 if { [empty_string_p $item_id] } {
     # This item was probably added. We need to check if the item exist on other folder.
     # So we will get the first part of the URL
     set item_id [lorsm::delivery::get_item_other_folder -url $the_url]
 }
 
-# To get the revision_id (file_id) we need to show here we have to items here 
-# one is the item_id that is recived on record-view page from the menu 
+# To get the revision_id (file_id) we need to show here we have to items here
+# one is the item_id that is recived on record-view page from the menu
 # and the other one is the one that holds all the revisions for one file
 set revision_id [lorsm::delivery::get_file_id_from_ims_item_id -ims_item_id $ns_item_id -item_id $item_id]
 
 if { [empty_string_p $revision_id] } {
-    # Is a reference to an image or some other resource inside the page, this items don't 
+    # Is a reference to an image or some other resource inside the page, this items don't
     # have an entry in ims_cp_files table
     set revision_id [item::get_best_revision $item_id]
 }
@@ -73,13 +78,16 @@ if { ![empty_string_p $revision_id] } {
     cr_write_content -revision_id $revision_id
 } else {
     # Write the ims_item_id that we recieve on the page since this is the one that holds the content
-	ns_log warning "We have no CONTENT for this url: $the_url "
-    #cr_write_content -revision_id $ims_item_id	
+    ns_log warning "We have no CONTENT for this url: $the_url "
+    #cr_write_content -revision_id $ims_item_id
 }
 
 #ad_script_abort
 
-if { [lorsm::init the_url the_root  $content_root $template_root public "" $content_type] } {
+if { [lorsm::init the_url the_root \
+        $content_root \
+        $template_root public "" \
+        $content_type] } {
     # we introduced our own template
     rp_internal_redirect -absolute_path [acs_root_dir]/templates/lorsm-default
 

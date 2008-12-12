@@ -44,18 +44,10 @@ ad_form \
     } -on_submit {
         # check if the tech size details already exist...
 
-        if {[db_0or1row select_size {
-                                        select ims_md_id
-                                        from ims_md_technical
-                                        where ims_md_id = :ims_md_id}]} {
-            db_dml do_update \
-                "update ims_md_technical
-                set t_size = :t_size
-                where ims_md_id = :ims_md_id "
+        if {[db_0or1row select_size {}]} {
+            db_dml do_update {}
         } else {
-            db_dml do_insert \
-                "insert into ims_md_technical (ims_md_id, t_size)
-                values (:ims_md_id, :t_size) "
+            db_dml do_insert {}
         }
 
     } -after_submit {
@@ -79,8 +71,4 @@ template::list::create \
         }
     }
 
-db_multirow d_te_size select_te_size {
-    select t_size || ' bytes' as t_size_bytes, ims_md_id
-    from ims_md_technical
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_te_size select_te_size {}

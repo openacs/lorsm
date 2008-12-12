@@ -39,7 +39,7 @@ foreach org_id [db_list get_org_id { } ] {
     foreach item [lorsm::get_items_indent -org_id $org_id] {lappend items_list $item}
 }
 template::util::list_of_lists_to_array $items_list items_array
-set fs_package_id [db_string get_fs_package_id { } -default "" ]
+set fs_package_id [db_string get_fs_package_id {} -default "" ]
 
 set community_id [dotlrn_community::get_community_id]
 set counter 1
@@ -149,7 +149,7 @@ proc generate_tree_menu { items index rlevel } {
 
 # Counter starts at 1 coz Course Index isn't part of the list
 
-db_foreach organizations { } {
+db_foreach organizations {} {
     ns_log notice "menu.tcl org_id=$org_id"
     # If the course is from lors-central we need an extra query
 
@@ -167,19 +167,7 @@ db_foreach organizations { } {
         set extra_query ""
     }
 
-    db_foreach sql {
-        select i.parent_item, i.ims_item_id, i.item_title as item_title
-        from ims_cp_items i, cr_items ci, cr_revisions cr
-        where i.org_id = :org_id
-            and ci.item_id=cr.item_id
-            and cr.revision_id=i.ims_item_id
-            and exists (select 1
-                        from acs_object_party_privilege_map p
-                        where p.object_id = i.ims_item_id
-                            and p.party_id = :user_id
-                            and p.privilege = 'read')
-        order by i.sort_order,ci.tree_sortkey
-    } {
+    db_foreach sql {} {
         set indent $items_array($ims_item_id)
         ns_log notice "ims_item_id='${ims_item_id}'"
         lappend js [list $indent $ims_item_id $item_title]

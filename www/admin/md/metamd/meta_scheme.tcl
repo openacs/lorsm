@@ -57,22 +57,13 @@ ad_form \
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
 
-    } -select_query  {
-        select *
-        from ims_md_metadata_scheme
-        where ims_md_md_sch_id = :ims_md_md_sch_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name metamd_scheme_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_metadata_scheme
-            set scheme = :scheme
-            where ims_md_md_sch_id = :ims_md_md_sch_id "
+        db_dml do_update {}
 
     } -new_data {
-        db_dml do_insert \
-            "insert into ims_md_metadata_scheme (ims_md_md_sch_id, ims_md_id, scheme)
-            values (:ims_md_md_sch_id, :ims_md_id, :scheme)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../metamd" {ims_md_id}]
@@ -97,8 +88,4 @@ template::list::create \
         }
     }
 
-db_multirow d_md_scheme select_md_scheme {
-    select scheme, ims_md_id, ims_md_md_sch_id, scheme
-    from ims_md_metadata_scheme
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_md_scheme select_md_scheme {}

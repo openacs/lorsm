@@ -78,23 +78,13 @@ ad_form \
 
         {ims_md_cl_id:text(hidden) {value $ims_md_cl_id}}
 
-    } -select_query  {
-        select *
-        from ims_md_classification_descrip
-        where ims_md_cl_de_id = :ims_md_cl_de_id
-            and ims_md_cl_id = :ims_md_cl_id
+    } -select_query_name classificationmd_desc_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_classification_descrip
-            set descrip_l = :descrip_l,
-            descrip_s = :descrip_s
-            where ims_md_cl_de_id = :ims_md_cl_de_id"
+        db_dml do_update {}
 
     } -new_data {
-        db_dml do_insert \
-            "insert into ims_md_classification_descrip (ims_md_cl_de_id, ims_md_cl_id, descrip_l, descrip_s)
-            values (:ims_md_cl_de_id, :ims_md_cl_id, :descrip_l, :descrip_s)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "classification" {ims_md_cl_id ims_md_id}]
@@ -117,10 +107,4 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_desc select_cl_desc {
-    select '[' || clde.descrip_l || '] ' || clde.descrip_s as desc,
-        clde.ims_md_cl_de_id, cl.ims_md_cl_id, cl.ims_md_id
-    from ims_md_classification_descrip clde, ims_md_classification cl
-    where clde.ims_md_cl_id = cl.ims_md_cl_id
-        and clde.ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_desc select_cl_desc {}

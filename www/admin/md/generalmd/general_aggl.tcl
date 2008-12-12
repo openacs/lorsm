@@ -51,18 +51,10 @@ ad_form \
     } -on_submit {
         # check if the aggregation level already exist..
 
-        if {[db_0or1row select_aggregation_level {
-                                                select ims_md_id
-                                                from ims_md_general
-                                                where ims_md_id = :ims_md_id}]} {
-            db_dml do_update \
-                "update ims_md_general
-                set agg_level_v = :agg_level_v, agg_level_s = :agg_level_s
-                where ims_md_id = :ims_md_id "
+        if {[db_0or1row select_aggregation_level {}]} {
+            db_dml do_update {}
         } else {
-            db_dml do_insert \
-                "insert into ims_md_general (ims_md_id, agg_level_v, agg_level_s)
-                values(:ims_md_id, :agg_level_v, :agg_level_s)"
+            db_dml do_insert {}
         }
 
     } -after_submit {
@@ -87,8 +79,4 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_aggl select_ge_aggl {
-    select agg_level_s, agg_level_v, ims_md_id
-    from ims_md_general
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_gen_aggl select_ge_aggl {}

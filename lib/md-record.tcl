@@ -57,16 +57,8 @@ template::list::create \
         }
     }
 
-db_multirow d_pres select_ge_titles {
-    select object_type
-    from acs_objects
-    where object_id = :ims_md_id
-}
+db_multirow d_pres select_ge_titles {}
 
-db_multirow -extend { schema_and_version } d_pres select_schema_details {
-    select ims_md_id, schema, schemaversion
-    from ims_md
-    where ims_md_id = :ims_md_id
-} {
+db_multirow -extend { schema_and_version } d_pres select_schema_details {} {
     set schema_and_version [concat $schema "  " $schemaversion]
 }

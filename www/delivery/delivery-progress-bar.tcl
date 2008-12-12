@@ -40,10 +40,10 @@ set item_list [lorsm::get_item_list $man_id $user_id]
 set first_item_id [lindex $item_list 0]
 set first_item_url "<a href=\"[export_vars \
                                 -base "${lorsm_url}/record-view" \
-                                -url {{item_id $first_item_id} man_id}]\">
-                                        <img src=\"${lorsm_url}/Images/home.png\"
-                                            border=\"0\"
-                                            title=\"home\"
+                                -url {{item_id $first_item_id} man_id}]\"> \
+                                        <img src=\"${lorsm_url}/Images/home.png\" \
+                                            border=\"0\" \
+                                            title=\"home\" \
                                             onclick=\"window.location.reload()\"></a>"
 
 set curr_index [expr [lsearch -exact $item_list $item_id]]
@@ -56,15 +56,7 @@ if {$curr_index < 0} {
     ad_set_client_property lorsm lorsm_return_url $lorsm_return_url
 
     if {$track_id ne "" && $track_id ne "0"} {
-        set last_viewed_item_id [db_string get_last_viewed \
-                                    "select object_id
-                                    from views_views, lorsm_student_track
-                                    where viewer_id = :user_id
-                                        and object_id in ([template::util::tcl_to_sql_list $item_list])
-                                        and track_id=:track_id
-                                        and last_viewed > start_time
-                                    order by last_viewed desc
-                                    limit 1" -default ""]
+        set last_viewed_item_id [db_string get_last_viewed {} -default ""]
 
         if {$last_viewed_item_id ne ""} {
             set item_id $last_viewed_item_id
@@ -87,10 +79,7 @@ if {$curr_index < 0} {
     } else {
         ad_set_client_property lorsm ims_id $item_id
         set __include /packages/lorsm/lib/default
-        set page_title [db_string get_title \
-                            "select item_title
-                            from ims_cp_items
-                            where ims_item_id=:item_id" -default ""]
+        set page_title [db_string get_title {} -default ""]
     }
 
     set next_link_text [_ lorsm.Begin]
@@ -123,31 +112,22 @@ if {$track_id ne "0"} {
 set prev_item_id [lindex $item_list [expr $curr_index - 1]]
 set next_item_id [lindex $item_list [expr $curr_index + 1]]
 set prev_url "<a href=\"[export_vars \
-                            -base "${lorsm_url}/record-view" \
-                            -url {{item_id $prev_item_id} man_id}]\">
-                                        <img src=\"${lorsm_url}/Images/prev.png\"
-                                            border=\"0\"
-                                            title=\"next\"
-                                            onclick=\"window.location.reload()\"></a>"
+                -base "${lorsm_url}/record-view" \
+                -url {{item_id $prev_item_id} man_id}]\"> \
+                <img src=\"${lorsm_url}/Images/prev.png\" \
+                    border=\"0\" \
+                    title=\"next\" \
+                    onclick=\"window.location.reload()\"></a>"
 
 set next_url [export_vars \
                 -base "${lorsm_url}/record-view" \
                 -url {{item_id $next_item_id} track_id man_id}]
 
-set prev_title [db_string get_title \
-                    "select item_title
-                    from ims_cp_items
-                    where ims_item_id=:prev_item_id" -default ""]
+set prev_title [db_string get_title_prev {} -default ""]
 
-set next_title [db_string get_title \
-                    "select item_title
-                    from ims_cp_items
-                    where ims_item_id=:next_item_id" -default ""]
+set next_title [db_string get_title_next {} -default ""]
 
-set current_title [db_string get_title \
-                    "select item_title
-                    from ims_cp_items
-                    where ims_item_id=:item_id" -default ""]
+set current_title [db_string get_title_current {} -default ""]
 
 set progress_total_pages [llength $item_list]
 set progress_current_page [expr {$curr_index + 1}]
@@ -179,7 +159,7 @@ if {$__include eq "/packages/lorsm/lib/end"} {
     if {$item_id ne ""} {
         ad_set_client_property lorsm ims_id $item_id
         set __include /packages/lorsm/lib/default
-        set page_title [db_string get_title "select item_title from ims_cp_items where ims_item_id=:item_id" -default ""]
+        set page_title [db_string get_title {} -default ""]
     }
 
     set lorsm_return_url [ad_get_client_property lorsm lorsm_return_url]

@@ -43,11 +43,7 @@ template::list::create \
     -no_data "-" \
     -actions  $actions \
     -elements {
-        object_type { label "[_ lorsm.Object_Type]"}
+        object_type { label "[_ lorsm.Object_Type]" }
     }
 
-db_multirow d_pres select_ge_titles {
-    select object_type
-    from acs_objects
-    where object_id = :ims_md_id
-}
+db_multirow d_pres select_ge_titles {}

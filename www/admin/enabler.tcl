@@ -41,23 +41,13 @@ ad_form -name enabler \
             {options {{"[_ lorsm.Enable]" t} {"[_ lorsm.Disable]" f}}}
         }
 
-    } -select_query {
-        select
-        case when isenabled = 't' then 'Enabled'
-        else 'Disabled'
-        end as isenabled
-        from ims_cp_manifest_class
-        where man_id = :man_id
-            and lorsm_instance_id = :package_id
+    } -select_query_name enabler_form {
 
     } -edit_data {
-        db_dml do_update "
-            update ims_cp_manifest_class
-            set isenabled = :enable
-            where man_id = :man_id
-                and lorsm_instance_id = :package_id"
+        db_dml do_update {}
 
     } -after_submit {
-        ad_returnredirect [site_node::get_url_from_object_id -object_id package_id]
+        ad_returnredirect [site_node::get_url_from_object_id \
+                            -object_id package_id]
         ad_script_abort
     }

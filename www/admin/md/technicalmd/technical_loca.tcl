@@ -63,23 +63,13 @@ ad_form \
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
 
-    } -select_query  {
-        select *
-        from ims_md_technical_location
-        where ims_md_te_lo_id = :ims_md_te_lo_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name technicalmd_loca_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_technical_location
-            set type = :type,
-                location = :location
-            where ims_md_te_lo_id = :ims_md_te_lo_id "
+        db_dml do_update {}
 
     } -new_data {
-       db_dml do_insert \
-            "insert into ims_md_technical_location (ims_md_te_lo_id, ims_md_id, type, location)
-            values(:ims_md_te_lo_id, :ims_md_id, :type, :location)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../technicalmd" {ims_md_id}]
@@ -105,8 +95,4 @@ template::list::create \
         }
     }
 
-db_multirow d_te_loca select_te_loca {
-    select type, location, ims_md_te_lo_id, ims_md_id
-    from ims_md_technical_location
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_te_loca select_te_loca {}

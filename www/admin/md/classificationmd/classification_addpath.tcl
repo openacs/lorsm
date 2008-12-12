@@ -47,9 +47,7 @@ ad_form \
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
     } -new_data {
-        db_dml do_insert \
-            "insert into ims_md_classification_taxpath (ims_md_cl_ta_id, ims_md_cl_id)
-            values (:ims_md_cl_ta_id, :ims_md_cl_id)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "classification" {ims_md_cl_id ims_md_id}]

@@ -35,11 +35,7 @@ if { [info exists ims_id] } {
 }
 
 # Get the course name
-if {[db_0or1row manifest "
-    select cp.course_name, cp.fs_package_id
-    from ims_cp_manifests cp
-    where cp.man_id = :man_id
-        and cp.parent_man_id = 0"]} {
+if {[db_0or1row manifest {}]} {
     # Course Name
     if {[empty_string_p $course_name]} {
         set course_name "No Course Name"
@@ -58,7 +54,7 @@ if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
     set track_id [lorsm::track::new \
                     -user_id $user_id \
                     -community_id $community_id \
-                -course_id $man_id]
+                    -course_id $man_id]
     ad_set_client_property lorsm studenttrack $track_id
 } else {
     set track_id 0

@@ -100,9 +100,7 @@ namespace eval lorsm {
 
                     } default {
                         set url1 "[apm_package_url_from_id $fs_local_package_id]view/"
-                        set url2 "[db_string select_folder_key {select key
-                            from fs_folders
-                            where folder_id = :folder_id}]"
+                        set url2 "[db_string select_folder_key {}]"
                         set url3 [lorsm::fix_url -url $identifierref]
                         set content_root [fs::get_root_folder \
                             -package_id $fs_package_id]
@@ -126,7 +124,7 @@ namespace eval lorsm {
         @param manifest_id the Id for the course
         @author Ernie Ghiglione (ErnieG@mm.st)
     } {
-        return [db_string course_name {select course_name from ims_cp_manifests where man_id = :manifest_id}]
+        return [db_string course_name {}]
     }
 
 
@@ -214,7 +212,7 @@ namespace eval lorsm {
                     default {
                         set url1 "[apm_package_url_from_id $fs_local_package_id]view/"
                         set folder_id $folder_id
-                        set url2 "[db_string select_folder_key {select key from fs_folders where folder_id = :folder_id}]/"
+                        set url2 "[db_string select_folder_key {}]/"
                         set url3 [lorsm::fix_url -url $identifierref]
                         set content_root [fs::get_root_folder -package_id $fs_package_id]
                         set item_id $item_id
@@ -324,39 +322,8 @@ namespace eval lorsm {
 
     ad_proc -public get_item_list { man_id user_id } {
         set item_list [list]
-        db_foreach organizations {
-            select
-            org.org_id,
-            org.org_title as org_title,
-            org.hasmetadata,
-            tree_level(o.tree_sortkey) as indent
-            from
-            ims_cp_organizations org, acs_objects o
-            where
-            org.org_id = o.object_id
-            and
-            man_id = :man_id
-            order by
-            org_id
-        } {
-            db_foreach sql {
-                SELECT i.parent_item, i.ims_item_id, i.item_title as item_title
-                FROM acs_objects o, ims_cp_items i, cr_items cr
-                WHERE o.object_type = 'ims_item_object'
-                    AND i.org_id = :org_id
-                    AND o.object_id = i.ims_item_id
-                    AND cr.live_revision=i.ims_item_id
-                    AND EXISTS (select 1
-                        from acs_object_party_privilege_map p
-                        where p.object_id = i.ims_item_id
-                            and p.party_id = :user_id
-                            and p.privilege = 'read')
-                            and not exists (select 1
-                                from lorsm_custom_pages
-                                where page_id=cr.item_id
-                                    and man_id=:man_id)
-                ORDER BY i.sort_order, o.object_id, cr.tree_sortkey
-            } {
+        db_foreach organizations {} {
+            db_foreach sql {} {
                 lappend item_list $ims_item_id
             }
         }
@@ -372,23 +339,13 @@ namespace eval lorsm {
         set views [views::record_view -object_id $item_id -viewer_id $viewer_id]
         set revision_id [item::get_best_revision $item_id]
 
-        db_1row manifest_info "select fs_package_id, folder_id
-            from ims_cp_manifests
-            where man_id = :man_id"
+        db_1row manifest_info {}
 
         set content_root [fs::get_root_folder -package_id $fs_package_id]
-        set url2 "[db_string select_folder_key {select key from fs_folders
-            where folder_id = :folder_id}]/"
-        set href [db_string href \
-            "select href
-            from ims_cp_resources r, ims_cp_items_to_resources ir
-            where ir.ims_item_id = :item_id
-                and ir.res_id = r.res_id" -default ""]
+        set url2 "[db_string select_folder_key {}]/"
+        set href [db_string href {} -default ""]
 
-        db_1row item_info \
-            "select item_title
-            from ims_cp_items
-            where ims_item_id = :item_id"
+        db_1row item_info {}
 
         set fs_item_id [fs::get_item_id -folder_id $folder_id -name $href]
         # If no fs_item_id, this item is probably a folder
@@ -562,18 +519,14 @@ namespace eval lorsm {
 }
 
 ad_proc -public lorsm::get_root_folder_id { } { } {
-    return [db_string get_root_folder { select folder_id
-        from cr_folders
-        where label = 'LORSM Root Folder' } -default ""]
+    return [db_string get_root_folder {} -default ""]
 }
 
 
 ad_proc -public lorsm::get_folder_id {
     -name:required
 } {
-    return [db_string get_root_folder { select folder_id
-        from cr_folders
-        where label = :name } -default ""]
+    return [db_string get_root_folder {} -default ""]
 }
 
 
@@ -592,21 +545,13 @@ ad_proc -public lorsm::get_items_indent {
     }
 
     # We need all the count of all items (just live revisions)
-    set items_count [db_string get_items_count \
-        "select count(ims_item_id)
-        from ims_cp_items, cr_items cr
-        where ims_item_id = live_revision
-            and org_id = :org_id $exclude_where"]
+    set items_count [db_string get_items_count {}]
 
     # Get the root items
     set count 0
     set items_list [list]
 
-    foreach ims_item_id [db_list get_root_item \
-        "select ims_item_id
-        from ims_cp_items
-        where parent_item = :org_id
-            and org_id = :org_id $exclude_where"] {
+    foreach ims_item_id [db_list get_root_item {}] {
         lappend items_list [list $ims_item_id 1]
         set items_array($ims_item_id) 1
         incr count
@@ -629,11 +574,7 @@ ad_proc -public lorsm::get_items_indent {
                 set visited_items($item_id) $item_id
                 set indent [expr [lindex $item 1] + 1]
 
-                foreach ims_item_id [db_list get_items \
-                    "select ims_item_id
-                    from ims_cp_items
-                    where parent_item = :item_id
-                        and org_id = :org_id $exclude_where"] {
+                foreach ims_item_id [db_list get_items {}] {
                     if { ![info exist items_array($ims_item_id)] } {
                         lappend items_list [list $ims_item_id $indent]
                         set items_array($ims_item_id) $indent
@@ -698,10 +639,7 @@ ad_proc -public lorsm::register_xml_object_id {
     # Get the package_id associated with the current community
     # FIXME this is a hack until I figure out how to get the
     # package_id of the current community
-    ad_conn -set package_id [db_string get_package_id {
-            select dotlrn_community_applets.package_id
-            from dotlrn_community_applets join apm_packages on (dotlrn_community_applets.package_id=apm_packages.package_id)
-            where community_id = :community_id and package_key='lorsm'}]
+    ad_conn -set package_id [db_string get_package_id {}]
 
     set object_id [lorsm::import_imscp -upload_file $xml_file -tmp_dir $tmp_dir]
 
@@ -764,22 +702,11 @@ ad_proc lorsm::set_custom_page {
     @item_id cr_items.item_id of the ims_cp_item page to use
     @type start or end for start or end page
 } {
-    if {![db_0or1row get_page \
-        "select 1
-        from lorsm_custom_pages
-        where man_id=:man_id
-            and type=:type"]} {
-
-        db_dml add_page \
-            "insert into lorsm_custom_pages (man_id,page_id,type)
-            values (:man_id,:item_id,:type)"
+    if {![db_0or1row get_page {}]} {
+        db_dml add_page {}
 
     } else {
-        db_dml update_page \
-            "update lorsm_custom_pages
-            set man_id=:man_id,
-                page_id=:item_id,
-                type=:type"
+        db_dml update_page {}
     }
 }
 
@@ -791,10 +718,5 @@ ad_proc lorsm::get_custom_page_ims_item_id {
     Get the ims_item_id for a custom page if it exists
     or empty string if it does not
 } {
-    return [db_string get_custom_page \
-        "select live_revision
-        from cr_items, lorsm_custom_pages
-        where page_id=item_id
-            and man_id=:man_id
-            and type=:type" -default ""]
+    return [db_string get_custom_page {} -default ""]
 }

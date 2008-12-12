@@ -57,17 +57,10 @@ ad_form \
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
-    } -select_query {
-        select *
-        from ims_md_classification
-        where ims_md_cl_id = :ims_md_cl_id
+    } -select_query_name classificationmd_pur_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_classification
-            set purpose_s = :purpose_s,
-            purpose_v = :purpose_v
-            where ims_md_cl_id = :ims_md_cl_id "
+        db_dml do_update {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "classification" {ims_md_cl_id ims_md_id}]
@@ -85,8 +78,4 @@ template::list::create \
         purpose_v { label "" }
     }
 
-db_multirow d_cl_pur select_cl_pur {
-    select purpose_s, purpose_v, ims_md_cl_id, ims_md_id
-    from ims_md_classification
-    where ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_pur select_cl_pur {}

@@ -40,8 +40,4 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_class select_cl_class {
-    select purpose_s, purpose_v, ims_md_cl_id, ims_md_id
-    from ims_md_classification
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_cl_class select_cl_class {}

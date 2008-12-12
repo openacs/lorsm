@@ -38,8 +38,4 @@ template::list::create \
         }
     }
 
-db_multirow d_an_annot select_an_annot {
-    select entity, ims_md_an_id, ims_md_id
-    from ims_md_annotation
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_an_annot select_an_annot {}

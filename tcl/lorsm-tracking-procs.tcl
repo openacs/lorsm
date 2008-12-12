@@ -43,14 +43,7 @@ namespace eval lorsm::track {
     } {
 
         db_transaction {
-            set track_id [db_exec_plsql track_st_new {
-
-            select lorsm_student_track__new (
-                             :user_id,
-                             :community_id,
-                             :course_id
-                             );
-        }]}
+            set track_id [db_exec_plsql track_st_new {}]}
         return $track_id
     }
 
@@ -66,16 +59,14 @@ namespace eval lorsm::track {
     } {
 
         db_transaction {
-            set track_id [db_exec_plsql track_st_exit {
-
-            select lorsm_student_track__exit (
-                              :track_id
-                              );
-
-            }]
+            set track_id [db_exec_plsql track_st_exit {}]
 
             if {$track_id ne ""} {
-                db_0or1row get_track "select * from lorsm_student_track where track_id=:track_id"
+                # Initialized to prevent errors
+                set credit_earned ""
+                set elapsed_seconds ""
+
+                db_0or1row get_track {}
                 if {[ad_conn -connected_p]} {
                     set package_id [ad_conn package_id]
                 } else {
@@ -110,10 +101,7 @@ namespace eval lorsm::track {
 
     } {
 
-        set istrackable [db_string trackable {select istrackable
-                from ims_cp_manifest_class
-                where man_id = :course_id
-                    and lorsm_instance_id = :package_id}]
+        set istrackable [db_string trackable {}]
 
         if {$istrackable == "f"} {
             return 0
@@ -126,19 +114,7 @@ namespace eval lorsm::track {
         -track_id
     } {
 
-        set last_item_viewed [db_string select_last_item_viewed {
-            select to_char(v.last_viewed,'YYYY-MM-DD HH24:MI:SS') as last_viewed
-            from views_views v,
-            ims_cp_items i,
-            ims_cp_organizations o,
-            lorsm_student_track t
-            where t.track_id = :track_id
-                and v.viewer_id = t.user_id
-                and v.object_id = i.ims_item_id
-                and i.org_id = o.org_id
-                and o.man_id = t.course_id
-            order by v.last_viewed desc
-            limit 1 } -default ""]
+        set last_item_viewed [db_string select_last_item_viewed {} -default ""]
 
         if {$last_item_viewed ne ""} {
             set current_seconds [clock seconds]
@@ -147,9 +123,7 @@ namespace eval lorsm::track {
             if {$elapsed_seconds > 600} {
                 set elapsed_seconds 600
             }
-            db_dml update_elapsed_seconds "update lorsm_student_track
-                set elapsed_seconds = coalesce(elapsed_seconds,0) + :elapsed_seconds
-                where track_id = :track_id"
+            db_dml update_elapsed_seconds {}
         }
     }
 

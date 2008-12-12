@@ -63,23 +63,13 @@ ad_form \
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
-    } -select_query {
-        select *
-        from ims_md_educational_descrip
-        where ims_md_ed_de_id = :ims_md_ed_de_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name educationalmd_desc_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_educational_descrip
-            set descrip_l = :descrip_l,
-            descrip_s = :descrip_s
-            where ims_md_ed_de_id = :ims_md_ed_de_id "
+        db_dml do_update {}
 
     } -new_data {
-       db_dml do_insert \
-            "insert into ims_md_educational_descrip (ims_md_ed_de_id, ims_md_id, descrip_l, descrip_s)
-            values (:ims_md_ed_de_id, :ims_md_id, :descrip_l, :descrip_s)"
+       db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../educationalmd" {ims_md_id}]
@@ -104,8 +94,4 @@ template::list::create \
         }
     }
 
-db_multirow d_ed_desc select_ed_desc {
-    select '[' || descrip_l || '] ' || descrip_s as desc, ims_md_ed_de_id, ims_md_id
-    from ims_md_educational_descrip
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_desc select_ed_desc {}

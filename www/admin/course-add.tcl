@@ -91,8 +91,7 @@ template::element create course_upload man_id \
 template::element set_properties course_upload course_id -value $course_id
 template::element set_properties course_upload folder_id -value $folder_id
 template::element set_properties course_upload indb_p -value $indb_p
-template::element set_properties course_upload fs_package_id \
-    -value $fs_package_id
+template::element set_properties course_upload fs_package_id -value $fs_package_id
 template::element set_properties course_upload man_id -value $man_id
 
 ad_return_template

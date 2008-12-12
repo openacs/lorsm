@@ -28,12 +28,7 @@ template::list::create \
     -elements {
         intt { label "" }
     }
-
-db_multirow d_ed_intt select_ed_intt {
-    select '[' || int_type_s || '] ' || int_type_v as intt
-    from ims_md_educational
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_intt select_ed_intt {}
 
 # Educational Learning Resource Type
 template::list::create \
@@ -47,12 +42,7 @@ template::list::create \
     -elements {
         lrt { label "" }
     }
-
-db_multirow d_ed_lrt select_ed_lrt {
-    select '[' || lrt_s || '] ' || lrt_v as lrt
-    from ims_md_educational_lrt
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_lrt select_ed_lrt {}
 
 # Educational Interactivity Level
 template::list::create \
@@ -66,12 +56,7 @@ template::list::create \
     -elements {
         intl { label "" }
     }
-
-db_multirow d_ed_intl select_ed_intl {
-    select '[' || int_level_s || '] ' || int_level_v as intl
-    from ims_md_educational
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_intl select_ed_intl {}
 
 # Educational Semantic Density
 template::list::create \
@@ -85,12 +70,7 @@ template::list::create \
     -elements {
         semd { label "" }
     }
-
-db_multirow d_ed_semd select_ed_semd {
-    select '[' || sem_density_s || '] ' || sem_density_v as semd
-    from ims_md_educational
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_semd select_ed_semd {}
 
 # Educational Intended End User Role
 template::list::create \
@@ -104,12 +84,7 @@ template::list::create \
     -elements {
         ieur { label "" }
     }
-
-db_multirow d_ed_ieur select_ed_ieur {
-    select '[' || ieur_s || '] ' || ieur_v as ieur
-    from ims_md_educational_ieur
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_ieur select_ed_ieur {}
 
 # Educational Context
 template::list::create \
@@ -123,12 +98,7 @@ template::list::create \
     -elements {
         context { label "" }
     }
-
-db_multirow d_ed_cont select_ed_cont {
-    select '[' || context_s || '] ' || context_v as context
-    from ims_md_educational_context
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_cont select_ed_cont {}
 
 # Educational Typical Age Range
 template::list::create \
@@ -142,12 +112,7 @@ template::list::create \
     -elements {
         tar { label "" }
     }
-
-db_multirow d_ed_tar select_ed_tar {
-    select '[' || tar_l || '] ' || tar_s as tar
-    from ims_md_educational_tar
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_tar select_ed_tar {}
 
 # Educational Difficulty
 template::list::create \
@@ -161,12 +126,7 @@ template::list::create \
     -elements {
         diff { label "" }
     }
-
-db_multirow d_ed_dif select_ed_dif {
-    select '[' || difficulty_s || '] ' || difficulty_v as diff
-    from ims_md_educational
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_dif select_ed_dif {}
 
 # Educational Typical Learning Time
 template::list::create \
@@ -181,13 +141,7 @@ template::list::create \
         tlt { label "" }
         tlt_ls { label "" }
     }
-
-db_multirow d_ed_tlt select_ed_tlt {
-    select type_lrn_time as tlt,
-        '[' || type_lrn_time_l || '] ' || type_lrn_time_s as tlt_ls
-    from ims_md_educational
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_tlt select_ed_tlt {}
 
 # Educational Description
 template::list::create \
@@ -201,12 +155,7 @@ template::list::create \
     -elements {
         desc { label "" }
     }
-
-db_multirow d_ed_desc select_ed_desc {
-    select '[' || descrip_l || '] ' || descrip_s as desc
-    from ims_md_educational_descrip
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_desc select_ed_desc {}
 
 # Educational Language
 template::list::create \
@@ -220,9 +169,4 @@ template::list::create \
     -elements {
         language { label "" }
     }
-
-db_multirow d_ed_lang select_ed_lang {
-    select language
-    from ims_md_educational_lang
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_lang select_ed_lang {}

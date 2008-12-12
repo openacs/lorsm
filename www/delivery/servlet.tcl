@@ -51,7 +51,7 @@ if { ! ($currentpage>0) } {
 
 set community_id [dotlrn_community::get_community_id]
 
-ns_log $basiclevel "SCORM user: $user_id course: $currentcourse
+ns_log $basiclevel "SCORM user: $user_id course: $currentcourse \
                     ims_item_id: $currentpage community_id: $community_id"
 
 if { $user_id == 0 } {
@@ -61,7 +61,7 @@ if { $user_id == 0 } {
 
 if { $currentcourse == "" } {
     #http 303 is error: but the answer should be found elsewhere
-    ns_return 303 text/plain "Error=102,ErrorDescription=\"No current
+    ns_return 303 text/plain "Error=102,ErrorDescription=\"No current \
                                 course (how did you get here?)\""
 }
 
@@ -76,7 +76,7 @@ set lorsmstudenttrack [ad_get_client_property lorsm studenttrack]
 set package_id [ad_conn package_id]
 
 ns_log $basiclevel "SCORM $functionCalled "
-ns_log $basiclevel "SCORM tracking (client properties): currenttrackid:
+ns_log $basiclevel "SCORM tracking (client properties): currenttrackid: \
                     $currenttrackid lorsmtrack: $lorsmstudenttrack "
 
 ad_get_user_info
@@ -124,19 +124,9 @@ switch -regexp $functionCalled {
                                     -community_id $community_id \
                                     -course_id $currentcourse]
             ad_set_client_property lorsm studenttrack $lorsmstudenttrack
-            ns_log $basiclevel "SCORM tracking has in any case created a
+            ns_log $basiclevel "SCORM tracking has in any case created a \
                                 lorsm_student_tracking track_id: $lorsmstudenttrack"
-            if { ! [ db_0or1row isanysuspendedsession
-                            "select lorsm.track_id as track_id
-                            from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                            where lorsm.user_id = $user_id
-                                and lorsm.community_id = $community_id
-                                and lorsm.course_id = $currentcourse
-                                and lorsm.track_id = cmi.track_id
-                                and cmi.man_id = $currentcourse
-                                and cmi.item_id = $currentpage
-                            order by lorsm.track_id desc
-                            limit 1" ] } { #faccio un nuovo trackid
+            if { ! [ db_0or1row isanysuspendedsession {} ] } { #faccio un nuovo trackid
                             #and
                             #   not (
                             #       cmi.lesson_status = 'completed'
@@ -148,26 +138,16 @@ switch -regexp $functionCalled {
                 ns_log $basiclevel "SCORM new track id: $currenttrackid"
             } else {
                 set currenttrackid $track_id
-                ns_log $basiclevel "SCORM found a lorsm_cmi_core track with
+                ns_log $basiclevel "SCORM found a lorsm_cmi_core track with \
                                     a non completed nor passed session."
             }
         } else {
-            ns_log $basiclevel "SCORM already has current session
-                                    (=$lorsmstudenttrack) (istrackable is on):
-                                    going to check if the session is ok
+            ns_log $basiclevel "SCORM already has current session \
+                                    (=$lorsmstudenttrack) (istrackable is on): \
+                                    going to check if the session is ok \
                                     for current item"
             #now we look for the existance of a lorsm.cmi.core track id for this user / course / class which is still not completed
-            if { ! [ db_0or1row isanysuspendedsession \
-                        "select lorsm.track_id as track_id
-                        from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                        where lorsm.user_id = $user_id
-                            and lorsm.community_id = $community_id
-                            and lorsm.course_id = $currentcourse
-                            and lorsm.track_id = cmi.track_id
-                            and cmi.man_id = $currentcourse
-                            and cmi.item_id = $currentpage
-                        order by lorsm.track_id desc
-                        limit 1" ] } {
+            if { ! [ db_0or1row isanysuspendedsession {} ] } {
                         #and
                         #        not (
                         #                cmi.lesson_status = 'completed'
@@ -189,65 +169,48 @@ switch -regexp $functionCalled {
         }
         #at this stage currenttrackid is the value it should have in lorsm_cmi_core
 
-        if { ! [ db_0or1row istherealready \
-                                "select *
-                                from lorsm_cmi_core
-                                where track_id = :currenttrackid "]} {
+        if { ! [ db_0or1row istherealready {} ]} {
             ns_log $basiclevel "SCORM new RTE lorsm_cmi_core: id $currenttrackid"
             #get initialization data from manifest data already imported
-            db_0or1row get_adlcp_student_data {
-                        select datafromlms,maxtimeallowed,timelimitaction,masteryscore
-                        from ims_cp_items
-                        where ims_item_id=:currentpage; }
+            db_0or1row get_adlcp_student_data {}
 
-            ns_log $basiclevel "SCORM data for lorsm_cmi_student_data is
-                                $datafromlms, $maxtimeallowed, $timelimitaction,
+            ns_log $basiclevel "SCORM data for lorsm_cmi_student_data is \
+                                $datafromlms, $maxtimeallowed, $timelimitaction, \
                                 $masteryscore"
             #
             # lesson_location is the bookmark.
             # lesson_status is initialized to 'not attempted'
             #
-            db_dml lmsinitialize {
-                insert into lorsm_cmi_core(track_id,man_id,item_id,student_id,
-                    student_name, lesson_location, lesson_status, launch_data,
-                    comments,comments_from_lms, session_time, total_time, time_stamp)
-                values(:currenttrackid,:currentcourse,:currentpage,:username,:name,'',
-                    'not attempted',:datafromlms,'','',0,0,CURRENT_TIMESTAMP) }
+            db_dml lmsinitialize {}
 
-            ns_log $basiclevel "SCORM Data inserting into lorsm_student_data
-            $currenttrackid $username $maxtimeallowed"
-            db_dml lmsinitialize {
-                    insert into lorsm_cmi_student_data(track_id,student_id,max_time_allowed,time_limit_action,mastery_score)
-                    values(:currenttrackid,:username,:maxtimeallowed,:timelimitaction,:masteryscore)
-            }
+            ns_log $basiclevel "SCORM Data inserting into lorsm_student_data \
+                                $currenttrackid $username $maxtimeallowed"
+            db_dml lmsinitialize2 {}
 
             ad_set_client_property lorsm currenttrackid $currenttrackid
-            db_0or1row istherealready \
-                "select *
-                from lorsm_cmi_core
-                where track_id = :currenttrackid"
+            db_0or1row istherealready {}
 
             #AURALOG HACK
             #adjust on a per-server basis
     #if { $currentcourse == 6280 } {
     #set student_id "testscorm727"
     #}
-            set returndata  "cmi.core.student_id=$student_id,
+            set returndata  "cmi.core.student_id=$student_id, \
                             cmi.core.student_name=$name,"
 
-            append returndata   "cmi.core.lesson_status=$lesson_status,
+            append returndata   "cmi.core.lesson_status=$lesson_status, \
                                 cmi.core.credit=credit,cmi.core.entry=ab-initio,"
 
             append returndata   "cmi.core.lesson_mode=normal,"
 
-            append returndata   "cmi.student_preference.language=italian,
-                                cmi.comments=$comments,
+            append returndata   "cmi.student_preference.language=italian, \
+                                cmi.comments=$comments, \
                                 cmi.comments_from_lms=$comments_from_lms"
 
-            append returndata   ",cmi.suspend_data=$suspend_data,
+            append returndata   ",cmi.suspend_data=$suspend_data, \
                                 cmi.launch_data=$launch_data"
 
-            append returndata   ",cmi.student_data.max_time_allowed=$maxtimeallowed,
+            append returndata   ",cmi.student_data.max_time_allowed=$maxtimeallowed, \
                                 cmi.student_data.timelimitaction=$timelimitaction"
 
             append returndata   ",cmi.student_data.mastery_score=$masteryscore"
@@ -255,11 +218,9 @@ switch -regexp $functionCalled {
                 ns_log $basiclevel "SCORM found RTE lorsm_cmi_core: id $currenttrackid"
             ad_set_client_property lorsm currenttrackid $currenttrackid
             #retrieve data other than core
-            if { ! [db_0or1row get_adlcp_student_data \
-                        "select max_time_allowed ,time_limit_action ,mastery_score
-                        from lorsm_cmi_student_data
-                        where track_id=:currenttrackid "] } {
-                ns_log Error "SCORM recoverying of student data: not successfull on $currenttrackid -> please check"
+            if { ! [db_0or1row get_adlcp_student_data2 {} ] } {
+                ns_log Error "SCORM recoverying of student data: \
+                            not successfull on $currenttrackid -> please check"
                 set max_time_allowed ""
                 set time_limit_action ""
                 set mastery_score ""
@@ -273,7 +234,7 @@ switch -regexp $functionCalled {
             #                       ns_log Error "SCORM recoverying of student data: not successfull on $currenttrackid -> please check"
             #                   }
 
-            ns_log $basiclevel  "SCORM retrieved track id in
+            ns_log $basiclevel  "SCORM retrieved track id in \
                                 lorsm_cmi_core: $currenttrackid"
             # summing up session time to total_time
             set total_time [expr $total_time + $session_time]
@@ -295,20 +256,16 @@ switch -regexp $functionCalled {
             if { [db_resultrows] == 1 } {
                 ns_log debug "SCORM time processing UPDATE: '$todo' successfull"
             } else {
-                ns_log Warning  "SCORM time processing UPDATE: '$todo'
+                ns_log Warning  "SCORM time processing UPDATE: '$todo' \
                                 not successfull -> please check"
             }
 
-            set todo "UPDATE lorsm_cmi_core SET session_time = '0"
-            append todo "', session_time_ms ='0' "
-            #append todo " WHERE track_id=:currenttrackid"
-            append todo " WHERE track_id=$currenttrackid"
-            db_dml todo $todo
+            db_dml todo {}
 
             if { [db_resultrows] == 1 } {
-                ns_log debug "SCORM data processing UPDATE: '$todo' successfull"
+                ns_log debug "SCORM data processing UPDATE: successfull"
             } else {
-                ns_log Warning  "SCORM time processing UPDATE: '$todo'
+                ns_log Warning  "SCORM time processing UPDATE: \
                                 not successfull -> please check"
             }
             #AURALOG HACK
@@ -317,23 +274,24 @@ switch -regexp $functionCalled {
             #   set student_id "testscorm727"
             #}
 
-            set returndata  "cmi.core.student_id=$student_id,
+            set returndata  "cmi.core.student_id=$student_id, \
                             cmi.core.student_name=$name,"
 
-            append returndata   "cmi.core.credit=$credit,
-                                cmi.core.lesson_status=$lesson_status,
+            append returndata   "cmi.core.credit=$credit, \
+                                cmi.core.lesson_status=$lesson_status, \
                                 cmi.core.entry=$entry,"
 
-            append returndata   "cmi.core.lesson_mode=normal,
+            append returndata   "cmi.core.lesson_mode=normal, \
                                 cmi.core.lesson_location=$lesson_location,"
 
-            append returndata   "cmi.student_preference.language=italian,
-                                cmi.comments=$comments,
+            append returndata   "cmi.student_preference.language=italian, \
+                                cmi.comments=$comments, \
                                 cmi.comments_from_lms=$comments_from_lms"
 
-            append returndata   ",cmi.suspend_data=$suspend_data,
+            append returndata   ",cmi.suspend_data=$suspend_data, \
                                 cmi.launch_data=$launch_data"
-            append returndata   ",cmi.student_data.max_time_allowed=$max_time_allowed,
+
+            append returndata   ",cmi.student_data.max_time_allowed=$max_time_allowed, \
                                 cmi.student_data.time_limit_action=$time_limit_action"
 
             append returndata   ",cmi.student_data.mastery_score=$mastery_score"
@@ -383,12 +341,13 @@ switch -regexp $functionCalled {
         set total_time "$hours:$minutes:$seconds.$total_time_ms"
         #if { ! [empty_string_p $total_time_ms] } { append total_time ".$total_time_ms" }
         #appending time fields to return string
-        append returndata   ",cmi.core.session_time=$session_time,
+        append returndata   ",cmi.core.session_time=$session_time, \
                             cmi.core.total_time=$total_time"
         ns_log $basiclevel "SCORM initialised, sending data to applet"
         ns_log $tracelevel "$returndata"
 
         ns_return 200 text/plain "$returndata"
+
     } cmiputcat* {
         ns_log $tracelevel "---------------------------------------"
         switch $functionCalled {
@@ -397,12 +356,13 @@ switch -regexp $functionCalled {
 
             } cmiputcatONFINISH {
                 ns_log $basiclevel "        LMSFinish"
+
             }
         }
 
         ns_log $tracelevel  "---------------------------------------"
         ns_log $tracelevel  "received data $data from applet: processing. "
-        ns_log $tracelevel  "Reference cmi track is $currenttrackid,
+        ns_log $tracelevel  "Reference cmi track is $currenttrackid, \
                             while lorsmstudenttrack is: $lorsmstudenttrack"
         set preparselist [lrange [ split $data "," ] 1 end]
         set lista [list]
@@ -410,6 +370,7 @@ switch -regexp $functionCalled {
         #here we build a list of request=value. we must do some pattern matching
         foreach couple $preparselist {
             if { [ regexp ^cmi\.* $couple ] } {
+
                 if { ! [empty_string_p $value]  } {
                     set value [concat [lindex $lista end],$value]
                     ns_log debug "SCORM PARSER ending recomposing $value "
@@ -419,6 +380,7 @@ switch -regexp $functionCalled {
                     ns_log debug "SCORM PARSER full couple $couple "
                     lappend lista $couple
                 }
+
             } else {
                 ns_log debug "SCORM PARSER partial couple $couple "
                 set value [concat $value,$couple]
@@ -443,15 +405,16 @@ switch -regexp $functionCalled {
             ns_log debug "SCORM request from applet is $all that is $request to $value"
 
             if { [ string length $value ] == 0 } {
-                ns_log debug "SCORM EMPTY settings : '$request' received and empty -> won't skip"
+                ns_log debug "SCORM EMPTY settings : '$request' \
+                                received and empty -> won't skip"
             }
 
             set table [lindex [split $request .] 1]
             set column [string trim [lindex [split $request .] 2]]
             switch $table {
                 null -
-                    "" { ns_log debug   "SCORM EMPTY TABLENAME : '$table',
-                                        '$column'  not implemented -> not treating
+                    "" { ns_log debug   "SCORM EMPTY TABLENAME : '$table', \
+                                        '$column'  not implemented -> not treating \
                                         this applet request"
 
                 } core  {
@@ -491,10 +454,10 @@ switch -regexp $functionCalled {
                             #append todo "' WHERE track_id=:currenttrackid"
                             db_dml todo $todo
                             if { [db_resultrows] == 1 } {
-                                ns_log debug    "SCORM data msecs processing UPDATE:
+                                ns_log debug    "SCORM data msecs processing UPDATE: \
                                                 '$todo' successfull"
                             } else {
-                                ns_log Warning  "SCORM data msecs processing UPDATE:
+                                ns_log Warning  "SCORM data msecs processing UPDATE: \
                                                 '$todo' not successfull -> please check"
                             }
 
@@ -510,16 +473,16 @@ switch -regexp $functionCalled {
                         #append todo "' WHERE track_id=:currenttrackid"
                         db_dml todo $todo
                         if { [db_resultrows] == 1 } {
-                            ns_log debug    "SCORM data processing UPDATE:
+                            ns_log debug    "SCORM data processing UPDATE: \
                                             '$todo' successfull"
                         } else {
-                            ns_log Warning  "SCORM data processing UPDATE:
+                            ns_log Warning  "SCORM data processing UPDATE: \
                                             '$todo' not successfull -> please check"
                         }
 
                         #lesson_status postprocessing
                         if { ! [ string compare "lesson_status" $column ] } {
-                            ns_log notice   "LESSON STATUS set to $value,
+                            ns_log notice   "LESSON STATUS set to $value, \
                                             cascading down the tree"
                             #lesson status can be:
                             #Passed
@@ -528,13 +491,14 @@ switch -regexp $functionCalled {
                             #Failed
                             #Not attempted
                             #Incomplete
-                            ns_log debug    "SCORM servlet:
+                            ns_log debug    "SCORM servlet: \
                                             lesson_status postprocessing"
                             lorsm::delivery::scorm::check_parents -ims_item_id $currentpage
                         }
                     }
                 } default {
-                    ns_log Warning "SCORM table: '$table', '$column' not implemented -> not treating this applet request"
+                    ns_log Warning "SCORM table: '$table', '$column' not implemented \
+                                    -> not treating this applet request"
                 }
             }
         }
@@ -570,7 +534,8 @@ switch -regexp $functionCalled {
         }
     } default {
         #returning a BAD REQUEST and not a GATEWAY ERROR !!!
-        ns_return 400 text/plain "Error=103,ErrorDescription=\"No functionCalled meaningful value provided\""
+        ns_return 400 text/plain "Error=103,ErrorDescription=\"No functionCalled\
+                                    meaningful value provided\""
     }
 }
 ns_log $tracelevel "---------------------------------------"

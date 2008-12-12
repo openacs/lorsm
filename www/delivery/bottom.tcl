@@ -32,16 +32,7 @@ set return_url [dotlrn_community::get_community_url \
 
 set item_list [lorsm::get_item_list $man_id $user_id]
 
-set last_item_viewed [db_string select_last_item_viewed {
-                        select ims_item_id
-                        from views_views v, ims_cp_items i, ims_cp_organizations o
-                        where v.viewer_id = :user_id
-                            and v.object_id = i.ims_item_id
-                            and i.org_id = o.org_id
-                            and o.man_id = :man_id
-                        order by v.last_viewed desc
-                        limit 1
-                        } -default "no_item"]
+set last_item_viewed [db_string select_last_item_viewed {} -default "no_item"]
 
 set first_item_id [lindex $item_list 0]
 set first_item_url "<a href=\"[export_vars \

@@ -21,7 +21,8 @@ set community_id [dotlrn_community::get_community_id]
 set title "[_ lorsm.lt_Set_Course_Track_Opti]"
 set context [list "[_ lorsm.Set_Course_Options]"]
 
-ad_form -name tracker \
+ad_form \
+    -name tracker \
     -export {package_id} \
     -form {
         {man_id:key}
@@ -40,21 +41,10 @@ ad_form -name tracker \
             {options {{"[_ lorsm.Trackable_1]" t} {"[_ lorsm.No_Thanks]" f}}}
         }
 
-    } -select_query {
-        select
-        case when istrackable = 't' then 'Yes'
-          else 'No'
-        end as istrackable
-        from ims_cp_manifest_class
-        where man_id = :man_id
-            and lorsm_instance_id = :package_id
+    } -select_query_name tracker_ad_form {
 
     } -edit_data {
-        db_dml do_update "
-            update ims_cp_manifest_class
-            set istrackable = :enable
-            where man_id = :man_id
-                and lorsm_instance_id = :package_id"
+        db_dml do_update {}
 
     } -after_submit {
         ad_returnredirect [site_node::get_url_from_object_id -object_id package_id]

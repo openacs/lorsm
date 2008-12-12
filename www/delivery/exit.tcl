@@ -42,18 +42,18 @@ if { ! [empty_string_p $lorsmstudenttrack] } {
 ad_set_client_property lorsm currenttrackid ""
 ad_set_client_property lorsm studenttrack ""
 if { $track_id == 0 || $track_id == "" } {
-    ns_log $level   "delivery/exit leaving non rte-inited
+    ns_log $level   "delivery/exit leaving non rte-inited \
                     (or better a rte-finished) course"
 } else {
-    ns_log $level   "delivery/exit leaving course which had been
-                    rte-inited but NOT FINISHED (user forcing exit before
+    ns_log $level   "delivery/exit leaving course which had been \
+                    rte-inited but NOT FINISHED (user forcing exit before \
                     time) (lorsm_cmi_core.track_id=$track_id)"
 }
 if { $lorsmstudenttrack == 0 || $lorsmstudenttrack == "" } {
-    ns_log $level "delivery/exit leaving non istrackable course"
+    ns_log $level   "delivery/exit leaving non istrackable course"
 } else {
-    ns_log $level   "delivery/exit leaving course which was either
-                    istrackable or rte-inited
+    ns_log $level   "delivery/exit leaving course which was either \
+                    istrackable or rte-inited \
                     (lorsm_student_track.track_id=$lorsmstudenttrack"
 }
 

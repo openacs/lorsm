@@ -34,11 +34,7 @@ template::list::create \
         entity { label "" }
     }
 
-db_multirow d_an_ent select_an_ent {
-    select entity
-    from ims_md_annotation
-    where ims_md_an_id = :ims_md_an_id
-}
+db_multirow d_an_ent select_an_ent {}
 
 # Annotation Date
 template::list::create \
@@ -54,11 +50,7 @@ template::list::create \
         datels { label "[_ lorsm.Description_1]" }
     }
 
-db_multirow d_an_date select_an_date {
-    select date, '[' || date_l || '] ' || date_s as datels
-    from ims_md_annotation
-    where ims_md_an_id = :ims_md_an_id
-}
+db_multirow d_an_date select_an_date {}
 
 # Annotation Description
 template::list::create \
@@ -73,8 +65,4 @@ template::list::create \
         desc { label "" }
     }
 
-db_multirow d_an_desc select_an_desc {
-    select '[' || descrip_l || '] ' || descrip_s as desc
-    from ims_md_annotation_descrip
-    where ims_md_an_id = :ims_md_an_id
-}
+db_multirow d_an_desc select_an_desc {}

@@ -49,29 +49,11 @@ namespace eval lorsm::delivery::scorm {
 
         set father 0
 
-        if { ! [ db_0or1row someinfo { select parent_item as father,
-            o.object_type as father_type
-            from ims_cp_items i, ims_cp_manifest_class im, acs_objects o
-            WHERE ( o.object_type = 'ims_item_object' OR
-                o.object_type= 'ims_organization_object' )
-                AND o.object_id = i.parent_item
-                AND i.ims_item_id=:ims_item_id
-                AND im.man_id= :currentcourse
-                AND im.isenabled='t'
-                AND im.community_id=:community_id  } ] } {
+        if { ! [ db_0or1row someinfo {} ] } {
                     ns_log warning "Parents: no parent "
                     #should look harder: the calling items should be ORG
                     #as a parent and set it so.
-                    if { [db_0or1row isanorg { select i.man_id as father,
-                        o.object_type as father_type
-                        from ims_cp_organizations i, ims_cp_manifest_class im,
-                            acs_objects o
-                        WHERE o.object_id = i.man_id
-                        AND i.org_id=:ims_item_id
-                        AND im.man_id= i.man_id
-                        AND im.man_id= :currentcourse
-                        AND im.isenabled='t'
-                        AND im.community_id=:community_id}] } {
+                    if { [db_0or1row isanorg {}] } {
 
                         ns_log debug "SCORM parents: father is man: $father"
                         #we should now do something to set the thing ok
@@ -86,21 +68,7 @@ namespace eval lorsm::delivery::scorm {
 
                 if { [ string equal $father_type "ims_manifest_object" ] } {
                     #since we have a manifest i will check all orgs below.
-                    if { [ db_0or1row hasmanincompletedchildren { select * from (
-                        select o.man_id, org_title as item_title, org_id as item_id
-                        from ims_cp_organizations o, ims_cp_manifest_class im
-                        where o.man_id=:currentcourse
-                            and im.man_id=o.man_id
-                            and im.community_id=:community_id) as allitems where item_id
-                            not in
-                            ( select cmi.item_id from lorsm_cmi_core cmi, lorsm_student_track track
-                                where cmi.man_id=:currentcourse
-                                    and track.user_id=:user_id
-                                    and cmi.track_id=track.track_id
-                                    and track.community_id=:community_id
-                                    and lesson_status in
-                                    ( 'completed', 'passed'  ))
-                                    limit 1 } ] } {
+                    if { [ db_0or1row hasmanincompletedchildren {} ] } {
 
                         ns_log debug "SCORM parents: at least one incomplete sub-org ($item_id)"
                         set target_status "incomplete"
@@ -113,22 +81,7 @@ namespace eval lorsm::delivery::scorm {
                     }
 
                 } else {
-                    if { [ db_0or1row hasblockincompletedchildren {
-                        select * from (select o.man_id, item_title, ims_item_id as item_id
-                        from ims_cp_items i, ims_cp_organizations o, ims_cp_manifest_class im
-                        where i.org_id=o.org_id
-                            and im.man_id=o.man_id
-                            and o.man_id= :currentcourse
-                            and im.community_id= :community_id
-                            and i.parent_item= :father) as allitems where item_id
-                            not in ( select cmi.item_id
-                                from lorsm_cmi_core cmi, lorsm_student_track track
-                                where cmi.man_id=:currentcourse
-                                    and track.user_id=:user_id
-                                    and cmi.track_id=track.track_id
-                                    and track.community_id=:community_id
-                                    and lesson_status in ( 'completed', 'passed'  ))
-                        limit 1 }] } {
+                    if { [ db_0or1row hasblockincompletedchildren {} ] } {
 
                         ns_log debug "BLOCK: at least 1 incomplete children (see $item_id)"
                         set target_status "incomplete"
@@ -143,17 +96,7 @@ namespace eval lorsm::delivery::scorm {
                     ns_log debug "SCORM Parents: We are going to (check) set:
                         $target_status on $father "
 
-                    if { [ db_0or1row isanysuspendedsession "select lorsm.track_id
-                        as block_track_id, lesson_status as lesson_status_old
-                        from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                        where lorsm.user_id = $user_id
-                            and lorsm.community_id = $community_id
-                            and lorsm.course_id = $currentcourse
-                            and lorsm.track_id = cmi.track_id
-                            and cmi.man_id = $currentcourse
-                            and cmi.item_id = $father
-                        order by
-                        lorsm.track_id desc limit 1 "] } {
+                    if { [ db_0or1row isanysuspendedsession {} ] } {
 
                         if { ! [ string equal lesson_status_old target_status ] } {
                             #UPDATE
@@ -183,12 +126,7 @@ namespace eval lorsm::delivery::scorm {
                                                 -community_id $community_id \
                                                 -course_id $currentcourse]
                                                 #INSERT NEW TRACK FOR ITEM
-                        db_dml lmsinitialize {
-                            insert into lorsm_cmi_core(track_id,man_id,item_id,student_id,student_name,
-                                lesson_location, lesson_status, launch_data,
-                                comments,comments_from_lms, session_time, total_time, time_stamp)
-                            values(:block_track_id,:currentcourse,:father,:username,:name,
-                                :currentcourse, :target_status,'','',:target_comment,0,0,CURRENT_TIMESTAMP) }
+                        db_dml lmsinitialize {}
 
                         if { [db_resultrows] == 1 } {
                             ns_log debug "SCORM: lesson_status processing INSERT: $block_track_id to $target_status successfull"

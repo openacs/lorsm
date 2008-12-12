@@ -22,10 +22,7 @@ set community_id [dotlrn_community::get_community_id]
 set class_key [dotlrn_community::get_community_type_from_community_id $community_id]
 
 # check if the course is actually shared
-if {[db_string isshared \
-    {select isshared
-    from ims_cp_manifests
-    where man_id = :man_id}] == "f"} {
+if {[db_string isshared {}] == "f"} {
 
     # if it ain't complain and quit
     ad_complain "[_ lorsm.lt_The_course_you_are_tr]"
@@ -34,20 +31,12 @@ if {[db_string isshared \
 
 # check if the course is already added as course for this class
 
-if {![db_0or1row exists \
-        {select man_id, lorsm_instance_id
-        from ims_cp_manifest_class
-        where man_id = :man_id
-            and lorsm_instance_id = :package_id
-            and community_id = :community_id}]} {
+if {![db_0or1row exists {}]} {
 
     set var1 [lorsm::get_course_name -manifest_id $man_id]
     ad_complain "[_ lorsm.lt_The_course_var1_is_al]"
 }
 
-db_dml add-course \
-    {insert into ims_cp_manifest_class
-        (man_id, lorsm_instance_id, community_id, class_key, isenabled, istrackable)
-        values (:man_id, :package_id, :community_id, :class_key, 't', 'f')}
+db_dml add-course {}
 
 ad_returnredirect $return_url

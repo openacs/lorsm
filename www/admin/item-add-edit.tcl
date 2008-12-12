@@ -24,12 +24,12 @@ ad_form \
     } -edit_request {
         set content [template::util::richtext::create \
                         [cr_write_content -string -item_id $item_id] text/html]
-        set title [db_string get_title ""]
+        set title [db_string get_title {}]
 
     } -new_data {
         set content [template::util::richtext::get_property text $content]
-        set org_id [db_string get_org_id ""]
-        set item_folder_id [db_string get_folder_id ""]
+        set org_id [db_string get_org_id {}]
+        set item_folder_id [db_string get_folder_id {}]
         #    ad_return_complaint 1 "folder_id '${item_folder_id}'"
         # TODO i bet we can make a generic webcontent
         # a subset of lors::itemcp::item_add_from_object
@@ -43,7 +43,7 @@ ad_form \
                             -identifier $item_id \
                             -title $title \
                             -parent_item $org_id]
-        db_dml set_sort_order ""
+        db_dml set_sort_order {}
 
         set revision_id [content::item::get_live_revision -item_id $item_id]
         content::revision::update_content \
@@ -51,7 +51,7 @@ ad_form \
             -item_id $item_id \
             -content $content \
             -mime_type text/html \
-            -storage_type [db_string get_storage_type ""]
+            -storage_type [db_string get_storage_type {}]
 
         set res_id [lors::imscp::resource_add \
                         -identifier $revision_id \
@@ -71,8 +71,8 @@ ad_form \
             -item_id $item_id \
             -content $content \
             -mime_type text/html \
-            -storage_type [db_string get_storage_type ""]
-        db_dml set_title ""
+            -storage_type [db_string get_storage_type {}]
+        db_dml set_title {}
 
     } -after_submit {
         if {[info exists type]} {

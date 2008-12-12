@@ -119,16 +119,9 @@ foreach package $package_id {
             if { [string eq $format_name "default"] } {
 
                 # micheles
-                set context [site_node::get_url_from_object_id -object_id $lorsm_instance_id]
-                if ([db_0or1row query "
-                select
-                    cp.man_id,
-                    case
-                        when upper(scorm_type) = 'SCO' then 'delivery-scorm'
-                        else 'delivery'
-                    end as needscorte
-                    from ims_cp_manifests cp  left join (select man_id, max(scorm_type) as scorm_type from ims_cp_resources group by man_id ) as cpr using (man_id)
-                where cp.man_id = :man_id "]) {
+                set context [site_node::get_url_from_object_id \
+                                -object_id $lorsm_instance_id]
+                if ([db_0or1row query {}]) {
                     ns_log Debug "lorsm - $needscorte"
                     set delivery_method delivery
                     set course_url_url [export_vars \
@@ -150,7 +143,7 @@ foreach package $package_id {
                     set course_url "NO RESOURCES ERROR"
                 }
             } else {
-                set course_url "<a href=\"[site_node::get_url_from_object_id
+                set course_url "<a href=\"[site_node::get_url_from_object_id \
                     -object_id $lorsm_instance_id]delivery/?[export_vars man_id]\"
                     title=\"[_ lorsm.Access_Course]\" >$course_name</a>"
             }
@@ -159,24 +152,7 @@ foreach package $package_id {
             #the code, differentely than above, check the delivery method as per above
 
             # Get the course name
-            if {[db_0or1row manifest "
-                select
-                    cp.course_name,
-                    cp.fs_package_id,
-                    isscorm,
-                    pf.folder_name,
-                    pf.format_name,
-                case
-                when upper(scorm_type) = 'SCO' then 'delivery-scorm'
-                    else 'delivery'
-                end as deliverymethod
-                from ims_cp_manifests cp  left join (select man_id, max(scorm_type)
-                    as scorm_type from ims_cp_resources group by man_id )
-                    as cpr using (man_id) ,
-                    lorsm_course_presentation_formats pf
-                where cp.man_id = :man_id
-                    and  cp.parent_man_id = 0
-                    and cp.course_presentation_format = pf.format_id "]} {
+            if {[db_0or1row manifest {}]} {
                 # Course Name
                 if {[empty_string_p $course_name]} {
                     set course_name "No Course Name"
@@ -189,17 +165,7 @@ foreach package $package_id {
 
             if { [string equal $deliverymethod "delivery-scorm"] } {
                 set icon ""
-                if { ! [ db_0or1row isanysuspendedsession "select lorsm.track_id as track_id,
-                            cmi.lesson_status as lesson_status from
-                            lorsm_student_track lorsm, lorsm_cmi_core cmi
-                            where lorsm.user_id = $user_id
-                                and lorsm.community_id = $community_id
-                                and lorsm.course_id = $man_id
-                                and lorsm.track_id = cmi.track_id
-                                and cmi.man_id = $man_id
-                                and cmi.item_id = $man_id
-                                order by lorsm.track_id desc
-                                limit 1" ] } {
+                if { ! [ db_0or1row isanysuspendedsession {} ] } {
                     #item has no track for the user
                     #the icon should be the same as per "not yet visited"
                     append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\"
@@ -262,7 +228,10 @@ foreach package $package_id {
             }
 
             set item_id [db_string get_item_id { }]
-            set admin_p [permission::permission_p -party_id $user_id -object_id $item_id -privilege "admin"]
+            set admin_p [permission::permission_p \
+                            -party_id $user_id \
+                            -object_id $item_id \
+                            -privilege "admin"]
         }
 }
 

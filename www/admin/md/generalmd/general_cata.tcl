@@ -67,21 +67,13 @@ ad_form \
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
-    } -select_query {
-        select *
-        from ims_md_general_cata
-        where ims_md_ge_cata_id = :ims_md_ge_cata_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name generalmd_cata_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_general_cata
-            set catalog = :catalog, entry_l = :entry_l, entry_s = :entry_s
-            where ims_md_ge_cata_id = :ims_md_ge_cata_id"
+        db_dml do_update {}
+
     } -new_data {
-        db_dml do_insert \
-            "insert into ims_md_general_cata (ims_md_ge_cata_id, ims_md_id, catalog, entry_l, entry_s)
-            values(:ims_md_ge_cata_id, :ims_md_id, :catalog, :entry_l, :entry_s)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../generalmd" {ims_md_id}]
@@ -108,9 +100,5 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_cata select_ge_cata {
-    select catalog, entry_l, entry_s, ims_md_ge_cata_id, ims_md_id
-    from ims_md_general_cata
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_gen_cata select_ge_cata {}
 

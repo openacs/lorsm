@@ -25,7 +25,6 @@
                 font-family: sans-serif;
             }
         </style>
-        @header_stuff;noquote@
     </head>
     <body>
         <h1>@current_title@</h1>

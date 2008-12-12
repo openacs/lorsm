@@ -37,9 +37,7 @@ ad_form \
         }
 
     } -new_data {
-        db_dml do_insert \
-            "insert into ims_md_annotation (ims_md_an_id, ims_md_id)
-            values (:ims_md_an_id, :ims_md_id)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../annotationmd" {ims_md_id}]

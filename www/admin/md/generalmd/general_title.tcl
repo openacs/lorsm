@@ -62,21 +62,13 @@ ad_form \
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
-    } -select_query  {
-        select *
-        from ims_md_general_title
-        where ims_md_ge_ti_id = :ims_md_ge_ti_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name generalmd_title_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_general_title
-            set title_l = :title_l, title_s = :title_s
-            where ims_md_ge_ti_id = :ims_md_ge_ti_id "
+        db_dml do_update {}
+
     } -new_data {
-       db_dml do_insert \
-            "insert into ims_md_general_title (ims_md_ge_ti_id, ims_md_id, title_l, title_s)
-            values (:ims_md_ge_ti_id, :ims_md_id, :title_l, :title_s)"
+       db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../generalmd" {ims_md_id}]
@@ -102,10 +94,6 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_titles select_ge_titles {
-    select title_l, title_s, ims_md_ge_ti_id, ims_md_id
-    from ims_md_general_title
-    where ims_md_id = :ims_md_id
-} {
+db_multirow d_gen_titles select_ge_titles {} {
     set item_url [export_vars -base "item" { ims_md_id }]
 }

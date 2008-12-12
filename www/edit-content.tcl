@@ -23,12 +23,9 @@ ad_page_contract {
 
 set user_id [ad_conn user_id]
 
-set folder [db_string select_folder_key {select key
-    from fs_folders
-    where folder_id = :folder_id}]
+set folder [db_string select_folder_key {}]
 
-set fs_root_folder [db_string sql {select
-    file_storage__get_root_folder(:fs_package_id)}]
+set fs_root_folder [db_string sql {}]
 
 set identifierref [lorsm::fix_url -url $identifierref]
 set pather $folder/$identifierref
@@ -44,7 +41,6 @@ set file_id [content::item::get_id \
 
 # check for permissions
 # By default, only the creator has admin access to content
-
 permission::require_write_permission \
     -object_id $file_id \
     -creation_user $user_id
@@ -52,5 +48,6 @@ permission::require_write_permission \
 #ns_write "[_ lorsm.lt_folder_foldern_pather]"
 #ad_script_abort
 
-ad_returnredirect [export_vars -base [apm_package_url_from_id $fs_package_id]file-content-edit {file_id return_url}]
+ad_returnredirect [export_vars \
+    -base [apm_package_url_from_id $fs_package_id]file-content-edit {file_id return_url}]
 

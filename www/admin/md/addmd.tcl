@@ -50,15 +50,9 @@ ad_form -name add_md \
     } -on_submit {
         db_transaction {
             if {![lors::imsmd::mdExist -ims_md_id $ims_md_id]} {
-                db_dml do_insert \
-                      "insert into ims_md(ims_md_id, schema, schemaversion)
-                      values (:ims_md_id, :schema, :schemaversion)"
+                db_dml do_insert {}
             } else {
-                db_dml do_update {
-                    update ims_md
-                        set schema = :schema, schemaversion = :schemaversion
-                        where ims_md_id = :ims_md_id
-                }
+                db_dml do_update {}
             }
 
             # If the object_type is on any of the IMS CP object types,
@@ -66,29 +60,19 @@ ad_form -name add_md \
 
             switch $object_type {
                 "ims_manifest_object" {
-                    db_dml upd_manifest "
-                            update ims_cp_manifests set hasmetadata = 't'
-                            where man_id = :ims_md_id"
+                    db_dml upd_manifest {}
 
                 } "ims_item_object" {
-                    db_dml upd_item "
-                                update ims_cp_items set hasmetadata = 't'
-                                where ims_item_id = :ims_md_id"
+                    db_dml upd_item {}
 
                 } "ims_organization_object" {
-                    db_dml upd_organization "
-                            update ims_cp_organizations set hasmetadata = 't'
-                            where org_id = :ims_md_id"
+                    db_dml upd_organization {}
 
                 } "ims_resource_object" {
-                    db_dml upd_resource "
-                            update ims_cp_resources set hasmetadata = 't'
-                            where res_id = :ims_md_id"
+                    db_dml upd_resource {}
 
                 } "content_item" {
-                    db_dml upd_file "
-                            update ims_cp_files set hasmetadata = 't'
-                            where file_id = :ims_md_id"
+                    db_dml upd_file {}
                 }
             }
         }
@@ -115,8 +99,4 @@ template::list::create \
         }
     }
 
-db_multirow md_schema_info select_md_schema {
-    select schema, schemaversion
-    from ims_md
-    where ims_md_id = :ims_md_id
-}
+db_multirow md_schema_info select_md_schema {}

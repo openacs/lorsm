@@ -52,19 +52,10 @@ ad_form \
     } -on_submit {
         # check if the structure details already exist...
 
-        if {[db_0or1row select_structure {
-                                            select ims_md_id
-                                            from ims_md_general
-                                            where ims_md_id = :ims_md_id}]} {
-            db_dml do_update \
-                "update ims_md_general
-                set structure_v = :structure_v, structure_s = :structure_s
-                where ims_md_id = :ims_md_id "
-
+        if {[db_0or1row select_structure {}]} {
+            db_dml do_update {}
         } else {
-            db_dml do_insert \
-                "insert into ims_md_general (ims_md_id, structure_v, structure_s)
-                values (:ims_md_id, :structure_v, :structure_s)"
+            db_dml do_insert {}
         }
 
     } -after_submit {
@@ -88,9 +79,5 @@ template::list::create \
         }
     }
 
-db_multirow d_gen_struc select_ge_struc {
-    select structure_s, structure_v, ims_md_id
-    from ims_md_general
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_gen_struc select_ge_struc {}
 

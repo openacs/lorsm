@@ -44,12 +44,7 @@ template::list::create \
         source { label "" }
     }
 
-db_multirow d_cl_source select_cl_source {
-    select '[' || source_l || '] ' || source_v as source
-    from ims_md_classification_taxpath
-    where ims_md_cl_ta_id = :ims_md_cl_ta_id
-        and ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_source select_cl_source {}
 
 # Classification Taxonomic Path Taxonomy
 template::list::create \
@@ -68,8 +63,4 @@ template::list::create \
         entry { label "[_ lorsm.Entry_1]" }
     }
 
-db_multirow d_cl_taxon select_cl_taxon {
-    select identifier, '[' || entry_l || '] ' || entry_s as entry
-    from ims_md_classification_taxpath_taxon
-    where ims_md_cl_ta_id = :ims_md_cl_ta_id
-}
+db_multirow d_cl_taxon select_cl_taxon {}

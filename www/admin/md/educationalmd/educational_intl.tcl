@@ -50,18 +50,10 @@ ad_form \
 
     } -on_submit {
         # check if the ED Interactivity Level already exist...
-        if {[db_0or1row select_size {
-                                    select ims_md_id
-                                    from ims_md_educational
-                                    where ims_md_id = :ims_md_id}]} {
-            db_dml do_update \
-                "update ims_md_educational
-                set int_level_s = :int_level_s, int_level_v = :int_level_v
-                where ims_md_id = :ims_md_id "
+        if {[db_0or1row select_size {}]} {
+            db_dml do_update {}
         } else {
-            db_dml do_insert \
-                "insert into ims_md_educational (ims_md_id, int_level_s, int_level_v)
-                values (:ims_md_id, :int_level_s, :int_level_v) "
+            db_dml do_insert {}
         }
 
     } -after_submit {
@@ -79,8 +71,4 @@ template::list::create \
         intl { label "[_ lorsm.Interactivity_Level_1]" }
     }
 
-db_multirow d_ed_intl select_ed_intl {
-    select '[' || int_level_s || '] ' || int_level_v as intl, ims_md_id
-    from ims_md_educational
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_ed_intl select_ed_intl {}

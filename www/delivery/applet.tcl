@@ -15,6 +15,7 @@ ad_page_contract {
 
 set menu_type [ad_get_client_property lorsm menu_type]
 set debuglevel [ad_get_client_property lorsm debuglevel]
+
 if {$debuglevel > 0} {
     set app_width 150
     set app_height 150
@@ -22,6 +23,7 @@ if {$debuglevel > 0} {
     set app_width 0
     set app_height 0
 }
+
 set random [clock seconds]
 set ses_renew    [ad_parameter \
                     -package_id [ad_acs_kernel_id] \

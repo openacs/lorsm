@@ -39,11 +39,7 @@ template::list::create \
         purpose_v { label "" }
     }
 
-db_multirow d_cl_pur select_cl_pur {
-    select purpose_s, purpose_v
-    from ims_md_classification
-    where ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_pur select_cl_pur {}
 
 # Classification Taxonomic Path
 template::list::create \
@@ -67,13 +63,7 @@ template::list::create \
         }
     }
 
-db_multirow d_cl_tpath select_cl_tpath {
-    select '[' || ctp.source_l || '] ' || ctp.source_v as source, ctp.ims_md_cl_ta_id,
-        ctp.ims_md_cl_id, cl.ims_md_id
-    from ims_md_classification_taxpath ctp, ims_md_classification cl
-    where ctp.ims_md_cl_id = :ims_md_cl_id
-        and cl.ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_tpath select_cl_tpath {}
 
 # Classification Description
 template::list::create \
@@ -91,11 +81,7 @@ template::list::create \
         desc { label "" }
     }
 
-db_multirow d_cl_desc select_cl_desc {
-    select '[' || descrip_l || '] ' || descrip_s as desc
-    from ims_md_classification_descrip
-    where ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_desc select_cl_desc {}
 
 # Classification Keywords
 template::list::create \
@@ -113,8 +99,4 @@ template::list::create \
         keyword { label "" }
     }
 
-db_multirow d_cl_key select_cl_key {
-    select '[' || keyword_l || '] ' || keyword_s as keyword
-    from ims_md_classification_keyword
-    where ims_md_cl_id = :ims_md_cl_id
-}
+db_multirow d_cl_key select_cl_key {}

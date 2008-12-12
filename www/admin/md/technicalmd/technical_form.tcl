@@ -54,22 +54,13 @@ ad_form \
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
-    } -select_query  {
-        select *
-        from ims_md_technical_format
-        where ims_md_te_fo_id = :ims_md_te_fo_id
-            and ims_md_id = :ims_md_id
+    } -select_query_name technicalmd_form_ad_form {
 
     } -edit_data {
-        db_dml do_update \
-            "update ims_md_technical_format
-            set format = :format
-            where ims_md_te_fo_id = :ims_md_te_fo_id "
+        db_dml do_update {}
 
     } -new_data {
-       db_dml do_insert \
-            "insert into ims_md_technical_format (ims_md_te_fo_id, ims_md_id, format)
-            values(:ims_md_te_fo_id, :ims_md_id, :format)"
+        db_dml do_insert {}
 
     } -after_submit {
         ad_returnredirect [export_vars -base "../technicalmd" {ims_md_id}]
@@ -94,8 +85,4 @@ template::list::create \
         }
     }
 
-db_multirow d_te_form select_te_form {
-    select format, ims_md_te_fo_id, ims_md_id
-    from ims_md_technical_format
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_te_form select_te_form {}

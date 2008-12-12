@@ -50,19 +50,10 @@ ad_form \
 
     } -on_submit {
         # Checks whether LC status exist...
-        if {[db_0or1row select_lc_version {
-                                            select ims_md_id
-                                            from ims_md_life_cycle
-                                            where ims_md_id = :ims_md_id}]} {
-            db_dml do_update \
-                "update ims_md_life_cycle
-                    set status_s = :status_s,
-                    status_v = :status_v
-                where ims_md_id = :ims_md_id "
+        if {[db_0or1row select_lc_version {}]} {
+            db_dml do_update {}
         } else {
-            db_dml do_insert \
-                "insert into ims_md_life_cycle (ims_md_id, status_s, status_v)
-                values (:ims_md_id, :status_s, :status_v)"
+            db_dml do_insert {}
         }
 
     } -after_submit {
@@ -81,8 +72,4 @@ template::list::create \
         status_v { label "[_ lorsm.Value]" }
     }
 
-db_multirow d_lf_stat select_lf_stat {
-    select status_s, status_v, ims_md_id
-    from ims_md_life_cycle
-    where ims_md_id = :ims_md_id
-}
+db_multirow d_lf_stat select_lf_stat {}

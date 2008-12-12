@@ -59,18 +59,10 @@ ad_form \
 
         {ims_md_re_id:text(hidden) {value $ims_md_re_id}}
 
-    } -select_query  {
-        select *
-        from ims_md_relation_resource
-        where ims_md_re_re_id = :ims_md_re_re_id
-            and ims_md_re_id = :ims_md_re_id
+    } -select_query_name relationmd_desc_ad_form {
 
     } -edit_data {
-        db_dml do_update "
-            update ims_md_relation_resource
-            set descrip_l = :descrip_l,
-            descrip_s = :descrip_s
-            where ims_md_re_re_id = :ims_md_re_re_id "
+        db_dml do_update {}
 
     } -after_submit {
         ad_returnredirect [export_vars \
@@ -89,10 +81,4 @@ template::list::create \
         descrip {label "[_ lorsm.Description_1]"}
     }
 
-db_multirow d_re_desc select_re_desc {
-    select  '[' || rere.descrip_l || ']' || ' ' || rere.descrip_s as descrip,
-        rere.ims_md_re_re_id, re.ims_md_re_id, re.ims_md_id
-    from ims_md_relation_resource rere, ims_md_relation re
-    where rere.ims_md_re_id = :ims_md_re_id
-        and re.ims_md_re_id = :ims_md_re_id
-}
+db_multirow d_re_desc select_re_desc {}

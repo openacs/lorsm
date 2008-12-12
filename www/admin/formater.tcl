@@ -41,26 +41,16 @@ ad_form -name formater \
         {format:text(select)
             {label "[_ lorsm.Format_1]"}
             {options {[lang::util::localize_list_of_lists \
-                -list [db_list_of_lists select_formats_for_select_widget {\
-                        select format_pretty_name, format_id
-                        from lorsm_course_presentation_formats
-                        order by format_pretty_name}]]}}
+                -list [db_list_of_lists select_formats_for_select_widget {}]]}}
         }
 
     } -edit_request {
-        db_1row get_data \
-            "select cp.course_presentation_format as format, pf.format_pretty_name
-            from ims_cp_manifests cp, lorsm_course_presentation_formats pf
-            where cp.man_id = :man_id
-                and cp.course_presentation_format = pf.format_id"
+        db_1row get_data {}
         set format_pretty_name [lang::util::localize $format_pretty_name]
 
     } -edit_data {
         db_transaction {
-            db_dml do_update {
-                update ims_cp_manifests
-                set course_presentation_format = :format
-                where man_id = :man_id }
+            db_dml do_update {}
         }
 
     } -after_submit {

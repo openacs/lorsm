@@ -22,22 +22,13 @@ set classname [dotlrn_community::get_community_name $community_id]
 set man_name [lorsm::get_course_name -manifest_id $man_id]
 
 
-set thistrack [ db_1row thiscmitrack  \
-                "select *
-                from lorsm_cmi_core
-                where track_id=:track_id " ]
+set thistrack [ db_1row thiscmitrack {}]
 
 set thistrack $track_id
 
 set context [list "$classname,$man_name,$student_name,session_id: $track_id"]
 
-set numrows [ db_0or1row istherealready \
-                "select min(lorsm.track_id) as mint from lorsm_cmi_core cmi, lorsm_student_track lorsm
-                where lorsm.community_id=:community_id
-                    and lorsm.course_id=:man_id
-                    and user_id=:user_id
-                    and lorsm.track_id=cmi.track_id
-                    and lorsm.track_id>:track_id "]
+set numrows [ db_0or1row istherealready {}]
 # seems numrows always 1 when doing an aggregate query
 if { $mint == "" } {
     set querypart ""
@@ -69,17 +60,8 @@ template::list::create \
         }
     }
 
-db_multirow student_track single_student_track \
-    "select *
-    from lorsm_student_track lorsm, ims_cp_manifests manif
-    where lorsm.community_id=$community_id
-        and lorsm.course_id=$man_id
-        and (lorsm.track_id>=$track_id $querypart)
-        and manif.man_id=$man_id
-        and user_id=$user_id
-    order by lorsm.track_id asc" \
-    {
+db_multirow student_track single_student_track {} {
         set edit_url [export_vars -base "drill-student-singletrack" {track_id}]
         set drill_url [export_vars -base "drill-student-singletrack" {track_id}]
-    }
+}
 

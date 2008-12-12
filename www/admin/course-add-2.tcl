@@ -380,16 +380,9 @@ template::element create course_upload format_id \
     -label "[_ lorsm.lt_Course_Presentation_S]" \
     -datatype text \
     -widget select \
-    -options [db_list_of_lists select_formats_for_select_widget {
-                select format_pretty_name,
-                format_id
-                from lorsm_course_presentation_formats
-                order by format_pretty_name}] \
+    -options [db_list_of_lists select_formats_for_select_widget {}] \
     -help_text "[_ lorsm.lt_Use_the_Classic_Style]" \
-    -value [db_string default_format {
-                select format_id
-                from lorsm_course_presentation_formats
-                where format_name = 'default'}]
+    -value [db_string default_format {}]
 
 template::element create course_upload course_id \
     -label "[_ lorsm.course_id]" \
@@ -424,16 +417,9 @@ template::element create course_upload fs_package_id \
     -widget hidden
 
 template::element set_properties course_upload course_name -value $manifest_title
-
 template::element set_properties course_upload course_id -value $course_id
-
 template::element set_properties course_upload indb_p -value $indb_p
-
 template::element set_properties course_upload tmp_dir -value $tmp_dir
-
 template::element set_properties course_upload folder_id -value $folder_id
-
 template::element set_properties course_upload isSCORM -value $isSCORM
-
-template::element set_properties course_upload fs_package_id \
-    -value $fs_package_id
+template::element set_properties course_upload fs_package_id -value $fs_package_id

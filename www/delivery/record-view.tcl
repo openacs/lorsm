@@ -43,7 +43,7 @@ if { $initedonpage!=0 && $initedonpage!=""  } {
     } else {
         ad_set_client_property lorsm studenttrack 0
         ns_log warning  "SCORM : new content item with still open course ???"
-        ns_log warning  "SCORM : we call for LMSFinish in place of the
+        ns_log warning  "SCORM : we call for LMSFinish in place of the \
                         content!!!!!!???"
         ad_returnredirect [export_vars -base lmsfinish {item_id man_id initedonpage} ]
     }
@@ -103,20 +103,7 @@ if { ![empty_string_p $cr_item_id] } {
     set community_id [dotlrn_community::get_community_id]
     set user_id [ad_conn user_id]
 
-    db_1row getitemattributes \
-        "select i.parent_item, i.ims_item_id, i.item_title as item_title,
-            i.prerequisites_s as prerequisites, cr.mime_type
-        from acs_objects o, ims_cp_items i, cr_items ci, cr_revisions cr,
-            ims_cp_manifest_class im, ims_cp_organizations org
-        where o.object_type = 'ims_item_object'
-        and i.org_id = org.org_id
-        and o.object_id = i.ims_item_id
-        and im.man_id=:man_id
-        and i.ims_item_id=:revision_id
-        and im.isenabled='t'
-        and im.community_id=:community_id
-        and ci.item_id=cr.item_id
-        and cr.revision_id=i.ims_item_id"
+    db_1row getitemattributes {}
 
     #regsub -all {&} $prerequisites " " prerequisites
     regsub -all {[\{\}]} $prerequisites "" prerequisites
@@ -127,16 +114,8 @@ if { ![empty_string_p $cr_item_id] } {
         if { ! [empty_string_p $prer]  } {
             ns_log warning "MENU prerequisites for $item_id are $prer "
             #in the following query we disregard the organization
-            if { ! [ db_0or1row givemeid \
-                        "select i.ims_item_id as id_from_ref, i.item_title as id_from_ref_title
-                        from ims_cp_items i, ims_cp_manifest_class im, ims_cp_organizations o
-                        where i.identifier=:prer
-                        and o.org_id = i.org_id
-                        and o.man_id = :man_id
-                        and im.man_id= :man_id
-                        and im.isenabled='t'
-                        and im.community_id=:community_id" ] } {
-                ns_log warning  "RECORD_VIEW: prerequisites not found comm:
+            if { ! [ db_0or1row givemeid {} ] } {
+                ns_log warning  "RECORD_VIEW: prerequisites not found comm: \
                                 $community_id, man: $man_id, item: $item_id"
                 continue
             } else {
@@ -146,16 +125,7 @@ if { ![empty_string_p $cr_item_id] } {
 
         if { ![empty_string_p $id_from_ref] } {
             ns_log warning "RECORD_VIEW: prerequisites for $item_id are $id_from_ref"
-            if { ! [ db_0or1row isanysuspendedsession \
-                                "select lorsm.track_id as track_id, cmi.lesson_status as lex_status
-                                from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                                where lorsm.user_id = $user_id
-                                    and lorsm.community_id = $community_id
-                                    and lorsm.course_id = $man_id
-                                    and lorsm.track_id = cmi.track_id
-                                    and cmi.man_id = $man_id
-                                    and cmi.item_id = $id_from_ref
-                                order by lorsm.track_id desc" ] } {
+            if { ! [ db_0or1row isanysuspendedsession {} ] } {
                     ns_log warning "RECORD_VIEW: NOT FOUND TRACK"
                     append errormessage "Not attempted : $id_from_ref_title ($id_from_ref)"
                     append errormessage "<BR>"

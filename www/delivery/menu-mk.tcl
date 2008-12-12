@@ -40,7 +40,7 @@ set items_list [list]
 set control_list [list]
 set target "content"
 
-#set org_id [db_string get_org_id { select org_id from ims_cp_organizations where man_id = :man_id} ]
+#set org_id [db_string get_org_id {} ]
 
 
 #we handle multiple orgs
@@ -55,19 +55,9 @@ foreach org_id [db_list get_org_id { } ] {
         lappend items_list $item
     }
     # We need all the count of all items (just live revisions)
-    set items_count [db_string get_items_count {
-            select count(ims_item_id)
-            from ims_cp_items
-            where ims_item_id in (  select live_revision
-                                    from cr_items
-                                    where content_type = 'ims_item_object')
-                andorg_id = :org_id }]
+    set items_count [db_string get_items_count {}]
     # Get the root items
-    db_foreach get_root_item {
-            select ims_item_id
-            from ims_cp_items
-            where parent_item = :org_id
-                and org_id = :org_id } {
+    db_foreach get_root_item {} {
         #lappend items_list [list $ims_item_id 1]
         #lappend control_list $ims_item_id
         incr count
@@ -77,11 +67,7 @@ foreach org_id [db_list get_org_id { } ] {
         foreach item $items_list {
             set item_id [lindex $item 0]
             set indent [expr [lindex $item 1] + 1]
-            db_foreach get_items {
-                select ims_item_id
-                from ims_cp_items
-                where parent_item = :item_id
-                    and org_id = :org_id } {
+            db_foreach get_items {} {
                 if { [string equal [lsearch -exact $control_list $ims_item_id] "-1"] } {
                     #this duplicates ITEMS lappend items_list [list $ims_item_id $indent]
                     #lappend control_list $ims_item_id
@@ -201,38 +187,11 @@ proc generate_tree_menu { items index rlevel } {
 
 # Counter starts at 1 coz Course Index isn't part of the list
 
-db_foreach organizations {
-    select org.org_id, org.org_title as org_title, org.hasmetadata, man_id, tree_level(o.tree_sortkey) as indent
-    from ims_cp_organizations org, acs_objects o
-    where org.org_id = o.object_id
-        and man_id = :man_id
-    order by org_id
-} {
+db_foreach organizations {} {
     #trying to visualize organizations
     lappend js [list 0 $org_id $org_title $man_id "ims/organization" ""]
 
-    db_foreach sql {
-        select
-        -- (tree_level(ci.tree_sortkey) - :indent ) as indent,
-        i.parent_item, i.ims_item_id, i.item_title as item_title, i.prerequisites_s as prerequisites, cr.mime_type
-        from acs_objects o, ims_cp_items i, cr_items ci, cr_revisions cr, ims_cp_manifest_class im
-        where o.object_type = 'ims_item_object'
-            and i.org_id = :org_id
-            and o.object_id = i.ims_item_id
-            and im.man_id=:man_id
-            and im.isenabled='t'
-            and im.community_id=:community_id
-            and ci.item_id=cr.item_id
-            and cr.revision_id=i.ims_item_id
-            and exists
-                (select 1
-                from acs_object_party_privilege_map p
-                where p.object_id = i.ims_item_id
-                    and p.party_id = :user_id
-                    and p.privilege = 'read')
-
-        order by i.sort_order, o.object_id, ci.tree_sortkey
-    } {
+    db_foreach sql {} {
         foreach item $items_list {
             set item_id [lindex $item 0]
             set indent [lindex $item 1]
@@ -257,11 +216,7 @@ if { [info exists js] } {
 
         ns_log debug "MENU-MK tree :  $indent $item_id $title "
         if { ! [string equal $mime_type "ims/organization"] } {
-            if {  [ db_0or1row isnotanemptyitem \
-                        "select res_id
-                        from ims_cp_items_to_resources
-                        where ims_item_id= $item_id
-                        limit 1" ] } {
+            if {  [ db_0or1row isnotanemptyitem {} ] } {
                 set icon ""
             } else {
                 #since the item has no elements it's a placeholder, we assume it's a folder.
@@ -269,17 +224,7 @@ if { [info exists js] } {
                 set icon "<img src=\"/resources/lorsm/icons/folder.gif\" alt=\"Folder\">"
             }
 
-            if { ! [ db_0or1row isanysuspendedsession \
-                        "select lorsm.track_id as track_id, cmi.lesson_status as lesson_status
-                        from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                        where lorsm.user_id = $user_id
-                            and lorsm.community_id = $community_id
-                            and lorsm.course_id = $man_id
-                            and lorsm.track_id = cmi.track_id
-                            and cmi.man_id = $man_id
-                            and cmi.item_id = $item_id
-                        order by lorsm.track_id desc
-                        limit 1" ]  } {
+            if { ! [ db_0or1row isanysuspendedsession {} ]  } {
                 #item has no track for the user
                 #the icon should be the same as per "not yet visited"
                 append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\"
@@ -311,7 +256,7 @@ if { [info exists js] } {
                                         alt=\"Passed\">"
 
                     } default {
-                        append icon "<span style=\"color:#ffffff\"> $lesson_status **</span>
+                        append icon "<span style=\"color:#ffffff\"> $lesson_status **</span> \
                                     <img src=\"/resources/lorsm/icons/flag_blue.gif\"
                                         alt=\"$lesson_status\">"}
                 }
@@ -329,17 +274,9 @@ if { [info exists js] } {
                 if { ! [empty_string_p $prer]  } {
                     ns_log debug "MENU prerequisites for $item_id are $prer "
                     #in the following query we disregard the organization
-                    if { ! [ db_0or1row givemeid \
-                                "select i.ims_item_id as id_from_ref
-                                from ims_cp_items i, ims_cp_manifest_class im, ims_cp_organizations o
-                                where i.identifier=:prer
-                                    and o.org_id = i.org_id
-                                    and o.man_id = :man_id
-                                    and im.man_id= :man_id
-                                    and im.isenabled='t'
-                                    and im.community_id=:community_id"] } {
-                        ns_log warning "MENU-MK: prerequisites not found comm:
-                                        $community_id, man: $man_id, org:
+                    if { ! [ db_0or1row givemeid {} ] } {
+                        ns_log warning "MENU-MK: prerequisites not found comm: \
+                                        $community_id, man: $man_id, org: \
                                         $org_id, item: $item_id"
                         continue
                     } else {
@@ -349,16 +286,7 @@ if { [info exists js] } {
 
                 if { ! [empty_string_p $id_from_ref]  } {
                     ns_log debug "MENU prerequisites for $item_id are $id_from_ref"
-                    if { ! [ db_0or1row isanysuspendedsession "
-                                select lorsm.track_id as track_id, cmi.lesson_status as lex_status
-                                from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                                where lorsm.user_id = $user_id
-                                    and lorsm.community_id = $community_id
-                                    and lorsm.course_id = $man_id
-                                    and lorsm.track_id = cmi.track_id
-                                    and cmi.man_id = $man_id
-                                    and cmi.item_id = $id_from_ref
-                                order by lorsm.track_id desc" ] } {
+                    if { ! [ db_0or1row isanysuspendedsession2 {} ] } {
                         ns_log debug "NOT FOUND TRACK"
                         append icon "<img src=\"/resources/lorsm/icons/page_lock.gif\" alt=\"Missing prerequisite: Not attempted\">"
                     } else {
@@ -422,16 +350,7 @@ if { [info exists js] } {
             set icon "<img src=\"/resources/lorsm/icons/folder_page.gif\"
                         alt=\"Content Folder\">"
 
-            if { ! [ db_0or1row isanysuspendedsession \
-                        "select lorsm.track_id as track_id, cmi.lesson_status as lesson_status
-                        from lorsm_student_track lorsm, lorsm_cmi_core cmi
-                        where lorsm.user_id = $user_id
-                            and lorsm.community_id = $community_id
-                            and lorsm.course_id = $man_id
-                            and lorsm.track_id = cmi.track_id
-                            and cmi.man_id = $man_id
-                            and cmi.item_id = $item_id
-                        order by lorsm.track_id desc" ] } {
+            if { ! [ db_0or1row isanysuspendedsession3 {} ] } {
                 ns_log debug "Menu-mk: no org tracking found"
                 append icon "<img
                                 src=\"/resources/lorsm/icons/flag_white.gif\"

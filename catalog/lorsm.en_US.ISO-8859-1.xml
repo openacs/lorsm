@@ -128,6 +128,7 @@
   <msg key="Course_Versions">%version% Course Version(s)</msg>
   <msg key="Coverage">Coverage:</msg>
   <msg key="Coverage_1">Coverage</msg>
+  <msg key="Create_a_new_course">Create a new course</msg>
   <msg key="Created_By">Created By:</msg>
   <msg key="Creation_Date">Creation Date</msg>
   <msg key="Current_Format">Current Format</msg>
@@ -755,6 +756,7 @@
   <msg key="of_the_content">of the content.</msg>
   <msg key="OK">...OK</msg>
   <msg key="Open">Open</msg>
+  <msg key="or_upload_existing_course">or upload an existing course</msg>
   <msg key="Organization">Organization</msg>
   <msg key="Organizations">Organizations</msg>
   <msg key="Other_Platform_Req">Other Platform Req.</msg>

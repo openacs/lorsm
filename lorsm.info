@@ -15,7 +15,7 @@
 
         <provides url="lorsm" version="0.9d1"/>
         <requires url="acs-datetime" version="5.2.2"/>
-        <requires url="lors" version="0.7d1"/>
+        <requires url="lors" version="0.7d2"/>
         <requires url="views" version="0.2d1"/>
 
         <callbacks>

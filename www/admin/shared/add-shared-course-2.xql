@@ -22,9 +22,9 @@
     <fullquery name="add-course">
         <querytext>
             insert into ims_cp_manifest_class
-                (man_id, lorsm_instance_id, community_id, class_key, isenabled, istrackable)
+                (man_id, lorsm_instance_id, community_id, isenabled, istrackable)
             values
-                (:man_id, :package_id, :community_id, :class_key, 't', 'f')
+                (:man_id, :package_id, :community_id, 't', 'f')
         </querytext>
     </fullquery>
 

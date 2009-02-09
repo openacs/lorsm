@@ -30,13 +30,13 @@ create table lorsm_student_track (
 	track_id	int 
 			constraint lorsm_st_track_id_pk
                         primary key,
-	user_id		int
+	user_id		integer
                         constraint lorsm_st_track_user_id_fk
                         references users (user_id),
-	community_id	int
+	community_id	integer
 			constraint lorsm_st_track_comm_id_fk
-			references dotlrn_communities_all (community_id),
-	course_id	int
+			references groups (group_id),
+	course_id	integer
 			constraint lorsm_st_track_course_id_fk
 			references ims_cp_manifests (man_id),
 	start_time	timestamptz not null default current_timestamp,
@@ -61,13 +61,13 @@ a course can be given in two different communities/classes
 ';
 
 create table lorsm_student_bookmark (
-	user_id		int
+	user_id		integer
                         constraint lorsm_st_track_user_id_fk
                         references users (user_id),
-	community_id	int
+	community_id	integer
 			constraint lorsm_st_track_comm_id_fk
-			references dotlrn_communities_all (community_id),
-	course_id	int
+			references groups (group_id),
+	course_id	integer
 			constraint lorsm_st_track_course_id_fk
 			references ims_cp_manifests (man_id),
 	date		timestamptz,

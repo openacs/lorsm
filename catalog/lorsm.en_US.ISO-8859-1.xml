@@ -421,7 +421,7 @@
   <msg key="lt_Annotation_Metadata_E_1">Annotation Metadata Entity</msg>
   <msg key="lt_being_added_to_the_Le">being added to the Learning Object Repository.</msg>
   <msg key="lt_Blackboard6_Content_P">Blackboard6 Content Packaging Course</msg>
-  <msg key="lt_Blackboard_6_complain">Blackboard 6 complaint package</msg>
+  <msg key="lt_Blackboard_6_complain">Blackboard 6 compliant package</msg>
   <msg key="lt_Brief_Description_Req">Brief Description (Required if entering Language)</msg>
   <msg key="lt_button_to_locate_your">button to locate your file, then click</msg>
   <msg key="lt_Characteristics_of_th">Characteristics of the resource described by this classification entry</msg>
@@ -626,7 +626,7 @@
   <msg key="lt_resource_id_res_ident">%resource_id% %res_identifier% \n</msg>
   <msg key="lt_Rights_Metadata_Copyr">Rights Metadata Copyright or other Restrictions</msg>
   <msg key="lt_Rights_Metadata_Descr">Rights Metadata Description</msg>
-  <msg key="lt_SCORM_complaint_packa">SCORM complaint package</msg>
+  <msg key="lt_SCORM_complaint_packa">SCORM compliant package</msg>
   <msg key="lt_Search_for_Learninng_">Search for Learninng Objects in the Repository</msg>
   <msg key="lt_Search_Learning_Objec">Search Learning Objects</msg>
   <msg key="lt_Set_Course_Presentati">Set Course Presentation Format</msg>

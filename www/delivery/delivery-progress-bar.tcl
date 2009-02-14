@@ -20,7 +20,7 @@ if {![info exists item_id]} {
     set item_id [ad_get_client_property lorsm ims_id]
 }
 ns_log notice "delivery progress bar DEBUG:: item_id $item_id"
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set user_id [ad_conn user_id]
 
 set track_id [lorsm::track::get_track_id \
@@ -29,12 +29,12 @@ set track_id [lorsm::track::get_track_id \
                 -community_id $community_id]
 
 #ns_log notice "DAVEB LORSM BEFORE TRACK_ID='${track_id}'"
-set lorsm_url [dotlrn_community::get_community_url $community_id]lorsm/delivery
+set lorsm_url [ad_conn package_url]delivery
 
 set package_id [site_node::get_element -url $lorsm_url -element package_id]
 
 # return_url
-set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set return_url [lors::get_community_url]
 
 set item_list [lorsm::get_item_list $man_id $user_id]
 set first_item_id [lindex $item_list 0]

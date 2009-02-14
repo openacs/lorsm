@@ -100,7 +100,7 @@ if { ![empty_string_p $cr_item_id] } {
     # we check if the user has access right to the item
     #we analize now prerequisites. - the logic is identical  to menu.
 
-    set community_id [dotlrn_community::get_community_id]
+    set community_id [lors::get_community_id]
     set user_id [ad_conn user_id]
 
     db_1row getitemattributes {}

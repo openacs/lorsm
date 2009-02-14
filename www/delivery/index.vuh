@@ -6,8 +6,9 @@ ad_page_contract {
 set path_info [ad_conn path_info]
 set path_list [split $path_info /]
 set base [lindex $path_list 0]
-set dotlrn_package_id [dotlrn_community::get_community_id]
-set lorsm_url [dotlrn_community::get_community_url $dotlrn_package_id]lorsm/
+
+set community_id [lors::get_community_id]
+set lorsm_url [ad_conn package_url]
 set delivery_url ${lorsm_url}delivery
 ##########
 # figure out the next page after we are done with this...
@@ -18,7 +19,7 @@ if {$man_id eq ""} {
 }
 set user_id [ad_conn user_id]
 
-set enabled_p [db_string enabled_p "select isenabled from ims_cp_manifest_class where man_id=:man_id and community_id=:dotlrn_package_id" -default "f"]
+set enabled_p [db_string enabled_p {} -default "f"]
 set item_list [lorsm::get_item_list $man_id $user_id]
 
 if {$enabled_p} {
@@ -75,8 +76,9 @@ switch $base {
     assessment {
             # find assessment package_id
             # get dotlrn package_id
-            set assessment_package_id [dotlrn_community::get_applet_package_id -community_id $dotlrn_package_id -applet_key dotlrn_assessment]
-    ns_log notice " RESETTING ad conn package id $assessment_package_id"
+            set assessment_package_id [site_node::get_children \
+                                          -community_id $community_id \
+                                          -package_key assessment]
             ad_conn -set package_id $assessment_package_id
 
         if {[string match *view* $path_info]} {

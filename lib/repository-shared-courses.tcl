@@ -21,9 +21,8 @@ set title "[_ lorsm.Shared_Courses]"
 set context [list "[_ lorsm.Shared_Courses]"]
 
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
-
-set com_url [dotlrn_community::get_community_url $community_id]
+set community_id [lors::get_community_id]
+set com_url [lors::get_community_url]
 
 template::list::create \
     -name d_courses \

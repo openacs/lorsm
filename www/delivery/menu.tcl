@@ -41,7 +41,7 @@ foreach org_id [db_list get_org_id { } ] {
 template::util::list_of_lists_to_array $items_list items_array
 set fs_package_id [db_string get_fs_package_id {} -default "" ]
 
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set counter 1
 set user_id [ad_conn user_id]
 
@@ -180,5 +180,4 @@ if { [info exists js] } {
     set TREE_HASH [join $TREE_HASH "\n"]
 }
 # return_url
-set return_url [dotlrn_community::get_community_url \
-                    [dotlrn_community::get_community_id]]
+set return_url [lors::get_community_url]

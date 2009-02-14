@@ -49,7 +49,7 @@ if { ! ($currentpage>0) } {
     ns_log $basiclevel "SCORM missing ims_item_id : $currentpage"
 }
 
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 ns_log $basiclevel "SCORM user: $user_id course: $currentcourse \
                     ims_item_id: $currentpage community_id: $community_id"

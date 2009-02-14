@@ -229,16 +229,6 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="lorsm::register_xml_object_id.get_package_id">
-        <querytext>
-            select dotlrn_community_applets.package_id
-            from dotlrn_community_applets
-                join apm_packages on (dotlrn_community_applets.package_id=apm_packages.package_id)
-            where community_id = :community_id
-                and package_key='lorsm'
-        </querytext>
-    </fullquery>
-
     <fullquery name="lorsm::set_custom_page.get_page">
         <querytext>
             select 1

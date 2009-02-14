@@ -12,7 +12,7 @@ ad_page_contract {
 
 # Student tracking
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set user_id [ad_conn user_id]
 
 if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
@@ -26,7 +26,7 @@ if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
 }
 
 # return_url
-set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set return_url [lors::get_community_url]
 
 set item_list [lorsm::get_item_list $man_id $user_id]
 

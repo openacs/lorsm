@@ -15,7 +15,7 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 set lors_central_package_id [apm_package_id_from_key "lors-central"]
 set lors_central_url [apm_package_url_from_id $lors_central_package_id]
@@ -43,9 +43,9 @@ if { [empty_string_p $community_id] } {
     append elements_list {
         subject {
             label "[_ lorsm.Subject]"
-            display_eval {[dotlrn_community::get_community_name $community_id]}
+            display_eval {[lors::get_community_name]}
             html { align center style "width:20%" }
-            link_url_eval {[dotlrn_community::get_community_url $community_id]}
+            link_url_eval {[lors::get_community_url]}
             link_html {title "[_ lorsm.Access_Course]"}
         }
     }

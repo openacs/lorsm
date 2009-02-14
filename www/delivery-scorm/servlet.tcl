@@ -57,7 +57,7 @@ if { ! [info exists functionCalled] } {
 set currenttrackid [ad_get_client_property lorsm currenttrackid]
 set lorsmstudenttrack [ad_get_client_property lorsm studenttrack]
 
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set package_id [ad_conn package_id]
 
 ns_log $level "Applet beginning with parameters current: $currenttrackid lorsm - $lorsmstudenttrack community: $community_id"

@@ -9,7 +9,6 @@ set imsitem_id [lorsm::get_ims_item_id]
 set title ""
 multirow create children child_item_id child_title
 set parent_item ""
-#set community_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
 set community_url ""
 
 # There are pages that are not necesarily part of one ims_item_id

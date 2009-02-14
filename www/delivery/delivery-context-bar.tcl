@@ -16,9 +16,9 @@ if {![info exists item_id]} {
     set item_id [ad_get_client_property lorsm ims_id]
 }
 
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set user_id [ad_conn user_id]
-set lorsm_url [dotlrn_community::get_community_url $community_id]lorsm/delivery
+set lorsm_url [ad_conn package_url]delivery
 
 # Student tracking
 set package_id [ad_conn package_id]
@@ -33,7 +33,7 @@ set package_id [ad_conn package_id]
 #}
 
 # return_url
-set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set return_url [lors::get_community_url]
 
 set item_list [lorsm::get_item_list $man_id $user_id]
 

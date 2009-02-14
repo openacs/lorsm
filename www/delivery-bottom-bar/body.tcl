@@ -10,7 +10,7 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 
 db_0or1row get_last_viewed {

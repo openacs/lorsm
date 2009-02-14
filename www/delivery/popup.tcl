@@ -33,7 +33,7 @@ set track_id [ad_get_client_property lorsm studenttrack]
 
 # Student tracking
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set user_id [ad_conn user_id]
 
 if { ! [info exists ims_item_id] } {
@@ -48,5 +48,4 @@ set body_url [export_vars \
                 -url {ims_item_id man_id}]
 
 # return_url
-set return_url  [dotlrn_community::get_community_url \
-                [dotlrn_community::get_community_id]]
+set return_url  [lors::get_community_url]

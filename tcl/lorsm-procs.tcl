@@ -636,10 +636,8 @@ ad_proc -public lorsm::register_xml_object_id {
     # Save the current package_id to restore when the object is
     # imported
     set current_package_id [ad_conn package_id]
-    # Get the package_id associated with the current community
-    # FIXME this is a hack until I figure out how to get the
-    # package_id of the current community
-    ad_conn -set package_id [db_string get_package_id {}]
+
+    ad_conn -set package_id [lors::get_community_package_id $community_id]
 
     set object_id [lorsm::import_imscp -upload_file $xml_file -tmp_dir $tmp_dir]
 

@@ -17,7 +17,7 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 if { [info exists ims_id] } {
     set item_id $ims_id

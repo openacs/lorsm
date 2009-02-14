@@ -53,7 +53,7 @@ if { [string eq $content(mime_type) "text/html"] && \
 
         # Student tracking
         set package_id [ad_conn package_id]
-        set community_id [dotlrn_community::get_community_id]
+        set community_id [lors::get_community_id]
 
         if {[lorsm::track::istrackable -course_id $man_id -package_id $package_id]} {
             set track_id [lorsm::track::new \

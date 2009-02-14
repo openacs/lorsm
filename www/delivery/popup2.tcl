@@ -46,7 +46,7 @@ if {[db_0or1row manifest {}]} {
 
 # Student tracking
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set user_id [ad_conn user_id]
 ad_set_client_property lorsm currentcourse $man_id
 

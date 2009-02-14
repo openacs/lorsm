@@ -30,13 +30,13 @@ ad_proc -public lorsm::import_imscp {
 } {
 
     set user_id [ad_conn user_id]
-    set community_id [dotlrn_community::get_community_id]
+    set community_id [lors::get_community_id]
 
     # Gets file-storage root folder_id
     # eventually, we should provide an option so it can be imported in
     # different subfolders
     set fs_package_id [site_node_apm_integration::get_child_package_id \
-                        -package_id [dotlrn_community::get_package_id $community_id] \
+                        -package_id [lors::get_community_package_id] \
                         -package_key "file-storage"]
 
     #set fs_package_id [apm_package_id_from_key "file-storage"] -- if used
@@ -340,7 +340,7 @@ ad_proc -public lorsm::import_imscp {
 
             # Set read permissions for community/class dotlrn_member_rel
 
-            set community_id [dotlrn_community::get_community_id]
+            set community_id [lors::get_community_id]
 
             set party_id_member [db_string party_id_member {}]
 
@@ -605,7 +605,7 @@ ad_proc -public lorsm::import_imscp {
 
             # Set read permissions for community/class dotlrn_member_rel
 
-            set community_id [dotlrn_community::get_community_id]
+            set community_id [lors::get_community_id]
 
             set party_id_member [db_string party_id_member {}]
 

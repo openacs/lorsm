@@ -16,7 +16,7 @@ ad_page_contract {
 } -errors {
 }
 
-set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set return_url [lors::get_community_url]
 
 
 # urls

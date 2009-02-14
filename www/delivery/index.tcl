@@ -83,11 +83,11 @@ if {$isscorm} {
     }
 }
 
-set return_url [dotlrn_community::get_community_url [dotlrn_community::get_community_id]]
+set community_id [lors::get_community_id]
+set return_url [lors::get_community_url]
 
 # Student tracking
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
 ad_set_client_property lorsm currentcourse $man_id
 
 

@@ -27,9 +27,9 @@ set package_id [ad_conn package_id]
 # other instances of file-storages of other classes.  See
 # documentation for further details.
 
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set fs_local_package_id [site_node_apm_integration::get_child_package_id \
-                -package_id [dotlrn_community::get_package_id $community_id] \
+                -package_id [lors::get_community_package_id] \
                 -package_key "file-storage"]
 
 set track_id [lorsm::track::istrackable \

@@ -12,13 +12,13 @@ ad_page_contract {
 set page_title "Inspecting single track for user"
 
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set man_id [ ad_get_client_property trackingrte man_id ]
 set user_id [ad_get_client_property trackingrte currentlydrilleduser]
 #acs_user::get -user_id $user_id -array user
 #set student_id $user(username)
 set student_name [person::name -person_id $user_id]
-set classname [dotlrn_community::get_community_name $community_id]
+set classname [lors::get_community_name]
 set man_name [lorsm::get_course_name -manifest_id $man_id]
 
 

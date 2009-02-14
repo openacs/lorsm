@@ -18,7 +18,7 @@ ad_page_contract {
 }
 
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 set title [list "[_ lorsm.Student_Tracking]"]
 set context [list "[_ lorsm.Tracking_1]"]

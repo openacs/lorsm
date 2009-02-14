@@ -21,9 +21,9 @@ ad_page_contract {
 set page_title "Inspecting single user tracks"
 
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 set man_id [ ad_get_client_property trackingrte man_id ]
-set classname [dotlrn_community::get_community_name $community_id]
+set classname [lors::get_community_name]
 set man_name [lorsm::get_course_name -manifest_id $man_id]
 #acs_user::get -user_id $user_id -array user
 #set student_id $user(username)
@@ -47,9 +47,8 @@ set package_id [ad_conn package_id]
 # other instances of file-storages of other classes.  See
 # documentation for further details.
 
-set community_id [dotlrn_community::get_community_id]
 set fs_local_package_id [site_node_apm_integration::get_child_package_id \
-               -package_id [dotlrn_community::get_package_id $community_id] \
+               -package_id [lors::get_community_package_id] \
                -package_key "file-storage"]
 
 set track_id [lorsm::track::istrackable \

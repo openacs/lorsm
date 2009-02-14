@@ -116,7 +116,7 @@ db_transaction {
 
         # Set read permissions for community/class dotlrn_member_rel
 
-        set community_id [dotlrn_community::get_community_id]
+        set community_id [lors::get_community_id]
         set party_id_member [db_string party_id_member {}]
 
         permission::grant \
@@ -364,7 +364,7 @@ db_transaction {
 
         # Set read permissions for community/class dotlrn_member_rel
 
-        set community_id [dotlrn_community::get_community_id]
+        set community_id [lors::get_community_id]
 
         set party_id_member [db_string party_id_member {}]
 

@@ -20,7 +20,7 @@ set context [list \
                 [list   [export_vars -base .] \
                         "Shared Courses"] \
                 "Preview Course"]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 set title "[_ lorsm.Preview_Course_1]"
 
@@ -33,7 +33,7 @@ set title "[_ lorsm.Preview_Course_1]"
 
 
 set fs_local_package_id [site_node_apm_integration::get_child_package_id \
-                -package_id [dotlrn_community::get_package_id $community_id] \
+                -package_id [lors::get_community_package_id] \
                 -package_key "file-storage"]
 
 # Checks whether this course is already in use on this community

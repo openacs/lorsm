@@ -18,5 +18,5 @@ ad_page_contract {
 set title "[_ lorsm.Shared_Courses]"
 set context [list "[_ lorsm.Shared_Courses]"]
 
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 

@@ -1,5 +1,5 @@
 set man_id [ ad_get_client_property trackingrte man_id ]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 template::list::create \
     -name students \

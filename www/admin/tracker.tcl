@@ -16,7 +16,7 @@ ad_page_contract {
 }
 
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 set title "[_ lorsm.lt_Set_Course_Track_Opti]"
 set context [list "[_ lorsm.Set_Course_Options]"]

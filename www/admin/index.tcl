@@ -16,7 +16,7 @@ set context [list "[_ lorsm.Manage_Courses]"]
 
 set package_id [ad_conn package_id]
 set user_id [ad_conn user_id]
-set community_id [dotlrn_community::get_community_id]
+set community_id [lors::get_community_id]
 
 set actions [list]
 
@@ -116,7 +116,7 @@ template::list::create \
         } permissions {
             label "Permissions"
             display_eval {Permissions}
-            link_url_eval {[export_vars -base permissions {{object_id $man_id}}]}
+            link_url_eval {[export_vars -base /permissions/one {{object_id $man_id}}]}
             link_html {class button}
         }
     }

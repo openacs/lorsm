@@ -12,8 +12,8 @@ ad_page_contract {
 set title "Listing students tracks for a course"
 
 set package_id [ad_conn package_id]
-set community_id [dotlrn_community::get_community_id]
-set classname [dotlrn_community::get_community_name $community_id]
+set community_id [lors::get_community_id]
+set classname [lors::get_community_name]
 set man_name [lorsm::get_course_name -manifest_id $man_id]
 
 ad_set_client_property trackingrte man_id $man_id

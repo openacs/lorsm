@@ -173,32 +173,25 @@ foreach package $package_id {
                 } else {
                     switch -regexp $lesson_status {
                         null {
-                            append icon "<img src=\"/resources/lorsm/icons/
-                                flag_white.gif\" alt=\"Not attempted\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">"
 
                         } incomplete {
-                            append icon "<img src=\"/resources/lorsm/icons/
-                                flag_orange.gif\" alt=\"Incomplete\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_orange.gif\" alt=\"Incomplete\">"
 
                         } complete {
-                            append icon "<img src=\"/resources/lorsm/icons/
-                                flag_green.gif\" alt=\"Completed\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_green.gif\" alt=\"Completed\">"
 
                         } failed {
-                            append icon "<img src=\"/resources/lorsm/icons/
-                                flag_red.gif\" alt=\"Failed\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"Failed\">"
 
                         } "not attempted" {
-                            append icon "<img src=\"/resources/lorsm/icons/
-                                flag_white.gif\" alt=\"Not attempted\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">"
 
                         } passed {
-                            append icon "<img src=\"/resources/lorsm/icons/
-                                icon_accept.gif\" alt=\"Passed\">"
+                            append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"Passed\">"
                         } default {
                             append icon "<span style=\"color: #fff\"> $lesson_status
-                                **</span> <img src=\"/resources/lorsm/icons/
-                                flag_blue.gif\" alt=\"$lesson_status\">"
+                                **</span> <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"
                         }
                     }
                 }

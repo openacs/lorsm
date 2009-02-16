@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <queryset>
 
-    <fullquery name="get_imsitem_id">
+    <fullquery name="dbqd.templates.lorsm-no-index.get_imsitem_id">
         <querytext>
             select map.item_id as viewed_item_id, o.man_id
             from ims_cp_items_to_resources map, ims_cp_files f, ims_cp_organizations o, ims_cp_items i
@@ -12,7 +12,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="select_last_item_viewed">
+    <fullquery name="dbqd.templates.lorsm-no-index.select_last_item_viewed">
         <querytext>
             select item_id
             from views_views v, ims_cp_items i, ims_cp_organizations o

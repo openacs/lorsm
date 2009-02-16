@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <queryset>
 
-    <fullquery name="get_man_id">
+    <fullquery name="dbqd.templates.lorsm-default.get_man_id">
         <querytext>
             select man_id
             from ims_cp_items i, ims_cp_organizations o
@@ -10,7 +10,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="get_folder__id">
+    <fullquery name="dbqd.templates.lorsm-default.get_folder__id">
         <querytext>
             select folder_id
             from ims_cp_manifests
@@ -18,7 +18,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="item_info">
+    <fullquery name="dbqd.templates.lorsm-default.item_info">
         <querytext>
             select item_title, parent_item
             from ims_cp_items
@@ -26,7 +26,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="children">
+    <fullquery name="dbqd.templates.lorsm-default.children">
         <querytext>
             select ims_cp_items.ims_item_id as child_item_id,
                 ims_cp_items.item_title as child_title
@@ -37,7 +37,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="grandchildren">
+    <fullquery name="dbqd.templates.lorsm-default.grandchildren">
         <querytext>
             select count(*)
             from ims_cp_items
@@ -45,7 +45,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="siblings">
+    <fullquery name="dbqd.templates.lorsm-default.siblings">
         <querytext>
             select count(*)
             from ims_cp_items
@@ -53,7 +53,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="grandparent">
+    <fullquery name="dbqd.templates.lorsm-default.grandparent">
         <querytext>
             select ims_cp_items.parent_item as grandparent_item,
                 ims_cp_resources.href as grandparent_href
@@ -64,7 +64,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="href">
+    <fullquery name="dbqd.templates.lorsm-default.href">
         <querytext>
             select href as parent_href
             from ims_cp_resources r, ims_cp_items_to_resources ir

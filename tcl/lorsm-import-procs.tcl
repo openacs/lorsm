@@ -26,11 +26,11 @@ ad_library {
 ad_proc -public lorsm::import_imscp {
     -upload_file:required
     -tmp_dir:required
+    -community_id:required
 } {
 } {
 
     set user_id [ad_conn user_id]
-    set community_id [lors::get_community_id]
 
     # Gets file-storage root folder_id
     # eventually, we should provide an option so it can be imported in
@@ -331,72 +331,6 @@ ad_proc -public lorsm::import_imscp {
                                         -parent_id $parent_id \
                                         -folder_name "${cr_dir}_items"]
 
-            # PERMISSIONS FOR FILE-STORAGE
-
-            # Before we go about anything else, lets just set permissions straight.
-            # Disable folder permissions inheritance
-            permission::toggle_inherit -object_id $new_parent_id
-            permission::toggle_inherit -object_id $new_items_parent_id
-
-            # Set read permissions for community/class dotlrn_member_rel
-
-            set community_id [lors::get_community_id]
-
-            set party_id_member [db_string party_id_member {}]
-
-            permission::grant \
-                -party_id $party_id_member \
-                -object_id $new_parent_id \
-                -privilege read
-
-            permission::grant \
-                -party_id $party_id_member \
-                -object_id $new_items_parent_id \
-                -privilege read
-
-            # Set read permissions for community/class dotlrn_admin_rel
-
-            set party_id_admin [db_string party_id_admin {}]
-
-            permission::grant \
-                -party_id $party_id_admin \
-                -object_id $new_parent_id \
-                -privilege read
-
-            permission::grant \
-                -party_id $party_id_admin \
-                -object_id $new_items_parent_id \
-                -privilege read
-
-            # Set read permissions for *all* other professors  within .LRN
-            # (so they can see the content)
-
-            set party_id_professor [db_string party_id_professor {}]
-
-            permission::grant \
-                -party_id $party_id_professor \
-                -object_id $new_parent_id \
-                -privilege read
-
-            permission::grant \
-                -party_id $party_id_professor \
-                -object_id $new_items_parent_id \
-                -privilege read
-
-            # Set read permissions for *all* other admins within .LRN
-            # (so they can see the content)
-
-            set party_id_admins [db_string party_id_admin_profile {}]
-
-            permission::grant \
-                -party_id $party_id_admins \
-                -object_id $new_parent_id \
-                -privilege read
-
-            permission::grant \
-                -party_id $party_id_admins \
-                -object_id $new_items_parent_id \
-                -privilege read
 
             set filesx [lors::cr::add_files \
                             -parent_id $new_parent_id \
@@ -594,54 +528,6 @@ ad_proc -public lorsm::import_imscp {
 
             ns_write "[_ lorsm.lt_Granting_permissions__1]<br>"
 
-            # PERMISSIONS FOR MANIFEST and learning objects
-
-            # set up in the same way as permissions for the file storage
-            # objects. As we want to maintain consistency btw the
-            # learnining objects and their content
-
-            # Disable folder permissions inheritance
-            permission::toggle_inherit -object_id $man_id
-
-            # Set read permissions for community/class dotlrn_member_rel
-
-            set community_id [lors::get_community_id]
-
-            set party_id_member [db_string party_id_member {}]
-
-            permission::grant \
-                -party_id $party_id_member \
-                -object_id $man_id \
-                -privilege read
-
-            # Set read permissions for community/class dotlrn_admin_rel
-
-            set party_id_admin [db_string party_id_admin {}]
-
-            permission::grant \
-                -party_id $party_id_admin \
-                -object_id $man_id \
-                -privilege read
-
-            # Set read permissions for *all* other professors  within .LRN
-            # (so they can see the content)
-
-            set party_id_professor [db_string party_id_professor {}]
-
-            permission::grant \
-                -party_id $party_id_professor \
-                -object_id $man_id \
-                -privilege read
-
-            # Set read permissions for *all* other admins within .LRN
-            # (so they can see the content)
-
-            set party_id_admins [db_string party_id_admin_profile {}]
-
-            permission::grant \
-                -party_id $party_id_admins \
-                -object_id $man_id \
-                -privilege read
 
             # Done with Manifest and learning object Permissions
             ns_write "[_ lorsm.lt_Adding_course_name_Ma]<br>"
@@ -876,6 +762,13 @@ ad_proc -public lorsm::import_imscp {
         ns_log Debug "Delete temporary folder $tmp_dir"
         lors::imscp::deltmpdir $tmp_dir
         ns_write "[_ lorsm.Done]<hr>"
+
+        callback lorsm::permissions_kludge \
+            -community_id $community_id \
+            -parent_id $new_parent_id \
+            -items_parent_id $new_items_parent_id \
+            -man_id $man_id
+
     }
     return $man_id
 }

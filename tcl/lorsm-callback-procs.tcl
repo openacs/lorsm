@@ -58,3 +58,17 @@ ad_proc -public -callback imsld::import -impl lors {} {
                     -community_id $community_id]
     }
 }
+
+ad_proc -public -callback lorsm::permissions_kludge {
+    -community_id
+    -parent_id
+    -items_parent_id
+    -man_id
+} {
+    @author Don Baccus
+
+    Allows a package using lorsm to kludge permissions to whatever warped view of the
+    world it supports.  The first implementation provided is for dotlrn, need more be
+    said?
+} -
+

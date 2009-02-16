@@ -31,6 +31,7 @@ ad_page_contract {
 }
 
 set context ""
+set community_id [lors::get_community_id]
 
 #check permission
 set user_id [ad_conn user_id]
@@ -106,72 +107,6 @@ db_transaction {
         set new_items_parent_id [lors::cr::add_folder \
                                     -parent_id $parent_id \
                                     -folder_name "${cr_dir}_items"]
-
-        # PERMISSIONS FOR FILE-STORAGE
-
-        # Before we go about anything else, lets just set permissions straight.
-        # Disable folder permissions inheritance
-        permission::toggle_inherit -object_id $new_parent_id
-        permission::toggle_inherit -object_id $new_items_parent_id
-
-        # Set read permissions for community/class dotlrn_member_rel
-
-        set community_id [lors::get_community_id]
-        set party_id_member [db_string party_id_member {}]
-
-        permission::grant \
-            -party_id $party_id_member \
-            -object_id $new_parent_id \
-            -privilege read
-
-        permission::grant \
-            -party_id $party_id_member \
-            -object_id $new_items_parent_id \
-            -privilege read
-
-        # Set read permissions for community/class dotlrn_admin_rel
-
-        set party_id_admin [db_string party_id_admin {}]
-
-        permission::grant \
-            -party_id $party_id_admin \
-            -object_id $new_parent_id \
-            -privilege read
-
-        permission::grant \
-            -party_id $party_id_admin \
-            -object_id $new_items_parent_id \
-            -privilege read
-
-        # Set read permissions for *all* other professors  within .LRN
-        # (so they can see the content)
-
-        set party_id_professor [db_string party_id_professor {}]
-
-        permission::grant \
-            -party_id $party_id_professor \
-            -object_id $new_parent_id \
-            -privilege read
-
-        permission::grant \
-            -party_id $party_id_professor \
-            -object_id $new_items_parent_id \
-            -privilege read
-
-        # Set read permissions for *all* other admins within .LRN
-        # (so they can see the content)
-
-        set party_id_admins [db_string party_id_admins {}]
-
-        permission::grant \
-            -party_id $party_id_admins \
-            -object_id $new_parent_id \
-            -privilege read
-
-        permission::grant \
-            -party_id $party_id_admins \
-            -object_id $new_items_parent_id \
-            -privilege read
 
         set filesx [lors::cr::add_files \
                         -parent_id $new_parent_id \
@@ -352,57 +287,6 @@ db_transaction {
                         -content_folder_id $new_parent_id]
 
         ns_write "[_ lorsm.lt_Granting_permissions__1]<br>"
-
-        # PERMISSIONS FOR MANIFEST and learning objects
-
-        # set up in the same way as permissions for the file storage
-        # objects. As we want to maintain consistency btw the
-        # learnining objects and their content
-
-        # Disable folder permissions inheritance
-        permission::toggle_inherit -object_id $man_id
-
-        # Set read permissions for community/class dotlrn_member_rel
-
-        set community_id [lors::get_community_id]
-
-        set party_id_member [db_string party_id_member {}]
-
-        permission::grant \
-            -party_id $party_id_member \
-            -object_id $man_id \
-            -privilege read
-
-        # Set read permissions for community/class dotlrn_admin_rel
-
-        set party_id_admin [db_string party_id_admin {}]
-
-        permission::grant \
-            -party_id $party_id_admin \
-            -object_id $man_id \
-            -privilege read
-
-        # Set read permissions for *all* other professors  within .LRN
-        # (so they can see the content)
-
-        set party_id_professor [db_string party_id_professor {}]
-
-        permission::grant \
-            -party_id $party_id_professor \
-            -object_id $man_id \
-            -privilege read
-
-        # Set read permissions for *all* other admins within .LRN
-        # (so they can see the content)
-
-        set party_id_admins [db_string party_id_admins {}]
-
-        permission::grant \
-            -party_id $party_id_admins \
-            -object_id $man_id \
-            -privilege read
-
-        # Done with Manifest and learning object Permissions
 
         ns_write "[_ lorsm.lt_Adding_course_name_Ma]<br>"
 
@@ -649,4 +533,10 @@ db_transaction {
 
     # jump to the front page
     ad_progress_bar_end -url [apm_package_url_from_id [ad_conn package_id]]/admin
+
+    callback lorsm::permissions_kludge \
+        -community_id $community_id \
+        -parent_id $new_parent_id \
+        -items_parent_id $new_items_parent_id \
+        -man_id $man_id
 }

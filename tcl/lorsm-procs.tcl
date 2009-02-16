@@ -639,7 +639,10 @@ ad_proc -public lorsm::register_xml_object_id {
 
     ad_conn -set package_id [lors::get_community_package_id $community_id]
 
-    set object_id [lorsm::import_imscp -upload_file $xml_file -tmp_dir $tmp_dir]
+    set object_id [lorsm::import_imscp \
+                      -community_id $community_id \
+                      -upload_file $xml_file \
+                      -tmp_dir $tmp_dir]
 
     # Restore the package_id
     ad_conn -set package_id $current_package_id

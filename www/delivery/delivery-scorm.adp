@@ -6,12 +6,7 @@
         <SCRIPT TYPE="text/javascript">
             this.ses_renew=@ses_renew@;
             this.menu_off=@menu_off@;
-            this.content_href = "<if @ims_id@ defined>
-                                    @body_url;noquote@
-                                </if>
-                                <else>
-                                    body?man_id=@man_id@
-                                </else>";
+            this.content_href = "<if @ims_id@ defined>@body_url;noquote@</if><else>body?man_id=@man_id@</else>";
         </SCRIPT>
         <title>@course_name@</title>
     </head>

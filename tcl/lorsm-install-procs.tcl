@@ -75,6 +75,10 @@ ad_proc -private lorsm::install::after_upgrade {
 
             } 0.8d3 0.8d4 {
                 lorsm::install::templates
+
+            } 0.9d3 0.9d4 {
+                lorsm::install::templates
+
             }
         }
 }

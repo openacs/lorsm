@@ -12,14 +12,14 @@ ad_page_contract {
 } -validate {
 } -errors {
 }
-ns_log Notice "Huh? servlet function called $functionCalled"
+ns_log Notice " servlet function called $functionCalled"
 if { [info exists data] } {
-    ns_log Notice "Huh? data: $data"
+    ns_log Notice " data: $data"
 }
 
 #set the following accordingly to debug or Notice
-set basiclevel "Notice"
-set tracelevel "Notice"
+set basiclevel "Debug"
+set tracelevel "Debug"
 #tracelevel debug will show messages only at debug level
 #tracelevel Notice will show all messages. same goes for basiclevel
 #see index.tcl for setting java/javascript debugging by setting debuglevel
@@ -35,27 +35,25 @@ ns_set move [ns_conn outputheaders] $s
 set user_id [ad_conn user_id]
 acs_user::get -user_id $user_id -array user
 set username $user(username)
-ns_log $tracelevel "Huh?---------------------------------------"
-ns_log $basiclevel "Huh?        LMS Rte server START"
-ns_log $tracelevel "Huh?---------------------------------------"
-ns_log $tracelevel "Huh?username: $username"
+ns_log $tracelevel "---------------------------------------"
+ns_log $basiclevel "        LMS Rte server START"
+ns_log $tracelevel "---------------------------------------"
+ns_log $tracelevel "username: $username"
 set currentcourse [ad_get_client_property lorsm currentcourse]
-ns_log $tracelevel "Huh?man_id: $currentcourse"
+ns_log $tracelevel "man_id: $currentcourse"
 #this is not used in this proc, so far
 
 set currentpage [ad_get_client_property lorsm ims_id]
 set initedonpage [ad_get_client_property lorsm initedonpage]
 
-ns_log $basiclevel "Huh?lorsm ims_item_id $currentpage"
-ns_log $basiclevel "Huh?lorsm initedonpage $initedonpage"
+ns_log $basiclevel "lorsm ims_item_id $currentpage"
+ns_log $basiclevel "lorsm initedonpage $initedonpage"
 
 if { ! ($currentpage>0) } {
-    ns_log $basiclevel "Huh?SCORM missing ims_item_id : $currentpage"
+    ns_log $basiclevel "SCORM missing ims_item_id : $currentpage"
 }
 
 set community_id [lors::get_community_id]
-
-ns_log $basiclevel "Huh?SCORM user: $user_id course: $currentcourse ims_item_id: $currentpage community_id: $community_id"
 
 if { $user_id == 0 } {
     #http 401 is unauthorized
@@ -77,8 +75,8 @@ set lorsmstudenttrack [ad_get_client_property lorsm studenttrack]
 
 set package_id [ad_conn package_id]
 
-ns_log $basiclevel "Huh?SCORM $functionCalled "
-ns_log $basiclevel "Huh?SCORM tracking (client properties): currenttrackid: $currenttrackid lorsmtrack: $lorsmstudenttrack "
+ns_log $basiclevel "SCORM $functionCalled "
+ns_log $basiclevel "SCORM tracking (client properties): currenttrackid: $currenttrackid lorsmtrack: $lorsmstudenttrack "
 
 ad_get_user_info
 set name $last_name
@@ -107,9 +105,9 @@ switch -regexp $functionCalled {
         ns_log warning "SCORM Keepalive"
 
     } cmigetcat {
-        ns_log $tracelevel "Huh?---------------------------------------"
-        ns_log $basiclevel "Huh?        LMSInitialise "
-        ns_log $tracelevel "Huh?---------------------------------------"
+        ns_log $tracelevel "---------------------------------------"
+        ns_log $basiclevel "        LMSInitialise "
+        ns_log $tracelevel "---------------------------------------"
 
         if { $initedonpage != $currentpage } {
             #c'e' stato un cambiamento di item
@@ -118,7 +116,7 @@ switch -regexp $functionCalled {
         }
 
         if { $lorsmstudenttrack == 0 || $lorsmstudenttrack == ""  } {
-                ns_log $basiclevel "Huh?SCORM : lorsm student new track "
+                ns_log $basiclevel "SCORM : lorsm student new track "
             #here track id was not set (course is not lors-trackable)
             #we should first try to see if we find an already open track in lorsm.track
             set lorsmstudenttrack [lorsm::track::new \
@@ -127,7 +125,7 @@ switch -regexp $functionCalled {
                                     -course_id $currentcourse]
 
             ad_set_client_property lorsm studenttrack $lorsmstudenttrack
-            ns_log $basiclevel "Huh?SCORM tracking has in any case created a lorsm_student_tracking track_id: $lorsmstudenttrack"
+            ns_log $basiclevel "SCORM tracking has in any case created a lorsm_student_tracking track_id: $lorsmstudenttrack"
             if { ! [ db_0or1row isanysuspendedsession {} ] } {
                                         #faccio un nuovo trackid
                                         #and
@@ -138,14 +136,14 @@ switch -regexp $functionCalled {
                                         #   )
                                         #we create a new track which is going to be the new 'master track' for this cmi data set
                 set currenttrackid $lorsmstudenttrack
-                ns_log $basiclevel "Huh?SCORM new track id: $currenttrackid"
+                ns_log $basiclevel "SCORM new track id: $currenttrackid"
             } else {
                 set currenttrackid $track_id
-                ns_log $basiclevel "Huh?SCORM found a lorsm_cmi_core track with a non completed nor passed session."
+                ns_log $basiclevel "SCORM found a lorsm_cmi_core track with a non completed nor passed session."
             }
 
         } else {
-            ns_log $basiclevel "Huh?SCORM already has current session (=$lorsmstudenttrack) (istrackable is on): going to check if the session is ok for current item"
+            ns_log $basiclevel "SCORM already has current session (=$lorsmstudenttrack) (istrackable is on): going to check if the session is ok for current item"
             #now we look for the existance of a lorsm.cmi.core track id for this user / course / class which is still not completed
             if { ! [ db_0or1row isanysuspendedsession {} ] } {
                                                     #and
@@ -170,18 +168,18 @@ switch -regexp $functionCalled {
         #at this stage currenttrackid is the value it should have in lorsm_cmi_core
 
         if { ![ db_0or1row istherealready {} ] } {
-            ns_log $basiclevel "Huh?SCORM new RTE lorsm_cmi_core: id $currenttrackid"
+            ns_log $basiclevel "SCORM new RTE lorsm_cmi_core: id $currenttrackid"
             #get initialization data from manifest data already imported
             db_0or1row get_adlcp_student_data {}
 
-            ns_log $basiclevel "Huh?SCORM data for lorsm_cmi_student_data is $datafromlms, $maxtimeallowed, $timelimitaction, $masteryscore"
+            ns_log $basiclevel "SCORM data for lorsm_cmi_student_data is $datafromlms, $maxtimeallowed, $timelimitaction, $masteryscore"
             #
             # lesson_location is the bookmark.
             # lesson_status is initialized to 'not attempted'
             #
             db_dml lmsinitialize {}
 
-            ns_log $basiclevel "Huh?SCORM Data inserting into lorsm_student_data $currenttrackid $username $maxtimeallowed"
+            ns_log $basiclevel "SCORM Data inserting into lorsm_student_data $currenttrackid $username $maxtimeallowed"
             db_dml lmsinitialize2 {}
 
             ad_set_client_property lorsm currenttrackid $currenttrackid
@@ -201,7 +199,7 @@ switch -regexp $functionCalled {
             append returndata ",cmi.student_data.max_time_allowed=$maxtimeallowed,cmi.student_data.timelimitaction=$timelimitaction"
             append returndata ",cmi.student_data.mastery_score=$masteryscore"
         } else {
-            ns_log $basiclevel "Huh?SCORM found RTE lorsm_cmi_core: id $currenttrackid"
+            ns_log $basiclevel "SCORM found RTE lorsm_cmi_core: id $currenttrackid"
             ad_set_client_property lorsm currenttrackid $currenttrackid
             #retrieve data other than core
 
@@ -220,7 +218,7 @@ switch -regexp $functionCalled {
             #                       ns_log Error "SCORM recoverying of student data: not successfull on $currenttrackid -> please check"
             #                   }
 
-            ns_log $basiclevel "Huh?SCORM retrieved track id in lorsm_cmi_core: $currenttrackid"
+            ns_log $basiclevel "SCORM retrieved track id in lorsm_cmi_core: $currenttrackid"
             # summing up session time to total_time
             set total_time [expr $total_time + $session_time]
             set total_time_ms [expr $total_time_ms + $session_time_ms]
@@ -318,24 +316,24 @@ switch -regexp $functionCalled {
         #if { ! [empty_string_p $total_time_ms] } { append total_time ".$total_time_ms" }
         #appending time fields to return string
         append returndata ",cmi.core.session_time=$session_time,cmi.core.total_time=$total_time"
-        ns_log $basiclevel "Huh?SCORM initialised, sending data to applet"
-        ns_log $tracelevel "Huh?$returndata"
+        ns_log $basiclevel "SCORM initialised, sending data to applet"
+        ns_log $tracelevel "$returndata"
 
         ns_return 200 text/plain "$returndata"
 
     } cmiputcat* {
-        ns_log $tracelevel "Huh?---------------------------------------"
+        ns_log $tracelevel "---------------------------------------"
         switch $functionCalled {
             cmiputcat {
-                ns_log $basiclevel "Huh?        LMSCommit"
+                ns_log $basiclevel "        LMSCommit"
 
             } cmiputcatONFINISH {
-                ns_log $basiclevel "Huh?        LMSFinish"
+                ns_log $basiclevel "        LMSFinish"
             }
         }
-        ns_log $tracelevel "Huh?---------------------------------------"
-        ns_log $tracelevel "Huh?received data $data from applet: processing. "
-        ns_log $tracelevel "Huh?Reference cmi track is $currenttrackid, while lorsmstudenttrack is: $lorsmstudenttrack"
+        ns_log $tracelevel "---------------------------------------"
+        ns_log $tracelevel "received data $data from applet: processing. "
+        ns_log $tracelevel "Reference cmi track is $currenttrackid, while lorsmstudenttrack is: $lorsmstudenttrack"
         set preparselist [lrange [ split $data "," ] 1 end]
         set lista [list]
         set value ""
@@ -478,7 +476,7 @@ switch -regexp $functionCalled {
                 }
 
                 ns_return 200 text/plain "OK"
-                ns_log $basiclevel "Huh?SCORM post LMSCommit (trackid=$currenttrackid)"
+                ns_log $basiclevel "SCORM post LMSCommit (trackid=$currenttrackid)"
 
             } cmiputcatONFINISH {
                 set lorsmstudenttrack [ad_get_client_property lorsm studenttrack]
@@ -494,7 +492,7 @@ switch -regexp $functionCalled {
                     lorsm::track::exit -track_id $lorsmstudenttrack
                 }
                 ns_return 200 text/plain "OK"
-                ns_log $basiclevel "Huh?SCORM post LMSFinish (trackid=$currenttrackid) sent ok to applet"
+                ns_log $basiclevel "SCORM post LMSFinish (trackid=$currenttrackid) sent ok to applet"
             }
         }
 
@@ -503,6 +501,6 @@ switch -regexp $functionCalled {
         ns_return 400 text/plain "Error=103,ErrorDescription=\"No functionCalled meaningful value provided\""
     }
 }
-ns_log $tracelevel "Huh?---------------------------------------"
-ns_log $basiclevel "Huh?        LMS Rte server END"
-ns_log $tracelevel "Huh?---------------------------------------"
+ns_log $tracelevel "---------------------------------------"
+ns_log $basiclevel "        LMS Rte server END"
+ns_log $tracelevel "---------------------------------------"

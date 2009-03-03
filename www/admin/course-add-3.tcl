@@ -137,8 +137,7 @@ db_transaction {
                     regexp {([^/\\]+)$} $subdir match cr_dir
 
                     # add the folder to the CR
-                    ns_write "[_ lorsm.Processing_folder]<img src=\"/
-                        resources/file-storage/folder.gif\">: <b>$cr_dir</b> <br>"
+                    ns_write "[_ lorsm.Processing_folder]<img src=\"/resources/file-storage/folder.gif\">: <b>$cr_dir</b> <br>"
                     set new_cr_folder_id [lors::cr::add_folder \
                                             -parent_id $base_parent_id \
                                             -folder_name $cr_dir]
@@ -153,8 +152,7 @@ db_transaction {
                     ns_write "[_ lorsm.Processing_files]<p>"
                     foreach file $files {
                         set tempval [regsub $tmp_dir $file {}]
-                        ns_write "<img src=\"/
-                            resources/file-storage/file.gif\"> $tempval<span
+                        ns_write "<img src=\"/resources/file-storage/file.gif\"> $tempval<span
                             style=\"color:green\">[_ lorsm.OK]</span><br>"
                     }
                     ns_write "</p>"

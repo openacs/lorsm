@@ -16,7 +16,6 @@
             where cp.man_id = acs.object_id
                 and cp.man_id = cpmc.man_id
                 and cpmc.lorsm_instance_id = :package
-                $extra_query
                 and cpmc.isenabled = 't'
                 and pf.format_id = cp.course_presentation_format
             order by acs.creation_date desc

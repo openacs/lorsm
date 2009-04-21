@@ -22,6 +22,7 @@ set user_id [ad_conn user_id]
 if {[exists_and_not_null folder_id]} {
     permission::require_write_permission -object_id $folder_id -creation_user $user_id
     set download_name [fs::get_file_system_safe_object_name -object_id $folder_id]
+    set download_name [util_text_to_url -no_resolve -text $download_name]
 
     # We get rid of spaces since they are annoying
     regsub -all { } $download_name {_} download_name

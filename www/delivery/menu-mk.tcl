@@ -405,5 +405,5 @@ if { [info exists js] } {
     }
 }
 # return_url
-set return_url [lors::get_community_url]
+set return_url [ad_get_client_property lorsm return_url]
 

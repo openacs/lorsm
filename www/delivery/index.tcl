@@ -13,6 +13,7 @@ ad_page_contract {
     menu_off:integer,notnull,optional
     item_id:integer,notnull,optional
     ims_id:integer,notnull,optional
+    {return_url ""}
 } -properties {
 } -validate {
 } -errors {
@@ -42,7 +43,7 @@ if { [info exists item_id] } {
 } else {
     if { $menu_off == 0 } {
         ad_set_client_property lorsm ims_id ""
-        ns_log notice "UNSETTING LORSM IMS_ID '[ad_conn url]'"
+        ns_log debug "UNSETTING LORSM IMS_ID '[ad_conn url]'"
     } else {
         #given menu_off without ims_id, i have to provide a default one!
         #since an ims_item_id wasn't provided, we just pick up the first one
@@ -84,7 +85,10 @@ if {$isscorm} {
 }
 
 set community_id [lors::get_community_id]
-set return_url [lors::get_community_url]
+if { $return_url eq "" } {
+    set return_url [lors::get_community_url]
+}
+ad_set_client_property lorsm return_url $return_url
 
 # Student tracking
 set package_id [ad_conn package_id]

@@ -179,5 +179,6 @@ if { [info exists js] } {
     set TREE_ITEMS [generate_tree_menu $js $index 1]
     set TREE_HASH [join $TREE_HASH "\n"]
 }
+
 # return_url
-set return_url [lors::get_community_url]
+set return_url [ad_get_client_property lorsm return_url]

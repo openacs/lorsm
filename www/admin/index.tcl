@@ -12,7 +12,7 @@ ad_page_contract {
 
 set title "[_ lorsm.lt_Manage_Courses_in_Rep]"
 set context [list "[_ lorsm.Manage_Courses]"]
-
+set return_url [ad_conn url]
 
 set package_id [ad_conn package_id]
 set user_id [ad_conn user_id]
@@ -42,7 +42,7 @@ template::list::create \
     -elements {
         course_name {
             label "[_ lorsm.Available_Courses]"
-            display_template {@d_courses.course_url;noquote@}
+            link_url_col course_url
             display_col course_name
             link_html {title "Access Course"}
 
@@ -124,10 +124,7 @@ template::list::create \
 
 db_multirow -extend { ims_md_id course_url } d_courses select_d_courses {} {
     set ims_md_id $man_id
-#    if { [string eq $format_name "default"] } {
-    set course_url "<a href=\"[ad_conn package_url]delivery/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\">$course_name</a>"
- #   } else {
-#   set course_url "<a href=\"${folder_name}/?[export_vars man_id]\" title=\"[_ lorsm.Access_Course]\" target=_blank>$course_name</a>"
-#    }
+    set course_url [export_vars -base "../delivery" { man_id return_url }]
+
 }
 

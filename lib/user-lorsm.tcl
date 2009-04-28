@@ -1,5 +1,6 @@
 set user_id [ad_conn user_id]
 set our_community_id [lors::get_community_id]
+set return_url [ad_return_url]
 
 set lors_central_package_id [apm_package_id_from_key "lors-central"]
 set lors_central_url [apm_package_url_from_id $lors_central_package_id]
@@ -29,15 +30,15 @@ foreach package $package_id {
                     set delivery_method delivery
                     set course_url_url [export_vars \
                         -base "[lindex $context 0]$delivery_method/" \
-                        -url {man_id}]
+                        -url {man_id return_url}]
 
                     #this popup shouldn't affect delivery should popup blocker be in place
                     if { [string eq $needscorte "delivery-scorm"] } {
-                        set course_url "> <a href=\"$course_url_url\"
-                            onclick=\"return popupnr(\'$course_url_url\',\'aaa\',1);\"
+                        set course_url "> <a href=\"[ad_quotehtml $course_url_url]\"
+                            onclick=\"return popupnr(\'[ad_quotehtml $course_url_url]\',\'aaa\',1);\"
                             title=\"[_ lorsm.Access_Course]\">$course_name</a>"
                     } else {
-                        set course_url "<a href=\"$course_url_url\"
+                        set course_url "<a href=\"[ad_quotehtml $course_url_url]\"
                             title=\"[_ lorsm.Access_Course]\">$course_name</a>"
                     }
                     ns_log Debug "lorsm - course_url: $course_url"
@@ -47,7 +48,7 @@ foreach package $package_id {
                 }
             } else {
                 set course_url "<a href=\"[site_node::get_url_from_object_id \
-                    -object_id $lorsm_instance_id]delivery/?[export_vars man_id]\"
+                    -object_id $lorsm_instance_id]delivery/?[ad_quotehtml[export_vars {man_id return_url}]]\"
                     title=\"[_ lorsm.Access_Course]\" >$course_name</a>"
             }
 

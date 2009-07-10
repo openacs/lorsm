@@ -670,7 +670,7 @@
   <msg key="lt_Upload_an_IMSSCORM_Co">Upload an IMS/SCORM Content Package Course</msg>
   <msg key="lt_Upload_IMS_Content_Pa">Upload IMS Content Package</msg>
   <msg key="lt_Uploading_and_process">Uploading and processing your course, please wait ...</msg>
-  <msg key="lt_Use_the_Browse_button">Use the \&quot;Browse...\&quot; button to locate your file, then click \&quot;Open\&quot;</msg>
+  <msg key="lt_Use_the_Browse_button">Use the &quot;Browse...&quot; button to locate your file, then click &quot;Open&quot;</msg>
   <msg key="lt_Use_the_Classic_Style">Use the Classic Style if your course does not provide an index by itself and you want us to provide it. Otherwise use the Without LORSM Index Style.</msg>
   <msg key="lt_valigntop_alignleftis">valign=&quot;top&quot; align=&quot;left&quot;&gt;%isscorm;noquote%</msg>
   <msg key="lt_Version_of_the_Schema">Version of the Schema. i.e.: '1.2.1'</msg>

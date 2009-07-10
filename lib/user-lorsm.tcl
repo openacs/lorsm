@@ -73,26 +73,26 @@ foreach package $package_id {
                     #item has no track for the user
                     #the icon should be the same as per "not yet visited"
                     append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\"
-                        alt=\"Not attempted\">"
+                        alt=\"#lorsm.Not_attempted#\">"
                 } else {
                     switch -regexp $lesson_status {
                         null {
-                            append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"#lorsm.Not_attempted#\">"
 
                         } incomplete {
-                            append icon "<img src=\"/resources/lorsm/icons/flag_orange.gif\" alt=\"Incomplete\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_orange.gif\" alt=\"#lorsm.Incomplete#\">"
 
                         } complete {
-                            append icon "<img src=\"/resources/lorsm/icons/flag_green.gif\" alt=\"Completed\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_green.gif\" alt=\"#lorsm.Completed#\">"
 
                         } failed {
-                            append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"Failed\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_red.gif\" alt=\"#lorsm.Failed#\">"
 
                         } "not attempted" {
-                            append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"Not attempted\">"
+                            append icon "<img src=\"/resources/lorsm/icons/flag_white.gif\" alt=\"#lorsm.Not_attempted#\">"
 
                         } passed {
-                            append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"Passed\">"
+                            append icon "<img src=\"/resources/lorsm/icons/icon_accept.gif\" alt=\"#lorsm.Passed#\">"
                         } default {
                             append icon "<span style=\"color: #fff\"> $lesson_status
                                 **</span> <img src=\"/resources/lorsm/icons/flag_blue.gif\" alt=\"$lesson_status\">"
@@ -174,14 +174,12 @@ append elements_list {
         html { align right }
         display_eval {[lc_numeric $viewed_percent "%.2f"]}
     } lesson_status {
-        label "Completed"
+        label "[_ lorsm.Status_1]"
         html { align center }
         display_template { @d_courses.lesson_status;noquote@ }
     }
 }
 
-
-#label "[_ lorsm._CourseStatus]"
 
 if { ![string equal $lors_central_package_id 0] && ![empty_string_p $our_community_id] } {
     if { [lors_central::check_inst -user_id $user_id -community_id $our_community_id] } {

@@ -105,6 +105,7 @@
   <msg key="Classification_MD">Classification MD</msg>
   <msg key="Classifications">Classifications:</msg>
   <msg key="classlist">class=&quot;list&quot;</msg>
+  <msg key="Completed">Completed</msg>
   <msg key="Confirm">Confirm?</msg>
   <msg key="Confirm_q">Confirm?</msg>
   <msg key="Confirmation">Confirmation</msg>
@@ -185,6 +186,7 @@
   <msg key="Expand">Expand</msg>
   <msg key="Expand_all_students">Expand all students</msg>
   <msg key="Export">Export</msg>
+  <msg key="Failed">Failed</msg>
   <msg key="file">file...</msg>
   <msg key="Files">Files</msg>
   <msg key="files">files</msg>
@@ -200,6 +202,7 @@
   <msg key="Identifier_1">Identifier</msg>
   <msg key="IMS_Metadata_Editor">IMS Metadata Editor</msg>
   <msg key="IMS_Package_Info">IMS Package Info</msg>
+  <msg key="Incomplete">Incomplete</msg>
   <msg key="indb_p">indb_p</msg>
   <msg key="index">index</msg>
   <msg key="Info">Info</msg>
@@ -745,6 +748,7 @@
   <msg key="No_version_Available">No version Available</msg>
   <msg key="not-allowed">not-allowed</msg>
   <msg key="Not_Allowed">Not Allowed</msg>
+  <msg key="Not_attempted">Not attempted</msg>
   <msg key="Not_Shared">Not Shared</msg>
   <msg key="not_yet">not yet</msg>
   <msg key="Note">Note</msg>
@@ -761,6 +765,7 @@
   <msg key="Organizations">Organizations</msg>
   <msg key="Other_Platform_Req">Other Platform Req.</msg>
   <msg key="Owner">Owner</msg>
+  <msg key="Passed">Passed</msg>
   <msg key="Preview_Course">Preview Course:</msg>
   <msg key="Preview_Course_1">Preview Course</msg>
   <msg key="Processing_files">Processing file(s):</msg>

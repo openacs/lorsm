@@ -73,9 +73,9 @@ proc generate_tree_menu { items index rlevel } {
         set title [string map { \{ \\{ \} \\} } $title ]
         upvar #$adp_level man_id man_id
 
-        set url "'[export_vars \
+        set url "[export_vars \
                     -base "record-view" \
-                    -url {item_id man_id}]'"
+                    -url {item_id man_id}]"
 
         if { $index < [expr $itemcount - 1] } {
             # Get the tree level of the next item
@@ -86,7 +86,7 @@ proc generate_tree_menu { items index rlevel } {
             if { $level == $nextlevel } {
             # Another item in the same level, just add to the list
                 lappend TREE_HASH "TREE_HASH\[\"ims_id.$item_id\"\] = $counter;"
-                lappend levelitems "\['$title', $url\]"
+                lappend levelitems "\['$title', '$url'\]"
                 incr counter
             } elseif { $level < $nextlevel } {
                 # Next item is a sub-item
@@ -98,12 +98,12 @@ proc generate_tree_menu { items index rlevel } {
                 if { [llength $submenu] } {
                     # There's a submenu
                     lappend levelitems \
-                                "\['$title',  $url,\n$submenu\n\]"
+                                "\['$title',  '$url',\n$submenu\n\]"
                 } else {
                     # Child is a lone leaf node, if so, it should have
                     # replace the url, the item_id and decremented counter
                     lappend levelitems \
-                                "\['$title',  $url\]"
+                                "\['$title',  '$url'\]"
                 }
 
                 # The index should have been adjusted by now to point
@@ -132,7 +132,7 @@ proc generate_tree_menu { items index rlevel } {
                     lappend TREE_HASH \
                             "TREE_HASH\[\"ims_id.$item_id\"\] = $counter;"
                     incr counter
-                    return [join [lappend levelitems "\['$title', $url\]"] ",\n"]
+                    return [join [lappend levelitems "\['$title', '$url'\]"] ",\n"]
                 }
             }
         } else {
@@ -140,7 +140,7 @@ proc generate_tree_menu { items index rlevel } {
             set localindex [expr $index + 1]
             lappend TREE_HASH "TREE_HASH\[\"ims_id.$item_id\"\] = $counter;"
             incr counter
-            return [join [lappend levelitems "\['$title', $url\]"] ",\n"]
+            return [join [lappend levelitems "\['$title', '$url'\]"] ",\n"]
         }
     }
     set localindex $index

@@ -58,7 +58,6 @@ if {![empty_string_p $imsitem_id]} {
     }
 
     # See if this item only has one child, if so, load that instead
-    set extracted_sql_children [template::multirow get children 1 child_item_id]
     if { [template::multirow size children] == 1 && [db_string grandchildren {}] == 0 } {
 
         set href ${package_url}delivery/record-view

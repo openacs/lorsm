@@ -29,7 +29,7 @@
 
     <fullquery name="select_ed_semd">
         <querytext>
-            select '[' || sem_density_s || '] ' || sem_density_v as semd, ims_md_id
+            select '(' || sem_density_s || ') ' || sem_density_v as semd, ims_md_id
             from ims_md_educational
             where ims_md_id = :ims_md_id
         </querytext>

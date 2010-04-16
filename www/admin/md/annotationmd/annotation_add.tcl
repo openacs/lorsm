@@ -18,11 +18,11 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list [export_vars -base ".." ims_md_id]
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-                [list [export_vars -base "../annotationmd" ims_md_id] \
-                            "[_ lorsm.Annotation_MD]"] \
-                "[_ lorsm.Annotation_Entry]"]
+                 [list [export_vars -base "../" ims_md_id] \
+                      [_ lorsm.IMS_Metadata_Editor]] \
+                 [list [export_vars -base "../annotationmd" ims_md_id] \
+                      [_ lorsm.Annotation_MD]] \
+                 [_ lorsm.Annotation_Entry]]
 
 set title "[_ lorsm.lt_Add_Annotation_MD_Ent]"
 

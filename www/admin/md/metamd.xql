@@ -3,7 +3,7 @@
 
     <fullquery name="select_md_cata">
         <querytext>
-            select catalog, '[' || entry_l || ']' || ' ' || entry_s as entry_ls
+            select catalog, '(' || entry_l || ')' || ' ' || entry_s as entry_ls
             from ims_md_metadata_cata
             where ims_md_id = :ims_md_id
         </querytext>
@@ -11,9 +11,9 @@
 
     <fullquery name="select_md_cont">
         <querytext>
-            select mdc.role_v || ' ' || '[' || mdc.role_s || ']' as role,
+            select mdc.role_v || ' ' || '(' || mdc.role_s || ')' as role,
                 mdce.entity, mdc.cont_date,
-                '[' || mdc.cont_date_l || ']' || ' ' || mdc.cont_date_s as cont_date_ls
+                '(' || mdc.cont_date_l || ')' || ' ' || mdc.cont_date_s as cont_date_ls
             from ims_md_metadata_contrib mdc, ims_md_metadata_contrib_entity mdce
             where mdc.ims_md_md_cont_id = mdce.ims_md_md_cont_id
                 and mdc.ims_md_id = :ims_md_id

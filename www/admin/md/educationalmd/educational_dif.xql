@@ -28,7 +28,7 @@
 
     <fullquery name="select_ed_dif">
         <querytext>
-            select '[' || difficulty_s || '] ' || difficulty_v as diff, ims_md_id
+            select '(' || difficulty_s || ') ' || difficulty_v as diff, ims_md_id
             from ims_md_educational
             where ims_md_id = :ims_md_id
         </querytext>

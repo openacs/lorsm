@@ -21,35 +21,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_cl_de_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../classificationmd" ims_md_id] \
-                            "[_ lorsm.Classification_MD]"] \
-
-                    [list   [export_vars \
-                                -base "classification" \
-                                {ims_md_id ims_md_cl_id}] \
-                            "[_ lorsm.Classification_Entry]"] \
-
-                    "[_ lorsm.Edit_Description]"]
+                     [list [export_vars -base "../" ims_md_id] [_ lorsm.IMS_Metadata_Editor]] \
+                     [list [export_vars -base "../classificationmd" ims_md_id] [_ lorsm.Classification_MD]] \
+                     [list [export_vars -base "classification" {ims_md_id ims_md_cl_id}] [_ lorsm.Classification_Entry]] \
+                     [_ lorsm.Edit_Description]]
 
     set title "[_ lorsm.lt_Edit_Classification_M_4]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"]
-
-                    [list   [export_vars -base "../classificationmd" ims_md_id] \
-                            "[_ lorsm.Classification_MD]"] \
-
-                    [list   [export_vars \
-                                -base "classification" \
-                                {ims_md_id ims_md_cl_id}] \
-                            "[_ lorsm.Classification_Entry]"] \
-
-                    "[_ lorsm.Add_Description]"]
-
+                     [list   [export_vars -base ".." ims_md_id] [_ lorsm.IMS_Metadata_Editor]] \
+                     [list   [export_vars -base "../classificationmd" ims_md_id] [_ lorsm.Classification_MD]] \
+                     [list   [export_vars -base "classification" {ims_md_id ims_md_cl_id}] [_ lorsm.Classification_Entry]] \
+                     [_ lorsm.Add_Description]]
+    
     set title "[_ lorsm.lt_Add_Classification_MD_2]"
 }
 
@@ -59,6 +43,7 @@ ad_form \
     -name classificationmd_desc \
     -cancel_url classification?ims_md_id=$ims_md_id&ims_md_cl_id=$ims_md_cl_id \
     -mode edit \
+    -select_query_name classificationmd_desc_ad_form \
     -form {
         ims_md_cl_de_id:key(ims_md_classification_desc_seq)
 
@@ -77,8 +62,6 @@ ad_form \
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
         {ims_md_cl_id:text(hidden) {value $ims_md_cl_id}}
-
-    } -select_query_name classificationmd_desc_ad_form {
 
     } -edit_data {
         db_dml do_update {}

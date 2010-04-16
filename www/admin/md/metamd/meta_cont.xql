@@ -51,9 +51,9 @@
 
     <fullquery name="select_md_cont">
         <querytext>
-            select mdc.role_v || ' ' || '[' || mdc.role_s || ']' as role,
+            select mdc.role_v || ' ' || '(' || mdc.role_s || ')' as role,
                 mdce.entity, mdc.cont_date,
-                '[' || mdc.cont_date_l || ']' || ' ' || mdc.cont_date_s as cont_date_ls,
+                '(' || mdc.cont_date_l || ')' || ' ' || mdc.cont_date_s as cont_date_ls,
                 mdc.ims_md_md_cont_id, mdc.ims_md_id
             from ims_md_metadata_contrib mdc, ims_md_metadata_contrib_entity mdce
             where mdc.ims_md_md_cont_id = mdce.ims_md_md_cont_id

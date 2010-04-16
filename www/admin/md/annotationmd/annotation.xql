@@ -11,7 +11,7 @@
 
     <fullquery name="select_an_date">
         <querytext>
-            select date, '[' || date_l || '] ' || date_s as datels
+            select date, '(' || date_l || ') ' || date_s as datels
             from ims_md_annotation
             where ims_md_an_id = :ims_md_an_id
         </querytext>
@@ -19,7 +19,7 @@
 
     <fullquery name="select_an_desc">
         <querytext>
-            select '[' || descrip_l || '] ' || descrip_s as desc
+            select '(' || descrip_l || ') ' || descrip_s as desc
             from ims_md_annotation_descrip
             where ims_md_an_id = :ims_md_an_id
         </querytext>

@@ -21,23 +21,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_lf_cont_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] \
-                            "[_ lorsm.Life_Cycle_MD]"] \
-
-                    "[_ lorsm.Edit_Contributor]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../lifecyclemd" ims_md_id] \
+                          "[_ lorsm.Life_Cycle_MD]"] \
+                     "[_ lorsm.Edit_Contributor]"]
     set title "[_ lorsm.lt_Edit_Lifecycle_MD_Con]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../lifecyclemd" im\\\\\\\s_md_id] \
-                            "[_ lorsm.Life_Cycle_MD]"] \
-
-                    "[_ lorsm.Add_Contributor]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../lifecyclemd" ims_md_id] \
+                          "[_ lorsm.Life_Cycle_MD]"] \
+                     "[_ lorsm.Add_Contributor]"]
     set title "[_ lorsm.lt_Add_Lifecycle_MD_Cont]"
 }
 
@@ -46,6 +42,7 @@ ad_form \
     -name lifecyclemd_cont \
     -cancel_url ../lifecyclemd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name lifecyclemd_cont_ad_form \
     -form {
         ims_md_lf_cont_id:key(ims_md_life_cycle_contrib_seq)
 
@@ -86,9 +83,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name lifecyclemd_cont_ad_form {
-
 
     } -edit_data {
         db_transaction {

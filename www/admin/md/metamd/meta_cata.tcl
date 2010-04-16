@@ -20,23 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_md_cata_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "IMS Metadata Editor"] \
-
-                    [list   [export_vars -base "../metamd" im\s_md_id] \
-                            "Meta Metadata"] \
-
-                    "Edit Catalog-Entry"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "IMS Metadata Editor"] \
+                     [list   [export_vars -base "../metamd" ims_md_id] \
+                          "Meta Metadata"] \
+                     "Edit Catalog-Entry"]
     set title "Edit Meta MD Catalog-Entry"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "IMS Metadata Editor"] \
-
-                    [list   [export_vars -base "../metamd" im\s_md_id] \
-                            "Meta Metadata"] \
-
-                    "Add Catalog-Entry"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "IMS Metadata Editor"] \
+                     [list   [export_vars -base "../metamd" ims_md_id] \
+                          "Meta Metadata"] \
+                     "Add Catalog-Entry"]
     set title "Add Meta MD Catalog-Entry"
 }
 
@@ -46,6 +42,7 @@ ad_form \
     -name metamd_cata \
     -cancel_url ../metamd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name metamd_cata_ad_form \
     -form {
         ims_md_md_cata_id:key(ims_md_metadata_cata_seq)
 
@@ -68,8 +65,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name metamd_cata_ad_form {
 
     } -edit_data {
         db_dml do_update {}

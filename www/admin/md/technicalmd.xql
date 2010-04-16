@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <queryset>
 
-    <fullquery name="select_te_form ">
+    <fullquery name="select_te_form">
         <querytext>
             select format
             from ims_md_technical_format
@@ -27,8 +27,8 @@
 
     <fullquery name="select_te_req">
         <querytext>
-            select '[' || type_s || ']' || ' ' || type_v as type,
-                '[' || name_s || ']' || ' ' || name_v as name, min_version, max_version
+            select '(' || type_s || ')' || ' ' || type_v as type,
+                '(' || name_s || ')' || ' ' || name_v as name, min_version, max_version
             from ims_md_technical_requirement
             where ims_md_id = :ims_md_id
         </querytext>
@@ -36,7 +36,7 @@
 
     <fullquery name="select_te_inst">
         <querytext>
-            select '[' || instl_rmrks_l || ']' || ' ' || instl_rmrks_s as instl_rmrks
+            select '(' || instl_rmrks_l || ')' || ' ' || instl_rmrks_s as instl_rmrks
             from ims_md_technical
             where ims_md_id = :ims_md_id
         </querytext>
@@ -44,7 +44,7 @@
 
     <fullquery name="select_te_otr">
         <querytext>
-            select '[' || otr_plt_l || ']' || ' ' || otr_plt_s as otr_plt
+            select '(' || otr_plt_l || ')' || ' ' || otr_plt_s as otr_plt
             from ims_md_technical
             where ims_md_id = :ims_md_id
         </querytext>

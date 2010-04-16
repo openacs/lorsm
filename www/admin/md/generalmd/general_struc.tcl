@@ -19,13 +19,11 @@ ad_page_contract {
 # set context & title
 
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list   [export_vars -base "../generalmd" im\\\\s_md_id] \
-                        "[_ lorsm.General_MD]"] \
-
-                "[_ lorsm.Edit_Structure]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../generalmd" ims_md_id] \
+                      "[_ lorsm.General_MD]"] \
+                 "[_ lorsm.Edit_Structure]"]
 set title "[_ lorsm.lt_Edit_General_MD_Struc]"
 
 # Form

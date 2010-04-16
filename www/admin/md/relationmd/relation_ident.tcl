@@ -20,18 +20,15 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list   [export_vars -base "../relationmd" ims_md_id] \
-                        "[_ lorsm.Relation_MD]"] \
-
-                [list   [export_vars \
-                            -base "relation" \
-                            {ims_md_id ims_md_re_id ims_md_re_re_id}] \
-                        "[_ lorsm.Relation_Entry]"] \
-
-                "[_ lorsm.lt_AddEdit_Resource_Iden]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../relationmd" ims_md_id] \
+                      "[_ lorsm.Relation_MD]"] \
+                 [list   [export_vars \
+                              -base "relation" \
+                              {ims_md_id ims_md_re_id ims_md_re_re_id}] \
+                      "[_ lorsm.Relation_Entry]"] \
+                 "[_ lorsm.lt_AddEdit_Resource_Iden]"]
 set title "[_ lorsm.lt_Edit_Relation_MD_Reso_2]"
 
 
@@ -40,6 +37,7 @@ ad_form \
     -name relationmd_ident \
     -cancel_url relation?ims_md_id=$ims_md_id&ims_md_re_id=$ims_md_re_id&ims_md_re_re_id=$ims_md_re_re_id \
     -mode edit \
+    -select_query_name relationmd_ident_ad_form \
     -form {
         ims_md_re_re_id:key(ims_md_relation_resource_seq)
 
@@ -52,8 +50,6 @@ ad_form \
         {ims_md_id:text(hidden) {value $ims_md_id}}
 
         {ims_md_re_id:text(hidden) {value $ims_md_re_id}}
-
-    } -select_query_name relationmd_ident_ad_form {
 
     } -edit_data {
         db_dml do_update {}

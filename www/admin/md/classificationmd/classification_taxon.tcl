@@ -22,39 +22,32 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_cl_ta_ta_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../classificationmd" ims_md_id] \
-                            "[_ lorsm.Classification_MD]"] \
-
-                    [list   [export_vars \
-                                -base "classification" \
-                                {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
-                            "[_ lorsm.Classification_Entry]"] \
-
-                    [list   [export_vars \
-                                -base "classification_tpath" \
-                                {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
-                            "[_ lorsm.Taxonomic_Paths_2]"] \
-
-                    "[_ lorsm.Edit_Taxonomy]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../classificationmd" ims_md_id] \
+                          "[_ lorsm.Classification_MD]"] \
+                     [list   [export_vars \
+                                  -base "classification" \
+                                  {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
+                          "[_ lorsm.Classification_Entry]"] \
+                     [list   [export_vars \
+                                  -base "classification_tpath" \
+                                  {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
+                          "[_ lorsm.Taxonomic_Paths_2]"] \
+                     "[_ lorsm.Edit_Taxonomy]"]
 
     set title "[_ lorsm.lt_Edit_Classification_M_2]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../classificationmd" ims_md_id] \
-                            "[_ lorsm.Classification_MD]"] \
-
-                    [list   [export_vars \
-                                -base "classification" \
-                                {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
-                            "[_ lorsm.lt_Classification_Entry_]"] \
-
-                    "[_ lorsm.Add_Taxonomy]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../classificationmd" ims_md_id] \
+                          "[_ lorsm.Classification_MD]"] \
+                     [list   [export_vars \
+                                  -base "classification" \
+                                  {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
+                          "[_ lorsm.lt_Classification_Entry_]"] \
+                     "[_ lorsm.Add_Taxonomy]"]
 
     set title "[_ lorsm.lt_Add_Classification_MD_4]"
 }
@@ -64,6 +57,7 @@ ad_form \
     -name classificationmd_taxon \
     -cancel_url classification_tpath?ims_md_id=$ims_md_id&ims_md_cl_id=$ims_md_cl_id&ims_md_cl_ta_id=$ims_md_cl_ta_id \
     -mode edit \
+    -select_query_name classificationmd_taxon_ad_form \
     -form {
         ims_md_cl_ta_ta_id:key(ims_md_classification_taxpath_taxon_seq)
 
@@ -90,8 +84,6 @@ ad_form \
         {ims_md_cl_id:text(hidden) {value $ims_md_cl_id}}
 
         {ims_md_cl_ta_id:text(hidden) {value $ims_md_cl_ta_id}}
-
-    } -select_query_name classificationmd_taxon_ad_form {
 
     } -edit_data {
         db_dml do_update {}

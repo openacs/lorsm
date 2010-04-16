@@ -20,23 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_key_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../generalmd" im\\\s_md_id] \
-                            "[_ lorsm.General_MD]"] \
-
-                    "[_ lorsm.Edit_Keyword_1]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../generalmd" ims_md_id] \
+                          "[_ lorsm.General_MD]"] \
+                     "[_ lorsm.Edit_Keyword_1]"]
     set title "[_ lorsm.lt_Edit_General_MD_Keywo]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]" ] \
-
-                    [list   [export_vars -base "../generalmd" im\\\s_md_id] \
-                            "[_ lorsm.General_MD]"] \
-
-                    "[_ lorsm.Add_Keyword]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]" ] \
+                     [list   [export_vars -base "../generalmd" ims_md_id] \
+                          "[_ lorsm.General_MD]"] \
+                     "[_ lorsm.Add_Keyword]"]
     set title "[_ lorsm.lt_Add_General_MD_Keywor]"
 }
 
@@ -46,6 +42,7 @@ ad_form \
     -name generalmd_key \
     -cancel_url ../generalmd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name generalmd_key_ad_form \
     -form {
         ims_md_ge_key_id:key(ims_md_general_key_seq)
 
@@ -62,8 +59,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name generalmd_key_ad_form {
 
     } -edit_data {
         db_dml do_update {}

@@ -21,7 +21,7 @@
 
     <fullquery name="select_cl_desc">
         <querytext>
-            select '[' || clde.descrip_l || '] ' || clde.descrip_s as desc,
+            select '(' || clde.descrip_l || ') ' || clde.descrip_s as desc,
                 clde.ims_md_cl_de_id, cl.ims_md_cl_id, cl.ims_md_id
             from ims_md_classification_descrip clde, ims_md_classification cl
             where clde.ims_md_cl_id = cl.ims_md_cl_id

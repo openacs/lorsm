@@ -21,7 +21,7 @@
 
     <fullquery name="select_ed_cont">
         <querytext>
-            select '[' || context_s || '] ' || context_v as context, ims_md_ed_co_id, ims_md_id
+            select '(' || context_s || ') ' || context_v as context, ims_md_ed_co_id, ims_md_id
             from ims_md_educational_context
             where ims_md_id = :ims_md_id
         </querytext>

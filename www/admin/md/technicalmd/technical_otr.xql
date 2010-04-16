@@ -29,7 +29,7 @@
 
     <fullquery name="select_te_otr">
         <querytext>
-            select '[' || otr_plt_l || ']' || ' ' || otr_plt_s as otr_plt, ims_md_id
+            select '(' || otr_plt_l || ')' || ' ' || otr_plt_s as otr_plt, ims_md_id
             from ims_md_technical
             where ims_md_id = :ims_md_id
         </querytext>

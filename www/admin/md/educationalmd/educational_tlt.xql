@@ -30,7 +30,7 @@
 
     <fullquery name="select_ed_tlt">
         <querytext>
-            select type_lrn_time as tlt, '[' || type_lrn_time_l || '] ' || type_lrn_time_s as tlt_ls, ims_md_id
+            select type_lrn_time as tlt, '(' || type_lrn_time_l || ') ' || type_lrn_time_s as tlt_ls, ims_md_id
             from ims_md_educational
             where ims_md_id = :ims_md_id
         </querytext>

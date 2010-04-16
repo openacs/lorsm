@@ -21,7 +21,7 @@
 
     <fullquery name="select_ed_lrt">
         <querytext>
-            select '[' || lrt_s || '] ' || lrt_v as lrt, ims_md_ed_lr_id, ims_md_id
+            select '(' || lrt_s || ') ' || lrt_v as lrt, ims_md_ed_lr_id, ims_md_id
             from ims_md_educational_lrt
             where ims_md_id = :ims_md_id
         </querytext>

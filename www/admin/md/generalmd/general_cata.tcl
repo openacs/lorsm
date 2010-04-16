@@ -20,22 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_cata_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../generalmd" im\s_md_id] \
-                            "[_ lorsm.General_MD]"] \
-
-                    "[_ lorsm.Edit_Catalog-Entry]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../generalmd" ims_md_id] \
+                          "[_ lorsm.General_MD]"] \
+                     "[_ lorsm.Edit_Catalog-Entry]"]
     set title "[_ lorsm.lt_Edit_General_MD_Catal]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../generalmd" im\s_md_id] \
-                            "[_ lorsm.General_MD]"] \
-                    "[_ lorsm.Add_Catalog-Entry]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../generalmd" ims_md_id] \
+                          "[_ lorsm.General_MD]"] \
+                     "[_ lorsm.Add_Catalog-Entry]"]
     set title "[_ lorsm.lt_Add_General_MD_Catalo]"
 }
 
@@ -44,6 +41,7 @@ ad_form \
     -name generalmd_cata \
     -cancel_url ../generalmd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name generalmd_cata_ad_form \
     -form {
         ims_md_ge_cata_id:key(ims_md_general_cata_seq)
 
@@ -66,8 +64,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name generalmd_cata_ad_form {
 
     } -edit_data {
         db_dml do_update {}

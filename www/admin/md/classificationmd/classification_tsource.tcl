@@ -21,22 +21,18 @@ ad_page_contract {
 # set context & title
 
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list   [export_vars -base "../classificationmd" ims_md_id] \
-                        "[_ lorsm.Classification_MD]"] \
-
-                [list   [export_vars \
-                            -base "classification" \
-                            {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
-                        "[_ lorsm.Classification_Entry]"]
-
-                [list   [export_vars -base "classification_tpath" \
-                            {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
-                        "[_ lorsm.Taxonomic_Paths_1]"] \
-
-                "[_ lorsm.AddEdit_Source]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../classificationmd" ims_md_id] \
+                      "[_ lorsm.Classification_MD]"] \
+                 [list   [export_vars \
+                              -base "classification" \
+                              {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
+                      "[_ lorsm.Classification_Entry]"]
+             [list   [export_vars -base "classification_tpath" \
+                          {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
+                  "[_ lorsm.Taxonomic_Paths_1]"] \
+                 "[_ lorsm.AddEdit_Source]"]
 
 set title "[_ lorsm.lt_Edit_Classification_M_3]"
 
@@ -46,6 +42,7 @@ ad_form \
     -name classificationmd_tsource \
     -cancel_url classification_tpath?ims_md_id=$ims_md_id&ims_md_cl_id=$ims_md_cl_id&ims_md_cl_ta_id=$ims_md_cl_ta_id \
     -mode edit \
+    -select_query_name classificationmd_tsource_ad_form \
     -form {
         ims_md_cl_ta_id:key(ims_md_classification_taxpath_seq)
 
@@ -63,8 +60,6 @@ ad_form \
         {ims_md_cl_id:text(hidden) {value $ims_md_cl_id}}
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-    } -select_query_name classificationmd_tsource_ad_form {
-
     } -edit_data {
         db_dml do_update {}
 

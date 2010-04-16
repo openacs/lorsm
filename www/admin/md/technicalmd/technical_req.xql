@@ -25,8 +25,8 @@
 
     <fullquery name="select_te_req">
         <querytext>
-            select  '[' || type_s || ']' || ' ' || type_v as type,
-                '[' || name_s || ']' || ' ' || name_v as name,
+            select  '(' || type_s || ')' || ' ' || type_v as type,
+                '(' || name_s || ')' || ' ' || name_v as name,
                 min_version, max_version, ims_md_te_rq_id, ims_md_id
             from ims_md_technical_requirement
             where ims_md_id = :ims_md_id

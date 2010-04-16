@@ -21,7 +21,7 @@
 
     <fullquery name="select_an_desc">
         <querytext>
-            select '[' || ande.descrip_l || '] ' || ande.descrip_s as desc,
+            select '(' || ande.descrip_l || ') ' || ande.descrip_s as desc,
                 ande.ims_md_an_de_id, an.ims_md_an_id, an.ims_md_id
             from ims_md_annotation_descrip ande, ims_md_annotation an
             where ande.ims_md_an_id = an.ims_md_an_id

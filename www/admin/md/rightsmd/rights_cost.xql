@@ -29,7 +29,7 @@
 
     <fullquery name="select_ri_cost">
         <querytext>
-            select '[' || cost_s || '] ' || cost_v as cost, ims_md_id
+            select '(' || cost_s || ') ' || cost_v as cost, ims_md_id
             from ims_md_rights
             where ims_md_id = :ims_md_id
         </querytext>

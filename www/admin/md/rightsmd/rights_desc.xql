@@ -29,7 +29,7 @@
 
     <fullquery name="select_ri_desc">
         <querytext>
-            select '[' || descrip_l || '] ' || descrip_s as desc, ims_md_id
+            select '(' || descrip_l || ') ' || descrip_s as desc, ims_md_id
             from ims_md_rights
             where ims_md_id = :ims_md_id
         </querytext>

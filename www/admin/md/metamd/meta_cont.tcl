@@ -21,21 +21,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_md_cont_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../metamd" im\s_\md_id] \
-                            "[_ lorsm.Meta_Metadata]"] \
-                    "[_ lorsm.Add_Contributor]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../metamd" ims_\md_id] \
+                          "[_ lorsm.Meta_Metadata]"] \
+                     "[_ lorsm.Add_Contributor]"]
     set title "[_ lorsm.lt_Edit_Meta_MD_Contribu]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../metamd" im\s_\md_id] \
-                            "[_ lorsm.Meta_Metadata]"] \
-                    "[_ lorsm.Add_Contributor]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../metamd" ims_\md_id] \
+                          "[_ lorsm.Meta_Metadata]"] \
+                     "[_ lorsm.Add_Contributor]"]
     set title "[_ lorsm.lt_Add_Meta_MD_Contribut]"
 }
 
@@ -45,6 +43,7 @@ ad_form \
     -name metamd_cont \
     -cancel_url ../metamd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name metamd_cont_ad_form \
     -form {
         ims_md_md_cont_id:key(ims_md_metadata_contrib_seq)
 
@@ -85,8 +84,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name metamd_cont_ad_form {
 
     } -edit_data {
         db_transaction {

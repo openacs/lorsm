@@ -1,4 +1,3 @@
-<table class="list" cellpadding="3" cellspacing="1" width="70%">
     <multiple name="custom_pages">
         <tr class="list-even">
             <td style="background-color: #e0e0e0; font-weight: bold; width:20%;">@custom_pages.pretty_name@</td>
@@ -23,4 +22,3 @@
             </td>
         </tr>
     </multiple>
-</table>

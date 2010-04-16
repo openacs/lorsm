@@ -31,6 +31,7 @@ db_multirow -extend {order pretty_name} custom_pages get_custom_pages {} {
     lappend lorsm_custom_page_ids $ims_item_id
     lappend existing_custom_page_types $type
     set order $custom_page_order($type)
+    set pretty_name $custom_page_pretty_names($type)
 }
 
 foreach type $custom_page_types {

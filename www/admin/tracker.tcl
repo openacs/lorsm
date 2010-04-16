@@ -24,6 +24,7 @@ set context [list "[_ lorsm.Set_Course_Options]"]
 ad_form \
     -name tracker \
     -export {package_id} \
+    -select_query_name tracker_ad_form \
     -form {
         {man_id:key}
 
@@ -40,8 +41,6 @@ ad_form \
             {label Status?}
             {options {{"[_ lorsm.Trackable_1]" t} {"[_ lorsm.No_Thanks]" f}}}
         }
-
-    } -select_query_name tracker_ad_form {
 
     } -edit_data {
         db_dml do_update {}

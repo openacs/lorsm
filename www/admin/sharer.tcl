@@ -32,6 +32,7 @@ set context [list "[_ lorsm.lt_Share_CourseLearning_]"]
 ad_form \
     -name sharer \
     -export {return_url folder_id} \
+    -select_query_name sharer_ad_form \
     -form {
         {man_id:key}
 
@@ -48,8 +49,6 @@ ad_form \
             {label Status?}
             {options {{"[_ lorsm.Shared]" t} {"[_ lorsm.Not_Shared]" f}}}
         }
-
-    } -select_query_name sharer_ad_form {
 
     } -edit_data {
         db_transaction {

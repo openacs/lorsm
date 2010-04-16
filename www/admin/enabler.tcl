@@ -24,6 +24,7 @@ set context [list "[_ lorsm.Set_Course_Status]"]
 
 ad_form -name enabler \
     -export {package_id} \
+    -select_query_name enabler_form \
     -form {
         {man_id:key}
 
@@ -40,8 +41,6 @@ ad_form -name enabler \
             {label "[_ lorsm.Status_3]"}
             {options {{"[_ lorsm.Enable]" t} {"[_ lorsm.Disable]" f}}}
         }
-
-    } -select_query_name enabler_form {
 
     } -edit_data {
         db_dml do_update {}

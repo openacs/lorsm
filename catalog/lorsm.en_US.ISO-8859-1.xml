@@ -100,6 +100,8 @@
   <msg key="Catalog-Entries">Catalog-Entries:</msg>
   <msg key="Catalog_1">Catalog</msg>
   <msg key="Change">Change</msg>
+  <msg key="Choose_end_page">Choose end page</msg>
+  <msg key="Choose_start_page">Choose start page</msg>
   <msg key="Classic_Style">Classic Style</msg>
   <msg key="Classification_Entry">Classification Entry</msg>
   <msg key="Classification_MD">Classification MD</msg>
@@ -177,6 +179,7 @@
   <msg key="Educational_Metadata">Educational Metadata</msg>
   <msg key="Enable">Enable</msg>
   <msg key="Enabled">Enabled</msg>
+  <msg key="End_Page">End Page</msg>
   <msg key="Entity">Entity:</msg>
   <msg key="Entity_1">Entity</msg>
   <msg key="Entry">Entry:</msg>
@@ -812,6 +815,7 @@
   <msg key="Source_1">Source</msg>
   <msg key="Start">Begin with the Course</msg>
   <msg key="Start_Course">Start Course</msg>
+  <msg key="Start_Page">Start Page</msg>
   <msg key="Status">Status:</msg>
   <msg key="Status_1">Status</msg>
   <msg key="Status_2">Status</msg>

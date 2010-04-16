@@ -108,14 +108,14 @@ for the format, an id, and the name of an adp in packages/lorsm/www/delivery whe
 
 create table lorsm_custom_pages (
 	man_id integer
-	constraint lors_st_end_pgs_man_id_pk
-        primary key 
-	constraint lors_st_end_pgs_man_id_fk
+    	constraint lors_st_end_pgs_man_id_fk
         references ims_cp_manifests (man_id),
 	page_id integer
-	constraint lors_st_end_pgs_start_id_fk
-	references cr_items (item_id),
-	type varchar(100)
+	    constraint lors_st_end_pgs_start_id_fk
+	    references cr_items (item_id),
+	type varchar(100),
+	constraint lcp_man_id_type_pk
+        primary key (man_id, type)
 );
 
 comment on table lorsm_custom_pages is '

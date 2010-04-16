@@ -22,7 +22,7 @@
 
     <fullquery name="select_cl_taxon">
         <querytext>
-            select ctt.identifier, '[' || ctt.entry_l || '] ' || ctt.entry_s as entry,
+            select ctt.identifier, '(' || ctt.entry_l || ') ' || ctt.entry_s as entry,
                 ctt.ims_md_cl_ta_id, ctt.ims_md_cl_ta_ta_id, cl.ims_md_cl_id, cl.ims_md_id
             from ims_md_classification_taxpath_taxon ctt, ims_md_classification cl
             where ctt.ims_md_cl_ta_id = :ims_md_cl_ta_id

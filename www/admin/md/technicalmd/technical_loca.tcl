@@ -20,23 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_te_lo_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../technicalmd" \im\\s_md_id] \
-                            "[_ lorsm.Technical_MD]"] \
-
-                    " [_ lorsm.Edit_Location]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../technicalmd" ims_md_id] \
+                          "[_ lorsm.Technical_MD]"] \
+                     " [_ lorsm.Edit_Location]"]
     set title "[_ lorsm.lt_Edit_Technical_MD_Loc]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../technicalmd" \im\\s_md_id] \
-                            "[_ lorsm.Technical_MD]"] \
-
-                    "[_ lorsm.Add_Location]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../technicalmd" ims_md_id] \
+                          "[_ lorsm.Technical_MD]"] \
+                     "[_ lorsm.Add_Location]"]
     set title "[_ lorsm.lt_Add_Technical_MD_Loca]"
 }
 
@@ -45,6 +41,7 @@ ad_form \
     -name technicalmd_loca \
     -cancel_url ../technicalmd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name technicalmd_loca_ad_form \
     -form {
         ims_md_te_lo_id:key(ims_md_technical_location_seq)
 
@@ -61,9 +58,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-
-    } -select_query_name technicalmd_loca_ad_form {
 
     } -edit_data {
         db_dml do_update {}

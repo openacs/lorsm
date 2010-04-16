@@ -20,23 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_ie_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../educationalmd" ims_md_id] \
-                            "[_ lorsm.Educational_MD]"] \
-
-                    "[_ lorsm.lt_Edit_Intended_End_Use]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../educationalmd" ims_md_id] \
+                          "[_ lorsm.Educational_MD]"] \
+                     "[_ lorsm.lt_Edit_Intended_End_Use]"]
     set title "[_ lorsm.lt_Edit_Educational_MD_I]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../educationalmd" ims_md_id] \
-                            "[_ lorsm.Educational_MD]"] \
-
-                    "[_ lorsm.lt_Add_Intended_End_User]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../educationalmd" ims_md_id] \
+                          "[_ lorsm.Educational_MD]"] \
+                     "[_ lorsm.lt_Add_Intended_End_User]"]
     set title "[_ lorsm.lt_Add_Educational_MD_In]"
 }
 
@@ -45,6 +41,7 @@ ad_form \
     -name educationalmd_ieur \
     -cancel_url ../educationalmd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name educationalmd_ieur_ad_form \
     -form {
         ims_md_ed_ie_id:key(ims_md_educational_ieur_seq)
 
@@ -61,8 +58,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name educationalmd_ieur_ad_form {
 
     } -edit_data {
         db_dml do_update {}

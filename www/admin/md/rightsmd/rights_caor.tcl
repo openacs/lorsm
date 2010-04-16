@@ -18,15 +18,13 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list \
-                    [export_vars -base ".." ims_md_id] \
-                    "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list \
-                    [export_vars -base "../rightsmd" ims_md_id] \
-                    "[_ lorsm.Rights_MD]"] \
-
-                " <#_Add/Edit Copyrights or other Restrictions #>"]
+                 [list \
+                      [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list \
+                      [export_vars -base "../rightsmd" ims_md_id] \
+                      "[_ lorsm.Rights_MD]"] \
+                 "Add/Edit Copyrights or other Restrictions"]
 set title "[_ lorsm.lt_Edit_Rights_MD_Copyri]"
 
 # Form

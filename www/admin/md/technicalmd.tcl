@@ -43,7 +43,7 @@ template::list::create \
     -elements {
         t_size_bytes { label "" }
     }
-db_multirow d_te_size  {}
+db_multirow d_te_size select_te_size {}
 
 # Technical Location
 template::list::create \

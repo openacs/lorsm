@@ -19,13 +19,13 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-                [list   [export_vars -base "../annotationmd" ims_md_id] \
-                        "[_ lorsm.Annotation_MD]"] \
-                [list   [export_vars -base "annotation" {ims_md_id ims_md_an_id}] \
-                        "[_ lorsm.Annotation_Entry]"] \
-                "[_ lorsm.AddEdit_Date]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../annotationmd" ims_md_id] \
+                      "[_ lorsm.Annotation_MD]"] \
+                 [list   [export_vars -base "annotation" {ims_md_id ims_md_an_id}] \
+                      "[_ lorsm.Annotation_Entry]"] \
+                 "[_ lorsm.AddEdit_Date]"]
 
 set title "[_ lorsm.lt_Edit_Annotation_MD_Da]"
 
@@ -35,6 +35,7 @@ ad_form \
     -name annotationmd_date \
     -cancel_url annotation?ims_md_id=$ims_md_id&ims_md_an_id=$ims_md_an_id \
     -mode edit \
+    -select_query_name annotationmd_date_ad_form \
     -form {
         ims_md_an_id:key(ims_md_annotation_seq)
 
@@ -54,8 +55,6 @@ ad_form \
             {label "[_ lorsm.Description]"}}
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name annotationmd_date_ad_form {
 
     } -edit_data {
         db_dml do_update {}

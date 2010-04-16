@@ -30,7 +30,7 @@
 
     <fullquery name="select_ed_tar">
         <querytext>
-            select '[' || tar_l || '] ' || tar_s as tar, ims_md_ed_ta_id, ims_md_id
+            select '(' || tar_l || ') ' || tar_s as tar, ims_md_ed_ta_id, ims_md_id
             from ims_md_educational_tar
             where ims_md_id = :ims_md_id
         </querytext>

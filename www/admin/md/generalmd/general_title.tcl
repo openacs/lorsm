@@ -19,23 +19,20 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_ge_ti_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../generalmd" ims_md_id] \
-                            "[_ lorsm.General_MD]"] \
-
-                    "[_ lorsm.Edit_Titles]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../generalmd" ims_md_id] \
+                          "[_ lorsm.General_MD]"] \
+                     "[_ lorsm.Edit_Titles]"]
     set title "[_ lorsm.lt_Edit_General_MD_Title]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../generalmd" ims_md_id] \
-                            "[_ lorsm.General_MD]"] \
-                    "[_ lorsm.Add_Titles]"]
-#    set context [list [list [export_vars -base ".." ims_md_id] "[_ lorsm.IMS_Metadata_Editor]"]  "[_ lorsm.General_MD]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../generalmd" ims_md_id] \
+                          "[_ lorsm.General_MD]"] \
+                     "[_ lorsm.Add_Titles]"]
+    
     set title "[_ lorsm.Add_General_MD_Title]"
 }
 
@@ -45,6 +42,7 @@ ad_form \
     -name generalmd_title \
     -cancel_url [export_vars -base "../generalmd" ims_md_id] \
     -mode edit \
+    -select_query_name generalmd_title_ad_form \
     -form {
         ims_md_ge_ti_id:key(ims_md_general_title_seq)
 
@@ -61,9 +59,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name generalmd_title_ad_form {
-
     } -edit_data {
         db_dml do_update {}
 

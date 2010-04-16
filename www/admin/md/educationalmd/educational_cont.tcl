@@ -20,23 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_co_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../educationalmd" im\s_md_id] \
-                            "[_ lorsm.Educational_MD]"] \
-
-                    "[_ lorsm.Edit_Context]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../educationalmd" ims_md_id] \
+                          "[_ lorsm.Educational_MD]"] \
+                     "[_ lorsm.Edit_Context]"]
     set title "[_ lorsm.lt_Edit_Educational_MD_C]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../educationalmd" im\s_md_id] \
-                            "[_ lorsm.Educational_MD]"] \
-
-                    "[_ lorsm.Add_Context]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../educationalmd" ims_md_id] \
+                          "[_ lorsm.Educational_MD]"] \
+                     "[_ lorsm.Add_Context]"]
     set title "[_ lorsm.lt_Add_Educational_MD_Co]"
 }
 
@@ -46,6 +42,7 @@ ad_form \
     -name educationalmd_cont \
     -cancel_url ../educationalmd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name educationalmd_cont_ad_form \
     -form {
         ims_md_ed_co_id:key(ims_md_educational_context_seq)
 
@@ -62,8 +59,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name educationalmd_cont_ad_form {
 
     } -edit_data {
         db_dml do_update {}

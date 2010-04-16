@@ -13,7 +13,7 @@
 
     <fullquery name="select_an_date">
         <querytext>
-            select date, '[' || date_l || '] ' || date_s as datels, ims_md_an_id, ims_md_id
+            select date, '(' || date_l || ') ' || date_s as datels, ims_md_an_id, ims_md_id
             from ims_md_annotation
             where ims_md_an_id = :ims_md_an_id
         </querytext>

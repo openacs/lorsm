@@ -13,13 +13,11 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list   [export_vars -base "../classificationmd" ims_md_id] \
-                        "[_ lorsm.Classification_MD]"] \
-
-                "[_ lorsm.Classification_Entry]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../classificationmd" ims_md_id] \
+                      "[_ lorsm.Classification_MD]"] \
+                 "[_ lorsm.Classification_Entry]"]
 
 set title "[_ lorsm.Classification_MD]"
 
@@ -32,7 +30,6 @@ template::list::create \
                     [export_vars \
                         -base classification_pur {ims_md_cl_id ims_md_id}] \
                     "[_ lorsm.Add_another_Purpose]"] \
-
     -html { align right style "width: 100%;" } \
     -elements {
         purpose_s { label "" }
@@ -51,7 +48,6 @@ template::list::create \
                         -base classification_addpath \
                         {ims_md_cl_id ims_md_id}] \
                     "[_ lorsm.lt_Add_another_Taxonomic]"] \
-
     -html { align right style "width: 100%;" } \
     -elements {
         source { label "" }
@@ -75,7 +71,6 @@ template::list::create \
                         -base classification_desc \
                         {ims_md_cl_id ims_md_id}] \
                     "[_ lorsm.lt_Add_another_Descripti]"] \
-
     -html { align right style "width: 100%;" } \
     -elements {
         desc { label "" }
@@ -89,11 +84,9 @@ template::list::create \
     -multirow d_cl_key \
     -no_data "[_ lorsm.lt_No_Keywords_Available]" \
     -actions [list  "[_ lorsm.Add_Keyword]" \
-                    [export_vars
-                        -base classification_key \
+                    [export_vars -base classification_key \
                         {ims_md_cl_id ims_md_id}] \
                     "[_ lorsm.Add_another_Keyword]"] \
-
     -html { align right style "width: 100%;" } \
     -elements {
         keyword { label "" }

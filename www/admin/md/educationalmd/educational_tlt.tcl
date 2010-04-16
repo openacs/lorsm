@@ -18,13 +18,11 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"]  \
-
-                [list   [export_vars -base "../educationalmd" ims_md_id] \
-                        "[_ lorsm.Educational_MD]"] \
-
-                "[_ lorsm.lt_AddEdit_Typical_Learn]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"]  \
+                 [list   [export_vars -base "../educationalmd" ims_md_id] \
+                      "[_ lorsm.Educational_MD]"] \
+                 "[_ lorsm.lt_AddEdit_Typical_Learn]"]
 set title "[_ lorsm.lt_Edit_Educational_MD_T_1]"
 
 # Form

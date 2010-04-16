@@ -12,7 +12,7 @@
 
     <fullquery name="select_cl_tsource">
         <querytext>
-            select '[' || ctp.source_l || '] ' || ctp.source_v as source, ctp.ims_md_cl_ta_id,
+            select '(' || ctp.source_l || ') ' || ctp.source_v as source, ctp.ims_md_cl_ta_id,
                 ctp.ims_md_cl_id, cl.ims_md_id
             from ims_md_classification_taxpath ctp, ims_md_classification cl
             where ctp.ims_md_cl_ta_id = :ims_md_cl_ta_id

@@ -20,17 +20,14 @@ ad_page_contract {
 # set context & title
 
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list   [export_vars -base "../classificationmd" ims_md_id] \
-                        "[_ lorsm.Classification_MD]"] \
-
-                [list   [export_vars \
-                            -base "classification" {ims_md_id ims_md_cl_id}] \
-                        "[_ lorsm.Classification_Entry]"] \
-
-                "[_ lorsm.AddEdit_Purpose]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../classificationmd" ims_md_id] \
+                      "[_ lorsm.Classification_MD]"] \
+                 [list   [export_vars \
+                              -base "classification" {ims_md_id ims_md_cl_id}] \
+                      "[_ lorsm.Classification_Entry]"] \
+                 "[_ lorsm.AddEdit_Purpose]"]
 
 set title "[_ lorsm.lt_Edit_Classification_M_1]"
 
@@ -40,6 +37,7 @@ ad_form \
     -name classificationmd_pur \
     -cancel_url classification?ims_md_id=$ims_md_id&ims_md_cl_id=$ims_md_cl_id \
     -mode edit \
+    -select_query_name classificationmd_pur_ad_form \
     -form {
         ims_md_cl_id:key(ims_md_classification_seq)
 
@@ -56,8 +54,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name classificationmd_pur_ad_form {
 
     } -edit_data {
         db_dml do_update {}

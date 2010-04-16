@@ -29,7 +29,7 @@
 
     <fullquery name="select_re_desc">
         <querytext>
-            select '[' || descrip_l || ']' || ' ' || descrip_s as descrip
+            select '(' || descrip_l || ')' || ' ' || descrip_s as descrip
             from ims_md_relation_resource
             where ims_md_re_id = :ims_md_re_id
                 and ims_md_re_re_id = :ims_md_re_re_id

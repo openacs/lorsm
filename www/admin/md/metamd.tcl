@@ -24,12 +24,12 @@ template::list::create \
     -actions [list  "[_ lorsm.Add_Catalog-Entry]" \
                     [export_vars -base metamd/meta_cata {ims_md_id}] \
                     "[_ lorsm.lt_Add_another_Catalog-E]"] \
-
     -html { style "width: 100%; align: right;" } \
     -elements {
         catalog { label "[_ lorsm.Catalog_1]" }
         entry_ls { label "[_ lorsm.Language_Entry]" }
     }
+
 db_multirow d_md_cata select_md_cata {}
 
 
@@ -41,7 +41,6 @@ template::list::create \
     -actions [list  "[_ lorsm.Add_Contributors]" \
                     [export_vars -base metamd/meta_cont {ims_md_id}] \
                     "[_ lorsm.lt_Add_another_Contribut]"] \
-
     -html { style "width: 100%; align:right; " } \
     -elements {
         role { label "[_ lorsm.Role]" }

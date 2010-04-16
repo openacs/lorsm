@@ -28,7 +28,7 @@
 
     <fullquery name="select_ri_caor">
         <querytext>
-            select '[' || caor_s || '] ' || caor_v as caor, ims_md_id
+            select '(' || caor_s || ') ' || caor_v as caor, ims_md_id
             from ims_md_rights
             where ims_md_id = :ims_md_id
         </querytext>

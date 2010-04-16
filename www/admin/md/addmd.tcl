@@ -21,9 +21,9 @@ set object_type [acs_object_type $ims_md_id]
 
 # set context & title
 set context [list \
-                [list   [export_vars -base "." ims_md_id] \
-                "[_ lorsm.IMS_Metadata_Editor]"] \
-            "[_ lorsm.lt_Edit_Metadata_Schema_]"]
+                 [list   [export_vars -base "." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 "[_ lorsm.lt_Edit_Metadata_Schema_]"]
 
 set title "[_ lorsm.lt_AddEdit_MD_Schema_and]"
 

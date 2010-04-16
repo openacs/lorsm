@@ -30,7 +30,7 @@
 
     <fullquery name="select_cl_key">
         <querytext>
-            select '[' || kw.keyword_l || '] ' || kw.keyword_s as keyword,
+            select '(' || kw.keyword_l || ') ' || kw.keyword_s as keyword,
                 kw.ims_md_cl_ke_id, cl.ims_md_cl_id, cl.ims_md_id
             from ims_md_classification_keyword kw, ims_md_classification cl
             where kw.ims_md_cl_id = cl.ims_md_cl_id

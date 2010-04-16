@@ -22,32 +22,27 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_re_re_ca_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../relationmd" ims_md_id] \
-                            "[_ lorsm.Relation_MD]"] \
-
-                    [list   [export_vars \
-                                -base "relation" \
-                                {ims_md_id ims_md_re_id ims_md_re_re_id}] \
-                            "[_ lorsm.Relation_Entry]"] \
-
-                    "[_ lorsm.Edit_Catalog-Entry]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../relationmd" ims_md_id] \
+                          "[_ lorsm.Relation_MD]"] \
+                     [list   [export_vars \
+                                  -base "relation" \
+                                  {ims_md_id ims_md_re_id ims_md_re_re_id}] \
+                          "[_ lorsm.Relation_Entry]"] \
+                     "[_ lorsm.Edit_Catalog-Entry]"]
     set title "[_ lorsm.lt_Edit_Relation_MD_Reso]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../relationmd" ims_md_id] \
-                            "[_ lorsm.Relation_MD]"] \
-
-                    [list   [export_vars \
-                                -base "relation" \
-                                {ims_md_id ims_md_re_id ims_md_re_re_id}] \
-                            "[_ lorsm.Relation_Entry]"] \
-                    "[_ lorsm.Add_Catalog-Entry]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../relationmd" ims_md_id] \
+                          "[_ lorsm.Relation_MD]"] \
+                     [list   [export_vars \
+                                  -base "relation" \
+                                  {ims_md_id ims_md_re_id ims_md_re_re_id}] \
+                          "[_ lorsm.Relation_Entry]"] \
+                     "[_ lorsm.Add_Catalog-Entry]"]
     set title "[_ lorsm.lt_Add_Relation_MD_Resou]"
 }
 
@@ -57,6 +52,7 @@ ad_form \
     -name relationmd_cata \
     -cancel_url relation?ims_md_id=$ims_md_id&ims_md_re_id=$ims_md_re_id&ims_md_re_re_id=$ims_md_re_re_id \
     -mode edit \
+    -select_query_name relationmd_cata_ad_form \
     -form {
         ims_md_re_re_ca_id:key(ims_md_relation_resource_catalog_seq)
 
@@ -83,8 +79,6 @@ ad_form \
         {ims_md_re_id:text(hidden) {value $ims_md_re_id}}
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name relationmd_cata_ad_form {
 
     } -edit_data {
         db_dml do_update {}

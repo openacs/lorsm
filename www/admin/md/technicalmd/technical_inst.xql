@@ -29,7 +29,7 @@
 
     <fullquery name="select_te_inst">
         <querytext>
-            select '[' || instl_rmrks_l || ']' || ' ' || instl_rmrks_s as instl_rmrks, ims_md_id
+            select '(' || instl_rmrks_l || ')' || ' ' || instl_rmrks_s as instl_rmrks, ims_md_id
             from ims_md_technical
             where ims_md_id = :ims_md_id
         </querytext>

@@ -31,7 +31,7 @@
 
     <fullquery name="select_md_cata">
         <querytext>
-            select catalog, '[' || entry_l || ']' || ' ' || entry_s as entry_ls,
+            select catalog, '(' || entry_l || ')' || ' ' || entry_s as entry_ls,
                 ims_md_md_cata_id, ims_md_id
             from ims_md_metadata_cata
             where ims_md_id = :ims_md_id

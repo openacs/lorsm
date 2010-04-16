@@ -14,17 +14,14 @@ ad_page_contract {
 
 # set context & title
 set context [list \
-                [list   [export_vars -base ".." ims_md_id] \
-                        "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                [list   [export_vars -base "../classificationmd" ims_md_id] \
-                        "[_ lorsm.Classification_MD]"] \
-
-                [list   [export_vars -base "classification" \
-                            {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
-                        "[_ lorsm.Classification_Entry]"] \
-
-                "[_ lorsm.Taxonomic_Paths_1]"]
+                 [list   [export_vars -base ".." ims_md_id] \
+                      "[_ lorsm.IMS_Metadata_Editor]"] \
+                 [list   [export_vars -base "../classificationmd" ims_md_id] \
+                      "[_ lorsm.Classification_MD]"] \
+                 [list   [export_vars -base "classification" \
+                              {ims_md_id ims_md_cl_id ims_md_cl_ta_id}] \
+                      "[_ lorsm.Classification_Entry]"] \
+                 "[_ lorsm.Taxonomic_Paths_1]"]
 
 set title "[_ lorsm.lt_Classification_MD_Tax]"
 

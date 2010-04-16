@@ -29,7 +29,7 @@
 
     <fullquery name="select_ed_intl">
         <querytext>
-            select '[' || int_level_s || '] ' || int_level_v as intl, ims_md_id
+            select '(' || int_level_s || ') ' || int_level_v as intl, ims_md_id
             from ims_md_educational
             where ims_md_id = :ims_md_id
         </querytext>

@@ -20,23 +20,19 @@ ad_page_contract {
 # set context & title
 if { ![ad_form_new_p -key ims_md_ed_ta_id]} {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../educationalmd" ims_md_id] \
-                            "[_ lorsm.Educational_MD]"] \
-
-                    "[_ lorsm.lt_Edit_Typical_Age_Rang]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../educationalmd" ims_md_id] \
+                          "[_ lorsm.Educational_MD]"] \
+                     "[_ lorsm.lt_Edit_Typical_Age_Rang]"]
     set title "[_ lorsm.lt_Edit_Educational_MD_T]"
 } else {
     set context [list \
-                    [list   [export_vars -base ".." ims_md_id] \
-                            "[_ lorsm.IMS_Metadata_Editor]"] \
-
-                    [list   [export_vars -base "../educationalmd" ims_md_id] \
-                            "[_ lorsm.Educational_MD]"] \
-
-                    "[_ lorsm.Add_Typical_Age_Rang]"]
+                     [list   [export_vars -base ".." ims_md_id] \
+                          "[_ lorsm.IMS_Metadata_Editor]"] \
+                     [list   [export_vars -base "../educationalmd" ims_md_id] \
+                          "[_ lorsm.Educational_MD]"] \
+                     "[_ lorsm.Add_Typical_Age_Rang]"]
     set title "[_ lorsm.lt_Add_Educational_MD_Ty]"
 }
 
@@ -45,6 +41,7 @@ ad_form \
     -name educationalmd_tar \
     -cancel_url ../educationalmd?ims_md_id=$ims_md_id \
     -mode edit \
+    -select_query_name educationalmd_tar_ad_form \
     -form {
         ims_md_ed_ta_id:key(ims_md_educational_tar_seq)
 
@@ -61,8 +58,6 @@ ad_form \
         }
 
         {ims_md_id:text(hidden) {value $ims_md_id}}
-
-    } -select_query_name educationalmd_tar_ad_form {
 
     } -edit_data {
         db_dml do_update {}

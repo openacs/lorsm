@@ -146,12 +146,22 @@ ad_proc -public lorsm::import_imscp {
         ## Gets manifest title
         if { ![empty_string_p $metadata] } {
         # gets metadataschema
-            set MetadataSchema [lindex [lindex [lors::imsmd::getMDSchema $metadata] 0] 0]
-            set MetadataSchemaVersion [lindex [lors::imsmd::getMDSchema $metadata] 1]
-            set lom [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 0]
-            set prefix [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 1]
+            set md_results [lors::imsmd::getMDSchema $metadata]
+            set MetadataSchema [lindex [lindex $md_results 0] 0]
+            set MetadataSchemaVersion [lindex $md_results 1]
 
-            if { $lom != 0 } {
+            set lom_results [lors::imsmd::getLOM $metadata $tmp_dir]
+
+            if { $lom_results ne 0 } {
+                set type [lindex $lom_results 0]
+                set prefix [lindex $lom_results 2]
+                if { $type eq "XML" } {
+                    set doc [dom parse [lindex $lom_results 1]]
+                    set lom [$doc documentElement]
+                } else {
+                    set lom [lindex $lom_results 1]
+                }
+
                 # Get title
                 set manifest_title_lang [lindex \
                                             [lindex [lors::imsmd::mdGeneral \
@@ -449,9 +459,18 @@ ad_proc -public lorsm::import_imscp {
             ## Gets manifest title
 
             if { ![empty_string_p $metadata] } {
-                set lom [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 0]
-                set prefix [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 1]
-                if { $lom != 0 } {
+                set lom_results [lors::imsmd::getLOM $metadata $tmp_dir]
+
+                if { $lom_results ne 0 } {
+                    set type [lindex $lom_results 0]
+                    set prefix [lindex $lom_results 2]
+                    if { $type eq "XML" } {
+                        set doc [dom parse [lindex $lom_results 1]]
+                        set lom [$doc documentElement]
+                    } else {
+                        set lom [lindex $lom_results 1]
+                    }
+
                     # Get title
                     set manifest_title_lang [lindex \
                                                 [lindex \

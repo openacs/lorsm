@@ -199,10 +199,19 @@ if {[file exists $fs_dir]} {
                             [lindex [lors::imsmd::getMDSchema $metadata] 0] 0]
 
         set MetadataSchemaVersion [lindex [lors::imsmd::getMDSchema $metadata] 1]
-        set lom [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 0]
-        set prefix [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 1]
 
-        if { $lom != 0 } {
+        set lom_results [lors::imsmd::getLOM $metadata $tmp_dir]
+
+        if { $lom_results ne 0 } {
+            set type [lindex $lom_results 0]
+            set prefix [lindex $lom_results 2]
+            if { $type eq "XML" } {
+                set lom_doc [dom parse [lindex $lom_results 1]]
+                set lom [$lom_doc documentElement]
+            } else {
+                set lom [lindex $lom_results 1]
+            }
+
             # Get title
             set manifest_title_lang [lindex \
                                         [lindex [lors::imsmd::mdGeneral \

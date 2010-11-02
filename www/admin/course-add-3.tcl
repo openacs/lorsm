@@ -210,10 +210,18 @@ db_transaction {
         ## Gets manifest title
 
         if { $metadata ne "" } {
-            set lom [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 0]
-            set prefix [lindex [lors::imsmd::getLOM $metadata $tmp_dir] 1]
+            set lom_results [lors::imsmd::getLOM $metadata $tmp_dir]
 
-            if { $lom != 0 } {
+            if { $lom_results ne 0 } {
+                set type [lindex $lom_results 0]
+                set prefix [lindex $lom_results 2]
+                if { $type eq "XML" } {
+                    set lom_doc [dom parse [lindex $lom_results 1]]
+                    set lom [$lom_doc documentElement]
+                } else {
+                    set lom [lindex $lom_results 1]
+                }
+
                 # Get title
                 set manifest_title_lang [lindex \
                                             [lindex [lors::imsmd::mdGeneral \
@@ -479,44 +487,41 @@ db_transaction {
 
     foreach file $l_files {
 
+        # filename = href of the resource file
+
         set filename [lindex $file 0]
+
+        # all_files list structure is:
+        # 0:tmp_filename 1:mime_type 2:folder_id? 3:file_id 
+        # 4:revision_id 5:cr_file 6:file_size
+
         set found_file [lsearch -all -regexp $all_files $filename]
 
-        if {[llength $found_file] > 1} {
-            # we are suppose to get only one element back, so we have
-            # to refine the search a bit more.
-            set found_file [lsearch -all -regexp \
-                                -exact $all_files $tmp_dir/$filename]
-        }
-
-        if {![empty_string_p $found_file]} {
+        if { $found_file ne "" } {
             set file_id [lindex [lindex $all_files $found_file] 3]
             set file_rev_id [content::item::get_live_revision -item_id $file_id]
             set res_id  [lindex $file 1]
-            set file_hasmetadata [lindex $file 2]
+            set file_metadata_node [lindex $file 2]
 
             regexp {([^/\\]+)$} $filename match filex
 
-            if {$file_hasmetadata != 0} {
-                set hasmetadata 1
-            } else {
-                set hasmetadata 0
-            }
+            set hasmetadata_p [expr { $file_metadata_node ne "0" }]
 
             set fileadd [lors::imscp::file_add \
                             -file_id $file_rev_id \
                             -res_id $res_id \
                             -pathtofile $filename \
                             -filename $filex \
-                            -hasmetadata $hasmetadata]
+                            -hasmetadata $hasmetadata_p]
 
             ns_write "[_ lorsm.Adding_file_filex]<br>"
 
-            if {$file_hasmetadata != 0} {
+            if { $hasmetadata_p } {
                 set add_file_metadata [lors::imsmd::addMetadata \
-                                        -acs_object $file_id \
-                                        -node $file_hasmetadata \
-                                        -dir $tmp_dir]
+                                           -acs_object $file_id \
+                                           -node $file_metadata_node \
+                                           -dir $tmp_dir]
+
                 ns_write "[_ lorsm.lt_Adding_file_filex_met_1]<br>"
             }
         }
@@ -525,6 +530,7 @@ db_transaction {
     # Delete temporary directory
     ns_write "[_ lorsm.lt_Deleting_temporary_fo]<br>"
     ns_log Debug "Delete temporary folder $tmp_dir"
+
     lors::imscp::deltmpdir $tmp_dir
 
     ns_write "[_ lorsm.Done]<hr>"

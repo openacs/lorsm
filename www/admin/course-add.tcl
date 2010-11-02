@@ -20,7 +20,6 @@ if { ![info exists man_id] } {
 # Gets file-storage root folder_id
 # eventually, we should provide an option so it can be imported in
 # different subfolders
-ns_log Notice "EMAR: package_id for the group ([lors::get_community_id]) is [lors::get_community_package_id]. FYI node_id is [ad_conn node_id]"
 set fs_package_id [site_node_apm_integration::get_child_package_id \
                -package_id [lors::get_community_package_id] \
                -package_key "file-storage"]
@@ -88,8 +87,6 @@ template::element create course_upload upload_file \
 template::element create course_upload man_id \
     -datatype integer \
     -widget hidden
-
-ns_log notice "EMAR: lorsm/www/admin/course-add set folder_id($folder_id), indb_p($indb_p), fs_package_id($fs_package_id)"
 
 template::element set_properties course_upload course_id -value $course_id
 template::element set_properties course_upload folder_id -value $folder_id

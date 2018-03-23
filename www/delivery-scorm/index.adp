@@ -97,7 +97,7 @@ function waitforapplet() {
 		debug("giving up");
 		if(bored==0) {
 		bored=1;
-		alert("Your browser seems not to let me communicate with the applet. Please check:\n1) Java support is installed and active in the browser\n2)That your browser supports java-javascript connectivity (most versions of IE and Mozilla-compatible would be ok)\n3) If you are currentely installing Java support, please try again accesing the course after installation completion\n");
+		alert("Your browser seems not to let me communicate with the applet. Please check:\n1) Java support is installed and active in the browser\n2)That your browser supports java-javascript connectivity (most versions of IE and Mozilla-compatible would be ok)\n3) If you are currentely installing Java support, please try again accessing the course after installation completion\n");
 		}
 		this.releasemenu=-1;
 		return;

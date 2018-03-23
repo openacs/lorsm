@@ -863,7 +863,7 @@ public class CMIRequest implements Serializable
    ** Output:  String - next available token
    **
    ** Description: This method uses the pattern collection to determine
-   **              the next (in order from original request) availabe
+   **              the next (in order from original request) available
    **              token.
    **
    ***************************************************************************/

@@ -31,7 +31,7 @@ set level "Notice"
                                 lorsm::track::exit -track_id $track_id } else {
                                 #speficic for courses for which istrackable is on
                                 lorsm::track::exit -track_id $lorsmstudenttrack }
-                                ns_log $level "SCORM exiting a scorm course which didnt'actually FINISH"
+                                ns_log $level "SCORM exiting a scorm course which didn't actually FINISH"
     } else {
                                 ns_log $level "SCORM exiting a scorm course which never INITED"
     }

@@ -33,7 +33,7 @@ if { ! [empty_string_p $lorsmstudenttrack] } {
         lorsm::track::exit -track_id $lorsmstudenttrack
     }
 
-    ns_log $level "SCORM exiting a scorm course which didnt'actually FINISH"
+    ns_log $level "SCORM exiting a scorm course which didn't actually FINISH"
 } else {
     ns_log $level "SCORM exiting a scorm course which never INITED"
 }

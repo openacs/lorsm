@@ -114,7 +114,7 @@ ad_proc -private lorsm::delivery::get_file_id_from_ims_item_id {
 } {
     Returns the file associated to @item_id@ and @ims_item_id@, returns empty string if nothing found
 
-    @ims_item_id@  The ims_item_id that is associated to this file (This is the one comming from the
+    @ims_item_id@  The ims_item_id that is associated to this file (This is the one coming from the
                    menu on delivery pages )
     @item_id@      The item_id that has all revisions of one file ( This is fetch from the url and content
                    root variables )

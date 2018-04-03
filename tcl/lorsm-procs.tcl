@@ -575,7 +575,7 @@ ad_proc -public lorsm::get_items_indent {
                 set indent [expr [lindex $item 1] + 1]
 
                 foreach ims_item_id [db_list get_items {}] {
-                    if { ![info exist items_array($ims_item_id)] } {
+                    if { ![info exists items_array($ims_item_id)] } {
                         lappend items_list [list $ims_item_id $indent]
                         set items_array($ims_item_id) $indent
                         incr count

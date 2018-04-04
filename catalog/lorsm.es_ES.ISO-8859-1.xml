@@ -572,7 +572,7 @@
   <msg key="lt_Meta_Metadata_Contrib">Contribución de Meta Metadata</msg>
   <msg key="lt_Meta_Metadata_Languag">Lenguaje de Meta Metadata</msg>
   <msg key="lt_Metadata_schema_ie_IM">Esquema de Metadata, por ejemplo: 'Contenido IMS'</msg>
-  <msg key="lt_Modifying_package_to_">Modificando paquete para que se complatible con IMS CP</msg>
+  <msg key="lt_Modifying_package_to_">Modificando paquete para que sea compatible con IMS CP</msg>
   <msg key="lt_Name_of_required_item">Nombre de Artículo Requerido</msg>
   <msg key="lt_Nature_of_the_relatio">Naturaleza de la relación entre el recurso siendo descrito y el recurso identificado por Recurso</msg>
   <msg key="lt_No_Aggregation_Level_">Ningun Nivel de Agregación Disponible</msg>

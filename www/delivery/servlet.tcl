@@ -144,7 +144,7 @@ switch -regexp $functionCalled {
 
         } else {
             ns_log $basiclevel "SCORM already has current session (=$lorsmstudenttrack) (istrackable is on): going to check if the session is ok for current item"
-            #now we look for the existance of a lorsm.cmi.core track id for this user / course / class which is still not completed
+            #now we look for the existence of a lorsm.cmi.core track id for this user / course / class which is still not completed
             if { ! [ db_0or1row isanysuspendedsession {} ] } {
                                                     #and
                                                     #        not (

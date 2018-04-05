@@ -11,7 +11,7 @@ multirow create children child_item_id child_title
 set parent_item ""
 set community_url ""
 
-# There are pages that are not necesarily part of one ims_item_id
+# There are pages that are not necessarily part of one ims_item_id
 # but are part of a particular resource.
 
 if { [info exists content(item_id)] } {

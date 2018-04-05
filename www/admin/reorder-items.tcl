@@ -21,7 +21,7 @@ db_transaction {
     db_dml swap_sort_orders {}
 
 } on_error {
-    ad_return_error "Database error" "A database error occured while trying
+    ad_return_error "Database error" "A database error occurred while trying
         to swap your items. Here's the error: <pre>$errmsg</pre>"
     ad_script_abort
 }

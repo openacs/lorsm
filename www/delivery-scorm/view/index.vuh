@@ -49,7 +49,7 @@ if { [empty_string_p $item_id] } {
 }
 
 # To get the revision_id (file_id) we need to show here we have to items here 
-# one is the item_id that is recived on record-view page from the menu 
+# one is the item_id that is received on record-view page from the menu 
 # and the other one is the one that holds all the revisions for one file
 set revision_id [lorsm::delivery::get_file_id_from_ims_item_id -ims_item_id $ns_item_id -item_id $item_id]
 
@@ -64,7 +64,7 @@ if { ![empty_string_p $revision_id] } {
     ns_log debug "index.vuh SCORM : visting revision_id $item_id for $the_url"
     cr_write_content -revision_id $revision_id
 } else {
-    # Write the ims_item_id that we recieve on the page since this is the one that holds the content
+    # Write the ims_item_id that we receive on the page since this is the one that holds the content
     cr_write_content -revision_id $ims_item_id	
 }
 

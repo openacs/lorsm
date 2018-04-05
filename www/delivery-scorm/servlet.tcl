@@ -120,7 +120,7 @@ switch -regexp $functionCalled {
 	    }
 	} else {
 	    ns_log $level "lorsm - called with track id for current session (=$lorsmstudenttrack) (istrackable is on): going to check whether to create a lorsm_cmi_core new track"
-	    #now we look for the existance of a lorsm.cmi.core track id for this user / course / class which is still not completed 
+	    #now we look for the existence of a lorsm.cmi.core track id for this user / course / class which is still not completed 
 	    if { ! [ db_0or1row isanysuspendedsession "
                                                 select lorsm.track_id as track_id from lorsm_student_track lorsm, lorsm_cmi_core cmi
                                                 where

@@ -104,7 +104,7 @@ namespace eval lorsm::delivery::scorm {
                             append todo " WHERE track_id=$block_track_id"
                             db_dml todo $todo
                             if { [db_resultrows] == 1 } {
-                                ns_log debug "SCORM: lesson_status processing UPDATE: '$todo' successfull"
+                                ns_log debug "SCORM: lesson_status processing UPDATE: '$todo' succesful"
 
                                 #POST PROCESSING
                                 if { ! [string equal $father_type "ims_manifest_object" ] } {
@@ -113,7 +113,7 @@ namespace eval lorsm::delivery::scorm {
                                     ns_log debug "SCORM parents: end calling self"
                                 }
                             } else {
-                                    ns_log warning "SCORM parents: lesson_status processing UPDATE: '$todo' not successfull -> please check"
+                                    ns_log warning "SCORM parents: lesson_status processing UPDATE: '$todo' not successful -> please check"
                             }
 
                         } else {
@@ -129,7 +129,7 @@ namespace eval lorsm::delivery::scorm {
                         db_dml lmsinitialize {}
 
                         if { [db_resultrows] == 1 } {
-                            ns_log debug "SCORM: lesson_status processing INSERT: $block_track_id to $target_status successfull"
+                            ns_log debug "SCORM: lesson_status processing INSERT: $block_track_id to $target_status successful"
                             #POST PROCESSING
                             if { ! [string equal $father_type "ims_manifest_object" ] } {
                                 ns_log debug "SCORM parents: calling self"
@@ -137,7 +137,7 @@ namespace eval lorsm::delivery::scorm {
                                 ns_log debug "SCORM parents: end calling self"
                             }
                         } else {
-                            ns_log warning "SCORM parents: lesson_status processing INSERT: '$block_track_id' to $target_status not successfull -> please check"
+                            ns_log warning "SCORM parents: lesson_status processing INSERT: '$block_track_id' to $target_status not successful -> please check"
                         }
                     }
 

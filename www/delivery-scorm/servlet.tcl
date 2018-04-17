@@ -209,18 +209,18 @@ switch -regexp $functionCalled {
 	    append todo " WHERE track_id=:currenttrackid"
 	    db_dml todo $todo
 	    if { [db_resultrows] == 1 } { 
-		#ns_log $level "lorsm - time processing UPDATE: '$todo' successfull"
+		#ns_log $level "lorsm - time processing UPDATE: '$todo' successful"
 	    } else { 
-		ns_log Warning "lorsm - time processing UPDATE: '$todo' not successfull -> please check"
+		ns_log Warning "lorsm - time processing UPDATE: '$todo' not successful -> please check"
 	    } 
 	    set todo "UPDATE lorsm_cmi_core SET session_time = '0"
 	    append todo "', session_time_ms ='0' "
 	    append todo " WHERE track_id=:currenttrackid"
 	    db_dml todo $todo
 	    if { [db_resultrows] == 1 } { 
-		#ns_log $level "lorsm - data processing UPDATE: '$todo' successfull"
+		#ns_log $level "lorsm - data processing UPDATE: '$todo' successful"
 	    } else { 
-		ns_log Warning "lorsm - time processing UPDATE: '$todo' not successfull -> please check"
+		ns_log Warning "lorsm - time processing UPDATE: '$todo' not successful -> please check"
 	    } 
 	    #AURALOG HACK 
 	    #adjust on a per-server basis
@@ -339,9 +339,9 @@ switch -regexp $functionCalled {
 			    append todo "' WHERE track_id=:currenttrackid"
 			    db_dml todo $todo
 			    if { [db_resultrows] == 1 } { 
-				ns_log $level "lorsm - data msecs processing UPDATE: '$todo' successfull"
+				ns_log $level "lorsm - data msecs processing UPDATE: '$todo' successful"
 			    } else { 
-				ns_log Warning "lorsm - data msecs processing UPDATE: '$todo' not successfull -> please check"
+				ns_log Warning "lorsm - data msecs processing UPDATE: '$todo' not successful -> please check"
 			    } 
 			    #set minutes [string trim [lindex [split $value :] 1]]
 			    #set seconds [string trim [lindex [split $value :] 2]]
@@ -352,9 +352,9 @@ switch -regexp $functionCalled {
 			append todo "' WHERE track_id=:currenttrackid"
 			db_dml todo $todo
 			if { [db_resultrows] == 1 } { 
-			    ns_log $level "lorsm - data processing UPDATE: '$todo' successfull"
+			    ns_log $level "lorsm - data processing UPDATE: '$todo' successful"
 			} else { 
-			    ns_log Warning "lorsm - data processing UPDATE: '$todo' not successfull -> please check"
+			    ns_log Warning "lorsm - data processing UPDATE: '$todo' not successful -> please check"
 			} 
 		    }
 		}

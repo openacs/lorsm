@@ -119,7 +119,7 @@ function waitforapplet() {
 	}
 
 	try {
-			var active=AppletContainerFrame.document.applets[0].isActive(); //mozilla error on this, IE just gives out (doesnt' go in the catch ???)
+			var active=AppletContainerFrame.document.applets[0].isActive(); //mozilla error on this, IE just gives out (doesn't go in the catch ???)
 		} catch (err) {
 			try {
 			var active=AppletContainerFrame.document.applets[0].isActive; //this is mozilla specific, IE is just allergic (we have enough wars not to think of browsers'....

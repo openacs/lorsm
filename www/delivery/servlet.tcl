@@ -204,18 +204,18 @@ switch -regexp $functionCalled {
             #retrieve data other than core
 
             if { ![db_0or1row get_adlcp_student_data2 {}] } {
-                ns_log Error "SCORM recoverying of student data: not successfull on $currenttrackid -> please check"
+                ns_log Error "SCORM recovering of student data: not successful on $currenttrackid -> please check"
                 set max_time_allowed ""
                 set time_limit_action ""
                 set mastery_score ""
             } else {
-                ns_log debug "SCORM recoverying of student data: successfull"
+                ns_log debug "SCORM recovering of student data: successful"
             }
             # THIS CHECK is somehow just a previous bug catcher, shouldn't actually be needed
             #               if { [db_resultrows] == 1 } {
-            #                       ns_log debug "SCORM recoverying of student data: successfull"
+            #                       ns_log debug "SCORM recovering of student data: successful"
             #                       } else {
-            #                       ns_log Error "SCORM recoverying of student data: not successfull on $currenttrackid -> please check"
+            #                       ns_log Error "SCORM recovering of student data: not successful on $currenttrackid -> please check"
             #                   }
 
             ns_log $basiclevel "SCORM retrieved track id in lorsm_cmi_core: $currenttrackid"
@@ -237,9 +237,9 @@ switch -regexp $functionCalled {
             db_dml todo $todo
 
             if { [db_resultrows] == 1 } {
-                ns_log debug "SCORM time processing UPDATE: '$todo' successfull"
+                ns_log debug "SCORM time processing UPDATE: '$todo' successful"
             } else {
-                ns_log Warning "SCORM time processing UPDATE: '$todo' not successfull -> please check"
+                ns_log Warning "SCORM time processing UPDATE: '$todo' not successful -> please check"
             }
 
             set todo "UPDATE lorsm_cmi_core SET session_time = '0"
@@ -248,9 +248,9 @@ switch -regexp $functionCalled {
             append todo " WHERE track_id=$currenttrackid"
             db_dml todo $todo
             if { [db_resultrows] == 1 } {
-                ns_log debug "SCORM data processing UPDATE: '$todo' successfull"
+                ns_log debug "SCORM data processing UPDATE: '$todo' successful"
             } else {
-                ns_log Warning "SCORM time processing UPDATE: '$todo' not successfull -> please check"
+                ns_log Warning "SCORM time processing UPDATE: '$todo' not successful -> please check"
             }
             #AURALOG HACK
             #adjust on a per-server basis
@@ -421,9 +421,9 @@ switch -regexp $functionCalled {
 
                             db_dml todo $todo
                             if { [db_resultrows] == 1 } {
-                                ns_log debug "SCORM data msecs processing UPDATE: '$todo' successfull"
+                                ns_log debug "SCORM data msecs processing UPDATE: '$todo' successful"
                             } else {
-                                ns_log Warning "SCORM data msecs processing UPDATE: '$todo' not successfull -> please check"
+                                ns_log Warning "SCORM data msecs processing UPDATE: '$todo' not successful -> please check"
                             }
 
                             #set minutes [string trim [lindex [split $value :] 1]]
@@ -438,9 +438,9 @@ switch -regexp $functionCalled {
 
                         db_dml todo $todo
                         if { [db_resultrows] == 1 } {
-                            ns_log debug "SCORM data processing UPDATE: '$todo' successfull"
+                            ns_log debug "SCORM data processing UPDATE: '$todo' successful"
                         } else {
-                            ns_log Warning "SCORM data processing UPDATE: '$todo' not successfull -> please check"
+                            ns_log Warning "SCORM data processing UPDATE: '$todo' not successful -> please check"
                         }
 
                         #lesson_status postprocessing

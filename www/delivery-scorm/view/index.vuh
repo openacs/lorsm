@@ -2,10 +2,10 @@ ad_page_contract {
     @author Unknown
     @creation-date Unknown
     @cvs-id $Id$
-} {    
+} {
     { ims_item_id "" }
 }
- 
+
 # check if the nsv variable exists
 if {![nsv_exists delivery_vars [ad_conn session_id]]} {
     ad_returnredirect [lors::get_community_url]
@@ -61,7 +61,7 @@ if { [empty_string_p $revision_id] } {
 
 if { ![empty_string_p $revision_id] } {
     # We catch the revision id using the_url and content root
-    ns_log debug "index.vuh SCORM : visting revision_id $item_id for $the_url"
+    ns_log debug "index.vuh SCORM : visiting revision_id $item_id for $the_url"
     cr_write_content -revision_id $revision_id
 } else {
     # Write the ims_item_id that we receive on the page since this is the one that holds the content

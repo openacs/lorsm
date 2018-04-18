@@ -471,7 +471,7 @@ switch -regexp $functionCalled {
                 if { $lorsmstudenttrack == "" || $lorsmstudenttrack == 0 } {
                     lorsm::track::exit -track_id $currenttrackid
                 } else {
-                    #speficic for courses for which istrackable is on
+                    #specific for courses for which istrackable is on
                     lorsm::track::exit -track_id $lorsmstudenttrack
                 }
 
@@ -488,7 +488,7 @@ switch -regexp $functionCalled {
                     lorsm::track::exit -track_id $currenttrackid
 
                 } else {
-                    #speficic for courses for which istrackable is on
+                    #specific for courses for which istrackable is on
                     lorsm::track::exit -track_id $lorsmstudenttrack
                 }
                 ns_return 200 text/plain "OK"

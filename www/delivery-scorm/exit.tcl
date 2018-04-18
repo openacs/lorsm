@@ -29,7 +29,7 @@ set level "Notice"
     if { ! [empty_string_p $lorsmstudenttrack] } {
     if { $lorsmstudenttrack == 0 } {
                                 lorsm::track::exit -track_id $track_id } else {
-                                #speficic for courses for which istrackable is on
+                                #specific for courses for which istrackable is on
                                 lorsm::track::exit -track_id $lorsmstudenttrack }
                                 ns_log $level "SCORM exiting a scorm course which didn't actually FINISH"
     } else {

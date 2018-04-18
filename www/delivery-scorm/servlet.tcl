@@ -370,7 +370,7 @@ switch -regexp $functionCalled {
 		#even if user closes the course without passing by FINISH
 		if { $lorsmstudenttrack == "" || $lorsmstudenttrack == 0 } {
 		    lorsm::track::exit -track_id $currenttrackid } else {
-			#speficic for courses for which istrackable is on
+			#specific for courses for which istrackable is on
 			lorsm::track::exit -track_id $lorsmstudenttrack } 
 		ns_log $level "lorsm - post LMSCommit (trackid=$currenttrackid)"
 		ns_return 200 text/plain "OK"
@@ -381,7 +381,7 @@ switch -regexp $functionCalled {
 		ad_set_client_property lorsm currenttrackid ""
 		if { $lorsmstudenttrack == "" || $lorsmstudenttrack == 0 } {
 		    lorsm::track::exit -track_id $currenttrackid } else {
-			#speficic for courses for which istrackable is on
+			#specific for courses for which istrackable is on
 			lorsm::track::exit -track_id $lorsmstudenttrack } 
 		ns_return 200 text/plain "OK"
 		ns_log $level "lorsm - post LMSFinish (trackid=$currenttrackid) sent ok to applet"

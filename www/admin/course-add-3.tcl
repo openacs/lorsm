@@ -82,7 +82,7 @@ db_transaction {
 
     # checks whether the directory given actually exists
     if {[file exists $fs_dir]} {
-        set all_files [list]
+        set all_files {}
         # now that exists, let's create it on the CR
 
         # gets rid of the path and leaves the name of the directory
@@ -126,7 +126,7 @@ db_transaction {
 
         # for each directory found..
         while {[llength $dirx] != 0} {
-            set collector [list]
+            set collector {}
 
             foreach dir $dirx {
                 # if the dirx loop is 0...
@@ -307,7 +307,7 @@ db_transaction {
 
         if { ![empty_string_p $organizations] } {
             # for multiple organizations
-            set add [list]
+            set add {}
 
             foreach organization [$organizations child all organization] {
                 set org_identifier [lors::imsmd::getResource \
@@ -364,12 +364,12 @@ db_transaction {
 
         }
 
-        set l_files [list]
+        set l_files {}
         set resources [$manifest child all resources]
         set resourcex [$resources child all resource]
 
         if { ![empty_string_p $resourcex] } {
-            set res_list [list]
+            set res_list {}
 
             foreach resource $resourcex {
                 set res_identifier [lors::imsmd::getResource \

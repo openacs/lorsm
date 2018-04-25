@@ -335,7 +335,7 @@ switch -regexp $functionCalled {
         ns_log $tracelevel "received data $data from applet: processing. "
         ns_log $tracelevel "Reference cmi track is $currenttrackid, while lorsmstudenttrack is: $lorsmstudenttrack"
         set preparselist [lrange [ split $data "," ] 1 end]
-        set lista [list]
+        set lista {}
         set value ""
         #here we build a list of request=value. we must do some pattern matching
         foreach couple $preparselist {

@@ -18,7 +18,7 @@ set package_id [ad_conn package_id]
 set user_id [ad_conn user_id]
 set community_id [lors::get_community_id]
 
-set actions [list]
+set actions {}
 
 lappend actions     "[_ lorsm.Add_Course]" \
                     [export_vars -base "course-add"] \

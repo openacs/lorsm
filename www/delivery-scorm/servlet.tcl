@@ -270,7 +270,7 @@ switch -regexp $functionCalled {
 	ns_log $level "lorsm - serving LMSCOMMIT or LMSFINISH from applet"
 	ns_log $level "lorsm - received data $data from applet: processing. Reference cmi track is $currenttrackid, while lorsmstudenttrack is: $lorsmstudenttrack"
 	set preparselist [lrange [ split $data "," ] 1 end]
-	set lista {}
+	set lista [list]
 	set value ""
 	#here we build a list of request=value. we must do some pattern matching
 	foreach couple $preparselist {

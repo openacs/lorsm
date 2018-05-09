@@ -147,7 +147,7 @@ db_foreach organizations {
 
 if {![exists_and_not_null js]} {
 
-    set js {}
+    set js [list]
     # the first element must be blank
     lappend js [list 0 0 "[_ lorsm.Course_Index]"]
 

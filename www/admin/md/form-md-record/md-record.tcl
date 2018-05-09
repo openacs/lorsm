@@ -1,4 +1,4 @@
-set actions {}
+set actions [list]
 
 lappend actions "[_ lorsm.General_MD]" \
                 [export_vars -base ../generalmd {ims_md_id}] \

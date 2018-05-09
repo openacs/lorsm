@@ -127,7 +127,7 @@ ad_proc -public lorsm::import_imscp {
 
     # checks whether the directory given actually exists
     if {[file exists $fs_dir]} {
-        set all_files {}
+        set all_files [list]
         # now that exists, let's create it on the CR
 
         ## Opens imsmanifest.xml
@@ -320,7 +320,7 @@ ad_proc -public lorsm::import_imscp {
 
         # checks whether the directory given actually exists
         if {[file exists $fs_dir]} {
-            set all_files {}
+            set all_files [list]
             # now that exists, let's create it on the CR
 
             # gets rid of the path and leaves the name of the directory
@@ -360,7 +360,7 @@ ad_proc -public lorsm::import_imscp {
 
             # for each directory found..
             while {[llength $dirx] != 0} {
-                set collector {}
+                set collector [list]
                 foreach dir $dirx {
                     # if the dirx loop is 0...
                     set base_parent_id [lindex $dir 0]
@@ -563,7 +563,7 @@ ad_proc -public lorsm::import_imscp {
 
             if { ![empty_string_p $organizations] } {
                 # for multiple organizations
-                set add {}
+                set add [list]
 
                 foreach organization [$organizations child all organization] {
                     set org_identifier [lors::imsmd::getResource \
@@ -615,12 +615,12 @@ ad_proc -public lorsm::import_imscp {
                 }
             }
 
-            set l_files {}
+            set l_files [list]
             set resources [$manifest child all resources]
             set resourcex [$resources child all resource]
 
             if { ![empty_string_p $resourcex] } {
-                set res_list {}
+                set res_list [list]
 
                 foreach resource $resourcex {
                     set res_identifier [lors::imsmd::getResource \

@@ -42,9 +42,7 @@ proc generate_tree_menu { items index rlevel } {
 	set level [lindex $one 0]
 	set item_id [lindex $one 1]
 	set title [lindex $one 2]
-	
-	set title [fs::remove_special_file_system_characters -string $title]
-	regsub {'} $title {\'} title
+	set file_upload_name [ad_sanitize_filename -tolower $title]
 	set title [string map { \{ \\{ \} \\} } $title ]
 
 	upvar #$adp_level man_id man_id

@@ -64,8 +64,7 @@ proc generate_tree_menu { items index rlevel } {
         set item_id [lindex $one 1]
         set title [lindex $one 2]
 
-        set title [fs::remove_special_file_system_characters -string $title]
-        regsub {'} $title {\'} title
+	set file_upload_name [ad_sanitize_filename -tolower $title]
 
         # as suggested by Michele Slocovich (michele@sii.it)
         # http://openacs.org/bugtracker/openacs/com/lors/bug?bug%5fnumber=2100

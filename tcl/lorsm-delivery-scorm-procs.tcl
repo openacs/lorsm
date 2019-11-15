@@ -30,7 +30,7 @@ namespace eval lorsm::delivery::scorm {
     } {
         Given a lesson status checks whether to propagate the status change
         to upper levels. Lesson statuses are kept within lorsm_cmi_core table.
-        Differing from "standard" tracks, folders, organisations and manifests
+        Differing from "standard" tracks, folders, organizations and manifests
         are used as keys to propagate status, so that once a course is finished,
         the corresponding manifest level track in lorsm_cmi_core would show it.
 
@@ -104,7 +104,7 @@ namespace eval lorsm::delivery::scorm {
                             append todo " WHERE track_id=$block_track_id"
                             db_dml todo $todo
                             if { [db_resultrows] == 1 } {
-                                ns_log debug "SCORM: lesson_status processing UPDATE: '$todo' succesful"
+                                ns_log debug "SCORM: lesson_status processing UPDATE: '$todo' successful"
 
                                 #POST PROCESSING
                                 if { ! [string equal $father_type "ims_manifest_object" ] } {

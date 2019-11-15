@@ -35,7 +35,7 @@ ad_proc -private lorsm::install::package_install {} {
     lorsm::install::templates
 
     # by the moment we only have tree format presentations and there is no
-    # way (by the moment) to add more dinamically, so we create them with an non dynamic id
+    # way (by the moment) to add more dynamically, so we create them with a non dynamic id
 
     set pretty_name "[_ lorsm.Classic_Style]"
     # Insert default values for the course presentation formats

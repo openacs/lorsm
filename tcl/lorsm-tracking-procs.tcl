@@ -169,7 +169,7 @@ ad_proc -callback lorsm::track::update {
     -elapsed_time
     -package_id
 } {
-    Notify listeners that someting interesting happeneed
+    Notify listeners that something interesting happeneed
     with this course tracking
 } -
 

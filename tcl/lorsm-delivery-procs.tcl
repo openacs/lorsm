@@ -11,7 +11,7 @@ namespace eval lorsm::delivery {}
 ad_proc -private lorsm::delivery::get_item_other_folder {
     -url:required
 } {
-    Check if the item exists in other folders using the url, returns the item_id or "" fro the especific url
+    Check if the item exists in other folders using the url, returns the item_id or "" for the especific url
     @url@ url of the file to check of format folder_name/filename.extension where multiple folders can be add
 } {
     set item_id ""

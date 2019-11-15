@@ -59,7 +59,7 @@ if {![empty_string_p $upload_file]} {
     set allfiles [lors::imscp::dir_walk $directory]
 }
 
-#unusefully duplicates, leaving unzips around
+#unusefuly duplicates, leaving unzips around
 # unzips the file
 #if { ![empty_string_p $upload_file] &&
 #     [ catch {set tmp_dir [lors::imscp::expand_file $upload_file ${upload_file.tmpfile} lors-imscp-$course_id] } errMsg] } {
@@ -165,7 +165,7 @@ if {[file exists $fs_dir]} {
                 label "[_ lorsm.Assets]"
                 html {valign top}
 
-            } sharableresources {
+            } shareableresources {
                 label "[_ lorsm.Sharable_Resources]"
                 html {valign top}
 
@@ -175,7 +175,7 @@ if {[file exists $fs_dir]} {
             }
         }
 
-    multirow create d_SCORM_package_info scos assets sharableresources files
+    multirow create d_SCORM_package_info scos assets shareableresources files
 
     ## Opens imsmanifest.xml
 
@@ -319,7 +319,7 @@ if {[file exists $fs_dir]} {
         # extract all the resources and files
         set scos 0
         set assets 0
-        set sharableresources 0
+        set shareableresources 0
         set files 0
 
         if { ![empty_string_p $resources] } {
@@ -335,8 +335,8 @@ if {[file exists $fs_dir]} {
                     } asset {
                         incr assets
 
-                    } sharableresource {
-                        incr sharableresources
+                    } shareableresource {
+                        incr shareableresources
                     }
                 }
                 set files [expr $files + [llength [lors::imsmd::getResource \
@@ -346,7 +346,7 @@ if {[file exists $fs_dir]} {
         }
 
         multirow append d_SCORM_package_info $scos $assets \
-            $sharableresources $files
+            $shareableresources $files
 
         # end isSCORM if
     } else {

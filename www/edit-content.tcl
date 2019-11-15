@@ -31,7 +31,7 @@ set identifierref [lorsm::fix_url -url $identifierref]
 set pather $folder/$identifierref
 
 # in some case, the resource is defined with a / that conflicts with
-# our existing / creating a double //. Therefore we use a regsub to
+# our existing / creating a double //. Therefore, we use a regsub to
 # get rid of it
 regsub -all {//} $pather {/} pather
 

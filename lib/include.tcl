@@ -6,7 +6,7 @@ ad_page_contract {
 }
 
 if {![info exists __include] || $__include eq ""} {
-    #dont' return anything
+    #don't' return anything
     ad_script_abort
 }
 

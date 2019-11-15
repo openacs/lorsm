@@ -246,7 +246,7 @@ ad_proc -public lorsm::import_imscp {
             # extract all the resources and files
             set scos 0
             set assets 0
-            set sharableresources 0
+            set shareableresources 0
             set files 0
 
             if { ![empty_string_p $resources] } {
@@ -262,8 +262,8 @@ ad_proc -public lorsm::import_imscp {
                         } asset {
                             incr assets
 
-                        } sharableresource {
-                            incr sharableresources
+                        } shareableresource {
+                            incr shareableresources
                         }
                     }
 
@@ -708,7 +708,7 @@ ad_proc -public lorsm::import_imscp {
 
 
         # So first, let's create a list of only item_identifierrefs
-        # [lindex $add 1]. Therefore we can do a lsearch -exact instead of
+        # [lindex $add 1]. Therefore, we can do a lsearch -exact instead of
         # a -regexp
 
         foreach ref $add {

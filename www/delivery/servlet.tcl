@@ -316,7 +316,7 @@ switch -regexp $functionCalled {
         #if { ! [empty_string_p $total_time_ms] } { append total_time ".$total_time_ms" }
         #appending time fields to return string
         append returndata ",cmi.core.session_time=$session_time,cmi.core.total_time=$total_time"
-        ns_log $basiclevel "SCORM initialised, sending data to applet"
+        ns_log $basiclevel "SCORM initialized, sending data to applet"
         ns_log $tracelevel "$returndata"
 
         ns_return 200 text/plain "$returndata"

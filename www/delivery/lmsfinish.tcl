@@ -2,7 +2,7 @@
 
 ad_page_contract {
 
-    called if an user is swithing between items of the same manifest,
+    called if an user is switching between items of the same manifest,
     WITHOUT the content having previously called LMSFinish
 
     @author Michele Slocovich ()

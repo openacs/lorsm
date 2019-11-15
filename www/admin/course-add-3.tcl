@@ -463,7 +463,7 @@ db_transaction {
     # account that a resources can have 1 to many items
 
     # So first, let's create a list of only item_identifierrefs
-    # [lindex $add 1]. Therefore we can do a lsearch -exact instead of
+    # [lindex $add 1]. Therefore, we can do a lsearch -exact instead of
     # a -regexp
 
     foreach ref $add {

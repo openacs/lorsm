@@ -159,7 +159,7 @@ switch -regexp $functionCalled {
 	    if { [ db_0or1row get_adlcp_student_data { select datafromlms,maxtimeallowed,timelimitaction,masteryscore from ims_cp_items where ims_item_id=:currentpage; } ] } {
 		ns_log $level "lorsm - data for lorsm_cmi_student_data is $datafromlms, $maxtimeallowed, $timelimitaction, $masteryscore"
 	    } else {
-		ns_log warning "lorsm - COULD NOT RETRIEVE DATA FROM LORSM_CMI_STUDENT_DATA from IMS_CP_ITEMS possibily ims_item_id should be $currentpage"
+		ns_log warning "lorsm - COULD NOT RETRIEVE DATA FROM LORSM_CMI_STUDENT_DATA from IMS_CP_ITEMS possibly ims_item_id should be $currentpage"
 	    }
 
 	    #

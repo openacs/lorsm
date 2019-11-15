@@ -17,7 +17,7 @@
             </script>
         </if>
 
-        <if @write_p@>
+        <if @write_p;literal@ true>
             <a href="@community_url@/file-storage/file-content-edit?file_id=@content.item_id@<if @return_url@ defined>&amp;@return_url;noquote@</if>" target="_top"><img src="/resources/Edit16.gif" border="0" align="right" alt="image"></a>
         </if>
 

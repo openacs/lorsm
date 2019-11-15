@@ -39,7 +39,7 @@
             </p>
         </if>
 
-        <if @last_item_p@ true>
+        <if @last_item_p;literal@ true>
             <a href="@next_url;noquote@">EXIT COURSE</a>
         </if>
     </body>

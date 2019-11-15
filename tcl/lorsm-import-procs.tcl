@@ -347,7 +347,7 @@ ad_proc -public lorsm::import_imscp {
                             -indb_p $indb_p \
                             -files [lors::cr::has_files -fs_dir $fs_dir]]
 
-            set all_files [concat $all_files $filesx]
+            lappend all_files {*}$filesx
 
             # get all the directories and files under those dirs
 
@@ -396,7 +396,7 @@ ad_proc -public lorsm::import_imscp {
                                     -parent_id $new_cr_folder_id \
                                     -files $files \
                                     -indb_p $indb_p]
-                    set all_files [concat $all_files $filesx]
+                    lappend all_files {*}$filesx
                 }
 
                     }

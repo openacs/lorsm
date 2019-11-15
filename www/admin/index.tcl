@@ -49,7 +49,7 @@ template::list::create \
         } hasmetadata {
             label "[_ lorsm.Metadata_1]"
             display_template {
-                <if @d_courses.lorsm_p@>
+                <if @d_courses.lorsm_p;literal@ true>
                     <div style="text-align: center;">
                         <a href="md/?ims_md_id=@d_courses.ims_md_id@" title="[_ lorsm.See_metadata]">@d_courses.hasmetadata@</a>
                     </div>
@@ -99,7 +99,7 @@ template::list::create \
         } export {
             label "[_ lorsm.Export]"
             display_template {
-                <if @d_courses.lorsm_p@>
+                <if @d_courses.lorsm_p;literal@ true>
                     <div style="text-align:center;">
                         <a href="export/?folder_id=@d_courses.folder_id@" title="[_ lorsm.lt_Export_as_IMS_Content]">\[zip\]</a>
                     </div>

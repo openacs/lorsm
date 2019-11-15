@@ -8,7 +8,7 @@
 <else>
     <p>
         #lorsm.lt_No_metadata_record_ex#
-        <if @write_p@ eq 1>
+        <if @write_p;literal@ true>
             <ul>
                 <li><a href="addmd?ims_md_id=@ims_md_id;noquote@">#lorsm.Add_metadata#</a></li>
             </ul>

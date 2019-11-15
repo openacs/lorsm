@@ -138,7 +138,7 @@ set elements_list {
         display_template {
             @d_courses.course_url;noquote@
             <if @lors_central_p eq 0>
-                <if @d_courses.admin_p@>
+                <if @d_courses.admin_p;literal@ true>
                     <i>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="${lors_central_url}one-course?item_id=

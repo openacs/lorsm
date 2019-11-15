@@ -133,7 +133,7 @@ ad_proc -public lorsm::import_imscp {
         ## Opens imsmanifest.xml
 
         # open manifest file with tDOM
-        dom parse [::tDOM::xmlReadFile $manifest] doc
+        dom parse [::tdom::xmlReadFile $manifest] doc
         # gets the manifest tree
         set manifest [$doc documentElement]
 
@@ -418,7 +418,7 @@ ad_proc -public lorsm::import_imscp {
             ## Opens imsmanifest.xml
 
             # open manifest file with tDOM
-            dom parse [::tDOM::xmlReadFile $tmp_dir/imsmanifest.xml] doc
+            dom parse [::tdom::xmlReadFile $tmp_dir/imsmanifest.xml] doc
             # gets the manifest tree
             set manifest [$doc documentElement]
 

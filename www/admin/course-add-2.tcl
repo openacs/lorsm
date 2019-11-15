@@ -180,7 +180,7 @@ if {[file exists $fs_dir]} {
     ## Opens imsmanifest.xml
 
     # open manifest file with tDOM
-    dom parse [::tDOM::xmlReadFile $manifest] doc
+    dom parse [::tdom::xmlReadFile $manifest] doc
     # gets the manifest tree
     set manifest [$doc documentElement]
 

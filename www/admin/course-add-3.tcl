@@ -187,7 +187,7 @@ db_transaction {
         ## Opens imsmanifest.xml
 
         # open manifest file with tDOM
-        dom parse [::tDOM::xmlReadFile $tmp_dir/imsmanifest.xml] doc
+        dom parse [::tdom::xmlReadFile $tmp_dir/imsmanifest.xml] doc
         # gets the manifest tree
         set manifest [$doc documentElement]
 

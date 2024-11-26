@@ -25,7 +25,7 @@ set tracelevel "Debug"
 #see index.tcl for setting java/javascript debugging by setting debuglevel
 
 #try to circumvent browsers caching strategies
-set s [ns_set new]
+set s [ns_set create]
 ns_set put $s "Pragma" "No-Cache"
 ns_set put $s "Expires" "0"
 ns_set move $s [ns_conn outputheaders]
